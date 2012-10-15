@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Qios.DevSuite.Components, Version=4.0.0.20, Culture=neutral, PublicKeyToken=3cc53827b79c92fa, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -53,6 +54,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VNAMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VNAMain.Designer.cs">
+      <DependentUpon>VNAMain.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -62,6 +69,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="VNAMain.resx">
+      <DependentUpon>VNAMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="IMG\Splash.psd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -71,6 +82,37 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="IMG\baocao.png" />
+    <Content Include="IMG\btn\sua_0.png" />
+    <Content Include="IMG\btn\sua_1.png" />
+    <Content Include="IMG\btn\sua_2.png" />
+    <Content Include="IMG\btn\them_0.png" />
+    <Content Include="IMG\btn\them_1.png" />
+    <Content Include="IMG\btn\them_2.png" />
+    <Content Include="IMG\btn\thoat_0.png" />
+    <Content Include="IMG\btn\thoat_1.png" />
+    <Content Include="IMG\btn\thoat_2.png" />
+    <Content Include="IMG\btn\xoa_0.png" />
+    <Content Include="IMG\btn\xoa_1.png" />
+    <Content Include="IMG\btn\xoa_2.png" />
+    <Content Include="IMG\changepass.png" />
+    <Content Include="IMG\danhmuc.png" />
+    <Content Include="IMG\guitien.png" />
+    <Content Include="IMG\icon_VNABank.ico" />
+    <Content Include="IMG\icon_VNABank.png" />
+    <Content Include="IMG\khachhang.jpg" />
+    <Content Include="IMG\laisuat.png" />
+    <Content Include="IMG\Login.png" />
+    <Content Include="IMG\Logout.png" />
+    <Content Include="IMG\MainBG.jpg" />
+    <Content Include="IMG\nghiepvu.png" />
+    <Content Include="IMG\ruttien.jpg" />
+    <Content Include="IMG\Splash.jpg" />
+    <Content Include="IMG\staff.png" />
+    <Content Include="IMG\system.png" />
+    <Content Include="IMG\taikhoan.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
