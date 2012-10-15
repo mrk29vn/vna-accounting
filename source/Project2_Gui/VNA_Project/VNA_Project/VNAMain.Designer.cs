@@ -30,8 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VNAMain));
             this.qRibbonCaption1 = new Qios.DevSuite.Components.Ribbon.QRibbonCaption();
-            this.qCompositeSeparator1 = new Qios.DevSuite.Components.QCompositeSeparator();
-            this.qCompositeSeparator2 = new Qios.DevSuite.Components.QCompositeSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.qRibbonCaption1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,8 +57,6 @@
         #endregion
 
         private Qios.DevSuite.Components.Ribbon.QRibbonCaption qRibbonCaption1;
-        private Qios.DevSuite.Components.QCompositeSeparator qCompositeSeparator1;
-        private Qios.DevSuite.Components.QCompositeSeparator qCompositeSeparator2;
 
     }
 }
