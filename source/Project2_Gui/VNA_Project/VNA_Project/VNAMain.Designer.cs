@@ -30,11 +30,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VNAMain));
             this.qRibbonCaption1 = new Qios.DevSuite.Components.Ribbon.QRibbonCaption();
+            this.qRibbonApplicationButton1 = new Qios.DevSuite.Components.Ribbon.QRibbonApplicationButton();
             ((System.ComponentModel.ISupportInitialize)(this.qRibbonCaption1)).BeginInit();
             this.SuspendLayout();
             // 
             // qRibbonCaption1
             // 
+            this.qRibbonCaption1.ApplicationButton = this.qRibbonApplicationButton1;
             this.qRibbonCaption1.Location = new System.Drawing.Point(0, 0);
             this.qRibbonCaption1.Name = "qRibbonCaption1";
             this.qRibbonCaption1.Size = new System.Drawing.Size(740, 28);
@@ -57,6 +59,7 @@
         #endregion
 
         private Qios.DevSuite.Components.Ribbon.QRibbonCaption qRibbonCaption1;
+        private Qios.DevSuite.Components.Ribbon.QRibbonApplicationButton qRibbonApplicationButton1;
 
     }
 }

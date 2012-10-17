@@ -46,6 +46,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAL\CSDL.cs" />
+    <Compile Include="Entity\Account.cs" />
+    <Compile Include="Entity\NhanVien.cs" />
+    <Compile Include="Entity\PermissionDetail.cs" />
+    <Compile Include="Entity\Permission.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
