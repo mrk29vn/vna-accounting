@@ -5,6 +5,7 @@ using System.Text;
 
 namespace VNA_Project.Entity
 {
+    [Serializable]
     public class Permission
     {
         public Permission() { }
