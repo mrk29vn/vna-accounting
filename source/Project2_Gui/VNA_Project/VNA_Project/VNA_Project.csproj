@@ -45,6 +45,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BIZ\Account.cs" />
+    <Compile Include="BIZ\NhanVien.cs" />
+    <Compile Include="BIZ\Permission.cs" />
+    <Compile Include="BIZ\PermissionDetail.cs" />
     <Compile Include="DAL\CSDL.cs" />
     <Compile Include="Entity\Account.cs" />
     <Compile Include="Entity\NhanVien.cs" />
@@ -118,6 +122,7 @@
     <Content Include="IMG\system.png" />
     <Content Include="IMG\taikhoan.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
