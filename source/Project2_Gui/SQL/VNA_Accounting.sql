@@ -16,10 +16,10 @@ CREATE TABLE Account
 	AccountID INT PRIMARY KEY IDENTITY,
 	UserName nVARCHAR(200) NOT NULL,
 	PassWord nVARCHAR(200) NOT NULL,
+	PermissionCode nvarchar(50),
+	EmployeeCode nVARCHAR(50),
 	Administrator BIT,
-	PermissionName nvarchar(50),
-	LockedAccount BIT,
-	EmployeeCode nVARCHAR(50)
+	LockedAccount BIT
 )
 GO
 --						2.Permission
@@ -30,11 +30,21 @@ GO
 CREATE TABLE Permission
 (
 	PermissionID INT PRIMARY KEY IDENTITY,
-	PermissionName nVARCHAR(50) NOT NULL,
-	FormName nVARCHAR(200) NOT NULL,
-	PerAdd BIT,
-	PerEdit BIT,
-	PerDelete BIT,
+	PermissionCode nVARCHAR(50) NOT NULL,
+	PermissionName nVARCHAR(200)
+)
+GO
+--						2.PermissionDetail
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PermissionDetail]') AND type in (N'U'))
+DROP TABLE [dbo].[PermissionDetail]
+GO
+CREATE TABLE PermissionDetail
+(
+	PermissionDetailID INT PRIMARY KEY IDENTITY,
+	PermissionCode nVARCHAR(50) NOT NULL,
+	FormCode nVARCHAR(50) NOT NULL,
+	FormName nVARCHAR(200),
 	PerView BIT
 )
 GO
@@ -48,11 +58,12 @@ CREATE TABLE NhanVien
 	NhanVienID INT PRIMARY KEY IDENTITY,
 	MaNhanVien nVARCHAR(50),
 	TenNhanVien nVARCHAR(200),
+	SCMND nVARCHAR(200),
+	SoDienThoai nVARCHAR(200),
+	Email nVARCHAR(200),
 	GioiTinh nVARCHAR(200),
 	NgaySinh nVARCHAR(200),
-	SCMND nVARCHAR(200),
-	DiaChi nVARCHAR(200),
-	SoDienThoai nVARCHAR(200)
+	DiaChi nVARCHAR(200)
 )
 GO
 --
