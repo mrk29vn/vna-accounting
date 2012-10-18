@@ -28,7 +28,7 @@ namespace VNA_Project
         public static void ShowSplashScreen()
         {
             m_oSplash = new QTranslucentWindow();
-            m_oSplash.BackgroundImage = new System.Drawing.Bitmap(Application.StartupPath + @"\image\Splash.jpg");
+            m_oSplash.BackgroundImage = new System.Drawing.Bitmap(Application.StartupPath + @"\IMG\Splash.jpg");
             m_oSplash.TopMost = true;
             m_oSplash.ShowCenteredOnScreen();
             Application.Idle += new EventHandler(Application_Idle);
