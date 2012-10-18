@@ -6,7 +6,7 @@ namespace VNA_Project.DAL
 {
     class CSDL
     {
-        public static string strCon = @"Data Source=MRK-PC\MRKPC;Initial Catalog=VnaManageBank;User ID=sa;Password=123456";
+        public static string strCon = @"Data Source=MAX-PC\MRKPC;Initial Catalog=VNAAccounting;User ID=sa;Password=123456";
 
         public static DataTable hienthi(string sql)
         {
