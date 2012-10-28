@@ -16,10 +16,6 @@ namespace VNA_Project
         public VNAMain()
         {
             InitializeComponent();
-        }
-
-        private void qButton1_Click(object sender, EventArgs e)
-        {
             List<Account> temp = BIZ.AccountBiz.getListAccount();
             dataGridView1.DataSource = temp.ToArray();
         }
