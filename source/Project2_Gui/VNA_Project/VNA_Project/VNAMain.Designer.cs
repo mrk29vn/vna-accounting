@@ -41,24 +41,24 @@
             this.qsMiddleRibbonPanel = new Qios.DevSuite.Components.QShape();
             this.qRibbonPanel3 = new Qios.DevSuite.Components.Ribbon.QRibbonPanel();
             this.qsRightRibbonPanel = new Qios.DevSuite.Components.QShape();
+            this.qRibbonPage2 = new Qios.DevSuite.Components.Ribbon.QRibbonPage();
+            this.qRibbonPanel5 = new Qios.DevSuite.Components.Ribbon.QRibbonPanel();
             this.qRibbonPage3 = new Qios.DevSuite.Components.Ribbon.QRibbonPage();
             this.qRibbonPage4 = new Qios.DevSuite.Components.Ribbon.QRibbonPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.qRibbonCaption1 = new Qios.DevSuite.Components.Ribbon.QRibbonCaption();
             this.qRibbonApplicationButton1 = new Qios.DevSuite.Components.Ribbon.QRibbonApplicationButton();
             this.qRibbonLaunchBar1 = new Qios.DevSuite.Components.Ribbon.QRibbonLaunchBar();
-            this.qRibbonPage2 = new Qios.DevSuite.Components.Ribbon.QRibbonPage();
-            this.qRibbonPanel4 = new Qios.DevSuite.Components.Ribbon.QRibbonPanel();
             this.qPanel1.SuspendLayout();
             this.qPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.qRibbon1)).BeginInit();
             this.qRibbon1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.qRibbonPage1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.qRibbonPage2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.qRibbonPage3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.qRibbonPage4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.qRibbonCaption1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.qRibbonPage2)).BeginInit();
             this.SuspendLayout();
             // 
             // qButton1
@@ -125,7 +125,6 @@
             this.qRibbonPage1.Items.Add(this.qRibbonPanel2);
             this.qRibbonPage1.Items.Add(this.qRibbonPanel1);
             this.qRibbonPage1.Items.Add(this.qRibbonPanel3);
-            this.qRibbonPage1.Items.Add(this.qRibbonPanel4);
             this.qRibbonPage1.Location = new System.Drawing.Point(2, 31);
             this.qRibbonPage1.Name = "qRibbonPage1";
             this.qRibbonPage1.PersistGuid = new System.Guid("3b29ca05-4835-4fd0-9741-573840ba86fa");
@@ -135,7 +134,7 @@
             // qRibbonPanel2
             // 
             this.qRibbonPanel2.Configuration.Appearance.Shape = this.qsLeftRibbonPanel;
-            this.qRibbonPanel2.Title = "qRibbonPanel2";
+            this.qRibbonPanel2.Title = "<>";
             // 
             // qsLeftRibbonPanel
             // 
@@ -150,7 +149,7 @@
             // 
             this.qRibbonPanel1.Configuration.Appearance.Shape = this.qsMiddleRibbonPanel;
             this.qRibbonPanel1.Configuration.StretchHorizontal = true;
-            this.qRibbonPanel1.Title = "qRibbonPanel1";
+            this.qRibbonPanel1.Title = "..............................";
             // 
             // qsMiddleRibbonPanel
             // 
@@ -164,7 +163,7 @@
             // qRibbonPanel3
             // 
             this.qRibbonPanel3.Configuration.Appearance.Shape = this.qsRightRibbonPanel;
-            this.qRibbonPanel3.Title = "qRibbonPanel3";
+            this.qRibbonPanel3.Title = "<>";
             // 
             // qsRightRibbonPanel
             // 
@@ -175,9 +174,24 @@
             this.qsRightRibbonPanel.Items.Add(new Qios.DevSuite.Components.QShapeItem(71F, 50F, ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right))), true));
             this.qsRightRibbonPanel.Items.Add(new Qios.DevSuite.Components.QShapeItem(0F, 49F, 25F, 36F, 24F, 14F, ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left))), true));
             // 
+            // qRibbonPage2
+            // 
+            this.qRibbonPage2.ButtonOrder = 1;
+            this.qRibbonPage2.Icon = ((System.Drawing.Icon)(resources.GetObject("qRibbonPage2.Icon")));
+            this.qRibbonPage2.Items.Add(this.qRibbonPanel5);
+            this.qRibbonPage2.Location = new System.Drawing.Point(2, 31);
+            this.qRibbonPage2.Name = "qRibbonPage2";
+            this.qRibbonPage2.PersistGuid = new System.Guid("17319eb9-17ea-4d55-a1a0-f814b573fcb0");
+            this.qRibbonPage2.Size = new System.Drawing.Size(732, 79);
+            this.qRibbonPage2.Text = "DANH MỤC";
+            // 
+            // qRibbonPanel5
+            // 
+            this.qRibbonPanel5.Title = "qRibbonPanel5";
+            // 
             // qRibbonPage3
             // 
-            this.qRibbonPage3.ButtonOrder = 3;
+            this.qRibbonPage3.ButtonOrder = 2;
             this.qRibbonPage3.Icon = ((System.Drawing.Icon)(resources.GetObject("qRibbonPage3.Icon")));
             this.qRibbonPage3.Location = new System.Drawing.Point(2, 31);
             this.qRibbonPage3.Name = "qRibbonPage3";
@@ -187,7 +201,7 @@
             // 
             // qRibbonPage4
             // 
-            this.qRibbonPage4.ButtonOrder = 2;
+            this.qRibbonPage4.ButtonOrder = 3;
             this.qRibbonPage4.Icon = ((System.Drawing.Icon)(resources.GetObject("qRibbonPage4.Icon")));
             this.qRibbonPage4.Location = new System.Drawing.Point(2, 31);
             this.qRibbonPage4.Name = "qRibbonPage4";
@@ -219,16 +233,6 @@
             // 
             this.qRibbonApplicationButton1.ForegroundImage = ((System.Drawing.Image)(resources.GetObject("qRibbonApplicationButton1.ForegroundImage")));
             // 
-            // qRibbonPage2
-            // 
-            this.qRibbonPage2.ButtonOrder = 1;
-            this.qRibbonPage2.Icon = ((System.Drawing.Icon)(resources.GetObject("qRibbonPage2.Icon")));
-            this.qRibbonPage2.Location = new System.Drawing.Point(2, 31);
-            this.qRibbonPage2.Name = "qRibbonPage2";
-            this.qRibbonPage2.PersistGuid = new System.Guid("17319eb9-17ea-4d55-a1a0-f814b573fcb0");
-            this.qRibbonPage2.Size = new System.Drawing.Size(732, 79);
-            this.qRibbonPage2.Text = "DANH MỤC";
-            // 
             // VNAMain
             // 
             this.BackgroundImageAlign = Qios.DevSuite.Components.QImageAlign.TopMiddle;
@@ -246,11 +250,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.qRibbon1)).EndInit();
             this.qRibbon1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.qRibbonPage1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.qRibbonPage2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.qRibbonPage3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.qRibbonPage4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.qRibbonCaption1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.qRibbonPage2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -275,8 +279,8 @@
         private Qios.DevSuite.Components.QShape qsLeftRibbonPanel;
         private Qios.DevSuite.Components.Ribbon.QRibbonPanel qRibbonPanel3;
         private Qios.DevSuite.Components.QShape qsRightRibbonPanel;
-        private Qios.DevSuite.Components.Ribbon.QRibbonPanel qRibbonPanel4;
         private Qios.DevSuite.Components.Ribbon.QRibbonPage qRibbonPage2;
+        private Qios.DevSuite.Components.Ribbon.QRibbonPanel qRibbonPanel5;
 
 
 
