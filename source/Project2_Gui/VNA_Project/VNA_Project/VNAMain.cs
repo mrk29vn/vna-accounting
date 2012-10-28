@@ -17,13 +17,13 @@ namespace VNA_Project
         {
             InitializeComponent();
             List<Account> temp = BIZ.AccountBiz.getListAccount();
-            dataGridView1.DataSource = temp.ToArray();
+            //dataGridView1.DataSource = temp.ToArray();
         }
 
-        void FixDataGirdView()
-        {
-            FixDataGirdView(dataGridView1);  //datagridVIEW
-        }
+        //void FixDataGirdView()
+        //{
+        //    FixDataGirdView(dataGridView1);  //datagridVIEW
+        //}
         void FixDataGirdView(System.Windows.Forms.DataGridView DataGridView)
         {
             for (int j = 1; j < DataGridView.ColumnCount; j++) DataGridView.Columns[j].Visible = false;

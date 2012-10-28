@@ -29,62 +29,59 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VNAMain));
-            this.qPanel1 = new Qios.DevSuite.Components.QPanel();
+            this.palMAINDown = new Qios.DevSuite.Components.QPanel();
             this.qPanel2 = new Qios.DevSuite.Components.QPanel();
-            this.qPanel3 = new Qios.DevSuite.Components.QPanel();
-            this.qRibbon1 = new Qios.DevSuite.Components.Ribbon.QRibbon();
-            this.qRibbonPage1 = new Qios.DevSuite.Components.Ribbon.QRibbonPage();
-            this.qRibbonPanel2 = new Qios.DevSuite.Components.Ribbon.QRibbonPanel();
+            this.palMAINCenter = new Qios.DevSuite.Components.QPanel();
+            this.palMAINTop = new Qios.DevSuite.Components.Ribbon.QRibbon();
+            this.rPageTRANGCHU = new Qios.DevSuite.Components.Ribbon.QRibbonPage();
+            this.palHOMELeft = new Qios.DevSuite.Components.Ribbon.QRibbonPanel();
             this.qsLeftRibbonPanel = new Qios.DevSuite.Components.QShape();
-            this.qRibbonPanel1 = new Qios.DevSuite.Components.Ribbon.QRibbonPanel();
+            this.palHOMECenter = new Qios.DevSuite.Components.Ribbon.QRibbonPanel();
             this.qsMiddleRibbonPanel = new Qios.DevSuite.Components.QShape();
-            this.qRibbonPanel3 = new Qios.DevSuite.Components.Ribbon.QRibbonPanel();
+            this.palHOMERight = new Qios.DevSuite.Components.Ribbon.QRibbonPanel();
             this.qsRightRibbonPanel = new Qios.DevSuite.Components.QShape();
-            this.qRibbonPage2 = new Qios.DevSuite.Components.Ribbon.QRibbonPage();
-            this.qRibbonPanel5 = new Qios.DevSuite.Components.Ribbon.QRibbonPanel();
+            this.rPageDANHMUC = new Qios.DevSuite.Components.Ribbon.QRibbonPage();
+            this.palDMNguonVon = new Qios.DevSuite.Components.Ribbon.QRibbonPanel();
             this.btnDMNguonVon = new Qios.DevSuite.Components.QCompositeButton();
-            this.qRibbonPanel4 = new Qios.DevSuite.Components.Ribbon.QRibbonPanel();
+            this.qsButton = new Qios.DevSuite.Components.QShape();
+            this.palDMLyDoTangGiamTS = new Qios.DevSuite.Components.Ribbon.QRibbonPanel();
             this.btnDMLyDoTangGiamTS = new Qios.DevSuite.Components.QCompositeButton();
-            this.qRibbonPanel6 = new Qios.DevSuite.Components.Ribbon.QRibbonPanel();
+            this.palDMLoaiTS = new Qios.DevSuite.Components.Ribbon.QRibbonPanel();
             this.btnDMLoaiTS = new Qios.DevSuite.Components.QCompositeButton();
-            this.qRibbonPanel7 = new Qios.DevSuite.Components.Ribbon.QRibbonPanel();
+            this.palDMPhanNhomTS = new Qios.DevSuite.Components.Ribbon.QRibbonPanel();
             this.btnDMPhanNhomTS = new Qios.DevSuite.Components.QCompositeButton();
-            this.qRibbonPage3 = new Qios.DevSuite.Components.Ribbon.QRibbonPage();
-            this.qRibbonPage4 = new Qios.DevSuite.Components.Ribbon.QRibbonPage();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.palDMThietBi = new Qios.DevSuite.Components.Ribbon.QRibbonPanel();
+            this.btnDMThietBi = new Qios.DevSuite.Components.QCompositeButton();
+            this.palDMBoPhanSDTSCD = new Qios.DevSuite.Components.Ribbon.QRibbonPanel();
+            this.btnDMBoPhanSDTSCD = new Qios.DevSuite.Components.QCompositeButton();
+            this.rPageNGHIEPVU = new Qios.DevSuite.Components.Ribbon.QRibbonPage();
+            this.rPageBAOCAO = new Qios.DevSuite.Components.Ribbon.QRibbonPage();
             this.qRibbonCaption1 = new Qios.DevSuite.Components.Ribbon.QRibbonCaption();
             this.qRibbonApplicationButton1 = new Qios.DevSuite.Components.Ribbon.QRibbonApplicationButton();
             this.qRibbonLaunchBar1 = new Qios.DevSuite.Components.Ribbon.QRibbonLaunchBar();
-            this.qRibbonPanel8 = new Qios.DevSuite.Components.Ribbon.QRibbonPanel();
-            this.btnDMThietBi = new Qios.DevSuite.Components.QCompositeButton();
-            this.qRibbonPanel9 = new Qios.DevSuite.Components.Ribbon.QRibbonPanel();
-            this.btnDMBoPhanSDTSCD = new Qios.DevSuite.Components.QCompositeButton();
-            this.qsButton = new Qios.DevSuite.Components.QShape();
             this.qPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.qRibbon1)).BeginInit();
-            this.qRibbon1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.qRibbonPage1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.qRibbonPage2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.qRibbonPage3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.qRibbonPage4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.palMAINTop)).BeginInit();
+            this.palMAINTop.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.rPageTRANGCHU)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rPageDANHMUC)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rPageNGHIEPVU)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rPageBAOCAO)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.qRibbonCaption1)).BeginInit();
             this.SuspendLayout();
             // 
-            // qPanel1
+            // palMAINDown
             // 
-            this.qPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.qPanel1.Location = new System.Drawing.Point(0, 442);
-            this.qPanel1.Name = "qPanel1";
-            this.qPanel1.Size = new System.Drawing.Size(814, 52);
-            this.qPanel1.TabIndex = 3;
-            this.qPanel1.Text = "qPanel1";
+            this.palMAINDown.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.palMAINDown.Location = new System.Drawing.Point(0, 442);
+            this.palMAINDown.Name = "palMAINDown";
+            this.palMAINDown.Size = new System.Drawing.Size(814, 52);
+            this.palMAINDown.TabIndex = 3;
+            this.palMAINDown.Text = "qPanel1";
             // 
             // qPanel2
             // 
-            this.qPanel2.Controls.Add(this.qPanel3);
-            this.qPanel2.Controls.Add(this.qRibbon1);
-            this.qPanel2.Controls.Add(this.dataGridView1);
+            this.qPanel2.Controls.Add(this.palMAINCenter);
+            this.qPanel2.Controls.Add(this.palMAINTop);
             this.qPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.qPanel2.Location = new System.Drawing.Point(0, 28);
             this.qPanel2.Name = "qPanel2";
@@ -92,51 +89,51 @@
             this.qPanel2.TabIndex = 4;
             this.qPanel2.Text = "qRibbonCaption2";
             // 
-            // qPanel3
+            // palMAINCenter
             // 
-            this.qPanel3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("qPanel3.BackgroundImage")));
-            this.qPanel3.ColorScheme.PanelBackground1.SetColor("VistaBlack", System.Drawing.Color.White, false);
-            this.qPanel3.ColorScheme.PanelBackground2.SetColor("VistaBlack", System.Drawing.Color.White, false);
-            this.qPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.qPanel3.Location = new System.Drawing.Point(0, 114);
-            this.qPanel3.Name = "qPanel3";
-            this.qPanel3.Size = new System.Drawing.Size(812, 298);
-            this.qPanel3.TabIndex = 2;
-            this.qPanel3.Text = "qPanel3";
+            this.palMAINCenter.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("palMAINCenter.BackgroundImage")));
+            this.palMAINCenter.ColorScheme.PanelBackground1.SetColor("VistaBlack", System.Drawing.Color.White, false);
+            this.palMAINCenter.ColorScheme.PanelBackground2.SetColor("VistaBlack", System.Drawing.Color.White, false);
+            this.palMAINCenter.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.palMAINCenter.Location = new System.Drawing.Point(0, 114);
+            this.palMAINCenter.Name = "palMAINCenter";
+            this.palMAINCenter.Size = new System.Drawing.Size(812, 298);
+            this.palMAINCenter.TabIndex = 2;
+            this.palMAINCenter.Text = "qPanel3";
             // 
-            // qRibbon1
+            // palMAINTop
             // 
-            this.qRibbon1.ActiveTabPage = this.qRibbonPage1;
-            this.qRibbon1.Controls.Add(this.qRibbonPage1);
-            this.qRibbon1.Controls.Add(this.qRibbonPage2);
-            this.qRibbon1.Controls.Add(this.qRibbonPage3);
-            this.qRibbon1.Controls.Add(this.qRibbonPage4);
-            this.qRibbon1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.qRibbon1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.qRibbon1.Location = new System.Drawing.Point(0, 0);
-            this.qRibbon1.Name = "qRibbon1";
-            this.qRibbon1.PersistGuid = new System.Guid("66425e1a-f4e3-4fea-8b3a-8925b0fb019c");
-            this.qRibbon1.Size = new System.Drawing.Size(812, 114);
-            this.qRibbon1.TabIndex = 1;
-            this.qRibbon1.Text = "DANH MỤC";
+            this.palMAINTop.ActiveTabPage = this.rPageTRANGCHU;
+            this.palMAINTop.Controls.Add(this.rPageTRANGCHU);
+            this.palMAINTop.Controls.Add(this.rPageDANHMUC);
+            this.palMAINTop.Controls.Add(this.rPageNGHIEPVU);
+            this.palMAINTop.Controls.Add(this.rPageBAOCAO);
+            this.palMAINTop.Cursor = System.Windows.Forms.Cursors.Default;
+            this.palMAINTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.palMAINTop.Location = new System.Drawing.Point(0, 0);
+            this.palMAINTop.Name = "palMAINTop";
+            this.palMAINTop.PersistGuid = new System.Guid("66425e1a-f4e3-4fea-8b3a-8925b0fb019c");
+            this.palMAINTop.Size = new System.Drawing.Size(812, 114);
+            this.palMAINTop.TabIndex = 1;
+            this.palMAINTop.Text = "DANH MỤC";
             // 
-            // qRibbonPage1
+            // rPageTRANGCHU
             // 
-            this.qRibbonPage1.ButtonOrder = 0;
-            this.qRibbonPage1.Icon = ((System.Drawing.Icon)(resources.GetObject("qRibbonPage1.Icon")));
-            this.qRibbonPage1.Items.Add(this.qRibbonPanel2);
-            this.qRibbonPage1.Items.Add(this.qRibbonPanel1);
-            this.qRibbonPage1.Items.Add(this.qRibbonPanel3);
-            this.qRibbonPage1.Location = new System.Drawing.Point(2, 31);
-            this.qRibbonPage1.Name = "qRibbonPage1";
-            this.qRibbonPage1.PersistGuid = new System.Guid("3b29ca05-4835-4fd0-9741-573840ba86fa");
-            this.qRibbonPage1.Size = new System.Drawing.Size(806, 79);
-            this.qRibbonPage1.Text = "TRANG CHỦ";
+            this.rPageTRANGCHU.ButtonOrder = 0;
+            this.rPageTRANGCHU.Icon = ((System.Drawing.Icon)(resources.GetObject("rPageTRANGCHU.Icon")));
+            this.rPageTRANGCHU.Items.Add(this.palHOMELeft);
+            this.rPageTRANGCHU.Items.Add(this.palHOMECenter);
+            this.rPageTRANGCHU.Items.Add(this.palHOMERight);
+            this.rPageTRANGCHU.Location = new System.Drawing.Point(2, 31);
+            this.rPageTRANGCHU.Name = "rPageTRANGCHU";
+            this.rPageTRANGCHU.PersistGuid = new System.Guid("3b29ca05-4835-4fd0-9741-573840ba86fa");
+            this.rPageTRANGCHU.Size = new System.Drawing.Size(806, 79);
+            this.rPageTRANGCHU.Text = "TRANG CHỦ";
             // 
-            // qRibbonPanel2
+            // palHOMELeft
             // 
-            this.qRibbonPanel2.Configuration.Appearance.Shape = this.qsLeftRibbonPanel;
-            this.qRibbonPanel2.Title = "<>";
+            this.palHOMELeft.Configuration.Appearance.Shape = this.qsLeftRibbonPanel;
+            this.palHOMELeft.Title = "<>";
             // 
             // qsLeftRibbonPanel
             // 
@@ -147,11 +144,11 @@
             this.qsLeftRibbonPanel.Items.Add(new Qios.DevSuite.Components.QShapeItem(100F, 0F, 77F, 6F, 75F, 45F, ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right))), true));
             this.qsLeftRibbonPanel.Items.Add(new Qios.DevSuite.Components.QShapeItem(100F, 50F, ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right))), true));
             // 
-            // qRibbonPanel1
+            // palHOMECenter
             // 
-            this.qRibbonPanel1.Configuration.Appearance.Shape = this.qsMiddleRibbonPanel;
-            this.qRibbonPanel1.Configuration.StretchHorizontal = true;
-            this.qRibbonPanel1.Title = "..............................";
+            this.palHOMECenter.Configuration.Appearance.Shape = this.qsMiddleRibbonPanel;
+            this.palHOMECenter.Configuration.StretchHorizontal = true;
+            this.palHOMECenter.Title = "..............................";
             // 
             // qsMiddleRibbonPanel
             // 
@@ -162,10 +159,10 @@
             this.qsMiddleRibbonPanel.Items.Add(new Qios.DevSuite.Components.QShapeItem(27F, 50F, -7F, 50F, -9F, 0F, ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left))), true));
             this.qsMiddleRibbonPanel.Items.Add(new Qios.DevSuite.Components.QShapeItem(29F, 0F, ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left))), true));
             // 
-            // qRibbonPanel3
+            // palHOMERight
             // 
-            this.qRibbonPanel3.Configuration.Appearance.Shape = this.qsRightRibbonPanel;
-            this.qRibbonPanel3.Title = "<>";
+            this.palHOMERight.Configuration.Appearance.Shape = this.qsRightRibbonPanel;
+            this.palHOMERight.Title = "<>";
             // 
             // qsRightRibbonPanel
             // 
@@ -176,26 +173,26 @@
             this.qsRightRibbonPanel.Items.Add(new Qios.DevSuite.Components.QShapeItem(71F, 50F, ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right))), true));
             this.qsRightRibbonPanel.Items.Add(new Qios.DevSuite.Components.QShapeItem(0F, 49F, 25F, 36F, 24F, 14F, ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left))), true));
             // 
-            // qRibbonPage2
+            // rPageDANHMUC
             // 
-            this.qRibbonPage2.ButtonOrder = 1;
-            this.qRibbonPage2.Icon = ((System.Drawing.Icon)(resources.GetObject("qRibbonPage2.Icon")));
-            this.qRibbonPage2.Items.Add(this.qRibbonPanel5);
-            this.qRibbonPage2.Items.Add(this.qRibbonPanel4);
-            this.qRibbonPage2.Items.Add(this.qRibbonPanel6);
-            this.qRibbonPage2.Items.Add(this.qRibbonPanel7);
-            this.qRibbonPage2.Items.Add(this.qRibbonPanel8);
-            this.qRibbonPage2.Items.Add(this.qRibbonPanel9);
-            this.qRibbonPage2.Location = new System.Drawing.Point(2, 31);
-            this.qRibbonPage2.Name = "qRibbonPage2";
-            this.qRibbonPage2.PersistGuid = new System.Guid("17319eb9-17ea-4d55-a1a0-f814b573fcb0");
-            this.qRibbonPage2.Size = new System.Drawing.Size(806, 79);
-            this.qRibbonPage2.Text = "DANH MỤC";
+            this.rPageDANHMUC.ButtonOrder = 1;
+            this.rPageDANHMUC.Icon = ((System.Drawing.Icon)(resources.GetObject("rPageDANHMUC.Icon")));
+            this.rPageDANHMUC.Items.Add(this.palDMNguonVon);
+            this.rPageDANHMUC.Items.Add(this.palDMLyDoTangGiamTS);
+            this.rPageDANHMUC.Items.Add(this.palDMLoaiTS);
+            this.rPageDANHMUC.Items.Add(this.palDMPhanNhomTS);
+            this.rPageDANHMUC.Items.Add(this.palDMThietBi);
+            this.rPageDANHMUC.Items.Add(this.palDMBoPhanSDTSCD);
+            this.rPageDANHMUC.Location = new System.Drawing.Point(2, 31);
+            this.rPageDANHMUC.Name = "rPageDANHMUC";
+            this.rPageDANHMUC.PersistGuid = new System.Guid("17319eb9-17ea-4d55-a1a0-f814b573fcb0");
+            this.rPageDANHMUC.Size = new System.Drawing.Size(806, 79);
+            this.rPageDANHMUC.Text = "DANH MỤC";
             // 
-            // qRibbonPanel5
+            // palDMNguonVon
             // 
-            this.qRibbonPanel5.Items.Add(this.btnDMNguonVon);
-            this.qRibbonPanel5.Title = "Nguồn vốn";
+            this.palDMNguonVon.Items.Add(this.btnDMNguonVon);
+            this.palDMNguonVon.Title = "Nguồn vốn";
             // 
             // btnDMNguonVon
             // 
@@ -205,10 +202,23 @@
             this.btnDMNguonVon.Icon = ((System.Drawing.Icon)(resources.GetObject("btnDMNguonVon.Icon")));
             this.btnDMNguonVon.Title = "Nguồn vốn";
             // 
-            // qRibbonPanel4
+            // qsButton
             // 
-            this.qRibbonPanel4.Items.Add(this.btnDMLyDoTangGiamTS);
-            this.qRibbonPanel4.Title = "Lý do tăng giảm TS";
+            this.qsButton.BaseShapeType = Qios.DevSuite.Components.QBaseShapeType.RoundedButton2;
+            this.qsButton.ContentBounds = new System.Drawing.Rectangle(12, 3, 77, 14);
+            this.qsButton.Items.Add(new Qios.DevSuite.Components.QShapeItem(50F, 20F, 28F, 19F, 19F, 14F, ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left))), true));
+            this.qsButton.Items.Add(new Qios.DevSuite.Components.QShapeItem(18F, 13F, ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left))), true));
+            this.qsButton.Items.Add(new Qios.DevSuite.Components.QShapeItem(15F, 9F, 18F, 3F, 34F, 2F, ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left))), true));
+            this.qsButton.Items.Add(new Qios.DevSuite.Components.QShapeItem(45F, 8F, ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left))), true));
+            this.qsButton.Items.Add(new Qios.DevSuite.Components.QShapeItem(56F, 8F, 68F, 2F, 82F, 3F, ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right))), true));
+            this.qsButton.Items.Add(new Qios.DevSuite.Components.QShapeItem(85F, 9F, ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right))), true));
+            this.qsButton.Items.Add(new Qios.DevSuite.Components.QShapeItem(83F, 13F, 82F, 14F, 73F, 19F, ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right))), true));
+            this.qsButton.Items.Add(new Qios.DevSuite.Components.QShapeItem(53F, 20F, ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right))), true));
+            // 
+            // palDMLyDoTangGiamTS
+            // 
+            this.palDMLyDoTangGiamTS.Items.Add(this.btnDMLyDoTangGiamTS);
+            this.palDMLyDoTangGiamTS.Title = "Lý do tăng giảm TS";
             // 
             // btnDMLyDoTangGiamTS
             // 
@@ -218,10 +228,10 @@
             this.btnDMLyDoTangGiamTS.Icon = ((System.Drawing.Icon)(resources.GetObject("btnDMLyDoTangGiamTS.Icon")));
             this.btnDMLyDoTangGiamTS.Title = "Lý do tăng giảm TS";
             // 
-            // qRibbonPanel6
+            // palDMLoaiTS
             // 
-            this.qRibbonPanel6.Items.Add(this.btnDMLoaiTS);
-            this.qRibbonPanel6.Title = "Loại TS";
+            this.palDMLoaiTS.Items.Add(this.btnDMLoaiTS);
+            this.palDMLoaiTS.Title = "Loại TS";
             // 
             // btnDMLoaiTS
             // 
@@ -231,10 +241,10 @@
             this.btnDMLoaiTS.Icon = ((System.Drawing.Icon)(resources.GetObject("btnDMLoaiTS.Icon")));
             this.btnDMLoaiTS.Title = "Loại TS";
             // 
-            // qRibbonPanel7
+            // palDMPhanNhomTS
             // 
-            this.qRibbonPanel7.Items.Add(this.btnDMPhanNhomTS);
-            this.qRibbonPanel7.Title = "Phân nhóm TS";
+            this.palDMPhanNhomTS.Items.Add(this.btnDMPhanNhomTS);
+            this.palDMPhanNhomTS.Title = "Phân nhóm TS";
             // 
             // btnDMPhanNhomTS
             // 
@@ -244,34 +254,51 @@
             this.btnDMPhanNhomTS.Icon = ((System.Drawing.Icon)(resources.GetObject("btnDMPhanNhomTS.Icon")));
             this.btnDMPhanNhomTS.Title = "Phân nhóm TS";
             // 
-            // qRibbonPage3
+            // palDMThietBi
             // 
-            this.qRibbonPage3.ButtonOrder = 2;
-            this.qRibbonPage3.Icon = ((System.Drawing.Icon)(resources.GetObject("qRibbonPage3.Icon")));
-            this.qRibbonPage3.Location = new System.Drawing.Point(2, 31);
-            this.qRibbonPage3.Name = "qRibbonPage3";
-            this.qRibbonPage3.PersistGuid = new System.Guid("0230e374-7309-4b14-a5cb-3bc0554a8b22");
-            this.qRibbonPage3.Size = new System.Drawing.Size(732, 79);
-            this.qRibbonPage3.Text = "NGHIỆP VỤ";
+            this.palDMThietBi.Items.Add(this.btnDMThietBi);
+            this.palDMThietBi.Title = "Thiết bị";
             // 
-            // qRibbonPage4
+            // btnDMThietBi
             // 
-            this.qRibbonPage4.ButtonOrder = 3;
-            this.qRibbonPage4.Icon = ((System.Drawing.Icon)(resources.GetObject("qRibbonPage4.Icon")));
-            this.qRibbonPage4.Location = new System.Drawing.Point(2, 31);
-            this.qRibbonPage4.Name = "qRibbonPage4";
-            this.qRibbonPage4.PersistGuid = new System.Guid("9dccba66-59a6-4cce-83a6-5436ee2801fb");
-            this.qRibbonPage4.Size = new System.Drawing.Size(732, 79);
-            this.qRibbonPage4.Text = "BÁO CÁO";
+            this.btnDMThietBi.Configuration.Appearance.Shape = this.qsButton;
+            this.btnDMThietBi.Configuration.IconConfiguration.AlignmentVertical = Qios.DevSuite.Components.QPartAlignment.Near;
+            this.btnDMThietBi.Configuration.StretchVertical = true;
+            this.btnDMThietBi.Icon = ((System.Drawing.Icon)(resources.GetObject("btnDMThietBi.Icon")));
+            this.btnDMThietBi.Title = "Thiết bị";
             // 
-            // dataGridView1
+            // palDMBoPhanSDTSCD
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(812, 412);
-            this.dataGridView1.TabIndex = 0;
+            this.palDMBoPhanSDTSCD.Items.Add(this.btnDMBoPhanSDTSCD);
+            this.palDMBoPhanSDTSCD.Title = "Bộ phận SD TSCĐ";
+            // 
+            // btnDMBoPhanSDTSCD
+            // 
+            this.btnDMBoPhanSDTSCD.Configuration.Appearance.Shape = this.qsButton;
+            this.btnDMBoPhanSDTSCD.Configuration.IconConfiguration.AlignmentVertical = Qios.DevSuite.Components.QPartAlignment.Near;
+            this.btnDMBoPhanSDTSCD.Configuration.StretchVertical = true;
+            this.btnDMBoPhanSDTSCD.Icon = ((System.Drawing.Icon)(resources.GetObject("btnDMBoPhanSDTSCD.Icon")));
+            this.btnDMBoPhanSDTSCD.Title = "Bộ phận SD TSCĐ";
+            // 
+            // rPageNGHIEPVU
+            // 
+            this.rPageNGHIEPVU.ButtonOrder = 2;
+            this.rPageNGHIEPVU.Icon = ((System.Drawing.Icon)(resources.GetObject("rPageNGHIEPVU.Icon")));
+            this.rPageNGHIEPVU.Location = new System.Drawing.Point(2, 31);
+            this.rPageNGHIEPVU.Name = "rPageNGHIEPVU";
+            this.rPageNGHIEPVU.PersistGuid = new System.Guid("0230e374-7309-4b14-a5cb-3bc0554a8b22");
+            this.rPageNGHIEPVU.Size = new System.Drawing.Size(806, 79);
+            this.rPageNGHIEPVU.Text = "NGHIỆP VỤ";
+            // 
+            // rPageBAOCAO
+            // 
+            this.rPageBAOCAO.ButtonOrder = 3;
+            this.rPageBAOCAO.Icon = ((System.Drawing.Icon)(resources.GetObject("rPageBAOCAO.Icon")));
+            this.rPageBAOCAO.Location = new System.Drawing.Point(2, 31);
+            this.rPageBAOCAO.Name = "rPageBAOCAO";
+            this.rPageBAOCAO.PersistGuid = new System.Guid("9dccba66-59a6-4cce-83a6-5436ee2801fb");
+            this.rPageBAOCAO.Size = new System.Drawing.Size(806, 79);
+            this.rPageBAOCAO.Text = "BÁO CÁO";
             // 
             // qRibbonCaption1
             // 
@@ -288,65 +315,25 @@
             // 
             this.qRibbonApplicationButton1.ForegroundImage = ((System.Drawing.Image)(resources.GetObject("qRibbonApplicationButton1.ForegroundImage")));
             // 
-            // qRibbonPanel8
-            // 
-            this.qRibbonPanel8.Items.Add(this.btnDMThietBi);
-            this.qRibbonPanel8.Title = "Thiết bị";
-            // 
-            // btnDMThietBi
-            // 
-            this.btnDMThietBi.Configuration.Appearance.Shape = this.qsButton;
-            this.btnDMThietBi.Configuration.IconConfiguration.AlignmentVertical = Qios.DevSuite.Components.QPartAlignment.Near;
-            this.btnDMThietBi.Configuration.StretchVertical = true;
-            this.btnDMThietBi.Icon = ((System.Drawing.Icon)(resources.GetObject("btnDMThietBi.Icon")));
-            this.btnDMThietBi.Title = "Thiết bị";
-            // 
-            // qRibbonPanel9
-            // 
-            this.qRibbonPanel9.Items.Add(this.btnDMBoPhanSDTSCD);
-            this.qRibbonPanel9.Title = "Bộ phận SD TSCĐ";
-            // 
-            // btnDMBoPhanSDTSCD
-            // 
-            this.btnDMBoPhanSDTSCD.Configuration.Appearance.Shape = this.qsButton;
-            this.btnDMBoPhanSDTSCD.Configuration.IconConfiguration.AlignmentVertical = Qios.DevSuite.Components.QPartAlignment.Near;
-            this.btnDMBoPhanSDTSCD.Configuration.StretchVertical = true;
-            this.btnDMBoPhanSDTSCD.Icon = ((System.Drawing.Icon)(resources.GetObject("btnDMBoPhanSDTSCD.Icon")));
-            this.btnDMBoPhanSDTSCD.Title = "Bộ phận SD TSCĐ";
-            // 
-            // qsButton
-            // 
-            this.qsButton.BaseShapeType = Qios.DevSuite.Components.QBaseShapeType.RoundedButton2;
-            this.qsButton.ContentBounds = new System.Drawing.Rectangle(12, 3, 77, 14);
-            this.qsButton.Items.Add(new Qios.DevSuite.Components.QShapeItem(50F, 20F, 28F, 19F, 19F, 14F, ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left))), true));
-            this.qsButton.Items.Add(new Qios.DevSuite.Components.QShapeItem(18F, 13F, ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left))), true));
-            this.qsButton.Items.Add(new Qios.DevSuite.Components.QShapeItem(15F, 9F, 18F, 3F, 34F, 2F, ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left))), true));
-            this.qsButton.Items.Add(new Qios.DevSuite.Components.QShapeItem(45F, 8F, ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left))), true));
-            this.qsButton.Items.Add(new Qios.DevSuite.Components.QShapeItem(56F, 8F, 68F, 2F, 82F, 3F, ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right))), true));
-            this.qsButton.Items.Add(new Qios.DevSuite.Components.QShapeItem(85F, 9F, ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right))), true));
-            this.qsButton.Items.Add(new Qios.DevSuite.Components.QShapeItem(83F, 13F, 82F, 14F, 73F, 19F, ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right))), true));
-            this.qsButton.Items.Add(new Qios.DevSuite.Components.QShapeItem(53F, 20F, ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right))), true));
-            // 
             // VNAMain
             // 
             this.BackgroundImageAlign = Qios.DevSuite.Components.QImageAlign.TopMiddle;
             this.BackgroundImageOffset = new System.Drawing.Point(0, 200);
             this.ClientSize = new System.Drawing.Size(814, 494);
             this.Controls.Add(this.qPanel2);
-            this.Controls.Add(this.qPanel1);
+            this.Controls.Add(this.palMAINDown);
             this.Controls.Add(this.qRibbonCaption1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "VNAMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "VNA Accounting Fixed assets modul - Phân hệ kế toán tài sản cố định";
             this.qPanel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.qRibbon1)).EndInit();
-            this.qRibbon1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.qRibbonPage1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.qRibbonPage2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.qRibbonPage3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.qRibbonPage4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.palMAINTop)).EndInit();
+            this.palMAINTop.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.rPageTRANGCHU)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rPageDANHMUC)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rPageNGHIEPVU)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rPageBAOCAO)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.qRibbonCaption1)).EndInit();
             this.ResumeLayout(false);
 
@@ -354,35 +341,34 @@
 
         #endregion
 
-        private Qios.DevSuite.Components.QPanel qPanel1;
+        private Qios.DevSuite.Components.QPanel palMAINDown;
         private Qios.DevSuite.Components.QPanel qPanel2;
-        private System.Windows.Forms.DataGridView dataGridView1;
         private Qios.DevSuite.Components.Ribbon.QRibbonCaption qRibbonCaption1;
         private Qios.DevSuite.Components.Ribbon.QRibbonApplicationButton qRibbonApplicationButton1;
         private Qios.DevSuite.Components.Ribbon.QRibbonLaunchBar qRibbonLaunchBar1;
-        private Qios.DevSuite.Components.Ribbon.QRibbon qRibbon1;
-        private Qios.DevSuite.Components.QPanel qPanel3;
-        private Qios.DevSuite.Components.Ribbon.QRibbonPage qRibbonPage1;
-        private Qios.DevSuite.Components.Ribbon.QRibbonPage qRibbonPage4;
-        private Qios.DevSuite.Components.Ribbon.QRibbonPanel qRibbonPanel1;
+        private Qios.DevSuite.Components.Ribbon.QRibbon palMAINTop;
+        private Qios.DevSuite.Components.QPanel palMAINCenter;
+        private Qios.DevSuite.Components.Ribbon.QRibbonPage rPageTRANGCHU;
+        private Qios.DevSuite.Components.Ribbon.QRibbonPage rPageBAOCAO;
+        private Qios.DevSuite.Components.Ribbon.QRibbonPanel palHOMECenter;
         private Qios.DevSuite.Components.QShape qsMiddleRibbonPanel;
-        private Qios.DevSuite.Components.Ribbon.QRibbonPage qRibbonPage3;
-        private Qios.DevSuite.Components.Ribbon.QRibbonPanel qRibbonPanel2;
+        private Qios.DevSuite.Components.Ribbon.QRibbonPage rPageNGHIEPVU;
+        private Qios.DevSuite.Components.Ribbon.QRibbonPanel palHOMELeft;
         private Qios.DevSuite.Components.QShape qsLeftRibbonPanel;
-        private Qios.DevSuite.Components.Ribbon.QRibbonPanel qRibbonPanel3;
+        private Qios.DevSuite.Components.Ribbon.QRibbonPanel palHOMERight;
         private Qios.DevSuite.Components.QShape qsRightRibbonPanel;
-        private Qios.DevSuite.Components.Ribbon.QRibbonPage qRibbonPage2;
-        private Qios.DevSuite.Components.Ribbon.QRibbonPanel qRibbonPanel5;
+        private Qios.DevSuite.Components.Ribbon.QRibbonPage rPageDANHMUC;
+        private Qios.DevSuite.Components.Ribbon.QRibbonPanel palDMNguonVon;
         private Qios.DevSuite.Components.QCompositeButton btnDMNguonVon;
-        private Qios.DevSuite.Components.Ribbon.QRibbonPanel qRibbonPanel4;
+        private Qios.DevSuite.Components.Ribbon.QRibbonPanel palDMLyDoTangGiamTS;
         private Qios.DevSuite.Components.QCompositeButton btnDMLyDoTangGiamTS;
-        private Qios.DevSuite.Components.Ribbon.QRibbonPanel qRibbonPanel6;
+        private Qios.DevSuite.Components.Ribbon.QRibbonPanel palDMLoaiTS;
         private Qios.DevSuite.Components.QCompositeButton btnDMLoaiTS;
-        private Qios.DevSuite.Components.Ribbon.QRibbonPanel qRibbonPanel7;
+        private Qios.DevSuite.Components.Ribbon.QRibbonPanel palDMPhanNhomTS;
         private Qios.DevSuite.Components.QCompositeButton btnDMPhanNhomTS;
-        private Qios.DevSuite.Components.Ribbon.QRibbonPanel qRibbonPanel8;
+        private Qios.DevSuite.Components.Ribbon.QRibbonPanel palDMThietBi;
         private Qios.DevSuite.Components.QCompositeButton btnDMThietBi;
-        private Qios.DevSuite.Components.Ribbon.QRibbonPanel qRibbonPanel9;
+        private Qios.DevSuite.Components.Ribbon.QRibbonPanel palDMBoPhanSDTSCD;
         private Qios.DevSuite.Components.QCompositeButton btnDMBoPhanSDTSCD;
         private Qios.DevSuite.Components.QShape qsButton;
 
