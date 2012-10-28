@@ -59,6 +59,10 @@
             this.qRibbonCaption1 = new Qios.DevSuite.Components.Ribbon.QRibbonCaption();
             this.qRibbonApplicationButton1 = new Qios.DevSuite.Components.Ribbon.QRibbonApplicationButton();
             this.qRibbonLaunchBar1 = new Qios.DevSuite.Components.Ribbon.QRibbonLaunchBar();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.qCompositeImage1 = new Qios.DevSuite.Components.QCompositeImage();
+            this.qCompositeImage2 = new Qios.DevSuite.Components.QCompositeImage();
+            this.palMAINDown.SuspendLayout();
             this.qPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.palMAINTop)).BeginInit();
             this.palMAINTop.SuspendLayout();
@@ -67,14 +71,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.rPageNGHIEPVU)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rPageBAOCAO)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.qRibbonCaption1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // palMAINDown
             // 
+            this.palMAINDown.Controls.Add(this.pictureBox1);
             this.palMAINDown.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.palMAINDown.Location = new System.Drawing.Point(0, 442);
+            this.palMAINDown.Location = new System.Drawing.Point(0, 427);
             this.palMAINDown.Name = "palMAINDown";
-            this.palMAINDown.Size = new System.Drawing.Size(814, 52);
+            this.palMAINDown.Size = new System.Drawing.Size(814, 67);
             this.palMAINDown.TabIndex = 3;
             this.palMAINDown.Text = "qPanel1";
             // 
@@ -85,7 +91,7 @@
             this.qPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.qPanel2.Location = new System.Drawing.Point(0, 28);
             this.qPanel2.Name = "qPanel2";
-            this.qPanel2.Size = new System.Drawing.Size(814, 414);
+            this.qPanel2.Size = new System.Drawing.Size(814, 399);
             this.qPanel2.TabIndex = 4;
             this.qPanel2.Text = "qRibbonCaption2";
             // 
@@ -97,7 +103,7 @@
             this.palMAINCenter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.palMAINCenter.Location = new System.Drawing.Point(0, 114);
             this.palMAINCenter.Name = "palMAINCenter";
-            this.palMAINCenter.Size = new System.Drawing.Size(812, 298);
+            this.palMAINCenter.Size = new System.Drawing.Size(812, 283);
             this.palMAINCenter.TabIndex = 2;
             this.palMAINCenter.Text = "qPanel3";
             // 
@@ -133,6 +139,7 @@
             // palHOMELeft
             // 
             this.palHOMELeft.Configuration.Appearance.Shape = this.qsLeftRibbonPanel;
+            this.palHOMELeft.Items.Add(this.qCompositeImage2);
             this.palHOMELeft.Title = "<>";
             // 
             // qsLeftRibbonPanel
@@ -162,6 +169,7 @@
             // palHOMERight
             // 
             this.palHOMERight.Configuration.Appearance.Shape = this.qsRightRibbonPanel;
+            this.palHOMERight.Items.Add(this.qCompositeImage1);
             this.palHOMERight.Title = "<>";
             // 
             // qsRightRibbonPanel
@@ -315,6 +323,37 @@
             // 
             this.qRibbonApplicationButton1.ForegroundImage = ((System.Drawing.Image)(resources.GetObject("qRibbonApplicationButton1.ForegroundImage")));
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(812, 65);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 4;
+            this.pictureBox1.TabStop = false;
+            // 
+            // qCompositeImage1
+            // 
+            this.qCompositeImage1.Configuration.AlignmentHorizontal = Qios.DevSuite.Components.QPartAlignment.Centered;
+            this.qCompositeImage1.Configuration.AlignmentVertical = Qios.DevSuite.Components.QPartAlignment.Centered;
+            this.qCompositeImage1.Configuration.ContentAlignmentHorizontal = Qios.DevSuite.Components.QPartAlignment.Centered;
+            this.qCompositeImage1.Configuration.ContentAlignmentVertical = Qios.DevSuite.Components.QPartAlignment.Centered;
+            this.qCompositeImage1.Configuration.ShrinkHorizontal = true;
+            this.qCompositeImage1.Configuration.ShrinkVertical = true;
+            this.qCompositeImage1.Configuration.StretchHorizontal = true;
+            this.qCompositeImage1.Configuration.StretchVertical = true;
+            this.qCompositeImage1.Image = ((System.Drawing.Image)(resources.GetObject("qCompositeImage1.Image")));
+            // 
+            // qCompositeImage2
+            // 
+            this.qCompositeImage2.Configuration.ShrinkHorizontal = true;
+            this.qCompositeImage2.Configuration.ShrinkVertical = true;
+            this.qCompositeImage2.Configuration.StretchHorizontal = true;
+            this.qCompositeImage2.Configuration.StretchVertical = true;
+            this.qCompositeImage2.Image = ((System.Drawing.Image)(resources.GetObject("qCompositeImage2.Image")));
+            // 
             // VNAMain
             // 
             this.BackgroundImageAlign = Qios.DevSuite.Components.QImageAlign.TopMiddle;
@@ -327,6 +366,7 @@
             this.Name = "VNAMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "VNA Accounting Fixed assets modul - Phân hệ kế toán tài sản cố định";
+            this.palMAINDown.ResumeLayout(false);
             this.qPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.palMAINTop)).EndInit();
             this.palMAINTop.ResumeLayout(false);
@@ -335,6 +375,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.rPageNGHIEPVU)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rPageBAOCAO)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.qRibbonCaption1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -371,6 +412,9 @@
         private Qios.DevSuite.Components.Ribbon.QRibbonPanel palDMBoPhanSDTSCD;
         private Qios.DevSuite.Components.QCompositeButton btnDMBoPhanSDTSCD;
         private Qios.DevSuite.Components.QShape qsButton;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private Qios.DevSuite.Components.QCompositeImage qCompositeImage2;
+        private Qios.DevSuite.Components.QCompositeImage qCompositeImage1;
 
 
 
