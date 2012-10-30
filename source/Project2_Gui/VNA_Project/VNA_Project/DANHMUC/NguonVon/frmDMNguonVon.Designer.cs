@@ -33,8 +33,11 @@
             this.palTop_Center = new Qios.DevSuite.Components.QPanel();
             this.palTop = new Qios.DevSuite.Components.QPanel();
             this.palCenter = new Qios.DevSuite.Components.QPanel();
+            this.DataGridView = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.qRibbonCaption1)).BeginInit();
             this.palTop_Center.SuspendLayout();
+            this.palCenter.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // qRibbonCaption1
@@ -76,12 +79,25 @@
             // 
             // palCenter
             // 
+            this.palCenter.Controls.Add(this.DataGridView);
             this.palCenter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.palCenter.Location = new System.Drawing.Point(0, 93);
             this.palCenter.Name = "palCenter";
             this.palCenter.Size = new System.Drawing.Size(672, 471);
             this.palCenter.TabIndex = 1;
             this.palCenter.Text = "qPanel2";
+            // 
+            // DataGridView
+            // 
+            this.DataGridView.AllowUserToAddRows = false;
+            this.DataGridView.AllowUserToDeleteRows = false;
+            this.DataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DataGridView.Location = new System.Drawing.Point(0, 0);
+            this.DataGridView.Name = "DataGridView";
+            this.DataGridView.ReadOnly = true;
+            this.DataGridView.Size = new System.Drawing.Size(670, 469);
+            this.DataGridView.TabIndex = 0;
             // 
             // frmDMNguonVon
             // 
@@ -94,6 +110,8 @@
             this.Text = "Danh Mục - Nguồn Vốn";
             ((System.ComponentModel.ISupportInitialize)(this.qRibbonCaption1)).EndInit();
             this.palTop_Center.ResumeLayout(false);
+            this.palCenter.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridView)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -105,5 +123,6 @@
         private Qios.DevSuite.Components.QPanel palTop_Center;
         private Qios.DevSuite.Components.QPanel palCenter;
         private Qios.DevSuite.Components.QPanel palTop;
+        private System.Windows.Forms.DataGridView DataGridView;
     }
 }
