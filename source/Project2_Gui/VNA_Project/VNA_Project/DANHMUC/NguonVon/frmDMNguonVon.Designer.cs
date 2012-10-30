@@ -39,6 +39,7 @@
             this.btnSua = new Qios.DevSuite.Components.QButton();
             this.btnXoa = new Qios.DevSuite.Components.QButton();
             this.btnThoat = new Qios.DevSuite.Components.QButton();
+            this.qsButton = new Qios.DevSuite.Components.QShape();
             ((System.ComponentModel.ISupportInitialize)(this.qRibbonCaption1)).BeginInit();
             this.palRight.SuspendLayout();
             this.palTop_Center.SuspendLayout();
@@ -111,39 +112,57 @@
             // 
             // btnThem
             // 
+            this.btnThem.Appearance.Shape = this.qsButton;
             this.btnThem.Image = null;
             this.btnThem.Location = new System.Drawing.Point(22, 42);
             this.btnThem.Name = "btnThem";
+            this.btnThem.PaintTransparentBackground = true;
             this.btnThem.Size = new System.Drawing.Size(75, 45);
             this.btnThem.TabIndex = 0;
             this.btnThem.Text = "Thêm";
             // 
             // btnSua
             // 
+            this.btnSua.Appearance.Shape = this.qsButton;
             this.btnSua.Image = null;
             this.btnSua.Location = new System.Drawing.Point(22, 110);
             this.btnSua.Name = "btnSua";
+            this.btnSua.PaintTransparentBackground = true;
             this.btnSua.Size = new System.Drawing.Size(75, 45);
             this.btnSua.TabIndex = 1;
             this.btnSua.Text = "Sửa";
             // 
             // btnXoa
             // 
+            this.btnXoa.Appearance.Shape = this.qsButton;
             this.btnXoa.Image = null;
             this.btnXoa.Location = new System.Drawing.Point(22, 180);
             this.btnXoa.Name = "btnXoa";
+            this.btnXoa.PaintTransparentBackground = true;
             this.btnXoa.Size = new System.Drawing.Size(75, 45);
             this.btnXoa.TabIndex = 2;
             this.btnXoa.Text = "Xóa";
             // 
             // btnThoat
             // 
+            this.btnThoat.Appearance.Shape = this.qsButton;
             this.btnThoat.Image = null;
             this.btnThoat.Location = new System.Drawing.Point(22, 254);
             this.btnThoat.Name = "btnThoat";
+            this.btnThoat.PaintTransparentBackground = true;
             this.btnThoat.Size = new System.Drawing.Size(75, 45);
             this.btnThoat.TabIndex = 3;
             this.btnThoat.Text = "Thoát";
+            // 
+            // qsButton
+            // 
+            this.qsButton.BaseShapeType = Qios.DevSuite.Components.QBaseShapeType.RibbonShowDialogButton;
+            this.qsButton.ContentBounds = new System.Drawing.Rectangle(2, 2, 14, 11);
+            this.qsButton.Items.Add(new Qios.DevSuite.Components.QShapeItem(-5F, 11F, ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left))), true));
+            this.qsButton.Items.Add(new Qios.DevSuite.Components.QShapeItem(55F, 31F, ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left))), true));
+            this.qsButton.Items.Add(new Qios.DevSuite.Components.QShapeItem(12F, -5F, ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right))), true));
+            this.qsButton.Items.Add(new Qios.DevSuite.Components.QShapeItem(22F, 12F, 20F, 19F, 19F, 20F, ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right))), true));
+            this.qsButton.Items.Add(new Qios.DevSuite.Components.QShapeItem(12F, 22F, ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right))), true));
             // 
             // frmDMNguonVon
             // 
@@ -176,5 +195,6 @@
         private Qios.DevSuite.Components.QButton btnXoa;
         private Qios.DevSuite.Components.QButton btnSua;
         private Qios.DevSuite.Components.QButton btnThem;
+        private Qios.DevSuite.Components.QShape qsButton;
     }
 }
