@@ -144,7 +144,7 @@
             this.rPageTRANGCHU.Location = new System.Drawing.Point(2, 31);
             this.rPageTRANGCHU.Name = "rPageTRANGCHU";
             this.rPageTRANGCHU.PersistGuid = new System.Guid("3b29ca05-4835-4fd0-9741-573840ba86fa");
-            this.rPageTRANGCHU.Size = new System.Drawing.Size(806, 79);
+            this.rPageTRANGCHU.Size = new System.Drawing.Size(742, 79);
             this.rPageTRANGCHU.Text = "TRANG CHỦ";
             // 
             // palHOMELeft
@@ -332,7 +332,7 @@
             this.rPageNGHIEPVU.Location = new System.Drawing.Point(2, 31);
             this.rPageNGHIEPVU.Name = "rPageNGHIEPVU";
             this.rPageNGHIEPVU.PersistGuid = new System.Guid("0230e374-7309-4b14-a5cb-3bc0554a8b22");
-            this.rPageNGHIEPVU.Size = new System.Drawing.Size(806, 79);
+            this.rPageNGHIEPVU.Size = new System.Drawing.Size(742, 79);
             this.rPageNGHIEPVU.Text = "NGHIỆP VỤ";
             // 
             // rPageBAOCAO
@@ -342,7 +342,7 @@
             this.rPageBAOCAO.Location = new System.Drawing.Point(2, 31);
             this.rPageBAOCAO.Name = "rPageBAOCAO";
             this.rPageBAOCAO.PersistGuid = new System.Guid("9dccba66-59a6-4cce-83a6-5436ee2801fb");
-            this.rPageBAOCAO.Size = new System.Drawing.Size(806, 79);
+            this.rPageBAOCAO.Size = new System.Drawing.Size(742, 79);
             this.rPageBAOCAO.Text = "BÁO CÁO";
             // 
             // qRibbonCaption1

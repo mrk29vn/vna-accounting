@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>IMG\icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Qios.DevSuite.Components, Version=4.0.0.20, Culture=neutral, PublicKeyToken=3cc53827b79c92fa, processorArchitecture=MSIL" />
     <Reference Include="System" />
@@ -104,6 +107,8 @@
   <ItemGroup>
     <Content Include="IMG\1.png" />
     <Content Include="IMG\2.png" />
+    <Content Include="IMG\frm.ico" />
+    <Content Include="IMG\icon.ico" />
     <Content Include="IMG\Led.gif" />
     <Content Include="IMG\Linh Tinh\baocao.png" />
     <Content Include="IMG\Linh Tinh\btn\sua_0.png" />

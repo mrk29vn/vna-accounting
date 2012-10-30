@@ -28,13 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDMNguonVon));
             this.qRibbonCaption1 = new Qios.DevSuite.Components.Ribbon.QRibbonCaption();
             this.palRight = new Qios.DevSuite.Components.QPanel();
             this.palTop_Center = new Qios.DevSuite.Components.QPanel();
             this.palTop = new Qios.DevSuite.Components.QPanel();
             this.palCenter = new Qios.DevSuite.Components.QPanel();
             this.DataGridView = new System.Windows.Forms.DataGridView();
+            this.btnThem = new Qios.DevSuite.Components.QButton();
+            this.btnSua = new Qios.DevSuite.Components.QButton();
+            this.btnXoa = new Qios.DevSuite.Components.QButton();
+            this.btnThoat = new Qios.DevSuite.Components.QButton();
             ((System.ComponentModel.ISupportInitialize)(this.qRibbonCaption1)).BeginInit();
+            this.palRight.SuspendLayout();
             this.palTop_Center.SuspendLayout();
             this.palCenter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridView)).BeginInit();
@@ -50,6 +56,10 @@
             // 
             // palRight
             // 
+            this.palRight.Controls.Add(this.btnThoat);
+            this.palRight.Controls.Add(this.btnXoa);
+            this.palRight.Controls.Add(this.btnSua);
+            this.palRight.Controls.Add(this.btnThem);
             this.palRight.Dock = System.Windows.Forms.DockStyle.Right;
             this.palRight.Location = new System.Drawing.Point(674, 28);
             this.palRight.Name = "palRight";
@@ -99,16 +109,54 @@
             this.DataGridView.Size = new System.Drawing.Size(670, 469);
             this.DataGridView.TabIndex = 0;
             // 
+            // btnThem
+            // 
+            this.btnThem.Image = null;
+            this.btnThem.Location = new System.Drawing.Point(22, 42);
+            this.btnThem.Name = "btnThem";
+            this.btnThem.Size = new System.Drawing.Size(75, 45);
+            this.btnThem.TabIndex = 0;
+            this.btnThem.Text = "Thêm";
+            // 
+            // btnSua
+            // 
+            this.btnSua.Image = null;
+            this.btnSua.Location = new System.Drawing.Point(22, 110);
+            this.btnSua.Name = "btnSua";
+            this.btnSua.Size = new System.Drawing.Size(75, 45);
+            this.btnSua.TabIndex = 1;
+            this.btnSua.Text = "Sửa";
+            // 
+            // btnXoa
+            // 
+            this.btnXoa.Image = null;
+            this.btnXoa.Location = new System.Drawing.Point(22, 180);
+            this.btnXoa.Name = "btnXoa";
+            this.btnXoa.Size = new System.Drawing.Size(75, 45);
+            this.btnXoa.TabIndex = 2;
+            this.btnXoa.Text = "Xóa";
+            // 
+            // btnThoat
+            // 
+            this.btnThoat.Image = null;
+            this.btnThoat.Location = new System.Drawing.Point(22, 254);
+            this.btnThoat.Name = "btnThoat";
+            this.btnThoat.Size = new System.Drawing.Size(75, 45);
+            this.btnThoat.TabIndex = 3;
+            this.btnThoat.Text = "Thoát";
+            // 
             // frmDMNguonVon
             // 
             this.ClientSize = new System.Drawing.Size(794, 594);
             this.Controls.Add(this.palTop_Center);
             this.Controls.Add(this.palRight);
             this.Controls.Add(this.qRibbonCaption1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmDMNguonVon";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Danh Mục - Nguồn Vốn";
             ((System.ComponentModel.ISupportInitialize)(this.qRibbonCaption1)).EndInit();
+            this.palRight.ResumeLayout(false);
             this.palTop_Center.ResumeLayout(false);
             this.palCenter.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DataGridView)).EndInit();
@@ -124,5 +172,9 @@
         private Qios.DevSuite.Components.QPanel palCenter;
         private Qios.DevSuite.Components.QPanel palTop;
         private System.Windows.Forms.DataGridView DataGridView;
+        private Qios.DevSuite.Components.QButton btnThoat;
+        private Qios.DevSuite.Components.QButton btnXoa;
+        private Qios.DevSuite.Components.QButton btnSua;
+        private Qios.DevSuite.Components.QButton btnThem;
     }
 }

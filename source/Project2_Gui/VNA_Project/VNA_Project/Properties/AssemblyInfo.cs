@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("VNA_Project")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("VNA Accounting Fixed assets modul - Phân hệ kế toán tài sản cố định")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("VNA_Project")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2012")]
+[assembly: AssemblyCompany("K29vn VNA Co.Ltd")]
+[assembly: AssemblyProduct("VNA Accounting Fixed assets modul")]
+[assembly: AssemblyCopyright("Copyright © K29vn VNA Co.Ltd 2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
