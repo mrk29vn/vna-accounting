@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using VNA_Project.Entity;
-//using VNA_Project.DAL;
-using System.Data;
 
 namespace VNA_Project.BIZ
 {
@@ -16,7 +14,7 @@ namespace VNA_Project.BIZ
         {
             List<Account> kq = new List<Account>();
             string sql = "SELECT [UserName],[PassWord],[PermissionCode],[EmployeeCode],[Administrator],[LockedAccount]  FROM  [VNAAccounting].[dbo].[Account]";
-            DataTable dt = DAL.CSDL.hienthi(sql);
+            System.Data.DataTable dt = DAL.CSDL.hienthi(sql);
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 Account temp = new Account();
