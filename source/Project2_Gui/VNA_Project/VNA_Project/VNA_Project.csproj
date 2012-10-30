@@ -50,6 +50,12 @@
     <Compile Include="BIZ\Permission.cs" />
     <Compile Include="BIZ\PermissionDetail.cs" />
     <Compile Include="DAL\CSDL.cs" />
+    <Compile Include="DANHMUC\NguonVon\frmDMNguonVon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DANHMUC\NguonVon\frmDMNguonVon.Designer.cs">
+      <DependentUpon>frmDMNguonVon.cs</DependentUpon>
+    </Compile>
     <Compile Include="Entity\Account.cs" />
     <Compile Include="Entity\NhanVien.cs" />
     <Compile Include="Entity\PermissionDetail.cs" />
@@ -69,6 +75,9 @@
     <Compile Include="VNAMain.Designer.cs">
       <DependentUpon>VNAMain.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="DANHMUC\NguonVon\frmDMNguonVon.resx">
+      <DependentUpon>frmDMNguonVon.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

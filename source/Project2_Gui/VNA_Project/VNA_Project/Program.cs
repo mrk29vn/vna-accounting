@@ -18,8 +18,8 @@ namespace VNA_Project
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            ShowSplashScreen();
-            Application.Run(new VNAMain());
+            //ShowSplashScreen();
+            Application.Run(new DANHMUC.NguonVon.frmDMNguonVon());
         }
 
         /// <summary>
