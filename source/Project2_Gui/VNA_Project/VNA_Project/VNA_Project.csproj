@@ -93,6 +93,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="IMG\1.png" />
+    <Content Include="IMG\2.png" />
     <Content Include="IMG\Led.gif" />
     <Content Include="IMG\Linh Tinh\baocao.png" />
     <Content Include="IMG\Linh Tinh\btn\sua_0.png" />
