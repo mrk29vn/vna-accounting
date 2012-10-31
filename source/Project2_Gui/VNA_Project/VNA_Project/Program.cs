@@ -19,7 +19,7 @@ namespace VNA_Project
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //ShowSplashScreen();
-            Application.Run(new DANHMUC.NguonVon.frmDMNguonVon());
+            Application.Run(new DANHMUC.NguonVonFolder.frmDMNguonVon());
         }
 
         /// <summary>

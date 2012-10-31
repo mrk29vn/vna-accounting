@@ -54,16 +54,22 @@
     <Compile Include="BIZ\Permission.cs" />
     <Compile Include="BIZ\PermissionDetail.cs" />
     <Compile Include="DAL\CSDL.cs" />
+    <Compile Include="DANHMUC\LoaiTaiSanFolder\frmDMNguonVon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DANHMUC\LoaiTaiSanFolder\frmDMNguonVon.Designer.cs">
+      <DependentUpon>frmDMNguonVon.cs</DependentUpon>
+    </Compile>
     <Compile Include="DANHMUC\LyDoTangGiamTaiSan\frmDMLyDoTangGiamTaiSan.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DANHMUC\LyDoTangGiamTaiSan\frmDMLyDoTangGiamTaiSan.Designer.cs">
       <DependentUpon>frmDMLyDoTangGiamTaiSan.cs</DependentUpon>
     </Compile>
-    <Compile Include="DANHMUC\NguonVon\frmDMNguonVon.cs">
+    <Compile Include="DANHMUC\NguonVonFolder\frmDMNguonVon.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DANHMUC\NguonVon\frmDMNguonVon.Designer.cs">
+    <Compile Include="DANHMUC\NguonVonFolder\frmDMNguonVon.Designer.cs">
       <DependentUpon>frmDMNguonVon.cs</DependentUpon>
     </Compile>
     <Compile Include="Entity\Account.cs" />
@@ -85,10 +91,13 @@
     <Compile Include="VNAMain.Designer.cs">
       <DependentUpon>VNAMain.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="DANHMUC\LoaiTaiSanFolder\frmDMNguonVon.resx">
+      <DependentUpon>frmDMNguonVon.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DANHMUC\LyDoTangGiamTaiSan\frmDMLyDoTangGiamTaiSan.resx">
       <DependentUpon>frmDMLyDoTangGiamTaiSan.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DANHMUC\NguonVon\frmDMNguonVon.resx">
+    <EmbeddedResource Include="DANHMUC\NguonVonFolder\frmDMNguonVon.resx">
       <DependentUpon>frmDMNguonVon.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

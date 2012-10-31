@@ -1,6 +1,6 @@
-﻿namespace VNA_Project.DANHMUC.NguonVon
+﻿namespace VNA_Project.DANHMUC.LoaiTaiSanFolder
 {
-    partial class frmDMNguonVon
+    partial class frmDMLoaiTaiSan
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDMNguonVon));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDMLoaiTaiSan));
             this.qRibbonCaption1 = new Qios.DevSuite.Components.Ribbon.QRibbonCaption();
             this.palRight = new Qios.DevSuite.Components.QPanel();
             this.palTop_Center = new Qios.DevSuite.Components.QPanel();

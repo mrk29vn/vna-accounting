@@ -8,15 +8,15 @@ using System.Windows.Forms;
 using VNA_Project.Entity;
 using Qios.DevSuite.Components;
 
-namespace VNA_Project.DANHMUC.NguonVon
+namespace VNA_Project.DANHMUC.LoaiTaiSanFolder
 {
-    public partial class frmDMNguonVon : Qios.DevSuite.Components.Ribbon.QRibbonForm
+    public partial class frmDMLoaiTaiSan : Qios.DevSuite.Components.Ribbon.QRibbonForm
     {
         #region khai báo
         List<Entity.NguonVon> Ldata = new List<Entity.NguonVon>();
         #endregion
 
-        public frmDMNguonVon()
+        public frmDMLoaiTaiSan()
         {
             InitializeComponent();
             try
