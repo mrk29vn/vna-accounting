@@ -23,5 +23,13 @@ namespace VNA_Project.Entity
             get { return tenThietBi; }
             set { tenThietBi = value; }
         }
+
+        public ThietBi Copy()
+        {
+            ThietBi kq = new ThietBi();
+            kq.MaThietBi = maThietBi;
+            kq.TenThietBi = tenThietBi;
+            return kq;
+        }
     }
 }

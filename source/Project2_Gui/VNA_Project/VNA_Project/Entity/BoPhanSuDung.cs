@@ -23,5 +23,13 @@ namespace VNA_Project.Entity
             get { return tenBoPhanSuDung; }
             set { tenBoPhanSuDung = value; }
         }
+
+        public BoPhanSuDung Copy()
+        {
+            BoPhanSuDung kq = new BoPhanSuDung();
+            kq.MaBoPhanSuDung = maBoPhanSuDung;
+            kq.TenBoPhanSuDung = tenBoPhanSuDung;
+            return kq;
+        }
     }
 }

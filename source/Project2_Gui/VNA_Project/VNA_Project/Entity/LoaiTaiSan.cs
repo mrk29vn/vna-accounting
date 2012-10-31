@@ -23,5 +23,13 @@ namespace VNA_Project.Entity
             get { return tenLoaiTaiSan; }
             set { tenLoaiTaiSan = value; }
         }
+
+        public LoaiTaiSan Copy()
+        {
+            LoaiTaiSan kq = new LoaiTaiSan();
+            kq.MaLoaiTaiSan = maLoaiTaiSan;
+            kq.TenLoaiTaiSan = tenLoaiTaiSan;
+            return kq;
+        }
     }
 }

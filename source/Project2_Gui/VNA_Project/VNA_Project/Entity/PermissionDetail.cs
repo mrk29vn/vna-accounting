@@ -35,5 +35,15 @@ namespace VNA_Project.Entity
             get { return perView; }
             set { perView = value; }
         }
+
+        public PermissionDetail Copy()
+        {
+            PermissionDetail kq = new PermissionDetail();
+            kq.PermissionCode = permissionCode;
+            kq.FormCode = formCode;
+            kq.FormName = formName;
+            kq.PerView = perView;
+            return kq;
+        }
     }
 }

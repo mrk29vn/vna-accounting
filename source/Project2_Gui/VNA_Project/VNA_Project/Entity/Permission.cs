@@ -23,5 +23,13 @@ namespace VNA_Project.Entity
             get { return permissionName; }
             set { permissionName = value; }
         }
+
+        public Permission Copy()
+        {
+            Permission kq = new Permission();
+            kq.PermissionCode = permissionCode;
+            kq.PermissionName = permissionName;
+            return kq;
+        }
     }
 }

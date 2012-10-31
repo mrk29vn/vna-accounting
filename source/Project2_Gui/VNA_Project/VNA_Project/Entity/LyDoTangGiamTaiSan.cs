@@ -29,5 +29,14 @@ namespace VNA_Project.Entity
             get { return tenLyDoTangGiamTaiSan; }
             set { tenLyDoTangGiamTaiSan = value; }
         }
+
+        public LyDoTangGiamTaiSan Copy()
+        {
+            LyDoTangGiamTaiSan kq = new LyDoTangGiamTaiSan();
+            kq.LoaiTangGiamTaiSan = loaiTangGiamTaiSan;
+            kq.MaLyDoTangGiamTaiSan = maLyDoTangGiamTaiSan;
+            kq.TenLyDoTangGiamTaiSan = tenLyDoTangGiamTaiSan;
+            return kq;
+        }
     }
 }

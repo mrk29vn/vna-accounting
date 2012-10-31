@@ -47,5 +47,17 @@ namespace VNA_Project.Entity
             get { return lockedAccount; }
             set { lockedAccount = value; }
         }
+
+        public Account Copy()
+        {
+            Account kq = new Account();
+            kq.UserName = userName;
+            kq.PassWord = passWord;
+            kq.PermissionCode = permissionCode;
+            kq.EmployeeCode = employeeCode;
+            kq.Administrator = administrator;
+            kq.LockedAccount = lockedAccount;
+            return kq;
+        }
     }
 }

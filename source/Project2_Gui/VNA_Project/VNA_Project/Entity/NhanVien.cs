@@ -59,5 +59,19 @@ namespace VNA_Project.Entity
             get { return diaChi; }
             set { diaChi = value; }
         }
+
+        public NhanVien Copy()
+        {
+            NhanVien kq = new NhanVien();
+            kq.MaNhanVien = maNhanVien;
+            kq.TenNhanVien = tenNhanVien;
+            kq.SCMND = sCMND;
+            kq.SoDienThoai = soDienThoai;
+            kq.Email = email;
+            kq.GioiTinh = gioiTinh;
+            kq.NgaySinh = ngaySinh;
+            kq.DiaChi = diaChi;
+            return kq;
+        }
     }
 }
