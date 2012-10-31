@@ -20,11 +20,15 @@ namespace VNA_Project.DANHMUC.NguonVonFolder
         public frmDMNguonVon()
         {
             InitializeComponent();
+        }
+
+        private void frmDMNguonVon_Load(object sender, EventArgs e)
+        {
             try
             {
-                Ldata = NguonVonBiz.getListNguonVon();
-                DataGridView.DataSource = Ldata.ToArray();
-                FixDataGirdView();
+                //Ldata = NguonVonBiz.getListNguonVon();
+                //DataGridView.DataSource = Ldata.ToArray();
+                //FixDataGirdView();
             }
             catch { }
         }
