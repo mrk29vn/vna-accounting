@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 using Qios.DevSuite.Components;
 
-namespace VNA_Project.DANHMUC.NguonVon
+namespace VNA_Project.DANHMUC.LyDoTangGiamTaiSanFolder
 {
     public partial class frmDMLyDoTangGiamTaiSan : Qios.DevSuite.Components.Ribbon.QRibbonForm
     {

@@ -13,7 +13,7 @@ namespace VNA_Project.DANHMUC.NguonVonFolder
     public partial class frmDMNguonVon : Qios.DevSuite.Components.Ribbon.QRibbonForm
     {
         #region khai báo
-        List<Entity.NguonVon> Ldata = new List<Entity.NguonVon>();
+        List<NguonVon> Ldata = new List<NguonVon>();
         #endregion
 
         public frmDMNguonVon()

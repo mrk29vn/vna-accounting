@@ -60,10 +60,10 @@
     <Compile Include="DANHMUC\LoaiTaiSanFolder\frmDMNguonVon.Designer.cs">
       <DependentUpon>frmDMNguonVon.cs</DependentUpon>
     </Compile>
-    <Compile Include="DANHMUC\LyDoTangGiamTaiSan\frmDMLyDoTangGiamTaiSan.cs">
+    <Compile Include="DANHMUC\LyDoTangGiamTaiSanFolder\frmDMLyDoTangGiamTaiSan.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DANHMUC\LyDoTangGiamTaiSan\frmDMLyDoTangGiamTaiSan.Designer.cs">
+    <Compile Include="DANHMUC\LyDoTangGiamTaiSanFolder\frmDMLyDoTangGiamTaiSan.Designer.cs">
       <DependentUpon>frmDMLyDoTangGiamTaiSan.cs</DependentUpon>
     </Compile>
     <Compile Include="DANHMUC\NguonVonFolder\frmDMNguonVon.cs">
@@ -94,7 +94,7 @@
     <EmbeddedResource Include="DANHMUC\LoaiTaiSanFolder\frmDMNguonVon.resx">
       <DependentUpon>frmDMNguonVon.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DANHMUC\LyDoTangGiamTaiSan\frmDMLyDoTangGiamTaiSan.resx">
+    <EmbeddedResource Include="DANHMUC\LyDoTangGiamTaiSanFolder\frmDMLyDoTangGiamTaiSan.resx">
       <DependentUpon>frmDMLyDoTangGiamTaiSan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DANHMUC\NguonVonFolder\frmDMNguonVon.resx">

@@ -1,4 +1,4 @@
-﻿namespace VNA_Project.DANHMUC.NguonVon
+﻿namespace VNA_Project.DANHMUC.LyDoTangGiamTaiSanFolder
 {
     partial class frmDMLyDoTangGiamTaiSan
     {
