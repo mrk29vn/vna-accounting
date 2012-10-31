@@ -120,6 +120,7 @@
             this.btnThem.Size = new System.Drawing.Size(75, 45);
             this.btnThem.TabIndex = 0;
             this.btnThem.Text = "Thêm";
+            this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
             // 
             // btnSua
             // 
@@ -131,6 +132,7 @@
             this.btnSua.Size = new System.Drawing.Size(75, 45);
             this.btnSua.TabIndex = 1;
             this.btnSua.Text = "Sửa";
+            this.btnSua.Click += new System.EventHandler(this.btnSua_Click);
             // 
             // btnXoa
             // 
@@ -142,6 +144,7 @@
             this.btnXoa.Size = new System.Drawing.Size(75, 45);
             this.btnXoa.TabIndex = 2;
             this.btnXoa.Text = "Xóa";
+            this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
             // 
             // btnThoat
             // 
@@ -153,6 +156,7 @@
             this.btnThoat.Size = new System.Drawing.Size(75, 45);
             this.btnThoat.TabIndex = 3;
             this.btnThoat.Text = "Thoát";
+            this.btnThoat.Click += new System.EventHandler(this.btnThoat_Click);
             // 
             // qsButton
             // 

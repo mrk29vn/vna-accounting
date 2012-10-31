@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BIZ\Account.cs" />
+    <Compile Include="BIZ\NguonVon.cs" />
     <Compile Include="BIZ\NhanVien.cs" />
     <Compile Include="BIZ\Permission.cs" />
     <Compile Include="BIZ\PermissionDetail.cs" />
@@ -66,6 +67,12 @@
       <DependentUpon>frmDMNguonVon.cs</DependentUpon>
     </Compile>
     <Compile Include="Entity\Account.cs" />
+    <Compile Include="Entity\BoPhanSuDung.cs" />
+    <Compile Include="Entity\ThietBi.cs" />
+    <Compile Include="Entity\PhanNhomTaiSan.cs" />
+    <Compile Include="Entity\LoaiTaiSan.cs" />
+    <Compile Include="Entity\LyDoTangGiamTaiSan.cs" />
+    <Compile Include="Entity\NguonVon.cs" />
     <Compile Include="Entity\NhanVien.cs" />
     <Compile Include="Entity\PermissionDetail.cs" />
     <Compile Include="Entity\Permission.cs" />
