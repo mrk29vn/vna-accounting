@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using VNA_Project.Entity;
+using VNA_Project.BIZ;
 using Qios.DevSuite.Components;
 
 namespace VNA_Project.DANHMUC.NguonVonFolder
@@ -21,7 +22,7 @@ namespace VNA_Project.DANHMUC.NguonVonFolder
             InitializeComponent();
             try
             {
-                Ldata = BIZ.NguonVonBiz.getListNguonVon();
+                Ldata = NguonVonBiz.getListNguonVon();
                 DataGridView.DataSource = Ldata.ToArray();
                 FixDataGirdView();
             }
