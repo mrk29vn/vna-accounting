@@ -182,6 +182,5 @@ namespace VNA_Project.DANHMUC.LyDoTangGiamTaiSanFolder
                 MSG.Error(ex);
             }
         }
-        }
     }
 }
