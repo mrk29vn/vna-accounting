@@ -59,5 +59,11 @@ namespace VNA_Project
             VNA_Project.DANHMUC.NguonVonFolder.frmDMNguonVon frm = new DANHMUC.NguonVonFolder.frmDMNguonVon();
             frm.ShowDialog();
         }
+
+        private void btnDMLyDoTangGiamTS_ItemActivated(object sender, QCompositeEventArgs e)
+        {
+            VNA_Project.DANHMUC.LyDoTangGiamTaiSanFolder.frmDMLyDoTangGiamTaiSan frm = new DANHMUC.LyDoTangGiamTaiSanFolder.frmDMLyDoTangGiamTaiSan();
+            frm.ShowDialog();
+        }
     }
 }

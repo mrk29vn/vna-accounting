@@ -67,7 +67,14 @@ namespace VNA_Project
             kq.TenNguonVon = Input.Cells["TenNguonVon"].Value.ToString();
             return kq;
         }
-
+        public static LyDoTangGiamTaiSan DataGridViewRow_to_LyDoTangGiamTaiSan(System.Windows.Forms.DataGridViewRow Input)
+        {
+            LyDoTangGiamTaiSan kq = new LyDoTangGiamTaiSan();
+            kq.LoaiTangGiamTaiSan = bool.Parse(Input.Cells["LoaiTangGiamTaiSan"].Value.ToString());
+            kq.MaLyDoTangGiamTaiSan = Input.Cells["MaLyDoTangGiamTaiSan"].Value.ToString();
+            kq.TenLyDoTangGiamTaiSan = Input.Cells["TenLyDoTangGiamTaiSan"].Value.ToString();
+            return kq;
+        }
         #endregion
     }
 
@@ -100,6 +107,14 @@ namespace VNA_Project
         {
             return MESSAGE("Xóa thất bại!", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+        public static DialogResult BanCoChacChanMuonXoaKhong()
+        {
+            return MESSAGE("Bạn có chắc chắn muốn xóa không?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+        }
+        public static DialogResult BanCoChacChanMuonThoatKhong()
+        {
+            return MESSAGE("Bạn có chắc chắn muốn thoát không?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+        }
 
         public static DialogResult Error(Exception ex)
         {//hàm thông báo lỗi dành cho trường hợp bắt ngoại lệ try...catch
@@ -109,6 +124,7 @@ namespace VNA_Project
         {//hàm thông báo lỗi dành cho trường hợp bắt bằng tay
             return MESSAGE("Có lỗi xảy ra:\r\n" + ex, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+
         public static DialogResult MESSAGE(string msg, MessageBoxButtons MessageBoxButtons, MessageBoxIcon MessageBoxIcon)
         {
             return MessageBox.Show(msg, MSG.TieuDe, MessageBoxButtons, MessageBoxIcon);

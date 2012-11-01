@@ -49,11 +49,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BIZ\Account.cs" />
+    <Compile Include="BIZ\LyDoTangGiamTaiSan.cs" />
     <Compile Include="BIZ\NguonVon.cs" />
     <Compile Include="BIZ\NhanVien.cs" />
     <Compile Include="BIZ\Permission.cs" />
     <Compile Include="BIZ\PermissionDetail.cs" />
     <Compile Include="DAL\CSDL.cs" />
+    <Compile Include="DANHMUC\LyDoTangGiamTaiSanFolder\frmDMLyDoTangGiamTaiSan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DANHMUC\LyDoTangGiamTaiSanFolder\frmDMLyDoTangGiamTaiSan.Designer.cs">
+      <DependentUpon>frmDMLyDoTangGiamTaiSan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DANHMUC\LyDoTangGiamTaiSanFolder\frmXuLyDMLyDoTangGiamTaiSan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DANHMUC\LyDoTangGiamTaiSanFolder\frmXuLyDMLyDoTangGiamTaiSan.Designer.cs">
+      <DependentUpon>frmXuLyDMLyDoTangGiamTaiSan.cs</DependentUpon>
+    </Compile>
     <Compile Include="DANHMUC\NguonVonFolder\frmXuLyDMNguonVon.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,6 +98,12 @@
     <Compile Include="VNAMain.Designer.cs">
       <DependentUpon>VNAMain.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="DANHMUC\LyDoTangGiamTaiSanFolder\frmDMLyDoTangGiamTaiSan.resx">
+      <DependentUpon>frmDMLyDoTangGiamTaiSan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DANHMUC\LyDoTangGiamTaiSanFolder\frmXuLyDMLyDoTangGiamTaiSan.resx">
+      <DependentUpon>frmXuLyDMLyDoTangGiamTaiSan.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DANHMUC\NguonVonFolder\frmXuLyDMNguonVon.resx">
       <DependentUpon>frmXuLyDMNguonVon.cs</DependentUpon>
     </EmbeddedResource>
@@ -154,7 +173,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DANHMUC\LoaiTaiSanFolder\" />
-    <Folder Include="DANHMUC\LyDoTangGiamTaiSanFolder\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

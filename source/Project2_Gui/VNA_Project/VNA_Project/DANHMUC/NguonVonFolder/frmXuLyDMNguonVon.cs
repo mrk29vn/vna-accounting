@@ -11,7 +11,7 @@ using Qios.DevSuite.Components;
 
 namespace VNA_Project.DANHMUC.NguonVonFolder
 {
-    public partial class frmXuLyDMNguonVon : Qios.DevSuite.Components.Ribbon.QRibbonForm 
+    public partial class frmXuLyDMNguonVon : Qios.DevSuite.Components.Ribbon.QRibbonForm
     {
         #region khai báo
         bool Them = true;
@@ -42,6 +42,9 @@ namespace VNA_Project.DANHMUC.NguonVonFolder
                 NguonVon temp = new NguonVon();
                 temp.MaNguonVon = txtMaNguonVon.Text;
                 temp.TenNguonVon = txtTenNguonVon.Text;
+
+                if (!CheckLoi(temp)) return;
+
                 int kq = NguonVonBiz.AddNguonVon(temp);
                 if (kq > 0) MSG.ThemThanhCong();
                 else MSG.ThemThatBai();
@@ -65,12 +68,23 @@ namespace VNA_Project.DANHMUC.NguonVonFolder
 
         bool CheckLoi(NguonVon data)
         {
-            bool kq = false;
+            bool kq = true;
+            //mã nguồn vốn rỗng
             if (string.IsNullOrEmpty(data.MaNguonVon))
             {
                 MSG.ErrorStand("Bạn chưa nhập mã nguồn vốn!");
                 txtMaNguonVon.Focus();
                 return false;
+            }
+            //mã nguồn vốn đã có trong cơ sở dữ liệu
+            foreach (NguonVon item in frmDMNguonVon.Ldata)
+            {
+                if (item.MaNguonVon.ToUpper().Equals(txtMaNguonVon.Text.ToUpper()))
+                {
+                    MSG.ErrorStand("Mã nguồn vốn đã có trong cơ sở dữ liệu!");
+                    txtMaNguonVon.Focus();
+                    return false;
+                }
             }
             return kq;
         }

@@ -269,6 +269,7 @@
             this.btnDMLyDoTangGiamTS.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDMLyDoTangGiamTS.Icon = ((System.Drawing.Icon)(resources.GetObject("btnDMLyDoTangGiamTS.Icon")));
             this.btnDMLyDoTangGiamTS.Title = "Lý do tăng giảm TS";
+            this.btnDMLyDoTangGiamTS.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.btnDMLyDoTangGiamTS_ItemActivated);
             // 
             // palDMLoaiTS
             // 

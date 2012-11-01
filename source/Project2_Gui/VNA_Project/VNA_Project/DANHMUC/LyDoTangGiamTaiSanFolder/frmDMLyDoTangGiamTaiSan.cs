@@ -8,18 +8,17 @@ using System.Windows.Forms;
 using VNA_Project.Entity;
 using VNA_Project.BIZ;
 using Qios.DevSuite.Components;
-using System.Linq;
 
-namespace VNA_Project.DANHMUC.NguonVonFolder
+namespace VNA_Project.DANHMUC.LyDoTangGiamTaiSanFolder
 {
-    public partial class frmDMNguonVon : Qios.DevSuite.Components.Ribbon.QRibbonForm
+    public partial class frmDMLyDoTangGiamTaiSan : Qios.DevSuite.Components.Ribbon.QRibbonForm
     {
         #region khai báo
-        public static List<NguonVon> Ldata = new List<NguonVon>();
+        public static List<LyDoTangGiamTaiSan> Ldata = new List<LyDoTangGiamTaiSan>();
         int vtIndex = 0;    //vị trí dòng cell đang được chọn trong datagridview
         #endregion
 
-        public frmDMNguonVon()
+        public frmDMLyDoTangGiamTaiSan()
         {
             InitializeComponent();
         }
@@ -76,7 +75,7 @@ namespace VNA_Project.DANHMUC.NguonVonFolder
         #region Nghiệp vụ
         private void HienThi()
         {
-            Ldata = NguonVonBiz.getListNguonVon();
+            Ldata = LyDoTangGiamTaiSanBiz.getListLyDoTangGiamTaiSan();
             DataGridView.DataSource = Ldata.ToArray();
             FixDataGirdView();
         }
@@ -84,7 +83,7 @@ namespace VNA_Project.DANHMUC.NguonVonFolder
         {
             try
             {
-                frmXuLyDMNguonVon frm = new frmXuLyDMNguonVon();
+                frmXuLyDMLyDoTangGiamTaiSan frm = new frmXuLyDMLyDoTangGiamTaiSan();
                 frm.StartPosition = FormStartPosition.CenterScreen;
                 frm.ShowDialog();
                 HienThi();
@@ -101,7 +100,7 @@ namespace VNA_Project.DANHMUC.NguonVonFolder
             {
                 if (vtIndex != -1)  //khi click lên tiêu đề header của datagrid thì bỏ qua
                 {
-                    frmXuLyDMNguonVon frm = new frmXuLyDMNguonVon(DataGridView.Rows[vtIndex]);
+                    frmXuLyDMLyDoTangGiamTaiSan frm = new frmXuLyDMLyDoTangGiamTaiSan(DataGridView.Rows[vtIndex]);
                     frm.StartPosition = FormStartPosition.CenterScreen;
                     frm.ShowDialog();
                     HienThi();
@@ -121,8 +120,8 @@ namespace VNA_Project.DANHMUC.NguonVonFolder
                 {
                     if (MSG.BanCoChacChanMuonXoaKhong() == System.Windows.Forms.DialogResult.Yes)
                     {
-                        NguonVon temp = Utils.DataGridViewRow_to_NguonVon(DataGridView.Rows[vtIndex]);
-                        int kq = NguonVonBiz.DeleteNguonVon(temp);
+                        LyDoTangGiamTaiSan temp = Utils.DataGridViewRow_to_LyDoTangGiamTaiSan(DataGridView.Rows[vtIndex]);
+                        int kq = LyDoTangGiamTaiSanBiz.DeleteLyDoTangGiamTaiSan(temp);
                         //if (kq > 0) MSG.XoaThanhCong();
                         //else MSG.XoaThatBai();
                         if (kq <= 0) MSG.XoaThatBai();
@@ -150,11 +149,11 @@ namespace VNA_Project.DANHMUC.NguonVonFolder
         {
             try
             {
-                List<NguonVon> Ltemp = new List<NguonVon>();
+                List<LyDoTangGiamTaiSan> Ltemp = new List<LyDoTangGiamTaiSan>();
                 string search = txtMaSearch.Text.ToUpper();
-                foreach (NguonVon item in Ldata)
+                foreach (LyDoTangGiamTaiSan item in Ldata)
                 {
-                    if (item.MaNguonVon.ToUpper().Contains(search)) Ltemp.Add(item);
+                    if (item.MaLyDoTangGiamTaiSan.ToUpper().Contains(search)) Ltemp.Add(item);
                 }
                 DataGridView.DataSource = Ltemp.ToArray();
                 FixDataGirdView();
@@ -169,11 +168,11 @@ namespace VNA_Project.DANHMUC.NguonVonFolder
         {
             try
             {
-                List<NguonVon> Ltemp = new List<NguonVon>();
+                List<LyDoTangGiamTaiSan> Ltemp = new List<LyDoTangGiamTaiSan>();
                 string search = txtTenSearch.Text.ToUpper();
-                foreach (NguonVon item in Ldata)
+                foreach (LyDoTangGiamTaiSan item in Ldata)
                 {
-                    if (item.TenNguonVon.ToUpper().Contains(search)) Ltemp.Add(item);
+                    if (item.TenLyDoTangGiamTaiSan.ToUpper().Contains(search)) Ltemp.Add(item);
                 }
                 DataGridView.DataSource = Ltemp.ToArray();
                 FixDataGirdView();
@@ -182,6 +181,7 @@ namespace VNA_Project.DANHMUC.NguonVonFolder
             {
                 MSG.Error(ex);
             }
+        }
         }
     }
 }

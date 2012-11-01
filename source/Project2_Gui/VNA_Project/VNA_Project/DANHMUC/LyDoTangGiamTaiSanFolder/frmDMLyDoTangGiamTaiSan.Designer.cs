@@ -1,6 +1,6 @@
-﻿namespace VNA_Project.DANHMUC.NguonVonFolder
+﻿namespace VNA_Project.DANHMUC.LyDoTangGiamTaiSanFolder
 {
-    partial class frmDMNguonVon
+    partial class frmDMLyDoTangGiamTaiSan
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDMNguonVon));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDMLyDoTangGiamTaiSan));
             this.qRibbonCaption1 = new Qios.DevSuite.Components.Ribbon.QRibbonCaption();
             this.palRight = new Qios.DevSuite.Components.QPanel();
             this.btnThoat = new Qios.DevSuite.Components.QButton();
@@ -59,7 +59,7 @@
             this.qRibbonCaption1.Name = "qRibbonCaption1";
             this.qRibbonCaption1.Size = new System.Drawing.Size(794, 28);
             this.qRibbonCaption1.TabIndex = 0;
-            this.qRibbonCaption1.Text = "Danh Mục - Nguồn Vốn";
+            this.qRibbonCaption1.Text = "Danh Mục - Lý do tăng giảm tài sản cố định";
             // 
             // palRight
             // 
@@ -185,54 +185,54 @@
             // 
             // qMarkupLabel3
             // 
-            this.qMarkupLabel3.Location = new System.Drawing.Point(350, 45);
+            this.qMarkupLabel3.Location = new System.Drawing.Point(352, 54);
             this.qMarkupLabel3.MarkupText = "Tên";
             this.qMarkupLabel3.Name = "qMarkupLabel3";
             this.qMarkupLabel3.Size = new System.Drawing.Size(34, 15);
-            this.qMarkupLabel3.TabIndex = 4;
+            this.qMarkupLabel3.TabIndex = 9;
             // 
             // txtTenSearch
             // 
-            this.txtTenSearch.Location = new System.Drawing.Point(381, 43);
+            this.txtTenSearch.Location = new System.Drawing.Point(383, 52);
             this.txtTenSearch.Name = "txtTenSearch";
             this.txtTenSearch.Size = new System.Drawing.Size(275, 21);
-            this.txtTenSearch.TabIndex = 3;
+            this.txtTenSearch.TabIndex = 8;
             this.txtTenSearch.TextChanged += new System.EventHandler(this.txtTenSearch_TextChanged);
             // 
             // qMarkupLabel2
             // 
-            this.qMarkupLabel2.Location = new System.Drawing.Point(16, 45);
+            this.qMarkupLabel2.Location = new System.Drawing.Point(18, 54);
             this.qMarkupLabel2.MarkupText = "Mã";
             this.qMarkupLabel2.Name = "qMarkupLabel2";
             this.qMarkupLabel2.Size = new System.Drawing.Size(34, 15);
-            this.qMarkupLabel2.TabIndex = 2;
+            this.qMarkupLabel2.TabIndex = 7;
             // 
             // txtMaSearch
             // 
-            this.txtMaSearch.Location = new System.Drawing.Point(48, 42);
+            this.txtMaSearch.Location = new System.Drawing.Point(50, 51);
             this.txtMaSearch.Name = "txtMaSearch";
             this.txtMaSearch.Size = new System.Drawing.Size(275, 21);
-            this.txtMaSearch.TabIndex = 1;
+            this.txtMaSearch.TabIndex = 6;
             this.txtMaSearch.TextChanged += new System.EventHandler(this.txtMaSearch_TextChanged);
             // 
             // qMarkupLabel1
             // 
-            this.qMarkupLabel1.Location = new System.Drawing.Point(11, 9);
+            this.qMarkupLabel1.Location = new System.Drawing.Point(13, 18);
             this.qMarkupLabel1.MarkupText = "TÌM KIẾM";
             this.qMarkupLabel1.Name = "qMarkupLabel1";
             this.qMarkupLabel1.Size = new System.Drawing.Size(75, 15);
-            this.qMarkupLabel1.TabIndex = 0;
+            this.qMarkupLabel1.TabIndex = 5;
             // 
-            // frmDMNguonVon
+            // frmDMLyDoTangGiamTaiSan
             // 
             this.ClientSize = new System.Drawing.Size(794, 594);
             this.Controls.Add(this.palTop_Center);
             this.Controls.Add(this.palRight);
             this.Controls.Add(this.qRibbonCaption1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "frmDMNguonVon";
+            this.Name = "frmDMLyDoTangGiamTaiSan";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Danh Mục - Nguồn Vốn";
+            this.Text = "Danh Mục - Lý do tăng giảm tài sản cố định";
             this.Load += new System.EventHandler(this.frmLoad);
             ((System.ComponentModel.ISupportInitialize)(this.qRibbonCaption1)).EndInit();
             this.palRight.ResumeLayout(false);
