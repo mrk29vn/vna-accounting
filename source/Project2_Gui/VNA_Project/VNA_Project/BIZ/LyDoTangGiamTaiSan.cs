@@ -19,6 +19,7 @@ namespace VNA_Project.BIZ
             {
                 LyDoTangGiamTaiSan temp = new LyDoTangGiamTaiSan();
                 temp.LoaiTangGiamTaiSan = bool.Parse(dt.Rows[i]["LoaiTangGiamTaiSan"].ToString());
+                temp.LoaiTangGiamTaiSanVIEW = temp.LoaiTangGiamTaiSan ? "1" : "2";
                 temp.MaLyDoTangGiamTaiSan = dt.Rows[i]["MaLyDoTangGiamTaiSan"].ToString();
                 temp.TenLyDoTangGiamTaiSan = dt.Rows[i]["TenLyDoTangGiamTaiSan"].ToString();
                 kq.Add(temp);
@@ -28,13 +29,13 @@ namespace VNA_Project.BIZ
 
         public static int AddLyDoTangGiamTaiSan(LyDoTangGiamTaiSan input)
         {
-            string sql = "INSERT INTO [VNAAccounting].[dbo].[LyDoTangGiamTaiSan]([LoaiTangGiamTaiSan],[MaLyDoTangGiamTaiSan],[TenLyDoTangGiamTaiSan]) VALUES(" + input.LoaiTangGiamTaiSan + ",N'" + input.MaLyDoTangGiamTaiSan.ToUpper() + "',N'" + input.TenLyDoTangGiamTaiSan + "')";
+            string sql = "INSERT INTO [VNAAccounting].[dbo].[LyDoTangGiamTaiSan]([LoaiTangGiamTaiSan],[MaLyDoTangGiamTaiSan],[TenLyDoTangGiamTaiSan]) VALUES(" + (input.LoaiTangGiamTaiSan ? "1" : "0") + ",N'" + input.MaLyDoTangGiamTaiSan.ToUpper() + "',N'" + input.TenLyDoTangGiamTaiSan + "')";
             return DAL.CSDL.ThemSuaXoa(sql);
         }
 
         public static int EditLyDoTangGiamTaiSan(LyDoTangGiamTaiSan input)
         {
-            string sql = "UPDATE [VNAAccounting].[dbo].[LyDoTangGiamTaiSan] SET LoaiTangGiamTaiSan = " + input.LoaiTangGiamTaiSan + ", TenLyDoTangGiamTaiSan = N'" + input.TenLyDoTangGiamTaiSan + "' WHERE MaLyDoTangGiamTaiSan = N'" + input.MaLyDoTangGiamTaiSan.ToUpper() + "'";
+            string sql = "UPDATE [VNAAccounting].[dbo].[LyDoTangGiamTaiSan] SET LoaiTangGiamTaiSan = " + (input.LoaiTangGiamTaiSan ? "1" : "0") + ", TenLyDoTangGiamTaiSan = N'" + input.TenLyDoTangGiamTaiSan + "' WHERE MaLyDoTangGiamTaiSan = N'" + input.MaLyDoTangGiamTaiSan.ToUpper() + "'";
             return DAL.CSDL.ThemSuaXoa(sql);
         }
 

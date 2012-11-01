@@ -58,13 +58,20 @@ namespace VNA_Project.DANHMUC.LyDoTangGiamTaiSanFolder
             for (int j = 1; j < DataGridView.ColumnCount; j++) DataGridView.Columns[j].Visible = false;
             DataGridView.ReadOnly = true;
 
-            DataGridView.Columns["MaNguonVon"].HeaderText = "Mã nguồn vốn";
-            DataGridView.Columns["TenNguonVon"].HeaderText = "Tên nguồn vốn";
+            DataGridView.Columns["LoaiTangGiamTaiSanVIEW"].HeaderText = "Loại lý do tăng giảm tài sản";
+            DataGridView.Columns["MaLyDoTangGiamTaiSan"].HeaderText = "Mã lý do tăng giảm tài sản";
+            DataGridView.Columns["TenLyDoTangGiamTaiSan"].HeaderText = "Tên tên lý do tăng giảm tài sản";
 
-            DataGridView.Columns["MaNguonVon"].Visible = true;
-            DataGridView.Columns["TenNguonVon"].Visible = true;
+            DataGridView.Columns["LoaiTangGiamTaiSan"].Visible = false;
+            DataGridView.Columns["LoaiTangGiamTaiSanVIEW"].Visible = true;
+            DataGridView.Columns["MaLyDoTangGiamTaiSan"].Visible = true;
+            DataGridView.Columns["TenLyDoTangGiamTaiSan"].Visible = true;
 
-            DataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            DataGridView.Columns["LoaiTangGiamTaiSanVIEW"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+            DataGridView.Columns["MaLyDoTangGiamTaiSan"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+            DataGridView.Columns["TenLyDoTangGiamTaiSan"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            DataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
             DataGridView.AllowUserToAddRows = false;
             DataGridView.AllowUserToDeleteRows = false;
             DataGridView.AllowUserToResizeRows = false;

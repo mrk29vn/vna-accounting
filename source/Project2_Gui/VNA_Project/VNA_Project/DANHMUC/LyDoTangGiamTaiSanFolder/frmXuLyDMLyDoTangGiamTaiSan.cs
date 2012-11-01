@@ -31,6 +31,7 @@ namespace VNA_Project.DANHMUC.LyDoTangGiamTaiSanFolder
                 txtMaNguonVon.Text = temp.MaLyDoTangGiamTaiSan;
                 txtMaNguonVon.Enabled = false;
                 txtTenNguonVon.Text = temp.TenLyDoTangGiamTaiSan;
+                cbbLoaiTangGiamTaiSan.SelectedIndex = temp.LoaiTangGiamTaiSan ? 0 : 1;
             }
             catch { }
         }
@@ -40,6 +41,8 @@ namespace VNA_Project.DANHMUC.LyDoTangGiamTaiSanFolder
             if (Them)
             {//Thêm
                 LyDoTangGiamTaiSan temp = new LyDoTangGiamTaiSan();
+                temp.LoaiTangGiamTaiSan = cbbLoaiTangGiamTaiSan.SelectedIndex == 0 ? true : false;
+                temp.LoaiTangGiamTaiSanVIEW = temp.LoaiTangGiamTaiSan ? "1" : "2";
                 temp.MaLyDoTangGiamTaiSan = txtMaNguonVon.Text;
                 temp.TenLyDoTangGiamTaiSan = txtTenNguonVon.Text;
 
@@ -52,6 +55,8 @@ namespace VNA_Project.DANHMUC.LyDoTangGiamTaiSanFolder
             else
             {//Sửa
                 LyDoTangGiamTaiSan temp = new LyDoTangGiamTaiSan();
+                temp.LoaiTangGiamTaiSan = cbbLoaiTangGiamTaiSan.SelectedIndex == 0 ? true : false;
+                temp.LoaiTangGiamTaiSanVIEW = temp.LoaiTangGiamTaiSan ? "1" : "2";
                 temp.MaLyDoTangGiamTaiSan = txtMaNguonVon.Text;
                 temp.TenLyDoTangGiamTaiSan = txtTenNguonVon.Text;
                 int kq = LyDoTangGiamTaiSanBiz.EditLyDoTangGiamTaiSan(temp);
@@ -68,7 +73,7 @@ namespace VNA_Project.DANHMUC.LyDoTangGiamTaiSanFolder
 
         bool CheckLoi(LyDoTangGiamTaiSan data)
         {
-            bool kq = false;
+            bool kq = true;
             //mã lý do tăng giảm tài sản rỗng
             if (string.IsNullOrEmpty(data.MaLyDoTangGiamTaiSan))
             {

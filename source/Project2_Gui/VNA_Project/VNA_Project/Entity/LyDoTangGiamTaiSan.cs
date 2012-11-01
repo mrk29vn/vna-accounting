@@ -10,7 +10,8 @@ namespace VNA_Project.Entity
     {
         public LyDoTangGiamTaiSan() { }
 
-        bool loaiTangGiamTaiSan = false;
+        bool loaiTangGiamTaiSan = true;
+        string loaiTangGiamTaiSanVIEW = "1";
         string maLyDoTangGiamTaiSan = string.Empty;
         string tenLyDoTangGiamTaiSan = string.Empty;
 
@@ -18,6 +19,11 @@ namespace VNA_Project.Entity
         {
             get { return loaiTangGiamTaiSan; }
             set { loaiTangGiamTaiSan = value; }
+        }
+        public string LoaiTangGiamTaiSanVIEW
+        {
+            get { return loaiTangGiamTaiSanVIEW; }
+            set { loaiTangGiamTaiSanVIEW = value; }
         }
         public string MaLyDoTangGiamTaiSan
         {

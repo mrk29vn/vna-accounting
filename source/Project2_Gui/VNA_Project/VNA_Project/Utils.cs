@@ -70,6 +70,7 @@ namespace VNA_Project
         public static LyDoTangGiamTaiSan DataGridViewRow_to_LyDoTangGiamTaiSan(System.Windows.Forms.DataGridViewRow Input)
         {
             LyDoTangGiamTaiSan kq = new LyDoTangGiamTaiSan();
+            //1- tăng tài sản (TRUE), 2- giảm tài sản (FALSE)
             kq.LoaiTangGiamTaiSan = bool.Parse(Input.Cells["LoaiTangGiamTaiSan"].Value.ToString());
             kq.MaLyDoTangGiamTaiSan = Input.Cells["MaLyDoTangGiamTaiSan"].Value.ToString();
             kq.TenLyDoTangGiamTaiSan = Input.Cells["TenLyDoTangGiamTaiSan"].Value.ToString();
