@@ -314,6 +314,7 @@
             this.btnDMThietBi.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDMThietBi.Icon = ((System.Drawing.Icon)(resources.GetObject("btnDMThietBi.Icon")));
             this.btnDMThietBi.Title = "Thiết bị";
+            this.btnDMThietBi.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.btnDMThietBi_ItemActivated);
             // 
             // palDMBoPhanSDTSCD
             // 
@@ -328,6 +329,7 @@
             this.btnDMBoPhanSDTSCD.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDMBoPhanSDTSCD.Icon = ((System.Drawing.Icon)(resources.GetObject("btnDMBoPhanSDTSCD.Icon")));
             this.btnDMBoPhanSDTSCD.Title = "Bộ phận SD TSCĐ";
+            this.btnDMBoPhanSDTSCD.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.btnDMBoPhanSDTSCD_ItemActivated);
             // 
             // rPageNGHIEPVU
             // 

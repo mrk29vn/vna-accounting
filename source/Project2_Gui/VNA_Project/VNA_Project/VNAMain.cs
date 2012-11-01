@@ -41,5 +41,17 @@ namespace VNA_Project
             VNA_Project.DANHMUC.PhanNhomTaiSanFolder.frmDMPhanNhomTaiSan frm = new DANHMUC.PhanNhomTaiSanFolder.frmDMPhanNhomTaiSan();
             frm.ShowDialog();
         }
+
+        private void btnDMThietBi_ItemActivated(object sender, QCompositeEventArgs e)
+        {
+            VNA_Project.DANHMUC.ThietBiFolder.frmDMThietBi frm = new DANHMUC.ThietBiFolder.frmDMThietBi();
+            frm.ShowDialog();
+        }
+
+        private void btnDMBoPhanSDTSCD_ItemActivated(object sender, QCompositeEventArgs e)
+        {
+            VNA_Project.DANHMUC.BoPhanSuDungFolder.frmDMBoPhanSuDung frm = new DANHMUC.BoPhanSuDungFolder.frmDMBoPhanSuDung();
+            frm.ShowDialog();
+        }
     }
 }

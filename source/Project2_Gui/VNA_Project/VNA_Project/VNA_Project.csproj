@@ -49,6 +49,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BIZ\Account.cs" />
+    <Compile Include="BIZ\BoPhanSuDung.cs" />
+    <Compile Include="BIZ\ThietBi.cs" />
     <Compile Include="BIZ\PhanNhomTaiSan.cs" />
     <Compile Include="BIZ\LoaiTaiSan.cs" />
     <Compile Include="BIZ\LyDoTangGiamTaiSan.cs" />
@@ -57,6 +59,18 @@
     <Compile Include="BIZ\Permission.cs" />
     <Compile Include="BIZ\PermissionDetail.cs" />
     <Compile Include="DAL\CSDL.cs" />
+    <Compile Include="DANHMUC\BoPhanSuDungFolder\frmDMBoPhanSuDung.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DANHMUC\BoPhanSuDungFolder\frmDMBoPhanSuDung.Designer.cs">
+      <DependentUpon>frmDMBoPhanSuDung.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DANHMUC\BoPhanSuDungFolder\frmXuLyDMBoPhanSuDung.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DANHMUC\BoPhanSuDungFolder\frmXuLyDMBoPhanSuDung.Designer.cs">
+      <DependentUpon>frmXuLyDMBoPhanSuDung.cs</DependentUpon>
+    </Compile>
     <Compile Include="DANHMUC\LoaiTaiSanFolder\frmDMLoaiTaiSan.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -105,6 +119,18 @@
     <Compile Include="DANHMUC\PhanNhomTaiSanFolder\frmXuLyDMPhanNhomTaiSan.Designer.cs">
       <DependentUpon>frmXuLyDMPhanNhomTaiSan.cs</DependentUpon>
     </Compile>
+    <Compile Include="DANHMUC\ThietBiFolder\frmDMThietBi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DANHMUC\ThietBiFolder\frmDMThietBi.Designer.cs">
+      <DependentUpon>frmDMThietBi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DANHMUC\ThietBiFolder\frmXuLyDMThietBi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DANHMUC\ThietBiFolder\frmXuLyDMThietBi.Designer.cs">
+      <DependentUpon>frmXuLyDMThietBi.cs</DependentUpon>
+    </Compile>
     <Compile Include="Entity\Account.cs" />
     <Compile Include="Entity\BoPhanSuDung.cs" />
     <Compile Include="Entity\ThietBi.cs" />
@@ -124,6 +150,12 @@
     <Compile Include="VNAMain.Designer.cs">
       <DependentUpon>VNAMain.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="DANHMUC\BoPhanSuDungFolder\frmDMBoPhanSuDung.resx">
+      <DependentUpon>frmDMBoPhanSuDung.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DANHMUC\BoPhanSuDungFolder\frmXuLyDMBoPhanSuDung.resx">
+      <DependentUpon>frmXuLyDMBoPhanSuDung.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DANHMUC\LoaiTaiSanFolder\frmDMLoaiTaiSan.resx">
       <DependentUpon>frmDMLoaiTaiSan.cs</DependentUpon>
     </EmbeddedResource>
@@ -147,6 +179,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DANHMUC\PhanNhomTaiSanFolder\frmXuLyDMPhanNhomTaiSan.resx">
       <DependentUpon>frmXuLyDMPhanNhomTaiSan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DANHMUC\ThietBiFolder\frmDMThietBi.resx">
+      <DependentUpon>frmDMThietBi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DANHMUC\ThietBiFolder\frmXuLyDMThietBi.resx">
+      <DependentUpon>frmXuLyDMThietBi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -91,6 +91,20 @@ namespace VNA_Project
             kq.KieuPhanNhomTaiSan = Input.Cells["KieuPhanNhomTaiSan"].Value.ToString();
             return kq;
         }
+        public static ThietBi DataGridViewRow_to_ThietBi(System.Windows.Forms.DataGridViewRow Input)
+        {
+            ThietBi kq = new ThietBi();
+            kq.MaThietBi = Input.Cells["MaThietBi"].Value.ToString();
+            kq.TenThietBi = Input.Cells["TenThietBi"].Value.ToString();
+            return kq;
+        }
+        public static BoPhanSuDung DataGridViewRow_to_BoPhanSuDung(System.Windows.Forms.DataGridViewRow Input)
+        {
+            BoPhanSuDung kq = new BoPhanSuDung();
+            kq.MaBoPhanSuDung = Input.Cells["MaBoPhanSuDung"].Value.ToString();
+            kq.TenBoPhanSuDung = Input.Cells["TenBoPhanSuDung"].Value.ToString();
+            return kq;
+        }
         #endregion
     }
 
