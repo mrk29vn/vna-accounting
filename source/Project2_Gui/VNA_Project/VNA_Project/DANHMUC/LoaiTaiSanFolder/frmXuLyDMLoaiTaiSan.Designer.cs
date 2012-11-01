@@ -1,6 +1,6 @@
-﻿namespace VNA_Project.DANHMUC.NguonVonFolder
+﻿namespace VNA_Project.DANHMUC.LoaiTaiSanFolder
 {
-    partial class frmXuLyDMNguonVon
+    partial class frmXuLyDMLoaiTaiSan
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmXuLyDMNguonVon));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmXuLyDMLoaiTaiSan));
             this.qRibbonCaption1 = new Qios.DevSuite.Components.Ribbon.QRibbonCaption();
             this.palRight = new Qios.DevSuite.Components.QPanel();
             this.btnThoat = new Qios.DevSuite.Components.QButton();
@@ -50,7 +50,7 @@
             this.qRibbonCaption1.Name = "qRibbonCaption1";
             this.qRibbonCaption1.Size = new System.Drawing.Size(794, 28);
             this.qRibbonCaption1.TabIndex = 0;
-            this.qRibbonCaption1.Text = "Danh Mục - Nguồn Vốn";
+            this.qRibbonCaption1.Text = "Danh Mục - Loại tài sản";
             // 
             // palRight
             // 
@@ -127,7 +127,7 @@
             // qMarkupLabel2
             // 
             this.qMarkupLabel2.Location = new System.Drawing.Point(46, 103);
-            this.qMarkupLabel2.MarkupText = "Tên nguồn vốn:";
+            this.qMarkupLabel2.MarkupText = "Tên loại tài sản:";
             this.qMarkupLabel2.Name = "qMarkupLabel2";
             this.qMarkupLabel2.Size = new System.Drawing.Size(96, 15);
             this.qMarkupLabel2.TabIndex = 1;
@@ -135,21 +135,21 @@
             // qMarkupLabel1
             // 
             this.qMarkupLabel1.Location = new System.Drawing.Point(46, 65);
-            this.qMarkupLabel1.MarkupText = "Mã nguồn vốn:";
+            this.qMarkupLabel1.MarkupText = "Mã loại tài sản:";
             this.qMarkupLabel1.Name = "qMarkupLabel1";
             this.qMarkupLabel1.Size = new System.Drawing.Size(96, 15);
             this.qMarkupLabel1.TabIndex = 0;
             // 
-            // frmXuLyDMNguonVon
+            // frmXuLyDMLoaiTaiSan
             // 
             this.ClientSize = new System.Drawing.Size(794, 594);
             this.Controls.Add(this.palTop_Center);
             this.Controls.Add(this.palRight);
             this.Controls.Add(this.qRibbonCaption1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "frmXuLyDMNguonVon";
+            this.Name = "frmXuLyDMLoaiTaiSan";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Danh Mục - Nguồn Vốn";
+            this.Text = "Danh Mục - Loại tài sản";
             ((System.ComponentModel.ISupportInitialize)(this.qRibbonCaption1)).EndInit();
             this.palRight.ResumeLayout(false);
             this.palTop_Center.ResumeLayout(false);

@@ -284,6 +284,7 @@
             this.btnDMLoaiTS.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDMLoaiTS.Icon = ((System.Drawing.Icon)(resources.GetObject("btnDMLoaiTS.Icon")));
             this.btnDMLoaiTS.Title = "Loại TS";
+            this.btnDMLoaiTS.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.btnDMLoaiTS_ItemActivated);
             // 
             // palDMPhanNhomTS
             // 

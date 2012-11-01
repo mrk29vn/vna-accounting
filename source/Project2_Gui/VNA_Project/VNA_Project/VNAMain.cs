@@ -65,5 +65,11 @@ namespace VNA_Project
             VNA_Project.DANHMUC.LyDoTangGiamTaiSanFolder.frmDMLyDoTangGiamTaiSan frm = new DANHMUC.LyDoTangGiamTaiSanFolder.frmDMLyDoTangGiamTaiSan();
             frm.ShowDialog();
         }
+
+        private void btnDMLoaiTS_ItemActivated(object sender, QCompositeEventArgs e)
+        {
+            VNA_Project.DANHMUC.LoaiTaiSanFolder.frmDMLoaiTaiSan frm = new DANHMUC.LoaiTaiSanFolder.frmDMLoaiTaiSan();
+            frm.ShowDialog();
+        }
     }
 }

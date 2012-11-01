@@ -9,28 +9,28 @@ using VNA_Project.Entity;
 using VNA_Project.BIZ;
 using Qios.DevSuite.Components;
 
-namespace VNA_Project.DANHMUC.NguonVonFolder
+namespace VNA_Project.DANHMUC.LoaiTaiSanFolder
 {
-    public partial class frmXuLyDMNguonVon : Qios.DevSuite.Components.Ribbon.QRibbonForm
+    public partial class frmXuLyDMLoaiTaiSan : Qios.DevSuite.Components.Ribbon.QRibbonForm
     {
         #region khai báo
         bool Them = true;
         #endregion
 
-        public frmXuLyDMNguonVon()
+        public frmXuLyDMLoaiTaiSan()
         {//Thêm
             InitializeComponent();
         }
-        public frmXuLyDMNguonVon(DataGridViewRow dgvr)
+        public frmXuLyDMLoaiTaiSan(DataGridViewRow dgvr)
         {//Sửa
             InitializeComponent();
             try
             {
                 Them = false;
-                NguonVon temp = Utils.DataGridViewRow_to_NguonVon(dgvr);
-                txtMa.Text = temp.MaNguonVon;
+                LoaiTaiSan temp = Utils.DataGridViewRow_to_LoaiTaiSan(dgvr);
+                txtMa.Text = temp.MaLoaiTaiSan;
                 txtMa.Enabled = false;
-                txtTen.Text = temp.TenNguonVon;
+                txtTen.Text = temp.TenLoaiTaiSan;
             }
             catch { }
         }
@@ -39,22 +39,22 @@ namespace VNA_Project.DANHMUC.NguonVonFolder
         {
             if (Them)
             {//Thêm
-                NguonVon temp = new NguonVon();
-                temp.MaNguonVon = txtMa.Text;
-                temp.TenNguonVon = txtTen.Text;
+                LoaiTaiSan temp = new LoaiTaiSan();
+                temp.MaLoaiTaiSan = txtMa.Text;
+                temp.TenLoaiTaiSan = txtTen.Text;
 
                 if (!CheckLoi(temp)) return;
 
-                int kq = NguonVonBiz.AddNguonVon(temp);
+                int kq = LoaiTaiSanBiz.AddLoaiTaiSan(temp);
                 if (kq > 0) MSG.ThemThanhCong();
                 else MSG.ThemThatBai();
             }
             else
             {//Sửa
-                NguonVon temp = new NguonVon();
-                temp.MaNguonVon = txtMa.Text;
-                temp.TenNguonVon = txtTen.Text;
-                int kq = NguonVonBiz.EditNguonVon(temp);
+                LoaiTaiSan temp = new LoaiTaiSan();
+                temp.MaLoaiTaiSan = txtMa.Text;
+                temp.TenLoaiTaiSan = txtTen.Text;
+                int kq = LoaiTaiSanBiz.EditLoaiTaiSan(temp);
                 if (kq > 0) MSG.SuaThanhCong();
                 else MSG.SuaThatBai();
             }
@@ -66,22 +66,22 @@ namespace VNA_Project.DANHMUC.NguonVonFolder
             this.Close();
         }
 
-        bool CheckLoi(NguonVon data)
+        bool CheckLoi(LoaiTaiSan data)
         {
             bool kq = true;
-            //mã nguồn vốn rỗng
-            if (string.IsNullOrEmpty(data.MaNguonVon))
+            //mã loại tài sản rỗng
+            if (string.IsNullOrEmpty(data.MaLoaiTaiSan))
             {
-                MSG.ErrorStand("Bạn chưa nhập mã nguồn vốn!");
+                MSG.ErrorStand("Bạn chưa nhập mã loại tài sản!");
                 txtMa.Focus();
                 return false;
             }
-            //mã nguồn vốn đã có trong cơ sở dữ liệu
-            foreach (NguonVon item in frmDMNguonVon.Ldata)
+            //mã loại tài sản đã có trong cơ sở dữ liệu
+            foreach (LoaiTaiSan item in frmDMLoaiTaiSan.Ldata)
             {
-                if (item.MaNguonVon.ToUpper().Equals(txtMa.Text.ToUpper()))
+                if (item.MaLoaiTaiSan.ToUpper().Equals(txtMa.Text.ToUpper()))
                 {
-                    MSG.ErrorStand("Mã nguồn vốn đã có trong cơ sở dữ liệu!");
+                    MSG.ErrorStand("Mã loại tài sản đã có trong cơ sở dữ liệu!");
                     txtMa.Focus();
                     return false;
                 }

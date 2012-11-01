@@ -28,9 +28,9 @@ namespace VNA_Project.DANHMUC.LyDoTangGiamTaiSanFolder
             {
                 Them = false;
                 LyDoTangGiamTaiSan temp = Utils.DataGridViewRow_to_LyDoTangGiamTaiSan(dgvr);
-                txtMaNguonVon.Text = temp.MaLyDoTangGiamTaiSan;
-                txtMaNguonVon.Enabled = false;
-                txtTenNguonVon.Text = temp.TenLyDoTangGiamTaiSan;
+                txtMa.Text = temp.MaLyDoTangGiamTaiSan;
+                txtMa.Enabled = false;
+                txtTen.Text = temp.TenLyDoTangGiamTaiSan;
                 cbbLoaiTangGiamTaiSan.SelectedIndex = temp.LoaiTangGiamTaiSan ? 0 : 1;
             }
             catch { }
@@ -43,8 +43,8 @@ namespace VNA_Project.DANHMUC.LyDoTangGiamTaiSanFolder
                 LyDoTangGiamTaiSan temp = new LyDoTangGiamTaiSan();
                 temp.LoaiTangGiamTaiSan = cbbLoaiTangGiamTaiSan.SelectedIndex == 0 ? true : false;
                 temp.LoaiTangGiamTaiSanVIEW = temp.LoaiTangGiamTaiSan ? "1" : "2";
-                temp.MaLyDoTangGiamTaiSan = txtMaNguonVon.Text;
-                temp.TenLyDoTangGiamTaiSan = txtTenNguonVon.Text;
+                temp.MaLyDoTangGiamTaiSan = txtMa.Text;
+                temp.TenLyDoTangGiamTaiSan = txtTen.Text;
 
                 if (!CheckLoi(temp)) return;
 
@@ -57,8 +57,8 @@ namespace VNA_Project.DANHMUC.LyDoTangGiamTaiSanFolder
                 LyDoTangGiamTaiSan temp = new LyDoTangGiamTaiSan();
                 temp.LoaiTangGiamTaiSan = cbbLoaiTangGiamTaiSan.SelectedIndex == 0 ? true : false;
                 temp.LoaiTangGiamTaiSanVIEW = temp.LoaiTangGiamTaiSan ? "1" : "2";
-                temp.MaLyDoTangGiamTaiSan = txtMaNguonVon.Text;
-                temp.TenLyDoTangGiamTaiSan = txtTenNguonVon.Text;
+                temp.MaLyDoTangGiamTaiSan = txtMa.Text;
+                temp.TenLyDoTangGiamTaiSan = txtTen.Text;
                 int kq = LyDoTangGiamTaiSanBiz.EditLyDoTangGiamTaiSan(temp);
                 if (kq > 0) MSG.SuaThanhCong();
                 else MSG.SuaThatBai();
@@ -78,16 +78,16 @@ namespace VNA_Project.DANHMUC.LyDoTangGiamTaiSanFolder
             if (string.IsNullOrEmpty(data.MaLyDoTangGiamTaiSan))
             {
                 MSG.ErrorStand("Bạn chưa nhập mã lý do tăng giảm tài sản!");
-                txtMaNguonVon.Focus();
+                txtMa.Focus();
                 return false;
             }
             //mã lý do tăng giảm tài sản đã có trong cơ sở dữ liệu
             foreach (LyDoTangGiamTaiSan item in frmDMLyDoTangGiamTaiSan.Ldata)
             {
-                if (item.MaLyDoTangGiamTaiSan.ToUpper().Equals(txtMaNguonVon.Text.ToUpper()))
+                if (item.MaLyDoTangGiamTaiSan.ToUpper().Equals(txtMa.Text.ToUpper()))
                 {
                     MSG.ErrorStand("Mã lý do tăng giảm tài sản đã có trong cơ sở dữ liệu!");
-                    txtMaNguonVon.Focus();
+                    txtMa.Focus();
                     return false;
                 }
             }

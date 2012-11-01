@@ -35,13 +35,13 @@
             this.qsButton = new Qios.DevSuite.Components.QShape();
             this.btnDongY = new Qios.DevSuite.Components.QButton();
             this.palTop_Center = new Qios.DevSuite.Components.QPanel();
-            this.txtTenNguonVon = new Qios.DevSuite.Components.QTextBox();
-            this.txtMaNguonVon = new Qios.DevSuite.Components.QTextBox();
+            this.qMarkupLabel4 = new Qios.DevSuite.Components.QMarkupLabel();
+            this.cbbLoaiTangGiamTaiSan = new Qios.DevSuite.Components.QComboBox();
+            this.qMarkupLabel3 = new Qios.DevSuite.Components.QMarkupLabel();
+            this.txtTen = new Qios.DevSuite.Components.QTextBox();
+            this.txtMa = new Qios.DevSuite.Components.QTextBox();
             this.qMarkupLabel2 = new Qios.DevSuite.Components.QMarkupLabel();
             this.qMarkupLabel1 = new Qios.DevSuite.Components.QMarkupLabel();
-            this.qMarkupLabel3 = new Qios.DevSuite.Components.QMarkupLabel();
-            this.cbbLoaiTangGiamTaiSan = new Qios.DevSuite.Components.QComboBox();
-            this.qMarkupLabel4 = new Qios.DevSuite.Components.QMarkupLabel();
             ((System.ComponentModel.ISupportInitialize)(this.qRibbonCaption1)).BeginInit();
             this.palRight.SuspendLayout();
             this.palTop_Center.SuspendLayout();
@@ -105,8 +105,8 @@
             this.palTop_Center.Controls.Add(this.qMarkupLabel4);
             this.palTop_Center.Controls.Add(this.cbbLoaiTangGiamTaiSan);
             this.palTop_Center.Controls.Add(this.qMarkupLabel3);
-            this.palTop_Center.Controls.Add(this.txtTenNguonVon);
-            this.palTop_Center.Controls.Add(this.txtMaNguonVon);
+            this.palTop_Center.Controls.Add(this.txtTen);
+            this.palTop_Center.Controls.Add(this.txtMa);
             this.palTop_Center.Controls.Add(this.qMarkupLabel2);
             this.palTop_Center.Controls.Add(this.qMarkupLabel1);
             this.palTop_Center.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -116,19 +116,48 @@
             this.palTop_Center.TabIndex = 2;
             this.palTop_Center.Text = "qPanel2";
             // 
-            // txtTenNguonVon
+            // qMarkupLabel4
             // 
-            this.txtTenNguonVon.Location = new System.Drawing.Point(185, 166);
-            this.txtTenNguonVon.Name = "txtTenNguonVon";
-            this.txtTenNguonVon.Size = new System.Drawing.Size(460, 21);
-            this.txtTenNguonVon.TabIndex = 3;
+            this.qMarkupLabel4.Location = new System.Drawing.Point(257, 76);
+            this.qMarkupLabel4.MarkupText = "1 - Tăng tài sản, 2- Giảm tài sản";
+            this.qMarkupLabel4.Name = "qMarkupLabel4";
+            this.qMarkupLabel4.Size = new System.Drawing.Size(194, 15);
+            this.qMarkupLabel4.TabIndex = 6;
             // 
-            // txtMaNguonVon
+            // cbbLoaiTangGiamTaiSan
             // 
-            this.txtMaNguonVon.Location = new System.Drawing.Point(185, 127);
-            this.txtMaNguonVon.Name = "txtMaNguonVon";
-            this.txtMaNguonVon.Size = new System.Drawing.Size(460, 21);
-            this.txtMaNguonVon.TabIndex = 2;
+            this.cbbLoaiTangGiamTaiSan.Items.AddRange(new object[] {
+            "1",
+            "2"});
+            this.cbbLoaiTangGiamTaiSan.Location = new System.Drawing.Point(185, 71);
+            this.cbbLoaiTangGiamTaiSan.Name = "cbbLoaiTangGiamTaiSan";
+            this.cbbLoaiTangGiamTaiSan.SelectedIndex = 0;
+            this.cbbLoaiTangGiamTaiSan.SelectedItem = "1";
+            this.cbbLoaiTangGiamTaiSan.Size = new System.Drawing.Size(47, 21);
+            this.cbbLoaiTangGiamTaiSan.TabIndex = 5;
+            this.cbbLoaiTangGiamTaiSan.Text = "1";
+            // 
+            // qMarkupLabel3
+            // 
+            this.qMarkupLabel3.Location = new System.Drawing.Point(19, 76);
+            this.qMarkupLabel3.MarkupText = "Loại tăng giảm tài sản:";
+            this.qMarkupLabel3.Name = "qMarkupLabel3";
+            this.qMarkupLabel3.Size = new System.Drawing.Size(153, 15);
+            this.qMarkupLabel3.TabIndex = 4;
+            // 
+            // txtTen
+            // 
+            this.txtTen.Location = new System.Drawing.Point(185, 166);
+            this.txtTen.Name = "txtTen";
+            this.txtTen.Size = new System.Drawing.Size(460, 21);
+            this.txtTen.TabIndex = 3;
+            // 
+            // txtMa
+            // 
+            this.txtMa.Location = new System.Drawing.Point(185, 127);
+            this.txtMa.Name = "txtMa";
+            this.txtMa.Size = new System.Drawing.Size(460, 21);
+            this.txtMa.TabIndex = 2;
             // 
             // qMarkupLabel2
             // 
@@ -145,35 +174,6 @@
             this.qMarkupLabel1.Name = "qMarkupLabel1";
             this.qMarkupLabel1.Size = new System.Drawing.Size(153, 15);
             this.qMarkupLabel1.TabIndex = 0;
-            // 
-            // qMarkupLabel3
-            // 
-            this.qMarkupLabel3.Location = new System.Drawing.Point(19, 76);
-            this.qMarkupLabel3.MarkupText = "Loại tăng giảm tài sản:";
-            this.qMarkupLabel3.Name = "qMarkupLabel3";
-            this.qMarkupLabel3.Size = new System.Drawing.Size(153, 15);
-            this.qMarkupLabel3.TabIndex = 4;
-            // 
-            // cbbLoaiTangGiamTaiSan
-            // 
-            this.cbbLoaiTangGiamTaiSan.Items.AddRange(new object[] {
-            "1",
-            "2"});
-            this.cbbLoaiTangGiamTaiSan.Location = new System.Drawing.Point(185, 71);
-            this.cbbLoaiTangGiamTaiSan.Name = "cbbLoaiTangGiamTaiSan";
-            this.cbbLoaiTangGiamTaiSan.SelectedIndex = 0;
-            this.cbbLoaiTangGiamTaiSan.SelectedItem = "1";
-            this.cbbLoaiTangGiamTaiSan.Size = new System.Drawing.Size(47, 21);
-            this.cbbLoaiTangGiamTaiSan.TabIndex = 5;
-            this.cbbLoaiTangGiamTaiSan.Text = "1";
-            // 
-            // qMarkupLabel4
-            // 
-            this.qMarkupLabel4.Location = new System.Drawing.Point(257, 76);
-            this.qMarkupLabel4.MarkupText = "1 - Tăng tài sản, 2- Giảm tài sản";
-            this.qMarkupLabel4.Name = "qMarkupLabel4";
-            this.qMarkupLabel4.Size = new System.Drawing.Size(194, 15);
-            this.qMarkupLabel4.TabIndex = 6;
             // 
             // frmXuLyDMLyDoTangGiamTaiSan
             // 
@@ -201,8 +201,8 @@
         private Qios.DevSuite.Components.QButton btnDongY;
         private Qios.DevSuite.Components.QShape qsButton;
         private Qios.DevSuite.Components.QMarkupLabel qMarkupLabel1;
-        private Qios.DevSuite.Components.QTextBox txtTenNguonVon;
-        private Qios.DevSuite.Components.QTextBox txtMaNguonVon;
+        private Qios.DevSuite.Components.QTextBox txtTen;
+        private Qios.DevSuite.Components.QTextBox txtMa;
         private Qios.DevSuite.Components.QMarkupLabel qMarkupLabel2;
         private Qios.DevSuite.Components.QComboBox cbbLoaiTangGiamTaiSan;
         private Qios.DevSuite.Components.QMarkupLabel qMarkupLabel3;

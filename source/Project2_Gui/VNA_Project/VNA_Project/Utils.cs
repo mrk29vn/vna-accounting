@@ -76,6 +76,13 @@ namespace VNA_Project
             kq.TenLyDoTangGiamTaiSan = Input.Cells["TenLyDoTangGiamTaiSan"].Value.ToString();
             return kq;
         }
+        public static LoaiTaiSan DataGridViewRow_to_LoaiTaiSan(System.Windows.Forms.DataGridViewRow Input)
+        {
+            LoaiTaiSan kq = new LoaiTaiSan();
+            kq.MaLoaiTaiSan = Input.Cells["MaLoaiTaiSan"].Value.ToString();
+            kq.TenLoaiTaiSan = Input.Cells["TenLoaiTaiSan"].Value.ToString();
+            return kq;
+        }
         #endregion
     }
 
