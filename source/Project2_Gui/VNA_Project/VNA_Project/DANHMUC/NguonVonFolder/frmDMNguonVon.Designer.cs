@@ -154,10 +154,14 @@
             this.DataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DataGridView.Location = new System.Drawing.Point(0, 0);
+            this.DataGridView.MultiSelect = false;
             this.DataGridView.Name = "DataGridView";
             this.DataGridView.ReadOnly = true;
+            this.DataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DataGridView.Size = new System.Drawing.Size(670, 469);
             this.DataGridView.TabIndex = 0;
+            this.DataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellClick);
+            this.DataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellDoubleClick);
             // 
             // palTop
             // 
@@ -178,7 +182,7 @@
             this.Name = "frmDMNguonVon";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Danh Mục - Nguồn Vốn";
-            this.Load += new System.EventHandler(this.frmDMNguonVon_Load);
+            this.Load += new System.EventHandler(this.frmLoad);
             ((System.ComponentModel.ISupportInitialize)(this.qRibbonCaption1)).EndInit();
             this.palRight.ResumeLayout(false);
             this.palTop_Center.ResumeLayout(false);

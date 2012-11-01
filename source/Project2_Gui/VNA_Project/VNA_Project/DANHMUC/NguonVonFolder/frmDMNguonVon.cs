@@ -14,7 +14,8 @@ namespace VNA_Project.DANHMUC.NguonVonFolder
     public partial class frmDMNguonVon : Qios.DevSuite.Components.Ribbon.QRibbonForm
     {
         #region khai báo
-        List<NguonVon> Ldata = new List<NguonVon>();
+        public static List<NguonVon> Ldata = new List<NguonVon>();
+        int vtIndex = 0;    //vị trí dòng cell đang được chọn trong datagridview
         #endregion
 
         public frmDMNguonVon()
@@ -22,30 +23,24 @@ namespace VNA_Project.DANHMUC.NguonVonFolder
             InitializeComponent();
         }
 
-        private void frmDMNguonVon_Load(object sender, EventArgs e)
+        private void frmLoad(object sender, EventArgs e)
         {
-            try
-            {
-                //Ldata = NguonVonBiz.getListNguonVon();
-                //DataGridView.DataSource = Ldata.ToArray();
-                //FixDataGirdView();
-            }
-            catch { }
+            HienThi();
         }
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-            //
+            Them();
         }
 
         private void btnSua_Click(object sender, EventArgs e)
         {
-            //
+            Sua();
         }
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
-            //
+            Xoa();
         }
 
         private void btnThoat_Click(object sender, EventArgs e)
@@ -76,5 +71,74 @@ namespace VNA_Project.DANHMUC.NguonVonFolder
             DataGridView.RowHeadersVisible = false;
         }
         #endregion
+
+        #region Nghiệp vụ
+        private void HienThi()
+        {
+            Ldata = NguonVonBiz.getListNguonVon();
+            DataGridView.DataSource = Ldata.ToArray();
+            FixDataGirdView();
+        }
+        private void Them()
+        {
+            try
+            {
+                frmXuLyDMNguonVon frm = new frmXuLyDMNguonVon();
+                frm.StartPosition = FormStartPosition.CenterScreen;
+                frm.ShowDialog();
+                HienThi();
+                DataGridView.Rows[vtIndex].Selected = true;
+            }
+            catch (Exception ex)
+            {
+                MSG.Error(ex);
+            }
+        }
+        private void Sua()
+        {
+            try
+            {
+                if (vtIndex != -1)  //khi click lên tiêu đề header của datagrid thì bỏ qua
+                {
+                    frmXuLyDMNguonVon frm = new frmXuLyDMNguonVon(DataGridView.Rows[vtIndex]);
+                    frm.StartPosition = FormStartPosition.CenterScreen;
+                    frm.ShowDialog();
+                    HienThi();
+                    DataGridView.Rows[vtIndex].Selected = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MSG.Error(ex);
+            }
+        }
+        private void Xoa()
+        {
+            try
+            {
+                if (vtIndex != -1)  //khi click lên tiêu đề header của datagrid thì bỏ qua
+                {
+                    NguonVon temp = Utils.DataGridViewRow_to_NguonVon(DataGridView.Rows[vtIndex]);
+                    int kq = NguonVonBiz.DeleteNguonVon(temp);
+                    if (kq > 0) MSG.XoaThanhCong();
+                    else MSG.XoaThatBai();
+                    HienThi();
+                }
+            }
+            catch (Exception ex)
+            {
+                MSG.Error(ex);
+            }
+        }
+        #endregion
+
+        private void DataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {//Khi click vào Datagridview thì lấy vị trí của dòng vừa click vào và lưu lại vào biến vtIndex
+            vtIndex = e.RowIndex;
+        }
+        private void DataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Sua();
+        }
     }
 }
