@@ -83,6 +83,14 @@ namespace VNA_Project
             kq.TenLoaiTaiSan = Input.Cells["TenLoaiTaiSan"].Value.ToString();
             return kq;
         }
+        public static PhanNhomTaiSan DataGridViewRow_to_PhanNhomTaiSan(System.Windows.Forms.DataGridViewRow Input)
+        {
+            PhanNhomTaiSan kq = new PhanNhomTaiSan();
+            kq.MaPhanNhomTaiSan = Input.Cells["MaPhanNhomTaiSan"].Value.ToString();
+            kq.TenPhanNhomTaiSan = Input.Cells["TenPhanNhomTaiSan"].Value.ToString();
+            kq.KieuPhanNhomTaiSan = Input.Cells["KieuPhanNhomTaiSan"].Value.ToString();
+            return kq;
+        }
         #endregion
     }
 

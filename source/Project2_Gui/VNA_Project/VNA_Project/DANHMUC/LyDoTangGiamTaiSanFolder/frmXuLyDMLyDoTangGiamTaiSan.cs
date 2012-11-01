@@ -59,6 +59,9 @@ namespace VNA_Project.DANHMUC.LyDoTangGiamTaiSanFolder
                 temp.LoaiTangGiamTaiSanVIEW = temp.LoaiTangGiamTaiSan ? "1" : "2";
                 temp.MaLyDoTangGiamTaiSan = txtMa.Text;
                 temp.TenLyDoTangGiamTaiSan = txtTen.Text;
+
+                if (!CheckLoi(temp)) return;
+
                 int kq = LyDoTangGiamTaiSanBiz.EditLyDoTangGiamTaiSan(temp);
                 if (kq > 0) MSG.SuaThanhCong();
                 else MSG.SuaThatBai();
@@ -74,25 +77,29 @@ namespace VNA_Project.DANHMUC.LyDoTangGiamTaiSanFolder
         bool CheckLoi(LyDoTangGiamTaiSan data)
         {
             bool kq = true;
-            //mã lý do tăng giảm tài sản rỗng
-            if (string.IsNullOrEmpty(data.MaLyDoTangGiamTaiSan))
+            if (Them)
             {
-                MSG.ErrorStand("Bạn chưa nhập mã lý do tăng giảm tài sản!");
-                txtMa.Focus();
-                return false;
-            }
-            //mã lý do tăng giảm tài sản đã có trong cơ sở dữ liệu
-            foreach (LyDoTangGiamTaiSan item in frmDMLyDoTangGiamTaiSan.Ldata)
-            {
-                if (item.MaLyDoTangGiamTaiSan.ToUpper().Equals(txtMa.Text.ToUpper()))
+                //mã lý do tăng giảm tài sản rỗng
+                if (string.IsNullOrEmpty(data.MaLyDoTangGiamTaiSan))
                 {
-                    MSG.ErrorStand("Mã lý do tăng giảm tài sản đã có trong cơ sở dữ liệu!");
+                    MSG.ErrorStand("Bạn chưa nhập mã lý do tăng giảm tài sản!");
                     txtMa.Focus();
                     return false;
                 }
+                //mã lý do tăng giảm tài sản đã có trong cơ sở dữ liệu
+                foreach (LyDoTangGiamTaiSan item in frmDMLyDoTangGiamTaiSan.Ldata)
+                {
+                    if (item.MaLyDoTangGiamTaiSan.ToUpper().Equals(txtMa.Text.ToUpper()))
+                    {
+                        MSG.ErrorStand("Mã lý do tăng giảm tài sản đã có trong cơ sở dữ liệu!");
+                        txtMa.Focus();
+                        return false;
+                    }
+                }
             }
             //Loại tăng giảm tài sản chỉ có thể là 1 hoặc 2
-            if (!cbbLoaiTangGiamTaiSan.Text.Equals("1") || !cbbLoaiTangGiamTaiSan.Text.Equals("2"))
+            List<string> IN = new List<string>() { "1", "2" };
+            if (!IN.Contains(cbbLoaiTangGiamTaiSan.Text))
             {
                 MSG.ErrorStand("Loại tăng giảm tài sản chỉ có thể nhận một trong hai giá trị 1 hoặc 2");
                 cbbLoaiTangGiamTaiSan.Focus();

@@ -299,6 +299,7 @@
             this.btnDMPhanNhomTS.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDMPhanNhomTS.Icon = ((System.Drawing.Icon)(resources.GetObject("btnDMPhanNhomTS.Icon")));
             this.btnDMPhanNhomTS.Title = "Phân nhóm TS";
+            this.btnDMPhanNhomTS.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.btnDMPhanNhomTS_ItemActivated);
             // 
             // palDMThietBi
             // 
