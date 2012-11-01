@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using VNA_Project.Entity;
+using System.Windows.Forms;
 
 namespace VNA_Project
 {
@@ -54,6 +56,60 @@ namespace VNA_Project
             }
             catch (Exception ex) { }
             return string.Empty;
+        }
+        #endregion
+
+        #region Convert
+        public static NguonVon DataGridViewRow_to_NguonVon(System.Windows.Forms.DataGridViewRow Input)
+        {
+            NguonVon kq = new NguonVon();
+            kq.MaNguonVon = Input.Cells["MaNguonVon"].Value.ToString();
+            kq.TenNguonVon = Input.Cells["TenNguonVon"].Value.ToString();
+            return kq;
+        }
+
+        #endregion
+
+
+    }
+
+    public class MSG
+    {
+        public static string TieuDe = "Tiêu Đề";
+
+        #region MessageBox
+        public static DialogResult ThemThanhCong()
+        {
+            return MESSAGE("Thêm thành công!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        public static DialogResult ThemThatBai()
+        {
+            return MESSAGE("Thêm thất bại!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        public static DialogResult SuaThanhCong()
+        {
+            return MESSAGE("Sửa thành công!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        public static DialogResult SuaThatBai()
+        {
+            return MESSAGE("Sửa thất bại!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        public static DialogResult XoaThanhCong()
+        {
+            return MESSAGE("Xóa thành công!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        public static DialogResult XoaThatBai()
+        {
+            return MESSAGE("Xóa thất bại!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        public static DialogResult Error(Exception ex)
+        {
+            return MESSAGE("Có lỗi xảy ra:\r\n" + ex.Message + "\r\n" + ex.StackTrace, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        public static DialogResult MESSAGE(string msg, MessageBoxButtons MessageBoxButtons, MessageBoxIcon MessageBoxIcon)
+        {
+            return MessageBox.Show(msg, MSG.TieuDe, MessageBoxButtons, MessageBoxIcon);
         }
         #endregion
     }

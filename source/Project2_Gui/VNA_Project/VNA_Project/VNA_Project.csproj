@@ -66,6 +66,12 @@
     <Compile Include="DANHMUC\LyDoTangGiamTaiSanFolder\frmDMLyDoTangGiamTaiSan.Designer.cs">
       <DependentUpon>frmDMLyDoTangGiamTaiSan.cs</DependentUpon>
     </Compile>
+    <Compile Include="DANHMUC\NguonVonFolder\frmXuLyDMNguonVon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DANHMUC\NguonVonFolder\frmXuLyDMNguonVon.Designer.cs">
+      <DependentUpon>frmXuLyDMNguonVon.cs</DependentUpon>
+    </Compile>
     <Compile Include="DANHMUC\NguonVonFolder\frmDMNguonVon.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,6 +102,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DANHMUC\LyDoTangGiamTaiSanFolder\frmDMLyDoTangGiamTaiSan.resx">
       <DependentUpon>frmDMLyDoTangGiamTaiSan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DANHMUC\NguonVonFolder\frmXuLyDMNguonVon.resx">
+      <DependentUpon>frmXuLyDMNguonVon.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DANHMUC\NguonVonFolder\frmDMNguonVon.resx">
       <DependentUpon>frmDMNguonVon.cs</DependentUpon>
