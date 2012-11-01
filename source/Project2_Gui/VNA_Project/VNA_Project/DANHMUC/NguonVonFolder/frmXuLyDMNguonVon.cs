@@ -62,5 +62,17 @@ namespace VNA_Project.DANHMUC.NguonVonFolder
         {
             this.Close();
         }
+
+        bool CheckLoi(NguonVon data)
+        {
+            bool kq = false;
+            if (string.IsNullOrEmpty(data.MaNguonVon))
+            {
+                MSG.ErrorStand("Bạn chưa nhập mã nguồn vốn!");
+                txtMaNguonVon.Focus();
+                return false;
+            }
+            return kq;
+        }
     }
 }

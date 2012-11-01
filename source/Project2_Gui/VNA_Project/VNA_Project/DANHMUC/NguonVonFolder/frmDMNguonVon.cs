@@ -87,7 +87,7 @@ namespace VNA_Project.DANHMUC.NguonVonFolder
                 frm.StartPosition = FormStartPosition.CenterScreen;
                 frm.ShowDialog();
                 HienThi();
-                DataGridView.Rows[vtIndex].Selected = true;
+                if (Ldata.Count != 0) DataGridView.Rows[vtIndex == -1 ? 0 : vtIndex].Selected = true;   //nếu ko có phần tử nào thì thôi
             }
             catch (Exception ex)
             {
@@ -104,7 +104,7 @@ namespace VNA_Project.DANHMUC.NguonVonFolder
                     frm.StartPosition = FormStartPosition.CenterScreen;
                     frm.ShowDialog();
                     HienThi();
-                    DataGridView.Rows[vtIndex].Selected = true;
+                    if (Ldata.Count != 0) DataGridView.Rows[vtIndex == -1 ? 0 : vtIndex].Selected = true;   //nếu ko có phần tử nào thì thôi
                 }
             }
             catch (Exception ex)

@@ -69,8 +69,6 @@ namespace VNA_Project
         }
 
         #endregion
-
-
     }
 
     public class MSG
@@ -104,8 +102,12 @@ namespace VNA_Project
         }
 
         public static DialogResult Error(Exception ex)
-        {
+        {//hàm thông báo lỗi dành cho trường hợp bắt ngoại lệ try...catch
             return MESSAGE("Có lỗi xảy ra:\r\n" + ex.Message + "\r\n" + ex.StackTrace, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        public static DialogResult ErrorStand(string ex)
+        {//hàm thông báo lỗi dành cho trường hợp bắt bằng tay
+            return MESSAGE("Có lỗi xảy ra:\r\n" + ex, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
         public static DialogResult MESSAGE(string msg, MessageBoxButtons MessageBoxButtons, MessageBoxIcon MessageBoxIcon)
         {

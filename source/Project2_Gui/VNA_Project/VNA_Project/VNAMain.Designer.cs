@@ -241,6 +241,7 @@
             this.btnDMNguonVon.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDMNguonVon.Icon = ((System.Drawing.Icon)(resources.GetObject("btnDMNguonVon.Icon")));
             this.btnDMNguonVon.Title = "Nguồn vốn";
+            this.btnDMNguonVon.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.btnDMNguonVon_ItemActivated);
             // 
             // qsButton
             // 

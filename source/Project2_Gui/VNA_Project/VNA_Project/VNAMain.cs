@@ -53,5 +53,11 @@ namespace VNA_Project
             DataGridView.AllowUserToResizeRows = false;
             DataGridView.RowHeadersVisible = false;
         }
+
+        private void btnDMNguonVon_ItemActivated(object sender, QCompositeEventArgs e)
+        {
+            VNA_Project.DANHMUC.NguonVonFolder.frmDMNguonVon frm = new DANHMUC.NguonVonFolder.frmDMNguonVon();
+            frm.ShowDialog();
+        }
     }
 }
