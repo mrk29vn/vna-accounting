@@ -54,18 +54,6 @@
     <Compile Include="BIZ\Permission.cs" />
     <Compile Include="BIZ\PermissionDetail.cs" />
     <Compile Include="DAL\CSDL.cs" />
-    <Compile Include="DANHMUC\LoaiTaiSanFolder\frmDMNguonVon.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DANHMUC\LoaiTaiSanFolder\frmDMNguonVon.Designer.cs">
-      <DependentUpon>frmDMNguonVon.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DANHMUC\LyDoTangGiamTaiSanFolder\frmDMLyDoTangGiamTaiSan.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DANHMUC\LyDoTangGiamTaiSanFolder\frmDMLyDoTangGiamTaiSan.Designer.cs">
-      <DependentUpon>frmDMLyDoTangGiamTaiSan.cs</DependentUpon>
-    </Compile>
     <Compile Include="DANHMUC\NguonVonFolder\frmXuLyDMNguonVon.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,12 +85,6 @@
     <Compile Include="VNAMain.Designer.cs">
       <DependentUpon>VNAMain.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="DANHMUC\LoaiTaiSanFolder\frmDMNguonVon.resx">
-      <DependentUpon>frmDMNguonVon.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DANHMUC\LyDoTangGiamTaiSanFolder\frmDMLyDoTangGiamTaiSan.resx">
-      <DependentUpon>frmDMLyDoTangGiamTaiSan.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="DANHMUC\NguonVonFolder\frmXuLyDMNguonVon.resx">
       <DependentUpon>frmXuLyDMNguonVon.cs</DependentUpon>
     </EmbeddedResource>
@@ -170,7 +152,10 @@
     <Content Include="IMG\Linh Tinh\system.png" />
     <Content Include="IMG\Linh Tinh\taikhoan.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="DANHMUC\LoaiTaiSanFolder\" />
+    <Folder Include="DANHMUC\LyDoTangGiamTaiSanFolder\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
