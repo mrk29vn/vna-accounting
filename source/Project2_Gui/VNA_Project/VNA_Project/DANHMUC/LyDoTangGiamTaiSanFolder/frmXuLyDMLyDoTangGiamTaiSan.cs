@@ -91,6 +91,13 @@ namespace VNA_Project.DANHMUC.LyDoTangGiamTaiSanFolder
                     return false;
                 }
             }
+            //Loại tăng giảm tài sản chỉ có thể là 1 hoặc 2
+            if (!cbbLoaiTangGiamTaiSan.Text.Equals("1") || !cbbLoaiTangGiamTaiSan.Text.Equals("2"))
+            {
+                MSG.ErrorStand("Loại tăng giảm tài sản chỉ có thể nhận một trong hai giá trị 1 hoặc 2");
+                cbbLoaiTangGiamTaiSan.Focus();
+                return false;
+            }
             return kq;
         }
     }
