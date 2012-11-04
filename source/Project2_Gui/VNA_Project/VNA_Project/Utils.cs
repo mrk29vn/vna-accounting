@@ -105,6 +105,13 @@ namespace VNA_Project
             kq.TenBoPhanSuDung = Input.Cells["TenBoPhanSuDung"].Value.ToString();
             return kq;
         }
+        public static Phi DataGridViewRow_to_Phi(System.Windows.Forms.DataGridViewRow Input)
+        {
+            Phi kq = new Phi();
+            kq.MaPhi = Input.Cells["MaPhi"].Value.ToString();
+            kq.TenPhi = Input.Cells["TenPhi"].Value.ToString();
+            return kq;
+        }
         #endregion
     }
 
