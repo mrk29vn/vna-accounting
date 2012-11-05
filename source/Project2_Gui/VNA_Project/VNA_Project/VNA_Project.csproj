@@ -50,6 +50,8 @@
   <ItemGroup>
     <Compile Include="BIZ\Account.cs" />
     <Compile Include="BIZ\BoPhanSuDung.cs" />
+    <Compile Include="BIZ\PhanXuong.cs" />
+    <Compile Include="BIZ\Phi.cs" />
     <Compile Include="BIZ\ThietBi.cs" />
     <Compile Include="BIZ\PhanNhomTaiSan.cs" />
     <Compile Include="BIZ\LoaiTaiSan.cs" />
@@ -70,6 +72,18 @@
     </Compile>
     <Compile Include="DANHMUC\BoPhanSuDungFolder\frmXuLyDMBoPhanSuDung.Designer.cs">
       <DependentUpon>frmXuLyDMBoPhanSuDung.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DANHMUC\PhanXuongFolder\frmDMPhanXuong.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DANHMUC\PhanXuongFolder\frmDMPhanXuong.Designer.cs">
+      <DependentUpon>frmDMPhanXuong.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DANHMUC\PhanXuongFolder\frmXuLyDMPhanXuong.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DANHMUC\PhanXuongFolder\frmXuLyDMPhanXuong.Designer.cs">
+      <DependentUpon>frmXuLyDMPhanXuong.cs</DependentUpon>
     </Compile>
     <Compile Include="DANHMUC\LoaiTaiSanFolder\frmDMLoaiTaiSan.cs">
       <SubType>Form</SubType>
@@ -119,6 +133,18 @@
     <Compile Include="DANHMUC\PhanNhomTaiSanFolder\frmXuLyDMPhanNhomTaiSan.Designer.cs">
       <DependentUpon>frmXuLyDMPhanNhomTaiSan.cs</DependentUpon>
     </Compile>
+    <Compile Include="DANHMUC\PhiFolder\frmDMPhi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DANHMUC\PhiFolder\frmDMPhi.Designer.cs">
+      <DependentUpon>frmDMPhi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DANHMUC\PhiFolder\frmXuLyDMPhi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DANHMUC\PhiFolder\frmXuLyDMPhi.Designer.cs">
+      <DependentUpon>frmXuLyDMPhi.cs</DependentUpon>
+    </Compile>
     <Compile Include="DANHMUC\ThietBiFolder\frmDMThietBi.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -133,6 +159,8 @@
     </Compile>
     <Compile Include="Entity\Account.cs" />
     <Compile Include="Entity\BoPhanSuDung.cs" />
+    <Compile Include="Entity\PhanXuong.cs" />
+    <Compile Include="Entity\Phi.cs" />
     <Compile Include="Entity\ThietBi.cs" />
     <Compile Include="Entity\PhanNhomTaiSan.cs" />
     <Compile Include="Entity\LoaiTaiSan.cs" />
@@ -155,6 +183,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DANHMUC\BoPhanSuDungFolder\frmXuLyDMBoPhanSuDung.resx">
       <DependentUpon>frmXuLyDMBoPhanSuDung.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DANHMUC\PhanXuongFolder\frmDMPhanXuong.resx">
+      <DependentUpon>frmDMPhanXuong.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DANHMUC\PhanXuongFolder\frmXuLyDMPhanXuong.resx">
+      <DependentUpon>frmXuLyDMPhanXuong.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DANHMUC\LoaiTaiSanFolder\frmDMLoaiTaiSan.resx">
       <DependentUpon>frmDMLoaiTaiSan.cs</DependentUpon>
@@ -179,6 +213,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DANHMUC\PhanNhomTaiSanFolder\frmXuLyDMPhanNhomTaiSan.resx">
       <DependentUpon>frmXuLyDMPhanNhomTaiSan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DANHMUC\PhiFolder\frmDMPhi.resx">
+      <DependentUpon>frmDMPhi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DANHMUC\PhiFolder\frmXuLyDMPhi.resx">
+      <DependentUpon>frmXuLyDMPhi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DANHMUC\ThietBiFolder\frmDMThietBi.resx">
       <DependentUpon>frmDMThietBi.cs</DependentUpon>
