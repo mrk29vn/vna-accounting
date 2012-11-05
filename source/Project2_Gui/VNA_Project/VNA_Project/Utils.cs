@@ -119,6 +119,13 @@ namespace VNA_Project
             kq.TenPhanXuong = Input.Cells["TenPhanXuong"].Value.ToString();
             return kq;
         }
+        public static BoPhanHachToan DataGridViewRow_to_BoPhanHachToan(System.Windows.Forms.DataGridViewRow Input)
+        {
+            BoPhanHachToan kq = new BoPhanHachToan();
+            kq.MaBoPhanHachToan = Input.Cells["MaBoPhanHachToan"].Value.ToString();
+            kq.TenBoPhanHachToan = Input.Cells["TenBoPhanHachToan"].Value.ToString();
+            return kq;
+        }
         #endregion
     }
 

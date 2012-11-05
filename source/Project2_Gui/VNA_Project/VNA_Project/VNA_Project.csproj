@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="BIZ\Account.cs" />
     <Compile Include="BIZ\BoPhanSuDung.cs" />
+    <Compile Include="BIZ\BoPhanHachToan.cs" />
     <Compile Include="BIZ\PhanXuong.cs" />
     <Compile Include="BIZ\Phi.cs" />
     <Compile Include="BIZ\ThietBi.cs" />
@@ -72,6 +73,18 @@
     </Compile>
     <Compile Include="DANHMUC\BoPhanSuDungFolder\frmXuLyDMBoPhanSuDung.Designer.cs">
       <DependentUpon>frmXuLyDMBoPhanSuDung.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DANHMUC\BoPhanHachToanFolder\frmDMBoPhanHachToan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DANHMUC\BoPhanHachToanFolder\frmDMBoPhanHachToan.Designer.cs">
+      <DependentUpon>frmDMBoPhanHachToan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DANHMUC\BoPhanHachToanFolder\frmXuLyDMBoPhanHachToan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DANHMUC\BoPhanHachToanFolder\frmXuLyDMBoPhanHachToan.Designer.cs">
+      <DependentUpon>frmXuLyDMBoPhanHachToan.cs</DependentUpon>
     </Compile>
     <Compile Include="DANHMUC\PhanXuongFolder\frmDMPhanXuong.cs">
       <SubType>Form</SubType>
@@ -159,6 +172,7 @@
     </Compile>
     <Compile Include="Entity\Account.cs" />
     <Compile Include="Entity\BoPhanSuDung.cs" />
+    <Compile Include="Entity\BoPhanHachToan.cs" />
     <Compile Include="Entity\PhanXuong.cs" />
     <Compile Include="Entity\Phi.cs" />
     <Compile Include="Entity\ThietBi.cs" />
@@ -183,6 +197,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DANHMUC\BoPhanSuDungFolder\frmXuLyDMBoPhanSuDung.resx">
       <DependentUpon>frmXuLyDMBoPhanSuDung.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DANHMUC\BoPhanHachToanFolder\frmDMBoPhanHachToan.resx">
+      <DependentUpon>frmDMBoPhanHachToan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DANHMUC\BoPhanHachToanFolder\frmXuLyDMBoPhanHachToan.resx">
+      <DependentUpon>frmXuLyDMBoPhanHachToan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DANHMUC\PhanXuongFolder\frmDMPhanXuong.resx">
       <DependentUpon>frmDMPhanXuong.cs</DependentUpon>
