@@ -6,7 +6,7 @@ CREATE DATABASE VNAAccounting
 GO
 USE VNAAccounting
 GO
---USE MASTER
+--USE VNAAccounting
 --						1.Account
 GO
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Account]') AND type in (N'U'))
@@ -23,7 +23,7 @@ CREATE TABLE Account
 	LockedAccount BIT
 )
 GO
---USE MASTER
+--USE VNAAccounting
 --						2.Permission
 GO
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Permission]') AND type in (N'U'))
@@ -36,7 +36,7 @@ CREATE TABLE Permission
 	PermissionName nVARCHAR(200)
 )
 GO
---USE MASTER
+--USE VNAAccounting
 --						2.PermissionDetail
 GO
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PermissionDetail]') AND type in (N'U'))
@@ -51,7 +51,7 @@ CREATE TABLE PermissionDetail
 	PerView BIT
 )
 GO
---USE MASTER
+--USE VNAAccounting
 --						3.NhanVien
 GO
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[NhanVien]') AND type in (N'U'))
@@ -71,7 +71,7 @@ CREATE TABLE NhanVien
 )
 GO
 --------------------------------------------------------------------------DANH MỤC
---USE MASTER
+--USE VNAAccounting
 --						TaiKhoanKeToan
 GO
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TaiKhoanKeToan]') AND type in (N'U'))
@@ -107,7 +107,7 @@ CREATE TABLE Phi
 )
 GO
 --------------------------------------------------------------------------DANH MỤC TÀI SẢN CỐ ĐỊNH
---USE MASTER
+--USE VNAAccounting
 --						NguonVon
 GO
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[NguonVon]') AND type in (N'U'))
@@ -120,7 +120,7 @@ CREATE TABLE NguonVon
 	TenNguonVon nVARCHAR(200)
 )
 GO
---USE MASTER
+--USE VNAAccounting
 --						LyDoTangGiamTaiSan
 GO
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[LyDoTangGiamTaiSan]') AND type in (N'U'))
@@ -134,7 +134,7 @@ CREATE TABLE LyDoTangGiamTaiSan
 	TenLyDoTangGiamTaiSan nVARCHAR(200)
 )
 GO
---USE MASTER
+--USE VNAAccounting
 --						LoaiTaiSan
 GO
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[LoaiTaiSan]') AND type in (N'U'))
@@ -147,7 +147,7 @@ CREATE TABLE LoaiTaiSan
 	TenLoaiTaiSan nVARCHAR(200)
 )
 GO
---USE MASTER
+--USE VNAAccounting
 --						PhanNhomTaiSan
 GO
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PhanNhomTaiSan]') AND type in (N'U'))
@@ -161,7 +161,7 @@ CREATE TABLE PhanNhomTaiSan
 	KieuPhanNhomTaiSan nVARCHAR(50)
 )
 GO
---USE MASTER
+USE VNAAccounting
 --						ThietBi
 GO
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ThietBi]') AND type in (N'U'))
@@ -174,7 +174,7 @@ CREATE TABLE ThietBi
 	TenThietBi nVARCHAR(200)
 )
 GO
---USE MASTER
+USE VNAAccounting
 --						BoPhanSuDung
 GO
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[BoPhanSuDung]') AND type in (N'U'))
@@ -187,7 +187,46 @@ CREATE TABLE BoPhanSuDung
 	TenBoPhanSuDung nVARCHAR(200)
 )
 GO
---USE MASTER
+USE VNAAccounting
+--						Phi
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Phi]') AND type in (N'U'))
+DROP TABLE [dbo].[Phi]
+GO
+CREATE TABLE Phi
+(
+	PhiID INT PRIMARY KEY IDENTITY,
+	MaPhi nVARCHAR(50),
+	TenPhi nVARCHAR(200)
+)
+GO
+USE VNAAccounting
+--						PhanXuong
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PhanXuong]') AND type in (N'U'))
+DROP TABLE [dbo].[PhanXuong]
+GO
+CREATE TABLE PhanXuong
+(
+	PhanXuongID INT PRIMARY KEY IDENTITY,
+	MaPhanXuong nVARCHAR(50),
+	TenPhanXuong nVARCHAR(200)
+)
+GO
+USE VNAAccounting
+--						BoPhanHachToan
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[BoPhanHachToan]') AND type in (N'U'))
+DROP TABLE [dbo].[BoPhanHachToan]
+GO
+CREATE TABLE BoPhanHachToan
+(
+	BoPhanHachToanID INT PRIMARY KEY IDENTITY,
+	MaBoPhanHachToan nVARCHAR(50),
+	TenBoPhanHachToan nVARCHAR(200)
+)
+GO
+USE VNAAccounting
 --						TaiSan
 GO
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TaiSan]') AND type in (N'U'))
@@ -198,16 +237,69 @@ CREATE TABLE TaiSan
 	TaiSanID INT PRIMARY KEY IDENTITY,
 	MaTaiSan nVARCHAR(50),
 	TenTaiSan nVARCHAR(200),
-	SoHieuTaiSan nVARCHAR(200),	--0
+	MaLoaiTaiSan nVARCHAR(50),
+	MaLyDoTangGiamTaiSan nVARCHAR(50),
+	NgayTangTaiSan Datetime,
+	NgayTinhKhauHao Datetime,
+	SoKyKhauHao nVARCHAR(200),
+	MaBoPhanHachToan nVARCHAR(50),
+	MaPhanXuong nVARCHAR(50),
+	MaPhi nVARCHAR(50),
+	MaBoPhanSuDung nVARCHAR(50),
+	TKTaiSan nVARCHAR(50),
+	TKKhauHao nVARCHAR(50),
+	TKChiPhi nVARCHAR(50),
+	PhanNhom1 nVARCHAR(200),
+	PhanNhom2 nVARCHAR(200),
+	PhanNhom3 nVARCHAR(200),
+	
+	TenKhac nVARCHAR(200),
+	SoHieuTaiSan nVARCHAR(200),
+	ThongSoKyThuat nVARCHAR(200),
 	NuocSanXuat nVARCHAR(200),
-	MaNgoaiTe nVARCHAR(50),
-	TaiKhoanMe nVARCHAR(200),
-	TaiKhoanTheoDoiCongNo nVARCHAR(200),	--0:tài khoản không theo dõi công nợ chi tiết, 1:tài khoản có theo dõi công nợ chi tiết
-	TaiKhoanSoCai nVARCHAR(200),			--0:tài khoản không phải là tài khoản sổ cái, 1:tài khoản sổ cái
-	LoaiTaiKhoan nVARCHAR(200),				--Ex: 12 - tài khoản tài sản và nợ phải thu (đầu 1,2)
-	PhanXuong nVARCHAR(200),
-	BoPhanHachToan nVARCHAR(200),
-	BacTaiKhoan nVARCHAR(200)
+	NamSanXuat nVARCHAR(200),
+	NgayDuaVaoSuDung Datetime,
+	NgayDinhChiSuDung Datetime,
+	LyDoDinhChi nVARCHAR(200),
+	GhiChu nVARCHAR(200)
 )
 GO
-
+USE VNAAccounting
+--						ChiTietTaiSan
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ChiTietTaiSan]') AND type in (N'U'))
+DROP TABLE [dbo].[ChiTietTaiSan]
+GO
+CREATE TABLE ChiTietTaiSan
+(
+	ChiTietTaiSanID INT PRIMARY KEY IDENTITY,
+	MaTaiSan nVARCHAR(50),
+	
+	MaNguonVon nVARCHAR(50),
+	NgayChungTu Datetime,
+	SoChungTu nVARCHAR(200),
+	NguyenGia float,
+	GiaTriDaKhauHao float,
+	GiaTriConLai float,
+	GiaTriKhauHao1Ky float,
+	DienGiai nVARCHAR(200)
+)
+GO
+USE VNAAccounting
+--						PhuTungKemTheo
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PhuTungKemTheo]') AND type in (N'U'))
+DROP TABLE [dbo].[PhuTungKemTheo]
+GO
+CREATE TABLE PhuTungKemTheo
+(
+	PhuTungKemTheoID INT PRIMARY KEY IDENTITY,
+	MaTaiSan nVARCHAR(50),
+	MaPhuTungKemTheo nVARCHAR(50),
+	TenPhuTungKemTheo nVARCHAR(200),
+	DVT nVARCHAR(200),
+	SoLuong float,
+	GiaTri float,
+	GhiChu nVARCHAR(200)
+)
+GO
