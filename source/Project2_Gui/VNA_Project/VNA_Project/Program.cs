@@ -18,9 +18,9 @@ namespace VNA_Project
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //ShowSplashScreen();
-            //Application.Run(new VNAMain());
-            Application.Run(new DANHMUC.TaiSanFolder.frmDMTaiSan());
+            ShowSplashScreen();
+            Application.Run(new VNAMain());
+            //Application.Run(new DANHMUC.TaiSanFolder.frmDMTaiSan());
         }
 
         /// <summary>
