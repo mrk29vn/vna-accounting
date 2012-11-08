@@ -123,8 +123,13 @@ namespace VNA_Project
         {
             BoPhanHachToan kq = new BoPhanHachToan();
             kq.MaBoPhanHachToan = Input.Cells["MaBoPhanHachToan"].Value.ToString();
-            kq.TenBoPhanHachToan = Input.Cells["TenBoPhanHachToan"].Value.ToString();
+            BoPhanHachToan tmp = DANHMUC.BoPhanHachToanFolder.frmDMBoPhanHachToan.Ldata.SingleOrDefault(k => k.MaBoPhanHachToan.ToUpper().Equals(kq.MaBoPhanHachToan.ToUpper())).Copy() ?? new BoPhanHachToan();
             return kq;
+        }
+        public static TaiSan DataGridViewRow_to_TaiSan(System.Windows.Forms.DataGridViewRow Input)
+        {
+            string MA = Input.Cells["MaTaiSan"].Value.ToString();
+            return DANHMUC.TaiSanFolder.frmDMTaiSan.Ldata.SingleOrDefault(k => k.MaTaiSan.ToUpper().Equals(MA.ToUpper())).Copy() ?? new TaiSan();
         }
         #endregion
     }
