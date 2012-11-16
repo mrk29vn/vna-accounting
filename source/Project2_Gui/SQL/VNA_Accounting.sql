@@ -303,3 +303,28 @@ CREATE TABLE PhuTungKemTheo
 	GhiChu nVARCHAR(200)
 )
 GO
+--------------------------------------------------------------------------NGHIỆP VỤ TÀI SẢN CỐ ĐỊNH
+USE VNAAccounting
+--						DieuChinhGiaTriTaiSan
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DieuChinhGiaTriTaiSan]') AND type in (N'U'))
+DROP TABLE [dbo].[DieuChinhGiaTriTaiSan]
+GO
+CREATE TABLE DieuChinhGiaTriTaiSan
+(
+	DieuChinhGiaTriTaiSanID INT PRIMARY KEY IDENTITY,
+	Loai BIT,	--Loại tăng tài sản 1, Loại giảm tài sản 0
+	MaTaiSan nVARCHAR(50),
+	Nam nVARCHAR(200),
+	Ky nVARCHAR(200),
+	NgayChungTu Datetime,
+	SoChungTu nVARCHAR(200),
+	MaNguonVon nVARCHAR(50),
+	MaLyDoTangGiamTaiSan nVARCHAR(50),
+	NguyenGia float,
+	GiaTriDaKhauHao float,
+	GiaTriConLai float,
+	GiaTriKhauHao1Ky float,
+	DienGiai nVARCHAR(200)
+)
+GO
