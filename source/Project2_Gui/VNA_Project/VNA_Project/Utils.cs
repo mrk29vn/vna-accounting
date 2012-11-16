@@ -123,7 +123,8 @@ namespace VNA_Project
         {
             BoPhanHachToan kq = new BoPhanHachToan();
             kq.MaBoPhanHachToan = Input.Cells["MaBoPhanHachToan"].Value.ToString();
-            BoPhanHachToan tmp = DANHMUC.BoPhanHachToanFolder.frmDMBoPhanHachToan.Ldata.SingleOrDefault(k => k.MaBoPhanHachToan.ToUpper().Equals(kq.MaBoPhanHachToan.ToUpper())).Copy() ?? new BoPhanHachToan();
+            kq.TenBoPhanHachToan = Input.Cells["TenBoPhanHachToan"].Value.ToString();
+            //BoPhanHachToan tmp = DANHMUC.BoPhanHachToanFolder.frmDMBoPhanHachToan.Ldata.SingleOrDefault(k => k.MaBoPhanHachToan.ToUpper().Equals(kq.MaBoPhanHachToan.ToUpper())).Copy() ?? new BoPhanHachToan();
             return kq;
         }
         public static TaiSan DataGridViewRow_to_TaiSan(System.Windows.Forms.DataGridViewRow Input)
@@ -186,5 +187,29 @@ namespace VNA_Project
             return MessageBox.Show(msg, MSG.TieuDe, MessageBoxButtons, MessageBoxIcon);
         }
         #endregion
+    }
+
+    public class CONFIG
+    {
+        //Danh sách phím tắt
+        public class KeyClass
+        {
+            public static Keys key_TimKiem = Keys.F4;
+        }
+
+        public static class ConstFrm
+        {
+            public const string frmDMBoPhanHachToan = "frmDMBoPhanHachToan";
+            public const string frmDMBoPhanSuDung = "frmDMBoPhanSuDung";
+            public const string frmDMLoaiTaiSan = "frmDMLoaiTaiSan";
+            public const string frmDMLyDoTangGiamTaiSan = "frmDMLyDoTangGiamTaiSan";
+            public const string frmDMNguonVon = "frmDMNguonVon";
+            public const string frmDMPhanNhomTaiSan = "frmDMPhanNhomTaiSan";
+            public const string frmDMPhanXuong = "frmDMPhanXuong";
+            public const string frmDMPhi = "frmDMPhi";
+            public const string frmDMTaiSan = "frmDMTaiSan";
+            public const string frmDMThietBi = "frmDMThietBi";
+        }
+
     }
 }
