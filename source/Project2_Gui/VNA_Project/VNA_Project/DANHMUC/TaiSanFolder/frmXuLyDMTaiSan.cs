@@ -264,11 +264,6 @@ namespace VNA_Project.DANHMUC.TaiSanFolder
             }
         }
 
-        private void txtNguonVon_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            //Tra cứu nguồn vốn
-        }
-
         private void DataGridViewCTNguonVon_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             try
@@ -357,6 +352,113 @@ namespace VNA_Project.DANHMUC.TaiSanFolder
             txtGiaTriConLai.Text = string.Empty;
             txtGiaTriKhauHao1Ky.Text = string.Empty;
             txtDienGiai.Text = string.Empty;
+        }
+
+        private void txtNhomTaiSan_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == CONFIG.KeyClass.key_TimKiem)
+            {//Tìm kiếm
+                FRM.frmTimKiem.phannhomtaisan = null;
+                FRM.frmTimKiem frm = new FRM.frmTimKiem(CONFIG.ConstFrm.frmDMPhanNhomTaiSan);
+                frm.ShowDialog();
+                if (FRM.frmTimKiem.phannhomtaisan != null)
+                {
+                    txtNhomTaiSan.Text = FRM.frmTimKiem.phannhomtaisan.MaPhanNhomTaiSan.ToUpper();
+                    lblTenNhomTaiSan.Text = FRM.frmTimKiem.phannhomtaisan.TenPhanNhomTaiSan;
+                }
+                FRM.frmTimKiem.phannhomtaisan = null;
+            }
+        }
+
+        private void txtLyDoTang_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == CONFIG.KeyClass.key_TimKiem)
+            {//Tìm kiếm
+                FRM.frmTimKiem.lydotanggiamtaisan = null;
+                FRM.frmTimKiem frm = new FRM.frmTimKiem(CONFIG.ConstFrm.frmDMLyDoTangGiamTaiSan);
+                frm.ShowDialog();
+                if (FRM.frmTimKiem.lydotanggiamtaisan != null)
+                {
+                    txtLyDoTang.Text = FRM.frmTimKiem.lydotanggiamtaisan.MaLyDoTangGiamTaiSan.ToUpper();
+                    lblTenLyDoTang.Text = FRM.frmTimKiem.lydotanggiamtaisan.TenLyDoTangGiamTaiSan;
+                }
+                FRM.frmTimKiem.lydotanggiamtaisan = null;
+            }
+        }
+
+        private void txtBoPhanHachToan_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == CONFIG.KeyClass.key_TimKiem)
+            {//Tìm kiếm
+                FRM.frmTimKiem.bophanhachtoan = null;
+                FRM.frmTimKiem frm = new FRM.frmTimKiem(CONFIG.ConstFrm.frmDMBoPhanHachToan);
+                frm.ShowDialog();
+                if (FRM.frmTimKiem.bophanhachtoan != null)
+                {
+                    txtBoPhanHachToan.Text = FRM.frmTimKiem.bophanhachtoan.MaBoPhanHachToan.ToUpper();
+                }
+                FRM.frmTimKiem.bophanhachtoan = null;
+            }
+        }
+
+        private void txtMaPhanXuong_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == CONFIG.KeyClass.key_TimKiem)
+            {//Tìm kiếm
+                FRM.frmTimKiem.phanxuong = null;
+                FRM.frmTimKiem frm = new FRM.frmTimKiem(CONFIG.ConstFrm.frmDMPhanXuong);
+                frm.ShowDialog();
+                if (FRM.frmTimKiem.phanxuong != null)
+                {
+                    txtMaPhanXuong.Text = FRM.frmTimKiem.phanxuong.MaPhanXuong.ToUpper();
+                }
+                FRM.frmTimKiem.phanxuong = null;
+            }
+        }
+
+        private void txtMaPhi_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == CONFIG.KeyClass.key_TimKiem)
+            {//Tìm kiếm
+                FRM.frmTimKiem.phi = null;
+                FRM.frmTimKiem frm = new FRM.frmTimKiem(CONFIG.ConstFrm.frmDMPhi);
+                frm.ShowDialog();
+                if (FRM.frmTimKiem.phi != null)
+                {
+                    txtMaPhi.Text = FRM.frmTimKiem.phi.MaPhi.ToUpper();
+                }
+                FRM.frmTimKiem.phi = null;
+            }
+        }
+
+        private void txtBoPhanSuDung_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == CONFIG.KeyClass.key_TimKiem)
+            {//Tìm kiếm
+                FRM.frmTimKiem.bophansusung = null;
+                FRM.frmTimKiem frm = new FRM.frmTimKiem(CONFIG.ConstFrm.frmDMBoPhanSuDung);
+                frm.ShowDialog();
+                if (FRM.frmTimKiem.bophansusung != null)
+                {
+                    txtBoPhanSuDung.Text = FRM.frmTimKiem.bophansusung.MaBoPhanSuDung.ToUpper();
+                }
+                FRM.frmTimKiem.bophansusung = null;
+            }
+        }
+
+        private void txtNguonVon_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == CONFIG.KeyClass.key_TimKiem)
+            {//Tìm kiếm
+                FRM.frmTimKiem.nguonvon = null;
+                FRM.frmTimKiem frm = new FRM.frmTimKiem(CONFIG.ConstFrm.frmDMNguonVon);
+                frm.ShowDialog();
+                if (FRM.frmTimKiem.nguonvon != null)
+                {
+                    txtNguonVon.Text = FRM.frmTimKiem.nguonvon.MaNguonVon.ToUpper();
+                }
+                FRM.frmTimKiem.nguonvon = null;
+            }
         }
     }
 }

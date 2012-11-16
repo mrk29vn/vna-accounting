@@ -46,6 +46,9 @@
             this.palTop = new Qios.DevSuite.Components.QPanel();
             this.tabTop = new Qios.DevSuite.Components.QTabControl();
             this.tabThongTinChinh = new Qios.DevSuite.Components.QTabPage();
+            this.qMarkupLabel3 = new Qios.DevSuite.Components.QMarkupLabel();
+            this.qMarkupLabel2 = new Qios.DevSuite.Components.QMarkupLabel();
+            this.qMarkupLabel1 = new Qios.DevSuite.Components.QMarkupLabel();
             this.lblTenLyDoTang = new Qios.DevSuite.Components.QMarkupLabel();
             this.lblTenNhomTaiSan = new Qios.DevSuite.Components.QMarkupLabel();
             this.lblPhanNhom3 = new Qios.DevSuite.Components.QMarkupLabel();
@@ -120,7 +123,6 @@
             this.lblNgayChungTu = new Qios.DevSuite.Components.QMarkupLabel();
             this.txtNgayChungTu = new Qios.DevSuite.Components.QTextBox();
             this.lblNguonVon = new Qios.DevSuite.Components.QMarkupLabel();
-            this.txtNguonVon = new Qios.DevSuite.Components.QTextBox();
             this.tabPhuTungKemTheo = new Qios.DevSuite.Components.QTabPage();
             this.btnPhuTungKemTheoOK = new Qios.DevSuite.Components.QButton();
             this.lblGhiChuPhuTungKemTheo = new Qios.DevSuite.Components.QMarkupLabel();
@@ -135,6 +137,7 @@
             this.txtTenPhuTungKemTheo = new Qios.DevSuite.Components.QTextBox();
             this.lblMaPhuTungKemTheo = new Qios.DevSuite.Components.QMarkupLabel();
             this.txtMaPhuTungKemTheo = new Qios.DevSuite.Components.QTextBox();
+            this.txtNguonVon = new Qios.DevSuite.Components.QTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.qRibbonCaption1)).BeginInit();
             this.palRight.SuspendLayout();
             this.palTop_Center.SuspendLayout();
@@ -340,6 +343,9 @@
             // tabThongTinChinh
             // 
             this.tabThongTinChinh.ButtonOrder = 0;
+            this.tabThongTinChinh.Controls.Add(this.qMarkupLabel3);
+            this.tabThongTinChinh.Controls.Add(this.qMarkupLabel2);
+            this.tabThongTinChinh.Controls.Add(this.qMarkupLabel1);
             this.tabThongTinChinh.Controls.Add(this.lblTenLyDoTang);
             this.tabThongTinChinh.Controls.Add(this.lblTenNhomTaiSan);
             this.tabThongTinChinh.Controls.Add(this.lblPhanNhom3);
@@ -384,10 +390,34 @@
             this.tabThongTinChinh.Size = new System.Drawing.Size(668, 288);
             this.tabThongTinChinh.Text = "Thông tin chính";
             // 
+            // qMarkupLabel3
+            // 
+            this.qMarkupLabel3.Location = new System.Drawing.Point(271, 222);
+            this.qMarkupLabel3.MarkupText = "[ F4 tra cứu ]";
+            this.qMarkupLabel3.Name = "qMarkupLabel3";
+            this.qMarkupLabel3.Size = new System.Drawing.Size(113, 15);
+            this.qMarkupLabel3.TabIndex = 40;
+            // 
+            // qMarkupLabel2
+            // 
+            this.qMarkupLabel2.Location = new System.Drawing.Point(269, 165);
+            this.qMarkupLabel2.MarkupText = "ngày/tháng/năm";
+            this.qMarkupLabel2.Name = "qMarkupLabel2";
+            this.qMarkupLabel2.Size = new System.Drawing.Size(113, 15);
+            this.qMarkupLabel2.TabIndex = 39;
+            // 
+            // qMarkupLabel1
+            // 
+            this.qMarkupLabel1.Location = new System.Drawing.Point(270, 138);
+            this.qMarkupLabel1.MarkupText = "ngày/tháng/năm";
+            this.qMarkupLabel1.Name = "qMarkupLabel1";
+            this.qMarkupLabel1.Size = new System.Drawing.Size(113, 15);
+            this.qMarkupLabel1.TabIndex = 38;
+            // 
             // lblTenLyDoTang
             // 
             this.lblTenLyDoTang.Location = new System.Drawing.Point(271, 109);
-            this.lblTenLyDoTang.MarkupText = null;
+            this.lblTenLyDoTang.MarkupText = "[ F4 tra cứu ]";
             this.lblTenLyDoTang.Name = "lblTenLyDoTang";
             this.lblTenLyDoTang.Size = new System.Drawing.Size(113, 15);
             this.lblTenLyDoTang.TabIndex = 37;
@@ -395,10 +425,11 @@
             // lblTenNhomTaiSan
             // 
             this.lblTenNhomTaiSan.Location = new System.Drawing.Point(271, 84);
-            this.lblTenNhomTaiSan.MarkupText = null;
+            this.lblTenNhomTaiSan.MarkupText = "[ F4 tra cứu ]";
             this.lblTenNhomTaiSan.Name = "lblTenNhomTaiSan";
             this.lblTenNhomTaiSan.Size = new System.Drawing.Size(113, 15);
             this.lblTenNhomTaiSan.TabIndex = 36;
+            this.lblTenNhomTaiSan.Tag = "";
             // 
             // lblPhanNhom3
             // 
@@ -504,6 +535,7 @@
             this.txtBoPhanSuDung.Name = "txtBoPhanSuDung";
             this.txtBoPhanSuDung.Size = new System.Drawing.Size(140, 21);
             this.txtBoPhanSuDung.TabIndex = 22;
+            this.txtBoPhanSuDung.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBoPhanSuDung_KeyDown);
             // 
             // lblMaPhi
             // 
@@ -519,6 +551,7 @@
             this.txtMaPhi.Name = "txtMaPhi";
             this.txtMaPhi.Size = new System.Drawing.Size(140, 21);
             this.txtMaPhi.TabIndex = 20;
+            this.txtMaPhi.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtMaPhi_KeyDown);
             // 
             // lblMaPhanXuong
             // 
@@ -534,6 +567,7 @@
             this.txtMaPhanXuong.Name = "txtMaPhanXuong";
             this.txtMaPhanXuong.Size = new System.Drawing.Size(140, 21);
             this.txtMaPhanXuong.TabIndex = 18;
+            this.txtMaPhanXuong.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtMaPhanXuong_KeyDown);
             // 
             // lblBoPhanHachToan
             // 
@@ -549,6 +583,7 @@
             this.txtBoPhanHachToan.Name = "txtBoPhanHachToan";
             this.txtBoPhanHachToan.Size = new System.Drawing.Size(140, 21);
             this.txtBoPhanHachToan.TabIndex = 16;
+            this.txtBoPhanHachToan.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBoPhanHachToan_KeyDown);
             // 
             // lblGiaTriLamTron
             // 
@@ -626,6 +661,7 @@
             this.txtLyDoTang.Name = "txtLyDoTang";
             this.txtLyDoTang.Size = new System.Drawing.Size(140, 21);
             this.txtLyDoTang.TabIndex = 6;
+            this.txtLyDoTang.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtLyDoTang_KeyDown);
             // 
             // lblNhomTaiSan
             // 
@@ -641,6 +677,7 @@
             this.txtNhomTaiSan.Name = "txtNhomTaiSan";
             this.txtNhomTaiSan.Size = new System.Drawing.Size(140, 21);
             this.txtNhomTaiSan.TabIndex = 4;
+            this.txtNhomTaiSan.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtNhomTaiSan_KeyDown);
             // 
             // lblTenTaiSan
             // 
@@ -985,14 +1022,6 @@
             this.lblNguonVon.Size = new System.Drawing.Size(113, 15);
             this.lblNguonVon.TabIndex = 37;
             // 
-            // txtNguonVon
-            // 
-            this.txtNguonVon.Location = new System.Drawing.Point(133, 25);
-            this.txtNguonVon.Name = "txtNguonVon";
-            this.txtNguonVon.Size = new System.Drawing.Size(505, 21);
-            this.txtNguonVon.TabIndex = 36;
-            this.txtNguonVon.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNguonVon_KeyPress);
-            // 
             // tabPhuTungKemTheo
             // 
             this.tabPhuTungKemTheo.ButtonOrder = 3;
@@ -1116,6 +1145,14 @@
             this.txtMaPhuTungKemTheo.Name = "txtMaPhuTungKemTheo";
             this.txtMaPhuTungKemTheo.Size = new System.Drawing.Size(489, 21);
             this.txtMaPhuTungKemTheo.TabIndex = 46;
+            // 
+            // txtNguonVon
+            // 
+            this.txtNguonVon.Location = new System.Drawing.Point(133, 25);
+            this.txtNguonVon.Name = "txtNguonVon";
+            this.txtNguonVon.Size = new System.Drawing.Size(505, 21);
+            this.txtNguonVon.TabIndex = 36;
+            this.txtNguonVon.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtNguonVon_KeyDown);
             // 
             // frmXuLyDMTaiSan
             // 
@@ -1242,7 +1279,6 @@
         private Qios.DevSuite.Components.QMarkupLabel lblNgayChungTu;
         private Qios.DevSuite.Components.QTextBox txtNgayChungTu;
         private Qios.DevSuite.Components.QMarkupLabel lblNguonVon;
-        private Qios.DevSuite.Components.QTextBox txtNguonVon;
         private Qios.DevSuite.Components.QMarkupLabel lblGhiChuPhuTungKemTheo;
         private Qios.DevSuite.Components.QTextBox txtGhiChuPhuTungKemTheo;
         private Qios.DevSuite.Components.QMarkupLabel lblGiaTri;
@@ -1257,5 +1293,9 @@
         private Qios.DevSuite.Components.QTextBox txtMaPhuTungKemTheo;
         private Qios.DevSuite.Components.QButton btnNguonVonOK;
         private Qios.DevSuite.Components.QButton btnPhuTungKemTheoOK;
+        private Qios.DevSuite.Components.QMarkupLabel qMarkupLabel3;
+        private Qios.DevSuite.Components.QMarkupLabel qMarkupLabel2;
+        private Qios.DevSuite.Components.QMarkupLabel qMarkupLabel1;
+        private Qios.DevSuite.Components.QTextBox txtNguonVon;
     }
 }
