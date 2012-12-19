@@ -105,8 +105,8 @@ namespace VNA_Project.DANHMUC.TaiSanFolder
                 temp.ThongSoKyThuat = txtThongSoKyThuat.Text;
                 temp.NuocSanXuat = txtNuocSanXuat.Text;
                 temp.NamSanXuat = txtNamSanXuat.Text;
-                temp.NgayDuaVaoSuDung = !string.IsNullOrEmpty(txtNgayTangTaiSan.Text) ? DateTime.Parse(txtNgayDuaVaoSuDung.Text) : new DateTime(1753, 1, 1);
-                temp.NgayDinhChiSuDung = !string.IsNullOrEmpty(txtNgayTangTaiSan.Text) ? DateTime.Parse(txtNgayDinhChiSuDung.Text) : new DateTime(1753, 1, 1);
+                temp.NgayDuaVaoSuDung = !string.IsNullOrEmpty(txtNgayDuaVaoSuDung.Text) ? DateTime.Parse(txtNgayDuaVaoSuDung.Text) : new DateTime(1753, 1, 1);
+                temp.NgayDinhChiSuDung = !string.IsNullOrEmpty(txtNgayDinhChiSuDung.Text) ? DateTime.Parse(txtNgayDinhChiSuDung.Text) : new DateTime(1753, 1, 1);
                 temp.LyDoDinhChi = txtLyDoDinhChi.Text;
                 temp.GhiChu = txtGhiChu.Text;
 
@@ -478,5 +478,37 @@ namespace VNA_Project.DANHMUC.TaiSanFolder
                 FRM.frmTimKiem.nguonvon = null;
             }
         }
+
+        private void txtNguyenGia_TextChanged(object sender, EventArgs e)
+        {
+            TinhKhauHao();
+        }
+
+        private void txtGiaTriDaKhauHao_TextChanged(object sender, EventArgs e)
+        {
+            TinhKhauHao();
+        }
+
+        private void TinhKhauHao()
+        {
+            try
+            {
+                double nguyengia = double.Parse(string.IsNullOrEmpty(txtNguyenGia.Text) ? "0" : txtNguyenGia.Text);
+                double giatridakhauhao = double.Parse(string.IsNullOrEmpty(txtGiaTriDaKhauHao.Text) ? "0" : txtGiaTriDaKhauHao.Text);
+
+                double giatriconlai = nguyengia - giatridakhauhao;
+                txtGiaTriConLai.Text = giatriconlai.ToString();
+
+                double sokytinhkhauhao = double.Parse(string.IsNullOrEmpty(txtSoKyKhauHao.Text) ? "0" : txtSoKyKhauHao.Text);
+
+                double giatrikhauhao1ky = sokytinhkhauhao == 0 ? 0 : giatriconlai / sokytinhkhauhao;
+                txtGiaTriKhauHao1Ky.Text = giatrikhauhao1ky.ToString();
+            }
+            catch (Exception ex)
+            {
+                //MSG.Error(ex);
+            }
+        }
+
     }
 }

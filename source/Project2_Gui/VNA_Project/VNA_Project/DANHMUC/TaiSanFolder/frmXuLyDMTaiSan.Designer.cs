@@ -990,6 +990,7 @@
             this.txtGiaTriDaKhauHao.Name = "txtGiaTriDaKhauHao";
             this.txtGiaTriDaKhauHao.Size = new System.Drawing.Size(418, 21);
             this.txtGiaTriDaKhauHao.TabIndex = 44;
+            this.txtGiaTriDaKhauHao.TextChanged += new System.EventHandler(this.txtGiaTriDaKhauHao_TextChanged);
             // 
             // lblNguyenGia
             // 
@@ -1005,6 +1006,7 @@
             this.txtNguyenGia.Name = "txtNguyenGia";
             this.txtNguyenGia.Size = new System.Drawing.Size(418, 21);
             this.txtNguyenGia.TabIndex = 42;
+            this.txtNguyenGia.TextChanged += new System.EventHandler(this.txtNguyenGia_TextChanged);
             // 
             // lblSoChungTu
             // 
