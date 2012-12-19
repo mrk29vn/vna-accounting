@@ -153,23 +153,23 @@ namespace VNA_Project.DANHMUC.TaiSanFolder
         bool CheckLoi(TaiSan data)
         {
             bool kq = true;
-            ////mã tài sản rỗng
-            //if (string.IsNullOrEmpty(data.MaTaiSan))
-            //{
-            //    MSG.ErrorStand("Bạn chưa nhập mã tài sản!");
-            //    txtMa.Focus();
-            //    return false;
-            //}
-            ////mã tài sản đã có trong cơ sở dữ liệu
-            //foreach (TaiSan item in frmDMTaiSan.Ldata)
-            //{
-            //    if (item.MaTaiSan.ToUpper().Equals(txtMa.Text.ToUpper()))
-            //    {
-            //        MSG.ErrorStand("Mã tài sản đã có trong cơ sở dữ liệu!");
-            //        txtMa.Focus();
-            //        return false;
-            //    }
-            //}
+            //mã tài sản rỗng
+            if (string.IsNullOrEmpty(data.MaTaiSan))
+            {
+                MSG.ErrorStand("Bạn chưa nhập mã tài sản!");
+                txtMaTaiSan.Focus();
+                return false;
+            }
+            //mã tài sản đã có trong cơ sở dữ liệu
+            foreach (TaiSan item in frmDMTaiSan.Ldata)
+            {
+                if (item.MaTaiSan.ToUpper().Equals(txtMaTaiSan.Text.ToUpper()))
+                {
+                    MSG.ErrorStand("Mã tài sản đã có trong cơ sở dữ liệu!");
+                    txtMaTaiSan.Focus();
+                    return false;
+                }
+            }
             return kq;
         }
 

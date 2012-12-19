@@ -121,5 +121,37 @@ namespace VNA_Project.NGHIEPVU.DieuChinhGiaTriTaiSanFolder
                 //
             }
         }
+
+        private void txtMaNguonVon_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == CONFIG.KeyClass.key_TimKiem)
+            {//Tìm kiếm
+                FRM.frmTimKiem.nguonvon = null;
+                FRM.frmTimKiem frm = new FRM.frmTimKiem(CONFIG.ConstFrm.frmDMNguonVon);
+                frm.ShowDialog();
+                if (FRM.frmTimKiem.nguonvon != null)
+                {
+                    txtMaNguonVon.Text = FRM.frmTimKiem.nguonvon.MaNguonVon.ToUpper();
+                    lblTenNguonVon.Text = FRM.frmTimKiem.nguonvon.TenNguonVon;
+                }
+                FRM.frmTimKiem.nguonvon = null;
+            }
+        }
+
+        private void txtMaLyDoTangGiamTaiSan_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == CONFIG.KeyClass.key_TimKiem)
+            {//Tìm kiếm
+                FRM.frmTimKiem.lydotanggiamtaisan = null;
+                FRM.frmTimKiem frm = new FRM.frmTimKiem(CONFIG.ConstFrm.frmDMLyDoTangGiamTaiSan);
+                frm.ShowDialog();
+                if (FRM.frmTimKiem.lydotanggiamtaisan != null)
+                {
+                    txtMaLyDoTangGiamTaiSan.Text = FRM.frmTimKiem.lydotanggiamtaisan.MaLyDoTangGiamTaiSan.ToUpper();
+                    lblMaLyDoTangGiamTaiSan.Text = FRM.frmTimKiem.lydotanggiamtaisan.TenLyDoTangGiamTaiSan;
+                }
+                FRM.frmTimKiem.lydotanggiamtaisan = null;
+            }
+        }
     }
 }

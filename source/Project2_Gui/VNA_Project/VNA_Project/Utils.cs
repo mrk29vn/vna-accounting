@@ -130,6 +130,8 @@ namespace VNA_Project
         public static TaiSan DataGridViewRow_to_TaiSan(System.Windows.Forms.DataGridViewRow Input)
         {
             string MA = Input.Cells["MaTaiSan"].Value.ToString();
+            if (DANHMUC.TaiSanFolder.frmDMTaiSan.Ldata == null || DANHMUC.TaiSanFolder.frmDMTaiSan.Ldata.Count == 0)
+                DANHMUC.TaiSanFolder.frmDMTaiSan.Ldata = VNA_Project.BIZ.TaiSanBiz.getListTaiSan();
             return DANHMUC.TaiSanFolder.frmDMTaiSan.Ldata.SingleOrDefault(k => k.MaTaiSan.ToUpper().Equals(MA.ToUpper())).Copy() ?? new TaiSan();
         }
         public static DieuChinhGiaTriTaiSan DataGridViewRow_to_DieuChinhGiaTriTaiSan(System.Windows.Forms.DataGridViewRow Input)
