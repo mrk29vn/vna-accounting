@@ -42,8 +42,8 @@ namespace VNA_Project.DANHMUC.TaiSanFolder
                 txtTenTaiSan.Text = temp.TenTaiSan;
                 txtNhomTaiSan.Text = temp.MaLoaiTaiSan;
                 txtLyDoTang.Text = temp.MaLyDoTangGiamTaiSan;
-                txtNgayTangTaiSan.Text = temp.NgayTangTaiSan.ToString("MM/dd/yyyy");
-                txtNgayTinhKhauHao.Text = temp.NgayTinhKhauHao.ToString("MM/dd/yyyy");
+                txtNgayTangTaiSan.Text = (temp.NgayTangTaiSan.Date == new DateTime(1753, 1, 1).Date) ? string.Empty : temp.NgayTangTaiSan.ToString("MM/dd/yyyy");
+                txtNgayTinhKhauHao.Text = (temp.NgayTinhKhauHao.Date == new DateTime(1753, 1, 1).Date) ? string.Empty : temp.NgayTinhKhauHao.ToString("MM/dd/yyyy");
                 txtSoKyKhauHao.Text = temp.SoKyKhauHao;
                 txtBoPhanHachToan.Text = temp.MaBoPhanHachToan;
                 txtMaPhanXuong.Text = temp.MaPhanXuong;
