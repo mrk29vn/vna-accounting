@@ -35,6 +35,9 @@
             this.qsButton = new Qios.DevSuite.Components.QShape();
             this.btnDongY = new Qios.DevSuite.Components.QButton();
             this.palTop_Center = new Qios.DevSuite.Components.QPanel();
+            this.qMarkupLabel10 = new Qios.DevSuite.Components.QMarkupLabel();
+            this.lblMaLyDoTangGiamTaiSan = new Qios.DevSuite.Components.QMarkupLabel();
+            this.lblTenNguonVon = new Qios.DevSuite.Components.QMarkupLabel();
             this.lblTenTaiSan = new Qios.DevSuite.Components.QMarkupLabel();
             this.lblDienGiai = new Qios.DevSuite.Components.QMarkupLabel();
             this.txtDienGiai = new Qios.DevSuite.Components.QTextBox();
@@ -60,9 +63,6 @@
             this.txtNam = new Qios.DevSuite.Components.QTextBox();
             this.qMarkupLabel2 = new Qios.DevSuite.Components.QMarkupLabel();
             this.qMarkupLabel1 = new Qios.DevSuite.Components.QMarkupLabel();
-            this.lblTenNguonVon = new Qios.DevSuite.Components.QMarkupLabel();
-            this.lblMaLyDoTangGiamTaiSan = new Qios.DevSuite.Components.QMarkupLabel();
-            this.qMarkupLabel10 = new Qios.DevSuite.Components.QMarkupLabel();
             ((System.ComponentModel.ISupportInitialize)(this.qRibbonCaption1)).BeginInit();
             this.palRight.SuspendLayout();
             this.palTop_Center.SuspendLayout();
@@ -158,6 +158,32 @@
             this.palTop_Center.TabIndex = 2;
             this.palTop_Center.Text = "qPanel2";
             // 
+            // qMarkupLabel10
+            // 
+            this.qMarkupLabel10.Location = new System.Drawing.Point(527, 171);
+            this.qMarkupLabel10.MarkupText = "tháng/ngày/năm";
+            this.qMarkupLabel10.Name = "qMarkupLabel10";
+            this.qMarkupLabel10.Size = new System.Drawing.Size(140, 15);
+            this.qMarkupLabel10.TabIndex = 59;
+            // 
+            // lblMaLyDoTangGiamTaiSan
+            // 
+            this.lblMaLyDoTangGiamTaiSan.Location = new System.Drawing.Point(527, 272);
+            this.lblMaLyDoTangGiamTaiSan.MarkupText = "[ F4 tra cứu ]";
+            this.lblMaLyDoTangGiamTaiSan.Name = "lblMaLyDoTangGiamTaiSan";
+            this.lblMaLyDoTangGiamTaiSan.Size = new System.Drawing.Size(140, 15);
+            this.lblMaLyDoTangGiamTaiSan.TabIndex = 58;
+            this.lblMaLyDoTangGiamTaiSan.Tag = "";
+            // 
+            // lblTenNguonVon
+            // 
+            this.lblTenNguonVon.Location = new System.Drawing.Point(527, 240);
+            this.lblTenNguonVon.MarkupText = "[ F4 tra cứu ]";
+            this.lblTenNguonVon.Name = "lblTenNguonVon";
+            this.lblTenNguonVon.Size = new System.Drawing.Size(140, 15);
+            this.lblTenNguonVon.TabIndex = 57;
+            this.lblTenNguonVon.Tag = "";
+            // 
             // lblTenTaiSan
             // 
             this.lblTenTaiSan.Location = new System.Drawing.Point(527, 40);
@@ -226,6 +252,7 @@
             this.txtGiaTriDaKhauHao.Name = "txtGiaTriDaKhauHao";
             this.txtGiaTriDaKhauHao.Size = new System.Drawing.Size(382, 21);
             this.txtGiaTriDaKhauHao.TabIndex = 48;
+            this.txtGiaTriDaKhauHao.TextChanged += new System.EventHandler(this.txtGiaTriDaKhauHao_TextChanged);
             // 
             // lblNguyenGia
             // 
@@ -241,6 +268,7 @@
             this.txtNguyenGia.Name = "txtNguyenGia";
             this.txtNguyenGia.Size = new System.Drawing.Size(382, 21);
             this.txtNguyenGia.TabIndex = 44;
+            this.txtNguyenGia.TextChanged += new System.EventHandler(this.txtNguyenGia_TextChanged);
             // 
             // txtMaLyDoTangGiamTaiSan
             // 
@@ -349,32 +377,6 @@
             this.qMarkupLabel1.Name = "qMarkupLabel1";
             this.qMarkupLabel1.Size = new System.Drawing.Size(96, 15);
             this.qMarkupLabel1.TabIndex = 0;
-            // 
-            // lblTenNguonVon
-            // 
-            this.lblTenNguonVon.Location = new System.Drawing.Point(527, 240);
-            this.lblTenNguonVon.MarkupText = "[ F4 tra cứu ]";
-            this.lblTenNguonVon.Name = "lblTenNguonVon";
-            this.lblTenNguonVon.Size = new System.Drawing.Size(140, 15);
-            this.lblTenNguonVon.TabIndex = 57;
-            this.lblTenNguonVon.Tag = "";
-            // 
-            // lblMaLyDoTangGiamTaiSan
-            // 
-            this.lblMaLyDoTangGiamTaiSan.Location = new System.Drawing.Point(527, 272);
-            this.lblMaLyDoTangGiamTaiSan.MarkupText = "[ F4 tra cứu ]";
-            this.lblMaLyDoTangGiamTaiSan.Name = "lblMaLyDoTangGiamTaiSan";
-            this.lblMaLyDoTangGiamTaiSan.Size = new System.Drawing.Size(140, 15);
-            this.lblMaLyDoTangGiamTaiSan.TabIndex = 58;
-            this.lblMaLyDoTangGiamTaiSan.Tag = "";
-            // 
-            // qMarkupLabel10
-            // 
-            this.qMarkupLabel10.Location = new System.Drawing.Point(527, 171);
-            this.qMarkupLabel10.MarkupText = "tháng/ngày/năm";
-            this.qMarkupLabel10.Name = "qMarkupLabel10";
-            this.qMarkupLabel10.Size = new System.Drawing.Size(140, 15);
-            this.qMarkupLabel10.TabIndex = 59;
             // 
             // frmXuLyNVDieuChinhGiaTriTaiSan
             // 

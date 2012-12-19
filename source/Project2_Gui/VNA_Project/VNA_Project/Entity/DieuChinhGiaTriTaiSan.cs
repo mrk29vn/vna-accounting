@@ -10,6 +10,7 @@ namespace VNA_Project.Entity
     {
         public DieuChinhGiaTriTaiSan() { }
 
+        int dieuChinhGiaTriTaiSanID = 0;
         string maDieuChinhGiaTriTaiSan = string.Empty;
         bool loai = true;
         string maTaiSan = string.Empty;
@@ -25,6 +26,11 @@ namespace VNA_Project.Entity
         double giaTriKhauHao1Ky = 0;
         string dienGiai = string.Empty;
 
+        public int DieuChinhGiaTriTaiSanID
+        {
+            get { return dieuChinhGiaTriTaiSanID; }
+            set { dieuChinhGiaTriTaiSanID = value; }
+        }
         public string MaDieuChinhGiaTriTaiSan
         {
             get { return maDieuChinhGiaTriTaiSan; }

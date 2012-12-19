@@ -144,8 +144,8 @@ namespace VNA_Project.NGHIEPVU.DieuChinhGiaTriTaiSanFolder
                 {
                     if (MSG.BanCoChacChanMuonXoaKhong() == System.Windows.Forms.DialogResult.Yes)
                     {
-                        NguonVon temp = Utils.DataGridViewRow_to_NguonVon(DataGridView.Rows[vtIndex]);
-                        int kq = NguonVonBiz.DeleteNguonVon(temp);
+                        DieuChinhGiaTriTaiSan temp = Utils.DataGridViewRow_to_DieuChinhGiaTriTaiSan(DataGridView.Rows[vtIndex]);
+                        int kq = DieuChinhGiaTriTaiSanBiz.DeleteDieuChinhGiaTriTaiSan(temp);
                         //if (kq > 0) MSG.XoaThanhCong();
                         //else MSG.XoaThatBai();
                         if (kq <= 0) MSG.XoaThatBai();

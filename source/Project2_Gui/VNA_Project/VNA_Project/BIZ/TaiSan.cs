@@ -10,10 +10,21 @@ namespace VNA_Project.BIZ
     {
         public TaiSanBiz() { }
 
+
         public static List<TaiSan> getListTaiSan()
         {
+            return getListTaiSan(string.Empty, 0);
+        }
+        public static List<TaiSan> getListTaiSan(string MaTaiSanInput)
+        {
+            return getListTaiSan(MaTaiSanInput, 1);
+        }
+        public static List<TaiSan> getListTaiSan(string MaTaiSanInput, int select)
+        {
             List<TaiSan> kq = new List<TaiSan>();
-            string sql = "SELECT * FROM  [VNAAccounting].[dbo].[TaiSan]";
+            string sql = string.Empty;
+            if (select == 0) sql = "SELECT * FROM  [VNAAccounting].[dbo].[TaiSan]";
+            else if (select == 1) sql = "SELECT * FROM  [VNAAccounting].[dbo].[TaiSan] WHERE MaTaiSan = '" + MaTaiSanInput + "'";
             System.Data.DataTable dt = DAL.CSDL.hienthi(sql);
             for (int i = 0; i < dt.Rows.Count; i++)
             {

@@ -137,6 +137,7 @@ namespace VNA_Project
         public static DieuChinhGiaTriTaiSan DataGridViewRow_to_DieuChinhGiaTriTaiSan(System.Windows.Forms.DataGridViewRow Input)
         {
             DieuChinhGiaTriTaiSan kq = new DieuChinhGiaTriTaiSan();
+            kq.DieuChinhGiaTriTaiSanID = int.Parse(Input.Cells["DieuChinhGiaTriTaiSanID"].Value.ToString());
             kq.Loai = bool.Parse(Input.Cells["Loai"].Value.ToString());
             kq.MaTaiSan = Input.Cells["MaTaiSan"].Value.ToString();
             kq.Nam = Input.Cells["Nam"].Value.ToString();
