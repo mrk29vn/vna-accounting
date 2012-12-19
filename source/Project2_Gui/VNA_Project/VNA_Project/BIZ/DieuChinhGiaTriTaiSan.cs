@@ -63,7 +63,7 @@ namespace VNA_Project.BIZ
 
         public static int AddDieuChinhGiaTriTaiSan(DieuChinhGiaTriTaiSan input)
         {
-            string sql = "INSERT INTO [VNAAccounting].[dbo].[DieuChinhGiaTriTaiSan]([Loai],[Nam],[Ky],[NgayChungTu],[SoChungTu],[MaNguonVon],[MaLyDoTangGiamTaiSan],[NguyenGia],[GiaTriDaKhauHao],[GiaTriConLai],[GiaTriKhauHao1Ky],[DienGiai]) VALUES(" + input.Loai + ",N'" + input.MaTaiSan.ToUpper() + "',N'" + input.Nam + "',N'" + input.Ky + "','" + input.NgayChungTu.ToString("MM/dd/yyyy") + "',N'" + input.SoChungTu + "',N'" + input.MaNguonVon.ToUpper() + "',N'" + input.MaLyDoTangGiamTaiSan.ToUpper() + "'," + input.NguyenGia + "," + input.GiaTriDaKhauHao + "," + input.GiaTriConLai + "," + input.GiaTriKhauHao1Ky + ",N'" + input.DienGiai + "')";
+            string sql = "INSERT INTO [VNAAccounting].[dbo].[DieuChinhGiaTriTaiSan]([Loai],[MaTaiSan],[Nam],[Ky],[NgayChungTu],[SoChungTu],[MaNguonVon],[MaLyDoTangGiamTaiSan],[NguyenGia],[GiaTriDaKhauHao],[GiaTriConLai],[GiaTriKhauHao1Ky],[DienGiai]) VALUES(" + (input.Loai ? 1 : 0) + ",N'" + input.MaTaiSan.ToUpper() + "',N'" + input.Nam + "',N'" + input.Ky + "','" + input.NgayChungTu.ToString("MM/dd/yyyy") + "',N'" + input.SoChungTu + "',N'" + input.MaNguonVon.ToUpper() + "',N'" + input.MaLyDoTangGiamTaiSan.ToUpper() + "'," + input.NguyenGia + "," + input.GiaTriDaKhauHao + "," + input.GiaTriConLai + "," + input.GiaTriKhauHao1Ky + ",N'" + input.DienGiai + "')";
             return DAL.CSDL.ThemSuaXoa(sql);
         }
 
