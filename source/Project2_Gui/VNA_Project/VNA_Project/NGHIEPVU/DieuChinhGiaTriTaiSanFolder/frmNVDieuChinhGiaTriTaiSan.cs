@@ -73,6 +73,7 @@ namespace VNA_Project.NGHIEPVU.DieuChinhGiaTriTaiSanFolder
             DataGridView.Columns["GiaTriKhauHao1Ky"].HeaderText = "Giá trị khấu hao 1 kỳ";
             DataGridView.Columns["DienGiai"].HeaderText = "Diễn giải";
 
+            DataGridView.Columns["DieuChinhGiaTriTaiSanID"].Visible = false;
             DataGridView.Columns["MaDieuChinhGiaTriTaiSan"].Visible = false;
             DataGridView.Columns["Loai"].Visible = true;
             DataGridView.Columns["MaTaiSan"].Visible = true;

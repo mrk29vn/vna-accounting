@@ -105,6 +105,8 @@ namespace VNA_Project.Entity
         public DieuChinhGiaTriTaiSan Copy()
         {
             DieuChinhGiaTriTaiSan kq = new DieuChinhGiaTriTaiSan();
+            kq.DieuChinhGiaTriTaiSanID = dieuChinhGiaTriTaiSanID;
+            kq.MaDieuChinhGiaTriTaiSan = maDieuChinhGiaTriTaiSan;
             kq.Loai = loai;
             kq.MaTaiSan = maTaiSan;
             kq.Nam = nam;
