@@ -16,6 +16,9 @@ namespace VNA_Project
         public VNAMain()
         {
             InitializeComponent();
+            int StartwidthScreen = Screen.PrimaryScreen.WorkingArea.Width / 2 - this.Width / 2;
+            int StartheightScreen = Screen.PrimaryScreen.WorkingArea.Height / 2 - this.Height / 2;
+            this.SetBounds(StartwidthScreen, StartheightScreen, this.Width, this.Height);
         }
 
         private void btnDMNguonVon_ItemActivated(object sender, QCompositeEventArgs e)
@@ -139,6 +142,12 @@ namespace VNA_Project
         private void btnNVTaiSan_ItemActivated(object sender, QCompositeEventArgs e)
         {
             VNA_Project.DANHMUC.TaiSanFolder.frmDMTaiSan frm = new DANHMUC.TaiSanFolder.frmDMTaiSan();
+            frm.ShowDialog();
+        }
+
+        private void mnNV_DieuChinhGiaTriTaiSan_ItemActivated(object sender, QCompositeEventArgs e)
+        {
+            VNA_Project.NGHIEPVU.DieuChinhGiaTriTaiSanFolder.frmNVDieuChinhGiaTriTaiSan frm = new NGHIEPVU.DieuChinhGiaTriTaiSanFolder.frmNVDieuChinhGiaTriTaiSan();
             frm.ShowDialog();
         }
     }

@@ -40,6 +40,17 @@
             this.qCompositeImage2 = new Qios.DevSuite.Components.QCompositeImage();
             this.palHOMECenter = new Qios.DevSuite.Components.Ribbon.QRibbonPanel();
             this.qsMiddleRibbonPanel = new Qios.DevSuite.Components.QShape();
+            this.qCompositeLargeMenuItem1 = new Qios.DevSuite.Components.QCompositeLargeMenuItem();
+            this.mnDM_NguonVon = new Qios.DevSuite.Components.QCompositeMenuItem();
+            this.mnDM_LyDoTangGiamTS = new Qios.DevSuite.Components.QCompositeMenuItem();
+            this.mnDM_LoaiTS = new Qios.DevSuite.Components.QCompositeMenuItem();
+            this.mnDM_PhanNhomTS = new Qios.DevSuite.Components.QCompositeMenuItem();
+            this.mnDM_ThietBi = new Qios.DevSuite.Components.QCompositeMenuItem();
+            this.mnDM_BoPhanSDTSCD = new Qios.DevSuite.Components.QCompositeMenuItem();
+            this.qCompositeSeparator1 = new Qios.DevSuite.Components.QCompositeSeparator();
+            this.mnDM_BoPhanHachToan = new Qios.DevSuite.Components.QCompositeMenuItem();
+            this.mnDM_PhanXuong = new Qios.DevSuite.Components.QCompositeMenuItem();
+            this.mnDM_Phi = new Qios.DevSuite.Components.QCompositeMenuItem();
             this.palHOMERight = new Qios.DevSuite.Components.Ribbon.QRibbonPanel();
             this.qsRightRibbonPanel = new Qios.DevSuite.Components.QShape();
             this.qCompositeImage1 = new Qios.DevSuite.Components.QCompositeImage();
@@ -58,21 +69,6 @@
             this.palDMBoPhanSDTSCD = new Qios.DevSuite.Components.Ribbon.QRibbonPanel();
             this.btnDMBoPhanSDTSCD = new Qios.DevSuite.Components.QCompositeButton();
             this.rPageNGHIEPVU = new Qios.DevSuite.Components.Ribbon.QRibbonPage();
-            this.rPageBAOCAO = new Qios.DevSuite.Components.Ribbon.QRibbonPage();
-            this.qRibbonCaption1 = new Qios.DevSuite.Components.Ribbon.QRibbonCaption();
-            this.qRibbonApplicationButton1 = new Qios.DevSuite.Components.Ribbon.QRibbonApplicationButton();
-            this.qRibbonLaunchBar1 = new Qios.DevSuite.Components.Ribbon.QRibbonLaunchBar();
-            this.qCompositeLargeMenuItem1 = new Qios.DevSuite.Components.QCompositeLargeMenuItem();
-            this.mnDM_NguonVon = new Qios.DevSuite.Components.QCompositeMenuItem();
-            this.mnDM_LyDoTangGiamTS = new Qios.DevSuite.Components.QCompositeMenuItem();
-            this.mnDM_LoaiTS = new Qios.DevSuite.Components.QCompositeMenuItem();
-            this.mnDM_PhanNhomTS = new Qios.DevSuite.Components.QCompositeMenuItem();
-            this.mnDM_ThietBi = new Qios.DevSuite.Components.QCompositeMenuItem();
-            this.mnDM_BoPhanSDTSCD = new Qios.DevSuite.Components.QCompositeMenuItem();
-            this.qCompositeSeparator1 = new Qios.DevSuite.Components.QCompositeSeparator();
-            this.mnDM_BoPhanHachToan = new Qios.DevSuite.Components.QCompositeMenuItem();
-            this.mnDM_PhanXuong = new Qios.DevSuite.Components.QCompositeMenuItem();
-            this.mnDM_Phi = new Qios.DevSuite.Components.QCompositeMenuItem();
             this.qRibbonPanel1 = new Qios.DevSuite.Components.Ribbon.QRibbonPanel();
             this.btnNVTaiSan = new Qios.DevSuite.Components.QCompositeButton();
             this.qCompositeLargeMenuItem2 = new Qios.DevSuite.Components.QCompositeLargeMenuItem();
@@ -83,6 +79,10 @@
             this.mnNV_TinhKhauHaoTaiSanCoDinh = new Qios.DevSuite.Components.QCompositeMenuItem();
             this.mnNV_DieuChinhKhauHaoKy = new Qios.DevSuite.Components.QCompositeMenuItem();
             this.mnNV_ButToanPhanBoKhauHaoTaiSanCoDinh = new Qios.DevSuite.Components.QCompositeMenuItem();
+            this.rPageBAOCAO = new Qios.DevSuite.Components.Ribbon.QRibbonPage();
+            this.qRibbonCaption1 = new Qios.DevSuite.Components.Ribbon.QRibbonCaption();
+            this.qRibbonApplicationButton1 = new Qios.DevSuite.Components.Ribbon.QRibbonApplicationButton();
+            this.qRibbonLaunchBar1 = new Qios.DevSuite.Components.Ribbon.QRibbonLaunchBar();
             this.palMAINDown.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.qPanel2.SuspendLayout();
@@ -206,6 +206,85 @@
             this.qsMiddleRibbonPanel.Items.Add(new Qios.DevSuite.Components.QShapeItem(73F, 50F, ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right))), true));
             this.qsMiddleRibbonPanel.Items.Add(new Qios.DevSuite.Components.QShapeItem(27F, 50F, -7F, 50F, -9F, 0F, ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left))), true));
             this.qsMiddleRibbonPanel.Items.Add(new Qios.DevSuite.Components.QShapeItem(29F, 0F, ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left))), true));
+            // 
+            // qCompositeLargeMenuItem1
+            // 
+            this.qCompositeLargeMenuItem1.ChildItems.Add(this.mnDM_NguonVon);
+            this.qCompositeLargeMenuItem1.ChildItems.Add(this.mnDM_LyDoTangGiamTS);
+            this.qCompositeLargeMenuItem1.ChildItems.Add(this.mnDM_LoaiTS);
+            this.qCompositeLargeMenuItem1.ChildItems.Add(this.mnDM_PhanNhomTS);
+            this.qCompositeLargeMenuItem1.ChildItems.Add(this.mnDM_ThietBi);
+            this.qCompositeLargeMenuItem1.ChildItems.Add(this.mnDM_BoPhanSDTSCD);
+            this.qCompositeLargeMenuItem1.ChildItems.Add(this.qCompositeSeparator1);
+            this.qCompositeLargeMenuItem1.ChildItems.Add(this.mnDM_BoPhanHachToan);
+            this.qCompositeLargeMenuItem1.ChildItems.Add(this.mnDM_PhanXuong);
+            this.qCompositeLargeMenuItem1.ChildItems.Add(this.mnDM_Phi);
+            this.qCompositeLargeMenuItem1.Configuration.Appearance.BackgroundStyle = Qios.DevSuite.Components.QColorStyle.Gradient;
+            this.qCompositeLargeMenuItem1.Configuration.Appearance.Shape = new Qios.DevSuite.Components.QShape(Qios.DevSuite.Components.QBaseShapeType.RoundedButton);
+            this.qCompositeLargeMenuItem1.Configuration.Direction = Qios.DevSuite.Components.QPartDirection.Vertical;
+            this.qCompositeLargeMenuItem1.Configuration.IconConfiguration.IconSize = new System.Drawing.Size(28, 28);
+            this.qCompositeLargeMenuItem1.Configuration.Margin = new Qios.DevSuite.Components.QMargin(15, 0, 0, 0);
+            this.qCompositeLargeMenuItem1.Configuration.Padding = new Qios.DevSuite.Components.QPadding(0, 0, 0, 0);
+            this.qCompositeLargeMenuItem1.Configuration.StretchHorizontal = false;
+            this.qCompositeLargeMenuItem1.Configuration.StretchVertical = true;
+            this.qCompositeLargeMenuItem1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.qCompositeLargeMenuItem1.Icon = ((System.Drawing.Icon)(resources.GetObject("qCompositeLargeMenuItem1.Icon")));
+            this.qCompositeLargeMenuItem1.Title = "Danh mục";
+            this.qCompositeLargeMenuItem1.UserRightBehavior = Qios.DevSuite.Components.QCommandUserRightBehavior.HideWhenNoRight;
+            // 
+            // mnDM_NguonVon
+            // 
+            this.mnDM_NguonVon.Icon = ((System.Drawing.Icon)(resources.GetObject("mnDM_NguonVon.Icon")));
+            this.mnDM_NguonVon.Title = "Nguồn vốn";
+            this.mnDM_NguonVon.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.mnDM_NguonVon_ItemActivated);
+            // 
+            // mnDM_LyDoTangGiamTS
+            // 
+            this.mnDM_LyDoTangGiamTS.Icon = ((System.Drawing.Icon)(resources.GetObject("mnDM_LyDoTangGiamTS.Icon")));
+            this.mnDM_LyDoTangGiamTS.Title = "Lý do tăng giảm tài sản";
+            this.mnDM_LyDoTangGiamTS.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.mnDM_LyDoTangGiamTS_ItemActivated);
+            // 
+            // mnDM_LoaiTS
+            // 
+            this.mnDM_LoaiTS.Icon = ((System.Drawing.Icon)(resources.GetObject("mnDM_LoaiTS.Icon")));
+            this.mnDM_LoaiTS.Title = "Loại tài sản";
+            this.mnDM_LoaiTS.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.mnDM_LoaiTS_ItemActivated);
+            // 
+            // mnDM_PhanNhomTS
+            // 
+            this.mnDM_PhanNhomTS.Icon = ((System.Drawing.Icon)(resources.GetObject("mnDM_PhanNhomTS.Icon")));
+            this.mnDM_PhanNhomTS.Title = "Phân nhóm tài sản";
+            this.mnDM_PhanNhomTS.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.mnDM_PhanNhomTS_ItemActivated);
+            // 
+            // mnDM_ThietBi
+            // 
+            this.mnDM_ThietBi.Icon = ((System.Drawing.Icon)(resources.GetObject("mnDM_ThietBi.Icon")));
+            this.mnDM_ThietBi.Title = "Thiết bị";
+            this.mnDM_ThietBi.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.mnDM_ThietBi_ItemActivated);
+            // 
+            // mnDM_BoPhanSDTSCD
+            // 
+            this.mnDM_BoPhanSDTSCD.Icon = ((System.Drawing.Icon)(resources.GetObject("mnDM_BoPhanSDTSCD.Icon")));
+            this.mnDM_BoPhanSDTSCD.Title = "Bộ phận sử dụng tài sản cố định";
+            this.mnDM_BoPhanSDTSCD.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.mnDM_BoPhanSDTSCD_ItemActivated);
+            // 
+            // mnDM_BoPhanHachToan
+            // 
+            this.mnDM_BoPhanHachToan.Icon = ((System.Drawing.Icon)(resources.GetObject("mnDM_BoPhanHachToan.Icon")));
+            this.mnDM_BoPhanHachToan.Title = "Bộ phận hạch toán";
+            this.mnDM_BoPhanHachToan.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.mnDM_BoPhanHachToan_ItemActivated);
+            // 
+            // mnDM_PhanXuong
+            // 
+            this.mnDM_PhanXuong.Icon = ((System.Drawing.Icon)(resources.GetObject("mnDM_PhanXuong.Icon")));
+            this.mnDM_PhanXuong.Title = "Phân xưởng";
+            this.mnDM_PhanXuong.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.mnDM_PhanXuong_ItemActivated);
+            // 
+            // mnDM_Phi
+            // 
+            this.mnDM_Phi.Icon = ((System.Drawing.Icon)(resources.GetObject("mnDM_Phi.Icon")));
+            this.mnDM_Phi.Title = "Phí";
+            this.mnDM_Phi.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.mnDM_Phi_ItemActivated);
             // 
             // palHOMERight
             // 
@@ -365,110 +444,6 @@
             this.rPageNGHIEPVU.Size = new System.Drawing.Size(742, 79);
             this.rPageNGHIEPVU.Text = "NGHIỆP VỤ";
             // 
-            // rPageBAOCAO
-            // 
-            this.rPageBAOCAO.ButtonOrder = 3;
-            this.rPageBAOCAO.Icon = ((System.Drawing.Icon)(resources.GetObject("rPageBAOCAO.Icon")));
-            this.rPageBAOCAO.Location = new System.Drawing.Point(2, 31);
-            this.rPageBAOCAO.Name = "rPageBAOCAO";
-            this.rPageBAOCAO.PersistGuid = new System.Guid("9dccba66-59a6-4cce-83a6-5436ee2801fb");
-            this.rPageBAOCAO.Size = new System.Drawing.Size(742, 79);
-            this.rPageBAOCAO.Text = "BÁO CÁO";
-            // 
-            // qRibbonCaption1
-            // 
-            this.qRibbonCaption1.ApplicationButton = this.qRibbonApplicationButton1;
-            this.qRibbonCaption1.Configuration.IconConfiguration.Visible = Qios.DevSuite.Components.QTristateBool.False;
-            this.qRibbonCaption1.LaunchBar = this.qRibbonLaunchBar1;
-            this.qRibbonCaption1.Location = new System.Drawing.Point(0, 0);
-            this.qRibbonCaption1.Name = "qRibbonCaption1";
-            this.qRibbonCaption1.Size = new System.Drawing.Size(750, 28);
-            this.qRibbonCaption1.TabIndex = 1;
-            this.qRibbonCaption1.Text = "VNA Accounting Fixed assets modul - Phân hệ kế toán tài sản cố định";
-            // 
-            // qRibbonApplicationButton1
-            // 
-            this.qRibbonApplicationButton1.ForegroundImage = ((System.Drawing.Image)(resources.GetObject("qRibbonApplicationButton1.ForegroundImage")));
-            // 
-            // qCompositeLargeMenuItem1
-            // 
-            this.qCompositeLargeMenuItem1.ChildItems.Add(this.mnDM_NguonVon);
-            this.qCompositeLargeMenuItem1.ChildItems.Add(this.mnDM_LyDoTangGiamTS);
-            this.qCompositeLargeMenuItem1.ChildItems.Add(this.mnDM_LoaiTS);
-            this.qCompositeLargeMenuItem1.ChildItems.Add(this.mnDM_PhanNhomTS);
-            this.qCompositeLargeMenuItem1.ChildItems.Add(this.mnDM_ThietBi);
-            this.qCompositeLargeMenuItem1.ChildItems.Add(this.mnDM_BoPhanSDTSCD);
-            this.qCompositeLargeMenuItem1.ChildItems.Add(this.qCompositeSeparator1);
-            this.qCompositeLargeMenuItem1.ChildItems.Add(this.mnDM_BoPhanHachToan);
-            this.qCompositeLargeMenuItem1.ChildItems.Add(this.mnDM_PhanXuong);
-            this.qCompositeLargeMenuItem1.ChildItems.Add(this.mnDM_Phi);
-            this.qCompositeLargeMenuItem1.Configuration.Appearance.BackgroundStyle = Qios.DevSuite.Components.QColorStyle.Gradient;
-            this.qCompositeLargeMenuItem1.Configuration.Appearance.Shape = new Qios.DevSuite.Components.QShape(Qios.DevSuite.Components.QBaseShapeType.RoundedButton);
-            this.qCompositeLargeMenuItem1.Configuration.Direction = Qios.DevSuite.Components.QPartDirection.Vertical;
-            this.qCompositeLargeMenuItem1.Configuration.IconConfiguration.IconSize = new System.Drawing.Size(28, 28);
-            this.qCompositeLargeMenuItem1.Configuration.Margin = new Qios.DevSuite.Components.QMargin(15, 0, 0, 0);
-            this.qCompositeLargeMenuItem1.Configuration.Padding = new Qios.DevSuite.Components.QPadding(0, 0, 0, 0);
-            this.qCompositeLargeMenuItem1.Configuration.StretchHorizontal = false;
-            this.qCompositeLargeMenuItem1.Configuration.StretchVertical = true;
-            this.qCompositeLargeMenuItem1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.qCompositeLargeMenuItem1.Icon = ((System.Drawing.Icon)(resources.GetObject("qCompositeLargeMenuItem1.Icon")));
-            this.qCompositeLargeMenuItem1.Title = "Danh mục";
-            this.qCompositeLargeMenuItem1.UserRightBehavior = Qios.DevSuite.Components.QCommandUserRightBehavior.HideWhenNoRight;
-            // 
-            // mnDM_NguonVon
-            // 
-            this.mnDM_NguonVon.Icon = ((System.Drawing.Icon)(resources.GetObject("mnDM_NguonVon.Icon")));
-            this.mnDM_NguonVon.Title = "Nguồn vốn";
-            this.mnDM_NguonVon.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.mnDM_NguonVon_ItemActivated);
-            // 
-            // mnDM_LyDoTangGiamTS
-            // 
-            this.mnDM_LyDoTangGiamTS.Icon = ((System.Drawing.Icon)(resources.GetObject("mnDM_LyDoTangGiamTS.Icon")));
-            this.mnDM_LyDoTangGiamTS.Title = "Lý do tăng giảm tài sản";
-            this.mnDM_LyDoTangGiamTS.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.mnDM_LyDoTangGiamTS_ItemActivated);
-            // 
-            // mnDM_LoaiTS
-            // 
-            this.mnDM_LoaiTS.Icon = ((System.Drawing.Icon)(resources.GetObject("mnDM_LoaiTS.Icon")));
-            this.mnDM_LoaiTS.Title = "Loại tài sản";
-            this.mnDM_LoaiTS.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.mnDM_LoaiTS_ItemActivated);
-            // 
-            // mnDM_PhanNhomTS
-            // 
-            this.mnDM_PhanNhomTS.Icon = ((System.Drawing.Icon)(resources.GetObject("mnDM_PhanNhomTS.Icon")));
-            this.mnDM_PhanNhomTS.Title = "Phân nhóm tài sản";
-            this.mnDM_PhanNhomTS.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.mnDM_PhanNhomTS_ItemActivated);
-            // 
-            // mnDM_ThietBi
-            // 
-            this.mnDM_ThietBi.Icon = ((System.Drawing.Icon)(resources.GetObject("mnDM_ThietBi.Icon")));
-            this.mnDM_ThietBi.Title = "Thiết bị";
-            this.mnDM_ThietBi.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.mnDM_ThietBi_ItemActivated);
-            // 
-            // mnDM_BoPhanSDTSCD
-            // 
-            this.mnDM_BoPhanSDTSCD.Icon = ((System.Drawing.Icon)(resources.GetObject("mnDM_BoPhanSDTSCD.Icon")));
-            this.mnDM_BoPhanSDTSCD.Title = "Bộ phận sử dụng tài sản cố định";
-            this.mnDM_BoPhanSDTSCD.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.mnDM_BoPhanSDTSCD_ItemActivated);
-            // 
-            // mnDM_BoPhanHachToan
-            // 
-            this.mnDM_BoPhanHachToan.Icon = ((System.Drawing.Icon)(resources.GetObject("mnDM_BoPhanHachToan.Icon")));
-            this.mnDM_BoPhanHachToan.Title = "Bộ phận hạch toán";
-            this.mnDM_BoPhanHachToan.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.mnDM_BoPhanHachToan_ItemActivated);
-            // 
-            // mnDM_PhanXuong
-            // 
-            this.mnDM_PhanXuong.Icon = ((System.Drawing.Icon)(resources.GetObject("mnDM_PhanXuong.Icon")));
-            this.mnDM_PhanXuong.Title = "Phân xưởng";
-            this.mnDM_PhanXuong.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.mnDM_PhanXuong_ItemActivated);
-            // 
-            // mnDM_Phi
-            // 
-            this.mnDM_Phi.Icon = ((System.Drawing.Icon)(resources.GetObject("mnDM_Phi.Icon")));
-            this.mnDM_Phi.Title = "Phí";
-            this.mnDM_Phi.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.mnDM_Phi_ItemActivated);
-            // 
             // qRibbonPanel1
             // 
             this.qRibbonPanel1.Items.Add(this.btnNVTaiSan);
@@ -509,6 +484,7 @@
             // 
             this.mnNV_DieuChinhGiaTriTaiSan.Icon = ((System.Drawing.Icon)(resources.GetObject("mnNV_DieuChinhGiaTriTaiSan.Icon")));
             this.mnNV_DieuChinhGiaTriTaiSan.Title = "Điều chỉnh giá trị tài sản";
+            this.mnNV_DieuChinhGiaTriTaiSan.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.mnNV_DieuChinhGiaTriTaiSan_ItemActivated);
             // 
             // mnNV_KhaiBaoGiamTaiSan
             // 
@@ -539,6 +515,31 @@
             // 
             this.mnNV_ButToanPhanBoKhauHaoTaiSanCoDinh.Icon = ((System.Drawing.Icon)(resources.GetObject("mnNV_ButToanPhanBoKhauHaoTaiSanCoDinh.Icon")));
             this.mnNV_ButToanPhanBoKhauHaoTaiSanCoDinh.Title = "Bút toán phân bổ khấu hao tài sản cố định";
+            // 
+            // rPageBAOCAO
+            // 
+            this.rPageBAOCAO.ButtonOrder = 3;
+            this.rPageBAOCAO.Icon = ((System.Drawing.Icon)(resources.GetObject("rPageBAOCAO.Icon")));
+            this.rPageBAOCAO.Location = new System.Drawing.Point(2, 31);
+            this.rPageBAOCAO.Name = "rPageBAOCAO";
+            this.rPageBAOCAO.PersistGuid = new System.Guid("9dccba66-59a6-4cce-83a6-5436ee2801fb");
+            this.rPageBAOCAO.Size = new System.Drawing.Size(742, 79);
+            this.rPageBAOCAO.Text = "BÁO CÁO";
+            // 
+            // qRibbonCaption1
+            // 
+            this.qRibbonCaption1.ApplicationButton = this.qRibbonApplicationButton1;
+            this.qRibbonCaption1.Configuration.IconConfiguration.Visible = Qios.DevSuite.Components.QTristateBool.False;
+            this.qRibbonCaption1.LaunchBar = this.qRibbonLaunchBar1;
+            this.qRibbonCaption1.Location = new System.Drawing.Point(0, 0);
+            this.qRibbonCaption1.Name = "qRibbonCaption1";
+            this.qRibbonCaption1.Size = new System.Drawing.Size(750, 28);
+            this.qRibbonCaption1.TabIndex = 1;
+            this.qRibbonCaption1.Text = "VNA Accounting Fixed assets modul - Phân hệ kế toán tài sản cố định";
+            // 
+            // qRibbonApplicationButton1
+            // 
+            this.qRibbonApplicationButton1.ForegroundImage = ((System.Drawing.Image)(resources.GetObject("qRibbonApplicationButton1.ForegroundImage")));
             // 
             // VNAMain
             // 

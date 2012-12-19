@@ -55,13 +55,13 @@ namespace VNA_Project.BIZ
 
         public static int AddChiTietTaiSan(ChiTietTaiSan input)
         {
-            string sql = "INSERT INTO [VNAAccounting].[dbo].[ChiTietTaiSan]([MaTaiSan],[MaNguonVon],[NgayChungTu],[SoChungTu],[NguyenGia],[GiaTriDaKhauHao],[GiaTriConLai],[GiaTriKhauHao1Ky],[DienGiai]) VALUES(N'" + input.MaTaiSan.ToUpper() + "',N'" + input.MaNguonVon.ToUpper() + "'," + input.NgayChungTu + ",N'" + input.SoChungTu + "'," + input.NguyenGia + "," + input.GiaTriDaKhauHao + "," + input.GiaTriConLai + "," + input.GiaTriKhauHao1Ky + ",N'" + input.DienGiai + "')";
+            string sql = "INSERT INTO [VNAAccounting].[dbo].[ChiTietTaiSan]([MaTaiSan],[MaNguonVon],[NgayChungTu],[SoChungTu],[NguyenGia],[GiaTriDaKhauHao],[GiaTriConLai],[GiaTriKhauHao1Ky],[DienGiai]) VALUES(N'" + input.MaTaiSan.ToUpper() + "',N'" + input.MaNguonVon.ToUpper() + "'," + input.NgayChungTu.ToString("MM/dd/yyyy") + ",N'" + input.SoChungTu + "'," + input.NguyenGia + "," + input.GiaTriDaKhauHao + "," + input.GiaTriConLai + "," + input.GiaTriKhauHao1Ky + ",N'" + input.DienGiai + "')";
             return DAL.CSDL.ThemSuaXoa(sql);
         }
 
         public static int EditChiTietTaiSan(ChiTietTaiSan input)
         {
-            string sql = "UPDATE [VNAAccounting].[dbo].[ChiTietTaiSan] SET MaNguonVon = N'" + input.MaNguonVon.ToUpper() + "',NgayChungTu = " + input.NgayChungTu + ",SoChungTu = N'" + input.SoChungTu + "',NguyenGia = " + input.NguyenGia + ",GiaTriDaKhauHao = " + input.GiaTriDaKhauHao + ",GiaTriConLai = " + input.GiaTriConLai + ",GiaTriKhauHao1Ky = " + input.GiaTriKhauHao1Ky + ",DienGiai = N'" + input.DienGiai + "' WHERE MaTaiSan = N'" + input.MaTaiSan.ToUpper() + "'";
+            string sql = "UPDATE [VNAAccounting].[dbo].[ChiTietTaiSan] SET MaNguonVon = N'" + input.MaNguonVon.ToUpper() + "',NgayChungTu = " + input.NgayChungTu.ToString("MM/dd/yyyy") + ",SoChungTu = N'" + input.SoChungTu + "',NguyenGia = " + input.NguyenGia + ",GiaTriDaKhauHao = " + input.GiaTriDaKhauHao + ",GiaTriConLai = " + input.GiaTriConLai + ",GiaTriKhauHao1Ky = " + input.GiaTriKhauHao1Ky + ",DienGiai = N'" + input.DienGiai + "' WHERE MaTaiSan = N'" + input.MaTaiSan.ToUpper() + "'";
             return DAL.CSDL.ThemSuaXoa(sql);
         }
 

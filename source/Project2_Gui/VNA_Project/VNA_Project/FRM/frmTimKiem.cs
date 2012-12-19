@@ -19,6 +19,9 @@ namespace VNA_Project.FRM
         int vtIndex = 0;    //vị trí dòng cell đang được chọn trong datagridview
 
         //------------------------------------------>
+        public static TaiSan taisan = null;
+        List<TaiSan> Ltaisan = new List<TaiSan>();
+
         public static PhanNhomTaiSan phannhomtaisan = null;
         List<PhanNhomTaiSan> Lphannhomtaisan = new List<PhanNhomTaiSan>();
 
@@ -192,6 +195,13 @@ namespace VNA_Project.FRM
         {
             switch (chose)
             {
+                case CONFIG.ConstFrm.frmDMTaiSan:
+                    {
+                        Ltaisan = TaiSanBiz.getListTaiSan();
+                        DataGridView.DataSource = Ltaisan.ToArray();
+                        FixDataGirdView();
+                        break;
+                    }
                 case CONFIG.ConstFrm.frmDMPhanNhomTaiSan:
                     {
                         Lphannhomtaisan = PhanNhomTaiSanBiz.getListPhanNhomTaiSan();
@@ -265,6 +275,18 @@ namespace VNA_Project.FRM
             {
                 switch (chose)
                 {
+                    case CONFIG.ConstFrm.frmDMTaiSan:
+                        {
+                            List<TaiSan> Ltemp = new List<TaiSan>();
+                            string search = txtMaSearch.Text.ToUpper();
+                            foreach (TaiSan item in Ltaisan)
+                            {
+                                if (item.MaTaiSan.ToUpper().Contains(search)) Ltemp.Add(item);
+                            }
+                            DataGridView.DataSource = Ltemp.ToArray();
+                            FixDataGirdView();
+                            break;
+                        }
                     case CONFIG.ConstFrm.frmDMPhanNhomTaiSan:
                         {
                             List<PhanNhomTaiSan> Ltemp = new List<PhanNhomTaiSan>();
@@ -366,6 +388,18 @@ namespace VNA_Project.FRM
             {
                 switch (chose)
                 {
+                    case CONFIG.ConstFrm.frmDMTaiSan:
+                        {
+                            List<TaiSan> Ltemp = new List<TaiSan>();
+                            string search = txtTenSearch.Text.ToUpper();
+                            foreach (TaiSan item in Ltaisan)
+                            {
+                                if (item.TenTaiSan.ToUpper().Contains(search)) Ltemp.Add(item);
+                            }
+                            DataGridView.DataSource = Ltemp.ToArray();
+                            FixDataGirdView();
+                            break;
+                        }
                     case CONFIG.ConstFrm.frmDMPhanNhomTaiSan:
                         {
                             List<PhanNhomTaiSan> Ltemp = new List<PhanNhomTaiSan>();
@@ -488,6 +522,11 @@ namespace VNA_Project.FRM
             if (vtIndex == -1) return;
             switch (chose)
             {
+                case CONFIG.ConstFrm.frmDMTaiSan:
+                    {
+                        taisan = Utils.DataGridViewRow_to_TaiSan(DataGridView.Rows[vtIndex]);
+                        break;
+                    }
                 case CONFIG.ConstFrm.frmDMPhanNhomTaiSan:
                     {
                         phannhomtaisan = Utils.DataGridViewRow_to_PhanNhomTaiSan(DataGridView.Rows[vtIndex]);

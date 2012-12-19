@@ -132,6 +132,24 @@ namespace VNA_Project
             string MA = Input.Cells["MaTaiSan"].Value.ToString();
             return DANHMUC.TaiSanFolder.frmDMTaiSan.Ldata.SingleOrDefault(k => k.MaTaiSan.ToUpper().Equals(MA.ToUpper())).Copy() ?? new TaiSan();
         }
+        public static DieuChinhGiaTriTaiSan DataGridViewRow_to_DieuChinhGiaTriTaiSan(System.Windows.Forms.DataGridViewRow Input)
+        {
+            DieuChinhGiaTriTaiSan kq = new DieuChinhGiaTriTaiSan();
+            kq.Loai = bool.Parse(Input.Cells["Loai"].Value.ToString());
+            kq.MaTaiSan = Input.Cells["MaTaiSan"].Value.ToString();
+            kq.Nam = Input.Cells["Nam"].Value.ToString();
+            kq.Ky = Input.Cells["Ky"].Value.ToString();
+            kq.NgayChungTu = DateTime.Parse(Input.Cells["NgayChungTu"].Value.ToString());
+            kq.SoChungTu = Input.Cells["SoChungTu"].Value.ToString();
+            kq.MaNguonVon = Input.Cells["MaNguonVon"].Value.ToString();
+            kq.MaLyDoTangGiamTaiSan = Input.Cells["MaLyDoTangGiamTaiSan"].Value.ToString();
+            kq.NguyenGia = double.Parse(Input.Cells["NguyenGia"].Value.ToString());
+            kq.GiaTriDaKhauHao = double.Parse(Input.Cells["GiaTriDaKhauHao"].Value.ToString());
+            kq.GiaTriConLai = double.Parse(Input.Cells["GiaTriConLai"].Value.ToString());
+            kq.GiaTriKhauHao1Ky = double.Parse(Input.Cells["GiaTriKhauHao1Ky"].Value.ToString());
+            kq.DienGiai = Input.Cells["DienGiai"].Value.ToString();
+            return kq;
+        }
         #endregion
     }
 

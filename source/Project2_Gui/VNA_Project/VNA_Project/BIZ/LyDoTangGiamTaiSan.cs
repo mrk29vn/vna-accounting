@@ -44,5 +44,23 @@ namespace VNA_Project.BIZ
             string sql = "DELETE FROM [VNAAccounting].[dbo].[LyDoTangGiamTaiSan] WHERE MaLyDoTangGiamTaiSan = N'" + input.MaLyDoTangGiamTaiSan.ToUpper() + "'";
             return DAL.CSDL.ThemSuaXoa(sql);
         }
+
+        //Lấy danh sách Lý do tăng giảm tài sản theo mã
+        public static List<LyDoTangGiamTaiSan> getListLyDoTangGiamTaiSan(string MaLyDoTangGiamTaiSan)
+        {
+            List<LyDoTangGiamTaiSan> kq = new List<LyDoTangGiamTaiSan>();
+            string sql = "SELECT [LoaiTangGiamTaiSan],[MaLyDoTangGiamTaiSan],[TenLyDoTangGiamTaiSan] FROM [VNAAccounting].[dbo].[LyDoTangGiamTaiSan] WHERE MaLyDoTangGiamTaiSan = N'" + MaLyDoTangGiamTaiSan.ToUpper() + "'";
+            System.Data.DataTable dt = DAL.CSDL.hienthi(sql);
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                LyDoTangGiamTaiSan temp = new LyDoTangGiamTaiSan();
+                temp.LoaiTangGiamTaiSan = bool.Parse(dt.Rows[i]["LoaiTangGiamTaiSan"].ToString());
+                temp.LoaiTangGiamTaiSanVIEW = temp.LoaiTangGiamTaiSan ? "1" : "2";
+                temp.MaLyDoTangGiamTaiSan = dt.Rows[i]["MaLyDoTangGiamTaiSan"].ToString();
+                temp.TenLyDoTangGiamTaiSan = dt.Rows[i]["TenLyDoTangGiamTaiSan"].ToString();
+                kq.Add(temp);
+            }
+            return kq;
+        }
     }
 }

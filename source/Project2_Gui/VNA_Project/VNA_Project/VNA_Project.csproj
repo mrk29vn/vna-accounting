@@ -52,6 +52,7 @@
     <Compile Include="BIZ\BoPhanSuDung.cs" />
     <Compile Include="BIZ\BoPhanHachToan.cs" />
     <Compile Include="BIZ\ChiTietTaiSan.cs" />
+    <Compile Include="BIZ\DieuChinhGiaTriTaiSan.cs" />
     <Compile Include="BIZ\TaiSan.cs" />
     <Compile Include="BIZ\PhuTungKemTheo.cs" />
     <Compile Include="BIZ\PhanXuong.cs" />
@@ -189,6 +190,7 @@
     <Compile Include="Entity\BoPhanSuDung.cs" />
     <Compile Include="Entity\BoPhanHachToan.cs" />
     <Compile Include="Entity\ChiTietTaiSan.cs" />
+    <Compile Include="Entity\DieuChinhGiaTriTaiSan.cs" />
     <Compile Include="Entity\PhuTungKemTheo.cs" />
     <Compile Include="Entity\TaiSan.cs" />
     <Compile Include="Entity\PhanXuong.cs" />
@@ -206,6 +208,18 @@
     </Compile>
     <Compile Include="FRM\frmTimKiem.Designer.cs">
       <DependentUpon>frmTimKiem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NGHIEPVU\DieuChinhGiaTriTaiSanFolder\frmNVDieuChinhGiaTriTaiSan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NGHIEPVU\DieuChinhGiaTriTaiSanFolder\frmNVDieuChinhGiaTriTaiSan.Designer.cs">
+      <DependentUpon>frmNVDieuChinhGiaTriTaiSan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NGHIEPVU\DieuChinhGiaTriTaiSanFolder\frmXuLyNVDieuChinhGiaTriTaiSan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NGHIEPVU\DieuChinhGiaTriTaiSanFolder\frmXuLyNVDieuChinhGiaTriTaiSan.Designer.cs">
+      <DependentUpon>frmXuLyNVDieuChinhGiaTriTaiSan.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -279,6 +293,12 @@
     <EmbeddedResource Include="FRM\frmTimKiem.resx">
       <DependentUpon>frmTimKiem.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="NGHIEPVU\DieuChinhGiaTriTaiSanFolder\frmNVDieuChinhGiaTriTaiSan.resx">
+      <DependentUpon>frmNVDieuChinhGiaTriTaiSan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NGHIEPVU\DieuChinhGiaTriTaiSanFolder\frmXuLyNVDieuChinhGiaTriTaiSan.resx">
+      <DependentUpon>frmXuLyNVDieuChinhGiaTriTaiSan.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -340,9 +360,7 @@
     <Content Include="IMG\Linh Tinh\system.png" />
     <Content Include="IMG\Linh Tinh\taikhoan.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="NGHIEPVU\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

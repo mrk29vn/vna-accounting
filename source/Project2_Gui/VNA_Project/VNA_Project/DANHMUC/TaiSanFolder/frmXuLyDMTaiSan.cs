@@ -42,8 +42,8 @@ namespace VNA_Project.DANHMUC.TaiSanFolder
                 txtTenTaiSan.Text = temp.TenTaiSan;
                 txtNhomTaiSan.Text = temp.MaLoaiTaiSan;
                 txtLyDoTang.Text = temp.MaLyDoTangGiamTaiSan;
-                txtNgayTangTaiSan.Text = temp.NgayTangTaiSan.ToString("dd/MM/yyyy");
-                txtNgayTinhKhauHao.Text = temp.NgayTinhKhauHao.ToString("dd/MM/yyyy");
+                txtNgayTangTaiSan.Text = temp.NgayTangTaiSan.ToString("MM/dd/yyyy");
+                txtNgayTinhKhauHao.Text = temp.NgayTinhKhauHao.ToString("MM/dd/yyyy");
                 txtSoKyKhauHao.Text = temp.SoKyKhauHao;
                 txtBoPhanHachToan.Text = temp.MaBoPhanHachToan;
                 txtMaPhanXuong.Text = temp.MaPhanXuong;
@@ -61,8 +61,8 @@ namespace VNA_Project.DANHMUC.TaiSanFolder
                 txtThongSoKyThuat.Text = temp.ThongSoKyThuat;
                 txtNuocSanXuat.Text = temp.NuocSanXuat;
                 txtNamSanXuat.Text = temp.NamSanXuat;
-                txtNgayDuaVaoSuDung.Text = temp.NgayDuaVaoSuDung.ToString("dd/MM/yyyy");
-                txtNgayDinhChiSuDung.Text = temp.NgayDinhChiSuDung.ToString("dd/MM/yyyy");
+                txtNgayDuaVaoSuDung.Text = (temp.NgayDuaVaoSuDung.Date == new DateTime(1753, 1, 1).Date) ? string.Empty : temp.NgayDuaVaoSuDung.ToString("MM/dd/yyyy");
+                txtNgayDinhChiSuDung.Text = (temp.NgayDinhChiSuDung.Date == new DateTime(1753, 1, 1).Date) ? string.Empty : temp.NgayDinhChiSuDung.ToString("MM/dd/yyyy");
                 txtLyDoDinhChi.Text = temp.LyDoDinhChi;
                 txtGhiChu.Text = temp.GhiChu;
 
@@ -79,52 +79,70 @@ namespace VNA_Project.DANHMUC.TaiSanFolder
 
         private void btnDongY_Click(object sender, EventArgs e)
         {
-            TaiSan temp = new TaiSan();
-            temp.MaTaiSan = txtMaTaiSan.Text;
-            temp.TenTaiSan = txtTenTaiSan.Text;
-            temp.MaLoaiTaiSan = txtNhomTaiSan.Text;
-            temp.MaLyDoTangGiamTaiSan = txtLyDoTang.Text;
-            temp.NgayTangTaiSan = DateTime.Parse(txtNgayTangTaiSan.Text);
-            temp.NgayTinhKhauHao = DateTime.Parse(txtNgayTinhKhauHao.Text);
-            temp.SoKyKhauHao = txtSoKyKhauHao.Text;
-            temp.MaBoPhanHachToan = txtBoPhanHachToan.Text;
-            temp.MaPhanXuong = txtMaPhanXuong.Text;
-            temp.MaPhi = txtMaPhi.Text;
-            temp.MaBoPhanSuDung = txtBoPhanSuDung.Text;
-            temp.TKTaiSan = txtTKTaiSan.Text;
-            temp.TKKhauHao = txtTKKhauHao.Text;
-            temp.TKChiPhi = txtTKChiPhi.Text;
-            temp.PhanNhom1 = txtPhanNhom1.Text;
-            temp.PhanNhom2 = txtPhanNhom2.Text;
-            temp.PhanNhom3 = txtPhanNhom3.Text;
+            try
+            {
+                TaiSan temp = new TaiSan();
+                temp.MaTaiSan = txtMaTaiSan.Text;
+                temp.TenTaiSan = txtTenTaiSan.Text;
+                temp.MaLoaiTaiSan = txtNhomTaiSan.Text;
+                temp.MaLyDoTangGiamTaiSan = txtLyDoTang.Text;
+                temp.NgayTangTaiSan = !string.IsNullOrEmpty(txtNgayTangTaiSan.Text) ? DateTime.Parse(txtNgayTangTaiSan.Text) : new DateTime(1753, 1, 1);
+                temp.NgayTinhKhauHao = !string.IsNullOrEmpty(txtNgayTinhKhauHao.Text) ? DateTime.Parse(txtNgayTinhKhauHao.Text) : new DateTime(1753, 1, 1);
+                temp.SoKyKhauHao = txtSoKyKhauHao.Text;
+                temp.MaBoPhanHachToan = txtBoPhanHachToan.Text;
+                temp.MaPhanXuong = txtMaPhanXuong.Text;
+                temp.MaPhi = txtMaPhi.Text;
+                temp.MaBoPhanSuDung = txtBoPhanSuDung.Text;
+                temp.TKTaiSan = txtTKTaiSan.Text;
+                temp.TKKhauHao = txtTKKhauHao.Text;
+                temp.TKChiPhi = txtTKChiPhi.Text;
+                temp.PhanNhom1 = txtPhanNhom1.Text;
+                temp.PhanNhom2 = txtPhanNhom2.Text;
+                temp.PhanNhom3 = txtPhanNhom3.Text;
 
-            temp.TenKhac = txtTenKhac.Text;
-            temp.SoHieuTaiSan = txtSoHieuTaiSan.Text;
-            temp.ThongSoKyThuat = txtThongSoKyThuat.Text;
-            temp.NuocSanXuat = txtNuocSanXuat.Text;
-            temp.NamSanXuat = txtNamSanXuat.Text;
-            temp.NgayDuaVaoSuDung = DateTime.Parse(txtNgayDuaVaoSuDung.Text);
-            temp.NgayDinhChiSuDung = DateTime.Parse(txtNgayDinhChiSuDung.Text);
-            temp.LyDoDinhChi = txtLyDoDinhChi.Text;
-            temp.GhiChu = txtGhiChu.Text;
+                temp.TenKhac = txtTenKhac.Text;
+                temp.SoHieuTaiSan = txtSoHieuTaiSan.Text;
+                temp.ThongSoKyThuat = txtThongSoKyThuat.Text;
+                temp.NuocSanXuat = txtNuocSanXuat.Text;
+                temp.NamSanXuat = txtNamSanXuat.Text;
+                temp.NgayDuaVaoSuDung = !string.IsNullOrEmpty(txtNgayTangTaiSan.Text) ? DateTime.Parse(txtNgayDuaVaoSuDung.Text) : new DateTime(1753, 1, 1);
+                temp.NgayDinhChiSuDung = !string.IsNullOrEmpty(txtNgayTangTaiSan.Text) ? DateTime.Parse(txtNgayDinhChiSuDung.Text) : new DateTime(1753, 1, 1);
+                temp.LyDoDinhChi = txtLyDoDinhChi.Text;
+                temp.GhiChu = txtGhiChu.Text;
 
-            temp.Lchitiettaisan.AddRange(LChiTietTaiSan);
-            temp.Lphutungkemtheo.AddRange(LPhuTungKemTheo);
-            if (Them)
-            {//Thêm
-                if (!CheckLoi(temp)) return;
+                temp.Lchitiettaisan.AddRange(LChiTietTaiSan);
+                temp.Lphutungkemtheo.AddRange(LPhuTungKemTheo);
 
-                int kq = TaiSanBiz.AddTaiSan(temp);
-                if (kq > 0) MSG.ThemThanhCong();
-                else MSG.ThemThatBai();
+                bool ThatBai = false;
+                if (Them)
+                {//Thêm
+                    if (!CheckLoi(temp)) return;
+
+                    int kq = TaiSanBiz.AddTaiSan(temp);
+                    if (kq > 0) MSG.ThemThanhCong();
+                    else
+                    {
+                        ThatBai = true;
+                        MSG.ThemThatBai();
+                    }
+                }
+                else
+                {//Sửa
+                    int kq = TaiSanBiz.EditTaiSan(temp);
+                    if (kq > 0) MSG.SuaThanhCong();
+                    else
+                    {
+                        ThatBai = true;
+                        MSG.SuaThatBai();
+                    }
+                }
+                if (ThatBai && MSG.MESSAGE("Bạn có muốn sửa lại dữ liệu không?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) return;
+                this.Close();
             }
-            else
-            {//Sửa
-                int kq = TaiSanBiz.EditTaiSan(temp);
-                if (kq > 0) MSG.SuaThanhCong();
-                else MSG.SuaThatBai();
+            catch (Exception ex)
+            {
+                MSG.Error(ex);
             }
-            this.Close();
         }
 
         private void btnThoat_Click(object sender, EventArgs e)
