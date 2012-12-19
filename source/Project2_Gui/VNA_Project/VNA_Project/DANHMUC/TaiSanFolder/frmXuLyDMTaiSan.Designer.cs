@@ -107,6 +107,8 @@
             this.lblTenKhac = new Qios.DevSuite.Components.QMarkupLabel();
             this.txtTenKhac = new Qios.DevSuite.Components.QTextBox();
             this.tabNguonVon = new Qios.DevSuite.Components.QTabPage();
+            this.qMarkupLabel5 = new Qios.DevSuite.Components.QMarkupLabel();
+            this.qMarkupLabel4 = new Qios.DevSuite.Components.QMarkupLabel();
             this.btnNguonVonOK = new Qios.DevSuite.Components.QButton();
             this.lblDienGiai = new Qios.DevSuite.Components.QMarkupLabel();
             this.txtDienGiai = new Qios.DevSuite.Components.QTextBox();
@@ -138,8 +140,6 @@
             this.txtTenPhuTungKemTheo = new Qios.DevSuite.Components.QTextBox();
             this.lblMaPhuTungKemTheo = new Qios.DevSuite.Components.QMarkupLabel();
             this.txtMaPhuTungKemTheo = new Qios.DevSuite.Components.QTextBox();
-            this.qMarkupLabel4 = new Qios.DevSuite.Components.QMarkupLabel();
-            this.qMarkupLabel5 = new Qios.DevSuite.Components.QMarkupLabel();
             ((System.ComponentModel.ISupportInitialize)(this.qRibbonCaption1)).BeginInit();
             this.palRight.SuspendLayout();
             this.palTop_Center.SuspendLayout();
@@ -903,6 +903,23 @@
             this.tabNguonVon.Size = new System.Drawing.Size(668, 288);
             this.tabNguonVon.Text = "Nguồn vốn";
             // 
+            // qMarkupLabel5
+            // 
+            this.qMarkupLabel5.Location = new System.Drawing.Point(552, 56);
+            this.qMarkupLabel5.MarkupText = "tháng/ngày/năm";
+            this.qMarkupLabel5.Name = "qMarkupLabel5";
+            this.qMarkupLabel5.Size = new System.Drawing.Size(113, 15);
+            this.qMarkupLabel5.TabIndex = 39;
+            // 
+            // qMarkupLabel4
+            // 
+            this.qMarkupLabel4.Location = new System.Drawing.Point(552, 29);
+            this.qMarkupLabel4.MarkupText = "[ F4 tra cứu ]";
+            this.qMarkupLabel4.Name = "qMarkupLabel4";
+            this.qMarkupLabel4.Size = new System.Drawing.Size(113, 15);
+            this.qMarkupLabel4.TabIndex = 53;
+            this.qMarkupLabel4.Tag = "";
+            // 
             // btnNguonVonOK
             // 
             this.btnNguonVonOK.Image = null;
@@ -1158,23 +1175,6 @@
             this.txtMaPhuTungKemTheo.Name = "txtMaPhuTungKemTheo";
             this.txtMaPhuTungKemTheo.Size = new System.Drawing.Size(489, 21);
             this.txtMaPhuTungKemTheo.TabIndex = 46;
-            // 
-            // qMarkupLabel4
-            // 
-            this.qMarkupLabel4.Location = new System.Drawing.Point(552, 29);
-            this.qMarkupLabel4.MarkupText = "[ F4 tra cứu ]";
-            this.qMarkupLabel4.Name = "qMarkupLabel4";
-            this.qMarkupLabel4.Size = new System.Drawing.Size(113, 15);
-            this.qMarkupLabel4.TabIndex = 53;
-            this.qMarkupLabel4.Tag = "";
-            // 
-            // qMarkupLabel5
-            // 
-            this.qMarkupLabel5.Location = new System.Drawing.Point(552, 56);
-            this.qMarkupLabel5.MarkupText = "tháng/ngày/năm";
-            this.qMarkupLabel5.Name = "qMarkupLabel5";
-            this.qMarkupLabel5.Size = new System.Drawing.Size(113, 15);
-            this.qMarkupLabel5.TabIndex = 39;
             // 
             // frmXuLyDMTaiSan
             // 
