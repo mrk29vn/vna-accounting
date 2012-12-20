@@ -150,5 +150,11 @@ namespace VNA_Project
             VNA_Project.NGHIEPVU.DieuChinhGiaTriTaiSanFolder.frmNVDieuChinhGiaTriTaiSan frm = new NGHIEPVU.DieuChinhGiaTriTaiSanFolder.frmNVDieuChinhGiaTriTaiSan();
             frm.ShowDialog();
         }
+
+        private void mnNV_KhaiBaoGiamTaiSan_ItemActivated(object sender, QCompositeEventArgs e)
+        {
+            VNA_Project.NGHIEPVU.GiamTaiSanCoDinhFolder.frmNVGiamTaiSanCoDinh frm = new NGHIEPVU.GiamTaiSanCoDinhFolder.frmNVGiamTaiSanCoDinh();
+            frm.ShowDialog();
+        }
     }
 }

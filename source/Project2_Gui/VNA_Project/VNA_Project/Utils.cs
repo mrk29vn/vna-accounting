@@ -153,6 +153,13 @@ namespace VNA_Project
             kq.DienGiai = Input.Cells["DienGiai"].Value.ToString();
             return kq;
         }
+        public static GiamTaiSanCoDinh DataGridViewRow_to_GiamTaiSanCoDinh(System.Windows.Forms.DataGridViewRow Input)
+        {
+            int MA = int.Parse(Input.Cells["GiamTaiSanCoDinhID"].Value.ToString());
+            if (NGHIEPVU.GiamTaiSanCoDinhFolder.frmNVGiamTaiSanCoDinh.Ldata == null || NGHIEPVU.GiamTaiSanCoDinhFolder.frmNVGiamTaiSanCoDinh.Ldata.Count == 0)
+                NGHIEPVU.GiamTaiSanCoDinhFolder.frmNVGiamTaiSanCoDinh.Ldata = VNA_Project.BIZ.GiamTaiSanCoDinhBiz.getListGiamTaiSanCoDinh();
+            return NGHIEPVU.GiamTaiSanCoDinhFolder.frmNVGiamTaiSanCoDinh.Ldata.SingleOrDefault(k => k.GiamTaiSanCoDinhID == MA).Copy() ?? new GiamTaiSanCoDinh();
+        }
         #endregion
     }
 

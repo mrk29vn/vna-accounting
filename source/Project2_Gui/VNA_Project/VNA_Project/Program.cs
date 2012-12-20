@@ -20,7 +20,7 @@ namespace VNA_Project
             Application.SetCompatibleTextRenderingDefault(false);
             ShowSplashScreen();
             Application.Run(new VNAMain());
-            //Application.Run(new NGHIEPVU.DieuChinhGiaTriTaiSanFolder.frmNVDieuChinhGiaTriTaiSan());
+            //Application.Run(new NGHIEPVU.GiamTaiSanCoDinhFolder.frmNVGiamTaiSanCoDinh());
         }
 
         /// <summary>
