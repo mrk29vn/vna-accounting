@@ -502,6 +502,7 @@
             // 
             this.mnNV_DieuChuyenBoPhanSuDung.Icon = ((System.Drawing.Icon)(resources.GetObject("mnNV_DieuChuyenBoPhanSuDung.Icon")));
             this.mnNV_DieuChuyenBoPhanSuDung.Title = "Điều chuyển bộ phận sử dụng";
+            this.mnNV_DieuChuyenBoPhanSuDung.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.mnNV_DieuChuyenBoPhanSuDung_ItemActivated);
             // 
             // mnNV_TinhKhauHaoTaiSanCoDinh
             // 
