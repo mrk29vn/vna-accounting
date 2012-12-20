@@ -669,7 +669,7 @@
             // lblNhomTaiSan
             // 
             this.lblNhomTaiSan.Location = new System.Drawing.Point(10, 82);
-            this.lblNhomTaiSan.MarkupText = "Nhóm tài sản:";
+            this.lblNhomTaiSan.MarkupText = "Loại tài sản:";
             this.lblNhomTaiSan.Name = "lblNhomTaiSan";
             this.lblNhomTaiSan.Size = new System.Drawing.Size(113, 15);
             this.lblNhomTaiSan.TabIndex = 5;

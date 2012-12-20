@@ -376,15 +376,15 @@ namespace VNA_Project.DANHMUC.TaiSanFolder
         {
             if (e.KeyCode == CONFIG.KeyClass.key_TimKiem)
             {//Tìm kiếm
-                FRM.frmTimKiem.phannhomtaisan = null;
-                FRM.frmTimKiem frm = new FRM.frmTimKiem(CONFIG.ConstFrm.frmDMPhanNhomTaiSan);
+                FRM.frmTimKiem.loaitaisan = null;
+                FRM.frmTimKiem frm = new FRM.frmTimKiem(CONFIG.ConstFrm.frmDMLoaiTaiSan);
                 frm.ShowDialog();
-                if (FRM.frmTimKiem.phannhomtaisan != null)
+                if (FRM.frmTimKiem.loaitaisan != null)
                 {
-                    txtNhomTaiSan.Text = FRM.frmTimKiem.phannhomtaisan.MaPhanNhomTaiSan.ToUpper();
-                    lblTenNhomTaiSan.Text = FRM.frmTimKiem.phannhomtaisan.TenPhanNhomTaiSan;
+                    txtNhomTaiSan.Text = FRM.frmTimKiem.loaitaisan.MaLoaiTaiSan.ToUpper();
+                    lblTenNhomTaiSan.Text = FRM.frmTimKiem.loaitaisan.TenLoaiTaiSan;
                 }
-                FRM.frmTimKiem.phannhomtaisan = null;
+                FRM.frmTimKiem.loaitaisan = null;
             }
         }
 

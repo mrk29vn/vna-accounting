@@ -20,7 +20,7 @@ namespace VNA_Project.FRM
 
         //------------------------------------------>
         public static LoaiTaiSan loaitaisan = null;
-        List<LoaiTaiSan> Lloaitaisan = new List<LoaiTaiSan();
+        List<LoaiTaiSan> Lloaitaisan = new List<LoaiTaiSan>();
 
         public static TaiSan taisan = null;
         List<TaiSan> Ltaisan = new List<TaiSan>();
@@ -200,8 +200,8 @@ namespace VNA_Project.FRM
             {
                 case CONFIG.ConstFrm.frmDMLoaiTaiSan:
                     {
-                        Ltaisan = TaiSanBiz.getListTaiSan();
-                        DataGridView.DataSource = Ltaisan.ToArray();
+                        Lloaitaisan = LoaiTaiSanBiz.getListLoaiTaiSan();
+                        DataGridView.DataSource = Lloaitaisan.ToArray();
                         FixDataGirdView();
                         break;
                     }
