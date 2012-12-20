@@ -19,6 +19,9 @@ namespace VNA_Project.FRM
         int vtIndex = 0;    //vị trí dòng cell đang được chọn trong datagridview
 
         //------------------------------------------>
+        public static LoaiTaiSan loaitaisan = null;
+        List<LoaiTaiSan> Lloaitaisan = new List<LoaiTaiSan();
+
         public static TaiSan taisan = null;
         List<TaiSan> Ltaisan = new List<TaiSan>();
 
@@ -195,6 +198,13 @@ namespace VNA_Project.FRM
         {
             switch (chose)
             {
+                case CONFIG.ConstFrm.frmDMLoaiTaiSan:
+                    {
+                        Ltaisan = TaiSanBiz.getListTaiSan();
+                        DataGridView.DataSource = Ltaisan.ToArray();
+                        FixDataGirdView();
+                        break;
+                    }
                 case CONFIG.ConstFrm.frmDMTaiSan:
                     {
                         Ltaisan = TaiSanBiz.getListTaiSan();
@@ -275,6 +285,18 @@ namespace VNA_Project.FRM
             {
                 switch (chose)
                 {
+                    case CONFIG.ConstFrm.frmDMLoaiTaiSan:
+                        {
+                            List<LoaiTaiSan> Ltemp = new List<LoaiTaiSan>();
+                            string search = txtMaSearch.Text.ToUpper();
+                            foreach (LoaiTaiSan item in Lloaitaisan)
+                            {
+                                if (item.MaLoaiTaiSan.ToUpper().Contains(search)) Ltemp.Add(item);
+                            }
+                            DataGridView.DataSource = Ltemp.ToArray();
+                            FixDataGirdView();
+                            break;
+                        }
                     case CONFIG.ConstFrm.frmDMTaiSan:
                         {
                             List<TaiSan> Ltemp = new List<TaiSan>();
@@ -388,6 +410,18 @@ namespace VNA_Project.FRM
             {
                 switch (chose)
                 {
+                    case CONFIG.ConstFrm.frmDMLoaiTaiSan:
+                        {
+                            List<LoaiTaiSan> Ltemp = new List<LoaiTaiSan>();
+                            string search = txtMaSearch.Text.ToUpper();
+                            foreach (LoaiTaiSan item in Lloaitaisan)
+                            {
+                                if (item.TenLoaiTaiSan.ToUpper().Contains(search)) Ltemp.Add(item);
+                            }
+                            DataGridView.DataSource = Ltemp.ToArray();
+                            FixDataGirdView();
+                            break;
+                        }
                     case CONFIG.ConstFrm.frmDMTaiSan:
                         {
                             List<TaiSan> Ltemp = new List<TaiSan>();
@@ -522,6 +556,11 @@ namespace VNA_Project.FRM
             if (vtIndex == -1) return;
             switch (chose)
             {
+                case CONFIG.ConstFrm.frmDMLoaiTaiSan:
+                    {
+                        loaitaisan = Utils.DataGridViewRow_to_LoaiTaiSan(DataGridView.Rows[vtIndex]);
+                        break;
+                    }
                 case CONFIG.ConstFrm.frmDMTaiSan:
                     {
                         taisan = Utils.DataGridViewRow_to_TaiSan(DataGridView.Rows[vtIndex]);
