@@ -501,7 +501,7 @@ namespace VNA_Project.DANHMUC.TaiSanFolder
 
                 double sokytinhkhauhao = double.Parse(string.IsNullOrEmpty(txtSoKyKhauHao.Text) ? "0" : txtSoKyKhauHao.Text);
 
-                double giatrikhauhao1ky = sokytinhkhauhao == 0 ? 0 : giatriconlai / sokytinhkhauhao;
+                double giatrikhauhao1ky = sokytinhkhauhao == 0 ? 0 : nguyengia / sokytinhkhauhao;
                 txtGiaTriKhauHao1Ky.Text = giatrikhauhao1ky.ToString();
             }
             catch (Exception ex)

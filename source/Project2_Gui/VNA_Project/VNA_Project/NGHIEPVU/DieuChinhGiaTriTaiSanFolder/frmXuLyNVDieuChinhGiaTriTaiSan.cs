@@ -209,7 +209,7 @@ namespace VNA_Project.NGHIEPVU.DieuChinhGiaTriTaiSanFolder
 
                 double sokytinhkhauhao = double.Parse(string.IsNullOrEmpty(taisan.SoKyKhauHao) ? "0" : taisan.SoKyKhauHao);
 
-                double giatrikhauhao1ky = sokytinhkhauhao == 0 ? 0 : giatriconlai / sokytinhkhauhao;
+                double giatrikhauhao1ky = sokytinhkhauhao == 0 ? 0 : nguyengia / sokytinhkhauhao;
                 txtGiaTriKhauHao1Ky.Text = giatrikhauhao1ky.ToString();
             }
             catch (Exception ex)
