@@ -328,3 +328,54 @@ CREATE TABLE DieuChinhGiaTriTaiSan
 	DienGiai nVARCHAR(200)
 )
 GO
+USE VNAAccounting
+--						GiamTaiSanCoDinh
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GiamTaiSanCoDinh]') AND type in (N'U'))
+DROP TABLE [dbo].[GiamTaiSanCoDinh]
+GO
+CREATE TABLE GiamTaiSanCoDinh
+(
+	GiamTaiSanCoDinhID INT PRIMARY KEY IDENTITY,
+	MaGiamTaiSanCoDinh nVARCHAR(50),
+	MaTaiSan nVARCHAR(50),
+	MaLyDoTangGiamTaiSan nVARCHAR(50),
+	NgayGiam Datetime,
+	NgayKetThucKhauHao Datetime,
+	SoChungTu nVARCHAR(200),
+	LyDo nVARCHAR(200)
+)
+GO
+USE VNAAccounting
+--						ThoiKhauHaoTaiSan
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ThoiKhauHaoTaiSan]') AND type in (N'U'))
+DROP TABLE [dbo].[ThoiKhauHaoTaiSan]
+GO
+CREATE TABLE ThoiKhauHaoTaiSan
+(
+	ThoiKhauHaoTaiSanID INT PRIMARY KEY IDENTITY,
+	MaThoiKhauHaoTaiSan nVARCHAR(50),
+	MaTaiSan nVARCHAR(50),
+	NgayThoiKhauHao Datetime
+)
+GO
+USE VNAAccounting
+--						DieuChuyenBoPhanSuDung
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DieuChuyenBoPhanSuDung]') AND type in (N'U'))
+DROP TABLE [dbo].[DieuChuyenBoPhanSuDung]
+GO
+CREATE TABLE DieuChuyenBoPhanSuDung
+(
+	DieuChuyenBoPhanSuDungID INT PRIMARY KEY IDENTITY,
+	MaDieuChuyenBoPhanSuDung nVARCHAR(50),
+	MaTaiSan nVARCHAR(50),
+	Nam nVARCHAR(200),
+	Ky nVARCHAR(200),
+	MaBoPhanSuDung nVARCHAR(50),
+	TKTaiSan nVARCHAR(50),
+	TKKhauHao nVARCHAR(50),
+	TKChiPhi nVARCHAR(50)
+)
+GO
