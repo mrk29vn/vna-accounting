@@ -496,6 +496,7 @@
             // 
             this.mnNV_KhaiBaoThoiKhauHaoTaiSan.Icon = ((System.Drawing.Icon)(resources.GetObject("mnNV_KhaiBaoThoiKhauHaoTaiSan.Icon")));
             this.mnNV_KhaiBaoThoiKhauHaoTaiSan.Title = "Khai báo thôi khấu hao tài sản";
+            this.mnNV_KhaiBaoThoiKhauHaoTaiSan.ItemActivated += new Qios.DevSuite.Components.QCompositeEventHandler(this.mnNV_KhaiBaoThoiKhauHaoTaiSan_ItemActivated);
             // 
             // mnNV_DieuChuyenBoPhanSuDung
             // 

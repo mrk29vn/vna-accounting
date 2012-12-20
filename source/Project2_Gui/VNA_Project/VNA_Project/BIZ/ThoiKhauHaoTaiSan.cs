@@ -40,7 +40,7 @@ namespace VNA_Project.BIZ
 
         public static int AddThoiKhauHaoTaiSan(ThoiKhauHaoTaiSan input)
         {
-            string sql = "INSERT INTO [VNAAccounting].[dbo].[ThoiKhauHaoTaiSan]([MaThoiKhauHaoTaiSan],[MaTaiSan],[NgayThoiKhauHao]) VALUES(N'" + input.MaThoiKhauHaoTaiSan.ToUpper() + "',N'" + input.MaTaiSan.ToUpper() + "','" + input.NgayThoiKhauHao.ToString("MM/dd/yyyyy") + "')";
+            string sql = "INSERT INTO [VNAAccounting].[dbo].[ThoiKhauHaoTaiSan]([MaThoiKhauHaoTaiSan],[MaTaiSan],[NgayThoiKhauHao]) VALUES(N'" + input.MaThoiKhauHaoTaiSan.ToUpper() + "',N'" + input.MaTaiSan.ToUpper() + "','" + input.NgayThoiKhauHao.ToString("MM/dd/yyyy") + "')";
             return DAL.CSDL.ThemSuaXoa(sql);
         }
 

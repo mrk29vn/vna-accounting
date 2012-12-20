@@ -239,6 +239,18 @@
     <Compile Include="NGHIEPVU\GiamTaiSanCoDinhFolder\frmXuLyNVGiamTaiSanCoDinh.Designer.cs">
       <DependentUpon>frmXuLyNVGiamTaiSanCoDinh.cs</DependentUpon>
     </Compile>
+    <Compile Include="NGHIEPVU\ThoiKhauHaoTaiSanFolder\frmNVThoiKhauHaoTaiSan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NGHIEPVU\ThoiKhauHaoTaiSanFolder\frmNVThoiKhauHaoTaiSan.Designer.cs">
+      <DependentUpon>frmNVThoiKhauHaoTaiSan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NGHIEPVU\ThoiKhauHaoTaiSanFolder\frmXuLyNVThoiKhauHaoTaiSan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NGHIEPVU\ThoiKhauHaoTaiSanFolder\frmXuLyNVThoiKhauHaoTaiSan.Designer.cs">
+      <DependentUpon>frmXuLyNVThoiKhauHaoTaiSan.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils.cs" />
@@ -323,6 +335,12 @@
     <EmbeddedResource Include="NGHIEPVU\GiamTaiSanCoDinhFolder\frmXuLyNVGiamTaiSanCoDinh.resx">
       <DependentUpon>frmXuLyNVGiamTaiSanCoDinh.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="NGHIEPVU\ThoiKhauHaoTaiSanFolder\frmNVThoiKhauHaoTaiSan.resx">
+      <DependentUpon>frmNVThoiKhauHaoTaiSan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NGHIEPVU\ThoiKhauHaoTaiSanFolder\frmXuLyNVThoiKhauHaoTaiSan.resx">
+      <DependentUpon>frmXuLyNVThoiKhauHaoTaiSan.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -386,7 +404,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="NGHIEPVU\DieuChuyenBoPhanSuDungFolder\" />
-    <Folder Include="NGHIEPVU\ThoiKhauHaoTaiSanFolder\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

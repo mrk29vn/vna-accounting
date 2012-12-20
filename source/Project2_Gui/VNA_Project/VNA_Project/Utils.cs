@@ -160,6 +160,13 @@ namespace VNA_Project
                 NGHIEPVU.GiamTaiSanCoDinhFolder.frmNVGiamTaiSanCoDinh.Ldata = VNA_Project.BIZ.GiamTaiSanCoDinhBiz.getListGiamTaiSanCoDinh();
             return NGHIEPVU.GiamTaiSanCoDinhFolder.frmNVGiamTaiSanCoDinh.Ldata.SingleOrDefault(k => k.GiamTaiSanCoDinhID == MA).Copy() ?? new GiamTaiSanCoDinh();
         }
+        public static ThoiKhauHaoTaiSan DataGridViewRow_to_ThoiKhauHaoTaiSan(System.Windows.Forms.DataGridViewRow Input)
+        {
+            int MA = int.Parse(Input.Cells["ThoiKhauHaoTaiSanID"].Value.ToString());
+            if (NGHIEPVU.ThoiKhauHaoTaiSanFolder.frmNVThoiKhauHaoTaiSan.Ldata == null || NGHIEPVU.ThoiKhauHaoTaiSanFolder.frmNVThoiKhauHaoTaiSan.Ldata.Count == 0)
+                NGHIEPVU.ThoiKhauHaoTaiSanFolder.frmNVThoiKhauHaoTaiSan.Ldata = VNA_Project.BIZ.ThoiKhauHaoTaiSanBiz.getListThoiKhauHaoTaiSan();
+            return NGHIEPVU.ThoiKhauHaoTaiSanFolder.frmNVThoiKhauHaoTaiSan.Ldata.SingleOrDefault(k => k.ThoiKhauHaoTaiSanID == MA).Copy() ?? new ThoiKhauHaoTaiSan();
+        }
         #endregion
     }
 
