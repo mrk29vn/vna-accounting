@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsBarcodeHaiCot" targetNamespace="http://tempuri.org/dsBarcodeHaiCot.xsd" xmlns:mstns="http://tempuri.org/dsBarcodeHaiCot.xsd" xmlns="http://tempuri.org/dsBarcodeHaiCot.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsBarcodeHaiCot" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsBarcodeHaiCot" msprop:Generator_UserDSName="dsBarcodeHaiCot">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="HaiCot" msprop:Generator_TableClassName="HaiCotDataTable" msprop:Generator_TableVarName="tableHaiCot" msprop:Generator_TablePropName="HaiCot" msprop:Generator_RowDeletingName="HaiCotRowDeleting" msprop:Generator_UserTableName="HaiCot" msprop:Generator_RowChangingName="HaiCotRowChanging" msprop:Generator_RowEvHandlerName="HaiCotRowChangeEventHandler" msprop:Generator_RowDeletedName="HaiCotRowDeleted" msprop:Generator_RowEvArgName="HaiCotRowChangeEvent" msprop:Generator_RowChangedName="HaiCotRowChanged" msprop:Generator_RowClassName="HaiCotRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="MaHangHoaMot" msprop:Generator_ColumnVarNameInTable="columnMaHangHoaMot" msprop:Generator_ColumnPropNameInRow="MaHangHoaMot" msprop:Generator_ColumnPropNameInTable="MaHangHoaMotColumn" msprop:Generator_UserColumnName="MaHangHoaMot" type="xs:string" minOccurs="0" />
+              <xs:element name="TenHangHoaMot" msprop:Generator_ColumnVarNameInTable="columnTenHangHoaMot" msprop:Generator_ColumnPropNameInRow="TenHangHoaMot" msprop:Generator_ColumnPropNameInTable="TenHangHoaMotColumn" msprop:Generator_UserColumnName="TenHangHoaMot" type="xs:string" minOccurs="0" />
+              <xs:element name="AnhMot" msprop:Generator_ColumnVarNameInTable="columnAnhMot" msprop:Generator_ColumnPropNameInRow="AnhMot" msprop:Generator_ColumnPropNameInTable="AnhMotColumn" msprop:Generator_UserColumnName="AnhMot" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="MaHangHoaHai" msprop:Generator_ColumnVarNameInTable="columnMaHangHoaHai" msprop:Generator_ColumnPropNameInRow="MaHangHoaHai" msprop:Generator_ColumnPropNameInTable="MaHangHoaHaiColumn" msprop:Generator_UserColumnName="MaHangHoaHai" type="xs:string" minOccurs="0" />
+              <xs:element name="TenHangHoaHai" msprop:Generator_ColumnVarNameInTable="columnTenHangHoaHai" msprop:Generator_ColumnPropNameInRow="TenHangHoaHai" msprop:Generator_ColumnPropNameInTable="TenHangHoaHaiColumn" msprop:Generator_UserColumnName="TenHangHoaHai" type="xs:string" minOccurs="0" />
+              <xs:element name="AnhHai" msprop:Generator_ColumnVarNameInTable="columnAnhHai" msprop:Generator_ColumnPropNameInRow="AnhHai" msprop:Generator_ColumnPropNameInTable="AnhHaiColumn" msprop:Generator_UserColumnName="AnhHai" type="xs:base64Binary" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

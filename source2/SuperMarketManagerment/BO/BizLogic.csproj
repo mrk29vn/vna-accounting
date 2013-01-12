@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E21EDCE8-F6B4-414D-B8A5-03FEB7548908}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BizLogic</RootNamespace>
+    <AssemblyName>BizLogic</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaoCaoBanBuonBanLeTheoKy.cs" />
+    <Compile Include="BaoCaoKhachHangTraLaiTheoKy.cs" />
+    <Compile Include="BaoCaoNhapHangTheoMatHang.cs" />
+    <Compile Include="BaoCaoNhapHangTheoNhomHang.cs" />
+    <Compile Include="BaoCaoNhapHangTheoTungKhoTheoThoiGian.cs" />
+    <Compile Include="BaoCaoNhapHangTheoTungMatHangTheoThoiGian.cs" />
+    <Compile Include="BaoCaoNhapHangTheoTungNhomHangTheoThoiGian.cs" />
+    <Compile Include="BaoCaoSoDuKho.cs" />
+    <Compile Include="BaoCaoTraLaiNhaCungcapTheoKy.cs" />
+    <Compile Include="BaoCaoXuatHangTheoKho.cs" />
+    <Compile Include="BaoCaoXuatHangTheoNhomHang.cs" />
+    <Compile Include="BCChiTietHangHoa.cs" />
+    <Compile Include="BCDTTheoHangHoa.cs" />
+    <Compile Include="BCDTTheoNhanVien.cs" />
+    <Compile Include="BCDTTheoNhomHang.cs" />
+    <Compile Include="BCDTTheoThoiGian.cs" />
+    <Compile Include="BCHDBanHang.cs" />
+    <Compile Include="BCNhapHangTheoNhomHang.cs" />
+    <Compile Include="BCTonKhoTheoKho.cs" />
+    <Compile Include="BCTonKhoTheoNhomHang.cs" />
+    <Compile Include="CapNhat.cs" />
+    <Compile Include="CapNhatGia.cs" />
+    <Compile Include="CapNhatGiaKH.cs" />
+    <Compile Include="CheckRefer.cs" />
+    <Compile Include="ChiTietDonDatHang.cs" />
+    <Compile Include="ChiTietGoiHang.cs" />
+    <Compile Include="ChiTietHDBanHang.cs" />
+    <Compile Include="ChiTietHoaDonNhap.cs" />
+    <Compile Include="ChiTietKhachHangTraLai.cs" />
+    <Compile Include="ChiTietKhoHangTheoHoaHonNhap.cs" />
+    <Compile Include="ChiTietKhoHangTheoMa.cs" />
+    <Compile Include="ChiTietKiemKeKho.cs" />
+    <Compile Include="ChiTietPhieuDieuChuyenKho.cs" />
+    <Compile Include="ChiTietPhieuTTCuaKH.cs" />
+    <Compile Include="ChiTietPhieuTTNCC.cs" />
+    <Compile Include="ChiTietQuyen.cs" />
+    <Compile Include="ChiTietTheGiamGia.cs" />
+    <Compile Include="ChiTietTraLaiNhaCungCap.cs" />
+    <Compile Include="ChiTietXuatHuy.cs" />
+    <Compile Include="CongNo.cs" />
+    <Compile Include="CongTy.cs" />
+    <Compile Include="DiemThuongKhachHang.cs" />
+    <Compile Include="DonDatHang.cs" />
+    <Compile Include="DonHang.cs" />
+    <Compile Include="DonHangNCC.cs" />
+    <Compile Include="DVT.cs" />
+    <Compile Include="GiaVon.cs" />
+    <Compile Include="GiaVonBanHang.cs" />
+    <Compile Include="GoiHang.cs" />
+    <Compile Include="HangHoa.cs" />
+    <Compile Include="HangHoaGoiHang.cs" />
+    <Compile Include="HangHoaNCC.cs" />
+    <Compile Include="HDBanHang.cs" />
+    <Compile Include="HienThi_ChiTiet_DonDatHang.cs" />
+    <Compile Include="HienThi_KhachHangTraLai.cs" />
+    <Compile Include="HoaDonNhap.cs" />
+    <Compile Include="KetChuyenSoDuKho.cs" />
+    <Compile Include="KhachHang.cs" />
+    <Compile Include="KhachHangTraLai.cs" />
+    <Compile Include="KhoHang.cs" />
+    <Compile Include="KhuyenMaiSoLuong.cs" />
+    <Compile Include="KiemKeKho.cs" />
+    <Compile Include="KiemTraChung.cs" />
+    <Compile Include="KMThuChi.cs" />
+    <Compile Include="Lay_ID.cs" />
+    <Compile Include="Lay_ID_Top_1.cs" />
+    <Compile Include="LoaiHangHoa.cs" />
+    <Compile Include="LoaiThue.cs" />
+    <Compile Include="LogFile.cs" />
+    <Compile Include="LSGDHangHoa.cs" />
+    <Compile Include="LSGDNhapMua.cs" />
+    <Compile Include="LSGDTraLaiNCC.cs" />
+    <Compile Include="LSGDTTNCC.cs" />
+    <Compile Include="mrk.cs" />
+    <Compile Include="NhaCungCap.cs" />
+    <Compile Include="NhanVien.cs" />
+    <Compile Include="NhomHang.cs" />
+    <Compile Include="NhomKH.cs" />
+    <Compile Include="NhomQuyen.cs" />
+    <Compile Include="NhomTKKeToan.cs" />
+    <Compile Include="NhomTKKeToan.cs.cs" />
+    <Compile Include="PhieuDieuChuyenKhoNoiBo.cs" />
+    <Compile Include="PhieuThu.cs" />
+    <Compile Include="PhieuTTCuaKH.cs" />
+    <Compile Include="PhieuTTNCC.cs" />
+    <Compile Include="PhieuXuatHuy.cs" />
+    <Compile Include="PhongBan.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuayThuNgan.cs" />
+    <Compile Include="QuyDoi.cs" />
+    <Compile Include="QuyDoiDonViTinh.cs" />
+    <Compile Include="SaoLuuHeThong.cs" />
+    <Compile Include="SelectAll.cs" />
+    <Compile Include="SoDuKho.cs" />
+    <Compile Include="SoLuongTraLai.cs" />
+    <Compile Include="SoQuy.cs" />
+    <Compile Include="TaiKhoan.cs" />
+    <Compile Include="ThanhToan.cs" />
+    <Compile Include="TheGiamGia.cs" />
+    <Compile Include="TheoHangHoa.cs" />
+    <Compile Include="TheoNhomHang.cs" />
+    <Compile Include="TheVip.cs" />
+    <Compile Include="ThongTinCongTy.cs" />
+    <Compile Include="ThongTinDatHang.cs" />
+    <Compile Include="ThongTinHangHoa.cs" />
+    <Compile Include="ThongTinHoaDonNhap.cs" />
+    <Compile Include="ThongTinKhachHang.cs" />
+    <Compile Include="ThongTinMaVach.cs" />
+    <Compile Include="ThongTinNhaCungCap.cs" />
+    <Compile Include="ThongTinNhanVien.cs" />
+    <Compile Include="Thue.cs" />
+    <Compile Include="ThueH.cs" />
+    <Compile Include="TienTe.cs" />
+    <Compile Include="TKKeToan.cs" />
+    <Compile Include="TKNganHang.cs" />
+    <Compile Include="TraLai.cs" />
+    <Compile Include="TraLaiNhaCungCap.cs" />
+    <Compile Include="TyLeTinh.cs" />
+    <Compile Include="XuatHang.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{60B10BA6-C46C-4C48-BD96-EE84935CAF24}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{D0C1AE1B-2B3E-4480-AC7F-F8A6947B2CAE}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Entity\Entities.csproj">
+      <Project>{F7D1273A-B739-4C8B-A683-CD072A5997B2}</Project>
+      <Name>Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\BO.dll" />
+    <Content Include="bin\Debug\BO.pdb" />
+    <Content Include="bin\Debug\Common.dll" />
+    <Content Include="bin\Debug\Common.pdb" />
+    <Content Include="bin\Debug\DAL.dll" />
+    <Content Include="bin\Debug\DAL.pdb" />
+    <Content Include="bin\Debug\Entity.dll" />
+    <Content Include="bin\Debug\Entity.pdb" />
+    <Content Include="BO.csproj" />
+    <Content Include="obj\Debug\BizLogic.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\BO.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\BO.dll" />
+    <Content Include="obj\Debug\BO.pdb" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\BO.dll.r656" />
+    <None Include="bin\Debug\BO.dll.r665" />
+    <None Include="bin\Debug\BO.pdb.r656" />
+    <None Include="bin\Debug\BO.pdb.r665" />
+    <None Include="obj\Debug\build.force" />
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Release\" />
+    <Folder Include="obj\Debug\TempPE\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

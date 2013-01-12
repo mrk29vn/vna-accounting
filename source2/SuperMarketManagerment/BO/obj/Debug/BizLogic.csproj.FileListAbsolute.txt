@@ -1,0 +1,272 @@
+D:\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Common.dll
+D:\DHT\Source\SuperMarketManagerment\BO\bin\Debug\DAL.dll
+D:\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Entities.dll
+D:\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Common.pdb
+D:\DHT\Source\SuperMarketManagerment\BO\bin\Debug\DAL.pdb
+D:\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Entities.pdb
+D:\DHT\Source\SuperMarketManagerment\BO\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Jay\Desktop\Supermarket Management\Source\SuperMarketManagerment\BO\bin\Debug\BO.dll
+C:\Users\Jay\Desktop\Supermarket Management\Source\SuperMarketManagerment\BO\bin\Debug\BO.pdb
+C:\Users\Jay\Desktop\Supermarket Management\Source\SuperMarketManagerment\BO\bin\Debug\Common.dll
+C:\Users\Jay\Desktop\Supermarket Management\Source\SuperMarketManagerment\BO\bin\Debug\DAL.dll
+C:\Users\Jay\Desktop\Supermarket Management\Source\SuperMarketManagerment\BO\bin\Debug\Entities.dll
+C:\Users\Jay\Desktop\Supermarket Management\Source\SuperMarketManagerment\BO\bin\Debug\Common.pdb
+C:\Users\Jay\Desktop\Supermarket Management\Source\SuperMarketManagerment\BO\bin\Debug\DAL.pdb
+C:\Users\Jay\Desktop\Supermarket Management\Source\SuperMarketManagerment\BO\bin\Debug\Entities.pdb
+C:\Users\Jay\Desktop\Supermarket Management\Source\SuperMarketManagerment\BO\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Jay\Desktop\Supermarket Management\Source\SuperMarketManagerment\BO\obj\Debug\BO.dll
+C:\Users\Jay\Desktop\Supermarket Management\Source\SuperMarketManagerment\BO\obj\Debug\BO.pdb
+C:\Users\Home\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\BO.dll
+C:\Users\Home\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\BO.pdb
+C:\Users\Home\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Common.dll
+C:\Users\Home\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\DAL.dll
+C:\Users\Home\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Entities.dll
+C:\Users\Home\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Common.pdb
+C:\Users\Home\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\DAL.pdb
+C:\Users\Home\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Entities.pdb
+C:\Users\Home\Desktop\DHT\Source\SuperMarketManagerment\BO\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Home\Desktop\DHT\Source\SuperMarketManagerment\BO\obj\Debug\BO.dll
+C:\Users\Home\Desktop\DHT\Source\SuperMarketManagerment\BO\obj\Debug\BO.pdb
+C:\Users\Home\Desktop\SuperMarketManagerment\BO\bin\Debug\BO.dll
+C:\Users\Home\Desktop\SuperMarketManagerment\BO\bin\Debug\BO.pdb
+C:\Users\Home\Desktop\SuperMarketManagerment\BO\bin\Debug\Common.dll
+C:\Users\Home\Desktop\SuperMarketManagerment\BO\bin\Debug\DAL.dll
+C:\Users\Home\Desktop\SuperMarketManagerment\BO\bin\Debug\Entities.dll
+C:\Users\Home\Desktop\SuperMarketManagerment\BO\bin\Debug\Common.pdb
+C:\Users\Home\Desktop\SuperMarketManagerment\BO\bin\Debug\DAL.pdb
+C:\Users\Home\Desktop\SuperMarketManagerment\BO\bin\Debug\Entities.pdb
+C:\Users\Home\Desktop\SuperMarketManagerment\BO\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Home\Desktop\SuperMarketManagerment\BO\obj\Debug\BO.dll
+C:\Users\Home\Desktop\SuperMarketManagerment\BO\obj\Debug\BO.pdb
+C:\Users\Home\Desktop\SuperMarketManagerment\SuperMarketManagerment\BO\bin\Debug\BO.dll
+C:\Users\Home\Desktop\SuperMarketManagerment\SuperMarketManagerment\BO\bin\Debug\BO.pdb
+C:\Users\Home\Desktop\SuperMarketManagerment\SuperMarketManagerment\BO\bin\Debug\Common.dll
+C:\Users\Home\Desktop\SuperMarketManagerment\SuperMarketManagerment\BO\bin\Debug\DAL.dll
+C:\Users\Home\Desktop\SuperMarketManagerment\SuperMarketManagerment\BO\bin\Debug\Entities.dll
+C:\Users\Home\Desktop\SuperMarketManagerment\SuperMarketManagerment\BO\bin\Debug\Common.pdb
+C:\Users\Home\Desktop\SuperMarketManagerment\SuperMarketManagerment\BO\bin\Debug\DAL.pdb
+C:\Users\Home\Desktop\SuperMarketManagerment\SuperMarketManagerment\BO\bin\Debug\Entities.pdb
+C:\Users\Home\Desktop\SuperMarketManagerment\SuperMarketManagerment\BO\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Home\Desktop\SuperMarketManagerment\SuperMarketManagerment\BO\obj\Debug\BO.dll
+C:\Users\Home\Desktop\SuperMarketManagerment\SuperMarketManagerment\BO\obj\Debug\BO.pdb
+E:\du an lam viec\DHT\Source\SuperMarketManagerment\SuperMarketManagerment\BO\bin\Debug\BO.dll
+E:\du an lam viec\DHT\Source\SuperMarketManagerment\SuperMarketManagerment\BO\bin\Debug\BO.pdb
+E:\du an lam viec\DHT\Source\SuperMarketManagerment\SuperMarketManagerment\BO\bin\Debug\Common.dll
+E:\du an lam viec\DHT\Source\SuperMarketManagerment\SuperMarketManagerment\BO\bin\Debug\DAL.dll
+E:\du an lam viec\DHT\Source\SuperMarketManagerment\SuperMarketManagerment\BO\bin\Debug\Entities.dll
+E:\du an lam viec\DHT\Source\SuperMarketManagerment\SuperMarketManagerment\BO\bin\Debug\Common.pdb
+E:\du an lam viec\DHT\Source\SuperMarketManagerment\SuperMarketManagerment\BO\bin\Debug\DAL.pdb
+E:\du an lam viec\DHT\Source\SuperMarketManagerment\SuperMarketManagerment\BO\bin\Debug\Entities.pdb
+E:\du an lam viec\DHT\Source\SuperMarketManagerment\SuperMarketManagerment\BO\obj\Debug\ResolveAssemblyReference.cache
+E:\du an lam viec\DHT\Source\SuperMarketManagerment\SuperMarketManagerment\BO\obj\Debug\BO.dll
+E:\du an lam viec\DHT\Source\SuperMarketManagerment\SuperMarketManagerment\BO\obj\Debug\BO.pdb
+E:\du an lam viec\DHT\Source\SuperMarketManagerment\BO\bin\Debug\BO.dll
+E:\du an lam viec\DHT\Source\SuperMarketManagerment\BO\bin\Debug\BO.pdb
+E:\du an lam viec\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Common.dll
+E:\du an lam viec\DHT\Source\SuperMarketManagerment\BO\bin\Debug\DAL.dll
+E:\du an lam viec\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Entities.dll
+E:\du an lam viec\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Common.pdb
+E:\du an lam viec\DHT\Source\SuperMarketManagerment\BO\bin\Debug\DAL.pdb
+E:\du an lam viec\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Entities.pdb
+E:\du an lam viec\DHT\Source\SuperMarketManagerment\BO\obj\Debug\ResolveAssemblyReference.cache
+E:\du an lam viec\DHT\Source\SuperMarketManagerment\BO\obj\Debug\BO.dll
+E:\du an lam viec\DHT\Source\SuperMarketManagerment\BO\obj\Debug\BO.pdb
+D:\L&T\Khach Hang\DHT\DHT\Source\SuperMarketManagerment\BO\obj\Debug\ResolveAssemblyReference.cache
+D:\L&T\Khach Hang\DHT\DHT\Source\SuperMarketManagerment\BO\obj\Debug\BO.dll
+D:\L&T\Khach Hang\DHT\DHT\Source\SuperMarketManagerment\BO\obj\Debug\BO.pdb
+C:\Users\Jay\Desktop\DHT\Source\SuperMarketManagerment\BO\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Jay\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\BizLogic.dll
+C:\Users\Jay\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\BizLogic.pdb
+C:\Users\Jay\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Common.dll
+C:\Users\Jay\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\DAL.dll
+C:\Users\Jay\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Entities.dll
+C:\Users\Jay\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Common.pdb
+C:\Users\Jay\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\DAL.pdb
+C:\Users\Jay\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Entities.pdb
+C:\Users\Jay\Desktop\DHT\Source\SuperMarketManagerment\BO\obj\Debug\BizLogic.dll
+C:\Users\Jay\Desktop\DHT\Source\SuperMarketManagerment\BO\obj\Debug\BizLogic.pdb
+D:\DHT\Source\SuperMarketManagerment\BO\bin\Debug\BizLogic.dll
+D:\DHT\Source\SuperMarketManagerment\BO\bin\Debug\BizLogic.pdb
+D:\DHT\Source\SuperMarketManagerment\BO\obj\Debug\BizLogic.dll
+D:\DHT\Source\SuperMarketManagerment\BO\obj\Debug\BizLogic.pdb
+E:\DHT\Source\SuperMarketManagerment\BO\bin\Debug\BizLogic.dll
+E:\DHT\Source\SuperMarketManagerment\BO\bin\Debug\BizLogic.pdb
+E:\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Common.dll
+E:\DHT\Source\SuperMarketManagerment\BO\bin\Debug\DAL.dll
+E:\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Entities.dll
+E:\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Common.pdb
+E:\DHT\Source\SuperMarketManagerment\BO\bin\Debug\DAL.pdb
+E:\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Entities.pdb
+E:\DHT\Source\SuperMarketManagerment\BO\obj\Debug\ResolveAssemblyReference.cache
+E:\DHT\Source\SuperMarketManagerment\BO\obj\Debug\BizLogic.dll
+E:\DHT\Source\SuperMarketManagerment\BO\obj\Debug\BizLogic.pdb
+D:\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Vietnamese.dll
+E:\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Vietnamese.dll
+C:\Users\Gray\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\BizLogic.dll
+C:\Users\Gray\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\BizLogic.pdb
+C:\Users\Gray\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Common.dll
+C:\Users\Gray\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\DAL.dll
+C:\Users\Gray\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Entities.dll
+C:\Users\Gray\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Vietnamese.dll
+C:\Users\Gray\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Common.pdb
+C:\Users\Gray\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\DAL.pdb
+C:\Users\Gray\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Entities.pdb
+C:\Users\Gray\Desktop\DHT\Source\SuperMarketManagerment\BO\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Gray\Desktop\DHT\Source\SuperMarketManagerment\BO\obj\Debug\BizLogic.dll
+C:\Users\Gray\Desktop\DHT\Source\SuperMarketManagerment\BO\obj\Debug\BizLogic.pdb
+C:\Users\Red\Desktop\Cong ty L&T\Source\SuperMarketManagerment\BO\bin\Debug\BizLogic.dll
+C:\Users\Red\Desktop\Cong ty L&T\Source\SuperMarketManagerment\BO\bin\Debug\BizLogic.pdb
+C:\Users\Red\Desktop\Cong ty L&T\Source\SuperMarketManagerment\BO\bin\Debug\Common.dll
+C:\Users\Red\Desktop\Cong ty L&T\Source\SuperMarketManagerment\BO\bin\Debug\DAL.dll
+C:\Users\Red\Desktop\Cong ty L&T\Source\SuperMarketManagerment\BO\bin\Debug\Entities.dll
+C:\Users\Red\Desktop\Cong ty L&T\Source\SuperMarketManagerment\BO\bin\Debug\Vietnamese.dll
+C:\Users\Red\Desktop\Cong ty L&T\Source\SuperMarketManagerment\BO\bin\Debug\Common.pdb
+C:\Users\Red\Desktop\Cong ty L&T\Source\SuperMarketManagerment\BO\bin\Debug\DAL.pdb
+C:\Users\Red\Desktop\Cong ty L&T\Source\SuperMarketManagerment\BO\bin\Debug\Entities.pdb
+C:\Users\Red\Desktop\Cong ty L&T\Source\SuperMarketManagerment\BO\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Red\Desktop\Cong ty L&T\Source\SuperMarketManagerment\BO\obj\Debug\BizLogic.dll
+C:\Users\Red\Desktop\Cong ty L&T\Source\SuperMarketManagerment\BO\obj\Debug\BizLogic.pdb
+E:\L&T\Project - SuperMarketting\Cong ty L&T\Source\SuperMarketManagerment\BO\bin\Debug\BizLogic.dll
+E:\L&T\Project - SuperMarketting\Cong ty L&T\Source\SuperMarketManagerment\BO\bin\Debug\BizLogic.pdb
+E:\L&T\Project - SuperMarketting\Cong ty L&T\Source\SuperMarketManagerment\BO\bin\Debug\Common.dll
+E:\L&T\Project - SuperMarketting\Cong ty L&T\Source\SuperMarketManagerment\BO\bin\Debug\DAL.dll
+E:\L&T\Project - SuperMarketting\Cong ty L&T\Source\SuperMarketManagerment\BO\bin\Debug\Entities.dll
+E:\L&T\Project - SuperMarketting\Cong ty L&T\Source\SuperMarketManagerment\BO\bin\Debug\Vietnamese.dll
+E:\L&T\Project - SuperMarketting\Cong ty L&T\Source\SuperMarketManagerment\BO\bin\Debug\Common.pdb
+E:\L&T\Project - SuperMarketting\Cong ty L&T\Source\SuperMarketManagerment\BO\bin\Debug\DAL.pdb
+E:\L&T\Project - SuperMarketting\Cong ty L&T\Source\SuperMarketManagerment\BO\bin\Debug\Entities.pdb
+E:\L&T\Project - SuperMarketting\Cong ty L&T\Source\SuperMarketManagerment\BO\obj\Debug\ResolveAssemblyReference.cache
+E:\L&T\Project - SuperMarketting\Cong ty L&T\Source\SuperMarketManagerment\BO\obj\Debug\BizLogic.dll
+E:\L&T\Project - SuperMarketting\Cong ty L&T\Source\SuperMarketManagerment\BO\obj\Debug\BizLogic.pdb
+E:\Work--L&Tsoft\DHT\Source\SuperMarketManagerment\BO\bin\Debug\BizLogic.dll
+E:\Work--L&Tsoft\DHT\Source\SuperMarketManagerment\BO\bin\Debug\BizLogic.pdb
+E:\Work--L&Tsoft\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Common.dll
+E:\Work--L&Tsoft\DHT\Source\SuperMarketManagerment\BO\bin\Debug\DAL.dll
+E:\Work--L&Tsoft\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Entities.dll
+E:\Work--L&Tsoft\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Vietnamese.dll
+E:\Work--L&Tsoft\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Common.pdb
+E:\Work--L&Tsoft\DHT\Source\SuperMarketManagerment\BO\bin\Debug\DAL.pdb
+E:\Work--L&Tsoft\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Entities.pdb
+E:\Work--L&Tsoft\DHT\Source\SuperMarketManagerment\BO\obj\Debug\ResolveAssemblyReference.cache
+E:\Work--L&Tsoft\DHT\Source\SuperMarketManagerment\BO\obj\Debug\BizLogic.dll
+E:\Work--L&Tsoft\DHT\Source\SuperMarketManagerment\BO\obj\Debug\BizLogic.pdb
+C:\Users\Red\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\BizLogic.dll
+C:\Users\Red\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\BizLogic.pdb
+C:\Users\Red\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Common.dll
+C:\Users\Red\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\DAL.dll
+C:\Users\Red\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Entities.dll
+C:\Users\Red\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Vietnamese.dll
+C:\Users\Red\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Common.pdb
+C:\Users\Red\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\DAL.pdb
+C:\Users\Red\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Entities.pdb
+C:\Users\Red\Desktop\DHT\Source\SuperMarketManagerment\BO\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Red\Desktop\DHT\Source\SuperMarketManagerment\BO\obj\Debug\BizLogic.dll
+C:\Users\Red\Desktop\DHT\Source\SuperMarketManagerment\BO\obj\Debug\BizLogic.pdb
+C:\Users\VAIO\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\BizLogic.dll
+C:\Users\VAIO\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\BizLogic.pdb
+C:\Users\VAIO\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Common.dll
+C:\Users\VAIO\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\DAL.dll
+C:\Users\VAIO\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Entities.dll
+C:\Users\VAIO\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Vietnamese.dll
+C:\Users\VAIO\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Common.pdb
+C:\Users\VAIO\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\DAL.pdb
+C:\Users\VAIO\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Entities.pdb
+C:\Users\VAIO\Desktop\DHT\Source\SuperMarketManagerment\BO\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\VAIO\Desktop\DHT\Source\SuperMarketManagerment\BO\obj\Debug\BizLogic.dll
+C:\Users\VAIO\Desktop\DHT\Source\SuperMarketManagerment\BO\obj\Debug\BizLogic.pdb
+C:\Users\Administrator\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\BizLogic.dll
+C:\Users\Administrator\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\BizLogic.pdb
+C:\Users\Administrator\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Common.dll
+C:\Users\Administrator\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\DAL.dll
+C:\Users\Administrator\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Entities.dll
+C:\Users\Administrator\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Vietnamese.dll
+C:\Users\Administrator\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Common.pdb
+C:\Users\Administrator\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\DAL.pdb
+C:\Users\Administrator\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Entities.pdb
+C:\Users\Administrator\Desktop\DHT\Source\SuperMarketManagerment\BO\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\DHT\Source\SuperMarketManagerment\BO\obj\Debug\BizLogic.dll
+C:\Users\Administrator\Desktop\DHT\Source\SuperMarketManagerment\BO\obj\Debug\BizLogic.pdb
+E:\DHT 18-10-2011\Source\SuperMarketManagerment\BO\bin\Debug\BizLogic.dll
+E:\DHT 18-10-2011\Source\SuperMarketManagerment\BO\bin\Debug\BizLogic.pdb
+E:\DHT 18-10-2011\Source\SuperMarketManagerment\BO\bin\Debug\Common.dll
+E:\DHT 18-10-2011\Source\SuperMarketManagerment\BO\bin\Debug\DAL.dll
+E:\DHT 18-10-2011\Source\SuperMarketManagerment\BO\bin\Debug\Entities.dll
+E:\DHT 18-10-2011\Source\SuperMarketManagerment\BO\bin\Debug\Vietnamese.dll
+E:\DHT 18-10-2011\Source\SuperMarketManagerment\BO\bin\Debug\Common.pdb
+E:\DHT 18-10-2011\Source\SuperMarketManagerment\BO\bin\Debug\DAL.pdb
+E:\DHT 18-10-2011\Source\SuperMarketManagerment\BO\bin\Debug\Entities.pdb
+E:\DHT 18-10-2011\Source\SuperMarketManagerment\BO\obj\Debug\ResolveAssemblyReference.cache
+E:\DHT 18-10-2011\Source\SuperMarketManagerment\BO\obj\Debug\BizLogic.dll
+E:\DHT 18-10-2011\Source\SuperMarketManagerment\BO\obj\Debug\BizLogic.pdb
+E:\MrK Data\WORKING\DHT 23-12-2011\Source\SuperMarketManagerment\BO\bin\Debug\BizLogic.dll
+E:\MrK Data\WORKING\DHT 23-12-2011\Source\SuperMarketManagerment\BO\bin\Debug\BizLogic.pdb
+E:\MrK Data\WORKING\DHT 23-12-2011\Source\SuperMarketManagerment\BO\bin\Debug\Common.dll
+E:\MrK Data\WORKING\DHT 23-12-2011\Source\SuperMarketManagerment\BO\bin\Debug\DAL.dll
+E:\MrK Data\WORKING\DHT 23-12-2011\Source\SuperMarketManagerment\BO\bin\Debug\Entities.dll
+E:\MrK Data\WORKING\DHT 23-12-2011\Source\SuperMarketManagerment\BO\bin\Debug\Vietnamese.dll
+E:\MrK Data\WORKING\DHT 23-12-2011\Source\SuperMarketManagerment\BO\bin\Debug\Common.pdb
+E:\MrK Data\WORKING\DHT 23-12-2011\Source\SuperMarketManagerment\BO\bin\Debug\DAL.pdb
+E:\MrK Data\WORKING\DHT 23-12-2011\Source\SuperMarketManagerment\BO\bin\Debug\Entities.pdb
+E:\MrK Data\WORKING\DHT 23-12-2011\Source\SuperMarketManagerment\BO\obj\Debug\ResolveAssemblyReference.cache
+E:\MrK Data\WORKING\DHT 23-12-2011\Source\SuperMarketManagerment\BO\obj\Debug\BizLogic.dll
+E:\MrK Data\WORKING\DHT 23-12-2011\Source\SuperMarketManagerment\BO\obj\Debug\BizLogic.pdb
+E:\MrK Data\WORKING\DHT\Source\SuperMarketManagerment\BO\bin\Debug\BizLogic.dll
+E:\MrK Data\WORKING\DHT\Source\SuperMarketManagerment\BO\bin\Debug\BizLogic.pdb
+E:\MrK Data\WORKING\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Common.dll
+E:\MrK Data\WORKING\DHT\Source\SuperMarketManagerment\BO\bin\Debug\DAL.dll
+E:\MrK Data\WORKING\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Entities.dll
+E:\MrK Data\WORKING\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Vietnamese.dll
+E:\MrK Data\WORKING\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Common.pdb
+E:\MrK Data\WORKING\DHT\Source\SuperMarketManagerment\BO\bin\Debug\DAL.pdb
+E:\MrK Data\WORKING\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Entities.pdb
+E:\MrK Data\WORKING\DHT\Source\SuperMarketManagerment\BO\obj\Debug\ResolveAssemblyReference.cache
+E:\MrK Data\WORKING\DHT\Source\SuperMarketManagerment\BO\obj\Debug\BizLogic.dll
+E:\MrK Data\WORKING\DHT\Source\SuperMarketManagerment\BO\obj\Debug\BizLogic.pdb
+E:\WORKING\DHT1\Source\SuperMarketManagerment\BO\bin\Debug\BizLogic.dll
+E:\WORKING\DHT1\Source\SuperMarketManagerment\BO\bin\Debug\BizLogic.pdb
+E:\WORKING\DHT1\Source\SuperMarketManagerment\BO\bin\Debug\Common.dll
+E:\WORKING\DHT1\Source\SuperMarketManagerment\BO\bin\Debug\DAL.dll
+E:\WORKING\DHT1\Source\SuperMarketManagerment\BO\bin\Debug\Entities.dll
+E:\WORKING\DHT1\Source\SuperMarketManagerment\BO\bin\Debug\Vietnamese.dll
+E:\WORKING\DHT1\Source\SuperMarketManagerment\BO\bin\Debug\Common.pdb
+E:\WORKING\DHT1\Source\SuperMarketManagerment\BO\bin\Debug\DAL.pdb
+E:\WORKING\DHT1\Source\SuperMarketManagerment\BO\bin\Debug\Entities.pdb
+E:\WORKING\DHT1\Source\SuperMarketManagerment\BO\obj\Debug\ResolveAssemblyReference.cache
+E:\WORKING\DHT1\Source\SuperMarketManagerment\BO\obj\Debug\BizLogic.dll
+E:\WORKING\DHT1\Source\SuperMarketManagerment\BO\obj\Debug\BizLogic.pdb
+E:\WORKING\DHT\Source\SuperMarketManagerment\BO\bin\Debug\BizLogic.dll
+E:\WORKING\DHT\Source\SuperMarketManagerment\BO\bin\Debug\BizLogic.pdb
+E:\WORKING\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Common.dll
+E:\WORKING\DHT\Source\SuperMarketManagerment\BO\bin\Debug\DAL.dll
+E:\WORKING\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Entities.dll
+E:\WORKING\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Vietnamese.dll
+E:\WORKING\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Common.pdb
+E:\WORKING\DHT\Source\SuperMarketManagerment\BO\bin\Debug\DAL.pdb
+E:\WORKING\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Entities.pdb
+E:\WORKING\DHT\Source\SuperMarketManagerment\BO\obj\Debug\ResolveAssemblyReference.cache
+E:\WORKING\DHT\Source\SuperMarketManagerment\BO\obj\Debug\BizLogic.dll
+E:\WORKING\DHT\Source\SuperMarketManagerment\BO\obj\Debug\BizLogic.pdb
+E:\WORKING\DHT\DHT2\Source\SuperMarketManagerment\BO\bin\Debug\BizLogic.dll
+E:\WORKING\DHT\DHT2\Source\SuperMarketManagerment\BO\bin\Debug\BizLogic.pdb
+E:\WORKING\DHT\DHT2\Source\SuperMarketManagerment\BO\bin\Debug\Common.dll
+E:\WORKING\DHT\DHT2\Source\SuperMarketManagerment\BO\bin\Debug\DAL.dll
+E:\WORKING\DHT\DHT2\Source\SuperMarketManagerment\BO\bin\Debug\Entities.dll
+E:\WORKING\DHT\DHT2\Source\SuperMarketManagerment\BO\bin\Debug\Vietnamese.dll
+E:\WORKING\DHT\DHT2\Source\SuperMarketManagerment\BO\bin\Debug\Common.pdb
+E:\WORKING\DHT\DHT2\Source\SuperMarketManagerment\BO\bin\Debug\DAL.pdb
+E:\WORKING\DHT\DHT2\Source\SuperMarketManagerment\BO\bin\Debug\Entities.pdb
+E:\WORKING\DHT\DHT2\Source\SuperMarketManagerment\BO\obj\Debug\ResolveAssemblyReference.cache
+E:\WORKING\DHT\DHT2\Source\SuperMarketManagerment\BO\obj\Debug\BizLogic.dll
+E:\WORKING\DHT\DHT2\Source\SuperMarketManagerment\BO\obj\Debug\BizLogic.pdb
+C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\BizLogic.dll
+C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\BizLogic.pdb
+C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Common.dll
+C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\DAL.dll
+C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Entities.dll
+C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Vietnamese.dll
+C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Common.pdb
+C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\DAL.pdb
+C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Entities.pdb
+C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\BO\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\BO\obj\Debug\BizLogic.dll
+C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\BO\obj\Debug\BizLogic.pdb
