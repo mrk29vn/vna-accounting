@@ -1,0 +1,2 @@
+- Change sp_Lay_ID: del top 1
+- change BizLogic.Lay_ID
