@@ -98,6 +98,8 @@
             this.tsslgtgt = new System.Windows.Forms.ToolStripTextBox();
             this.toolStrip_btnThem = new System.Windows.Forms.ToolStripButton();
             this.timerRun = new System.Windows.Forms.Timer(this.components);
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.palNhap.SuspendLayout();
             this.palXem.SuspendLayout();
@@ -126,7 +128,7 @@
             // 
             this.tsslthem.Image = ((System.Drawing.Image)(resources.GetObject("tsslthem.Image")));
             this.tsslthem.Name = "tsslthem";
-            this.tsslthem.Size = new System.Drawing.Size(264, 21);
+            this.tsslthem.Size = new System.Drawing.Size(274, 21);
             this.tsslthem.Spring = true;
             this.tsslthem.Text = "Thanh Toán";
             this.tsslthem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -138,7 +140,7 @@
             // 
             this.toolStripStatusLabel3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripStatusLabel3.Image")));
             this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(264, 21);
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(274, 21);
             this.toolStripStatusLabel3.Spring = true;
             this.toolStripStatusLabel3.Text = "In";
             this.toolStripStatusLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -150,7 +152,7 @@
             // 
             this.tssltrove.Image = ((System.Drawing.Image)(resources.GetObject("tssltrove.Image")));
             this.tssltrove.Name = "tssltrove";
-            this.tssltrove.Size = new System.Drawing.Size(264, 21);
+            this.tssltrove.Size = new System.Drawing.Size(274, 21);
             this.tssltrove.Spring = true;
             this.tssltrove.Text = "Trở về";
             this.tssltrove.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -404,6 +406,8 @@
             // 
             // palXem
             // 
+            this.palXem.Controls.Add(this.textBox1);
+            this.palXem.Controls.Add(this.label7);
             this.palXem.Controls.Add(this.txtGTTheGT);
             this.palXem.Controls.Add(this.txtMaTheGT);
             this.palXem.Controls.Add(this.label6);
@@ -926,6 +930,26 @@
             this.timerRun.Interval = 1000;
             this.timerRun.Tick += new System.EventHandler(this.timerRun_Tick);
             // 
+            // textBox1
+            // 
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(246, 428);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(202, 22);
+            this.textBox1.TabIndex = 37;
+            this.textBox1.TabStop = false;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(129, 431);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(112, 15);
+            this.label7.TabIndex = 38;
+            this.label7.Text = "Chiết khấu tiền mặt:";
+            // 
             // frmXuLyBanLe
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
@@ -1031,5 +1055,7 @@
         private System.Windows.Forms.TextBox txtMaTheGT;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblTenKH;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label7;
     }
 }

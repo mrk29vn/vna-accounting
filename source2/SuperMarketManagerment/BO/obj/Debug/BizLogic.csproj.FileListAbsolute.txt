@@ -270,3 +270,15 @@ C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\BO\bin\Debug\Entities.p
 C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\BO\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\BO\obj\Debug\BizLogic.dll
 C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\BO\obj\Debug\BizLogic.pdb
+D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\BO\bin\Debug\BizLogic.dll
+D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\BO\bin\Debug\BizLogic.pdb
+D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\BO\bin\Debug\Common.dll
+D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\BO\bin\Debug\DAL.dll
+D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\BO\bin\Debug\Entities.dll
+D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\BO\bin\Debug\Vietnamese.dll
+D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\BO\bin\Debug\Common.pdb
+D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\BO\bin\Debug\DAL.pdb
+D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\BO\bin\Debug\Entities.pdb
+D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\BO\obj\Debug\BizLogic.csprojResolveAssemblyReference.cache
+D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\BO\obj\Debug\BizLogic.dll
+D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\BO\obj\Debug\BizLogic.pdb

@@ -30,25 +30,27 @@ namespace BizLogic
             cmd.Parameters.Add("@table", SqlDbType.NVarChar, 50).Value = lid1.TenBang;
             SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
 
-            //Insert Category into ArrayList
-            ArrayList arr = new ArrayList();
+            //Fix 14/01/2013
+            string phandau = string.Empty;
+            string max = "0";
             while (dr.Read())
             {
-                Entities.LayID lid = new Entities.LayID();
-                lid.ID = dr["ID"].ToString();
-                arr.Add(lid);
+                    string[] temp = dr["ID"].ToString().Split('_');
+                    if (string.IsNullOrEmpty(phandau)) phandau = temp[0];
+                    if (max.Equals("0")) max = temp[1];
+                    try 
+                    {
+                        int ss = int.Parse(temp[1]);
+                        int _max = int.Parse(max);
+                        max = _max < ss ? temp[1] : max; 
+                    }
+                    catch { }
             }
-            int n = arr.Count;
-            if (n == 0) return null;
-
             Entities.LayID arrC = new Entities.LayID();
-            for (int i = 0; i < n; i++)
-            {
-                arrC = (Entities.LayID)arr[i];
-            }
+            arrC.ID = phandau + "_" + max;
+            //End Fix 14/01/2013
 
             //Giai phong bo nho
-            arr = null;
             cmd.Connection.Dispose();
             cn.Close();
             conn.closeConnection();

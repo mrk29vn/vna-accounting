@@ -122,7 +122,11 @@ namespace GUI
                     bientam = Klib2.KEnDe.MrkKEY;
                     Klib2.KEnDe.MrkKEY = "k29vn - Đặng Đức Kiên";
                     SubK = Klib2.KEnDe.ES("W3nmTi15jP53j3sfv0JMlaY16oUK5Qric10i7Hvxl/rNlQPcX2Xehp1/+nMT2mAZ");
-                    Klib2.Registry.SetRegistry(SubK, l);
+                    try
+                    {
+                        Klib2.Registry.SetRegistry(SubK, l);
+                    }
+                    catch { }
                     Klib2.KEnDe.MrkKEY = bientam;
                 }
             }
