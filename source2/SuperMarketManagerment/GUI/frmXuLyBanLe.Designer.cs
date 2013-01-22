@@ -55,6 +55,8 @@
             this.lblMakhachhang = new System.Windows.Forms.Label();
             this.lblSochungtu = new System.Windows.Forms.Label();
             this.palXem = new System.Windows.Forms.Panel();
+            this.txtChieuKhauTienMat = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.txtGTTheGT = new System.Windows.Forms.TextBox();
             this.txtMaTheGT = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -98,8 +100,6 @@
             this.tsslgtgt = new System.Windows.Forms.ToolStripTextBox();
             this.toolStrip_btnThem = new System.Windows.Forms.ToolStripButton();
             this.timerRun = new System.Windows.Forms.Timer(this.components);
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.palNhap.SuspendLayout();
             this.palXem.SuspendLayout();
@@ -406,7 +406,7 @@
             // 
             // palXem
             // 
-            this.palXem.Controls.Add(this.textBox1);
+            this.palXem.Controls.Add(this.txtChieuKhauTienMat);
             this.palXem.Controls.Add(this.label7);
             this.palXem.Controls.Add(this.txtGTTheGT);
             this.palXem.Controls.Add(this.txtMaTheGT);
@@ -435,6 +435,28 @@
             this.palXem.Name = "palXem";
             this.palXem.Size = new System.Drawing.Size(839, 486);
             this.palXem.TabIndex = 456;
+            // 
+            // txtChieuKhauTienMat
+            // 
+            this.txtChieuKhauTienMat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtChieuKhauTienMat.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtChieuKhauTienMat.Location = new System.Drawing.Point(246, 428);
+            this.txtChieuKhauTienMat.Name = "txtChieuKhauTienMat";
+            this.txtChieuKhauTienMat.Size = new System.Drawing.Size(202, 22);
+            this.txtChieuKhauTienMat.TabIndex = 37;
+            this.txtChieuKhauTienMat.TabStop = false;
+            this.txtChieuKhauTienMat.TextChanged += new System.EventHandler(this.txtChieuKhauTienMat_TextChanged);
+            this.txtChieuKhauTienMat.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtChieuKhauTienMat_KeyDown);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(129, 431);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(112, 15);
+            this.label7.TabIndex = 38;
+            this.label7.Text = "Chiết khấu tiền mặt:";
             // 
             // txtGTTheGT
             // 
@@ -930,26 +952,6 @@
             this.timerRun.Interval = 1000;
             this.timerRun.Tick += new System.EventHandler(this.timerRun_Tick);
             // 
-            // textBox1
-            // 
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(246, 428);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(202, 22);
-            this.textBox1.TabIndex = 37;
-            this.textBox1.TabStop = false;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(129, 431);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(112, 15);
-            this.label7.TabIndex = 38;
-            this.label7.Text = "Chiết khấu tiền mặt:";
-            // 
             // frmXuLyBanLe
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
@@ -1055,7 +1057,7 @@
         private System.Windows.Forms.TextBox txtMaTheGT;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblTenKH;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtChieuKhauTienMat;
         private System.Windows.Forms.Label label7;
     }
 }

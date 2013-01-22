@@ -4,7 +4,7 @@
 winexe
 C#
 .cs
-C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\GUI\obj\x86\Debug\
+D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\GUI\obj\x86\Debug\
 GUI
 none
 false
@@ -13,6 +13,8 @@ DEBUG;TRACE
 10-1586179359
 31-1426835261
 395203258790
-31-420265903
+311505025999
 ucBaoCao.xaml;ucBaoCaoCongNo.xaml;ucBaoCaoDoanhThu.xaml;ucBaoCaoNhapHang.xaml;ucBaoCaoTonKho.xaml;ucBaoCaoXuatHang.xaml;ucDanhMuc.xaml;ucKhoHang.xaml;ucNghiepVu.xaml;ucTrangChinh.xaml;
+
+False
 

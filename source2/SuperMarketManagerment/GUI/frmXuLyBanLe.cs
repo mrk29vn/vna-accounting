@@ -2981,5 +2981,68 @@ namespace GUI
             }
         }
 
+        private void txtChieuKhauTienMat_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(str) && str.Equals("Them"))
+            {
+                try
+                {
+                    if (e.KeyCode == Keys.Enter)
+                    {
+                        double tongTien = 0;
+                        double giaTriThe = 0;
+                        double giaTriTheVip = 0;
+                        double khachPhaiTra = 0;
+                        double khachTra = 0;
+                        double duTra = 0;
+                        string maThe = txtMaTheGT.Text.ToUpper();
+
+                        txtkhachtra.Focus();
+                        txtkhachtra.SelectAll();
+                        if (!string.IsNullOrEmpty(txtTongtien.Text))
+                            tongTien = double.Parse(txtTongtien.Text);
+
+                        if (!string.IsNullOrEmpty(txtGTTheGT.Text))
+                            giaTriThe = double.Parse(txtGTTheGT.Text);
+
+                        if (!string.IsNullOrEmpty(txtGTTheVip.Text))
+                            giaTriTheVip = double.Parse(txtGTTheVip.Text);
+
+                        if (giaTriThe + giaTriTheVip > tongTien)
+                        {
+                            khachTra = 0;
+                            duTra = 0;
+                            khachPhaiTra = 0;
+                        }
+                        else
+                        {
+                            khachPhaiTra = tongTien - giaTriThe - giaTriTheVip;
+                        }
+
+                        txtkhachtra.Text = new Common.Utilities().FormatMoney(khachTra);
+                        txtKhachPhaiTra.Text = new Common.Utilities().FormatMoney(khachPhaiTra);
+                        txtkhachtra.Text = khachTra.ToString();
+                        txtdutra.Text = duTra.ToString();
+                    }
+
+                }
+                catch
+                {
+                }
+            }
+        }
+
+        private void txtChieuKhauTienMat_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(str) && str.Equals("Them"))
+            {
+                try
+                {
+                    new TienIch().AutoFormatMoney(sender);
+                }
+                catch { }
+            }
+        }
+
     }
 }

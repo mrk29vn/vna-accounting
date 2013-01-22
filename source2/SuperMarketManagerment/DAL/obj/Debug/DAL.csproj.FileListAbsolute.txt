@@ -88,3 +88,13 @@ C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\DAL\bin\Debug\Entities.
 C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\DAL\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\DAL\obj\Debug\DAL.dll
 C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\DAL\obj\Debug\DAL.pdb
+D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\DAL\bin\Debug\DAL.dll
+D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\DAL\bin\Debug\DAL.pdb
+D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\DAL\bin\Debug\Common.dll
+D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\DAL\bin\Debug\Entities.dll
+D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\DAL\bin\Debug\Vietnamese.dll
+D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\DAL\bin\Debug\Common.pdb
+D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\DAL\bin\Debug\Entities.pdb
+D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
+D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\DAL\obj\Debug\DAL.dll
+D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\DAL\obj\Debug\DAL.pdb
