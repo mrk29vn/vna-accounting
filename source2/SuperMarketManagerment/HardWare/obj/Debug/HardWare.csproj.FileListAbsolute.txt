@@ -43,7 +43,3 @@ C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\HardWare\bin\Debug\Hard
 C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\HardWare\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\HardWare\obj\Debug\HardWare.dll
 C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\HardWare\obj\Debug\HardWare.pdb
-D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\HardWare\bin\Debug\HardWare.dll
-D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\HardWare\bin\Debug\HardWare.pdb
-D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\HardWare\obj\Debug\HardWare.dll
-D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\HardWare\obj\Debug\HardWare.pdb

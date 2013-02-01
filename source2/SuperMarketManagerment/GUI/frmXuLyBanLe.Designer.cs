@@ -55,8 +55,6 @@
             this.lblMakhachhang = new System.Windows.Forms.Label();
             this.lblSochungtu = new System.Windows.Forms.Label();
             this.palXem = new System.Windows.Forms.Panel();
-            this.txtChieuKhauTienMat = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.txtGTTheGT = new System.Windows.Forms.TextBox();
             this.txtMaTheGT = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -128,7 +126,7 @@
             // 
             this.tsslthem.Image = ((System.Drawing.Image)(resources.GetObject("tsslthem.Image")));
             this.tsslthem.Name = "tsslthem";
-            this.tsslthem.Size = new System.Drawing.Size(274, 21);
+            this.tsslthem.Size = new System.Drawing.Size(264, 21);
             this.tsslthem.Spring = true;
             this.tsslthem.Text = "Thanh Toán";
             this.tsslthem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -140,7 +138,7 @@
             // 
             this.toolStripStatusLabel3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripStatusLabel3.Image")));
             this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(274, 21);
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(264, 21);
             this.toolStripStatusLabel3.Spring = true;
             this.toolStripStatusLabel3.Text = "In";
             this.toolStripStatusLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -152,7 +150,7 @@
             // 
             this.tssltrove.Image = ((System.Drawing.Image)(resources.GetObject("tssltrove.Image")));
             this.tssltrove.Name = "tssltrove";
-            this.tssltrove.Size = new System.Drawing.Size(274, 21);
+            this.tssltrove.Size = new System.Drawing.Size(264, 21);
             this.tssltrove.Spring = true;
             this.tssltrove.Text = "Trở về";
             this.tssltrove.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -406,8 +404,6 @@
             // 
             // palXem
             // 
-            this.palXem.Controls.Add(this.txtChieuKhauTienMat);
-            this.palXem.Controls.Add(this.label7);
             this.palXem.Controls.Add(this.txtGTTheGT);
             this.palXem.Controls.Add(this.txtMaTheGT);
             this.palXem.Controls.Add(this.label6);
@@ -435,28 +431,6 @@
             this.palXem.Name = "palXem";
             this.palXem.Size = new System.Drawing.Size(839, 486);
             this.palXem.TabIndex = 456;
-            // 
-            // txtChieuKhauTienMat
-            // 
-            this.txtChieuKhauTienMat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtChieuKhauTienMat.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtChieuKhauTienMat.Location = new System.Drawing.Point(246, 428);
-            this.txtChieuKhauTienMat.Name = "txtChieuKhauTienMat";
-            this.txtChieuKhauTienMat.Size = new System.Drawing.Size(202, 22);
-            this.txtChieuKhauTienMat.TabIndex = 37;
-            this.txtChieuKhauTienMat.TabStop = false;
-            this.txtChieuKhauTienMat.TextChanged += new System.EventHandler(this.txtChieuKhauTienMat_TextChanged);
-            this.txtChieuKhauTienMat.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtChieuKhauTienMat_KeyDown);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(129, 431);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(112, 15);
-            this.label7.TabIndex = 38;
-            this.label7.Text = "Chiết khấu tiền mặt:";
             // 
             // txtGTTheGT
             // 
@@ -1057,7 +1031,5 @@
         private System.Windows.Forms.TextBox txtMaTheGT;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblTenKH;
-        private System.Windows.Forms.TextBox txtChieuKhauTienMat;
-        private System.Windows.Forms.Label label7;
     }
 }

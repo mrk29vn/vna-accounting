@@ -54,17 +54,3 @@ C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\Server-Client\bin\Debug
 C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\Server-Client\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\Server-Client\obj\Debug\Server-Client.dll
 C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\Server-Client\obj\Debug\Server-Client.pdb
-D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\Server-Client\bin\Debug\Server-Client.dll
-D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\Server-Client\bin\Debug\Server-Client.pdb
-D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\Server-Client\bin\Debug\BizLogic.dll
-D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\Server-Client\bin\Debug\Common.dll
-D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\Server-Client\bin\Debug\Entities.dll
-D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\Server-Client\bin\Debug\DAL.dll
-D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\Server-Client\bin\Debug\Vietnamese.dll
-D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\Server-Client\bin\Debug\BizLogic.pdb
-D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\Server-Client\bin\Debug\Common.pdb
-D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\Server-Client\bin\Debug\Entities.pdb
-D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\Server-Client\bin\Debug\DAL.pdb
-D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\Server-Client\obj\Debug\Server-Client.csprojResolveAssemblyReference.cache
-D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\Server-Client\obj\Debug\Server-Client.dll
-D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\Server-Client\obj\Debug\Server-Client.pdb

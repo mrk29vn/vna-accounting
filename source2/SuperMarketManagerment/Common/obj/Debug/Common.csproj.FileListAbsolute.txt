@@ -60,10 +60,3 @@ C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\Common\bin\Debug\Entiti
 C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\Common\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\Common\obj\Debug\Common.dll
 C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\Common\obj\Debug\Common.pdb
-D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\Common\bin\Debug\Common.dll
-D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\Common\bin\Debug\Common.pdb
-D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\Common\bin\Debug\Entities.dll
-D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\Common\bin\Debug\Entities.pdb
-D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\Common\obj\Debug\Common.csprojResolveAssemblyReference.cache
-D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\Common\obj\Debug\Common.dll
-D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\Common\obj\Debug\Common.pdb

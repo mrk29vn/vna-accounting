@@ -43,7 +43,3 @@ C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\Entity\bin\Debug\Entiti
 C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\Entity\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\Entity\obj\Debug\Entities.dll
 C:\Users\Lamtv\Desktop\DHT\Source\SuperMarketManagerment\Entity\obj\Debug\Entities.pdb
-D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\Entity\bin\Debug\Entities.dll
-D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\Entity\bin\Debug\Entities.pdb
-D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\Entity\obj\Debug\Entities.dll
-D:\WORKING\VNAAccounting\source2\SuperMarketManagerment\Entity\obj\Debug\Entities.pdb
