@@ -178,14 +178,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\Debug\BO.dll" />
-    <Content Include="bin\Debug\BO.pdb" />
-    <Content Include="bin\Debug\Common.dll" />
-    <Content Include="bin\Debug\Common.pdb" />
-    <Content Include="bin\Debug\DAL.dll" />
-    <Content Include="bin\Debug\DAL.pdb" />
-    <Content Include="bin\Debug\Entity.dll" />
-    <Content Include="bin\Debug\Entity.pdb" />
     <Content Include="BO.csproj" />
     <Content Include="obj\Debug\BizLogic.csproj.FileListAbsolute.txt" />
     <Content Include="obj\Debug\BO.csproj.FileListAbsolute.txt" />
@@ -193,15 +185,10 @@
     <Content Include="obj\Debug\BO.pdb" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\BO.dll.r656" />
-    <None Include="bin\Debug\BO.dll.r665" />
-    <None Include="bin\Debug\BO.pdb.r656" />
-    <None Include="bin\Debug\BO.pdb.r665" />
     <None Include="obj\Debug\build.force" />
     <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="bin\Release\" />
     <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
