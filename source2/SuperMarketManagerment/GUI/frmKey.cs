@@ -55,7 +55,11 @@ namespace GUI
                     string bientam = Klib2.KEnDe.MrkKEY;
                     Klib2.KEnDe.MrkKEY = "k29vn - Đặng Đức Kiên";
                     string SubK = Klib2.KEnDe.ES("W3nmTi15jP53j3sfv0JMlaY16oUK5Qric10i7Hvxl/rNlQPcX2Xehp1/+nMT2mAZ");
-                    Klib2.Registry.SetRegistry(SubK, l);
+                    try
+                    {
+                        Klib2.Registry.SetRegistry(SubK, l);
+                    }
+                    catch (Exception ex) { MessageBox.Show("Reg is No"); }
                     Klib2.KEnDe.MrkKEY = bientam;
                     MessageBox.Show("Đăng ký thành công! \r\nKhởi động lại chương trình...");
                     Application.Exit();
