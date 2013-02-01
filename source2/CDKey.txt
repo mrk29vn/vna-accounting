@@ -1,0 +1,62 @@
+==================================================
+Product Name      : Internet Explorer
+Product ID        : 00178-10140-00000-AA049
+Product Key       : V3362-PQTMC-PQY2R-9GM8V-R88XV
+Installation Folder : 
+Service Pack      : 
+Computer Name     : MRKPC
+Modified Time     : 1/19/2013 1:16:53 AM
+==================================================
+
+==================================================
+Product Name      : Microsoft Office Professional Plus 2010
+Product ID        : 82503-018-0000106-48175
+Product Key       : VYBBJ-TRJPB-QFQRF-QFT4D-H3GVB
+Installation Folder : C:\Program Files (x86)\Microsoft Office\Office14\
+Service Pack      : 
+Computer Name     : MRKPC
+Modified Time     : 1/18/2013 11:48:20 AM
+==================================================
+
+==================================================
+Product Name      : Microsoft Office Professional Plus 2010
+Product ID        : 82503-001-0000205-49488
+Product Key       : YGX6F-PGV49-PGW3J-9BTGG-VHKC6
+Installation Folder : C:\Program Files (x86)\Microsoft Office\Office14\
+Service Pack      : 
+Computer Name     : MRKPC
+Modified Time     : 1/18/2013 11:48:20 AM
+==================================================
+
+==================================================
+Product Name      : Microsoft Office Professional Plus 2010
+Product ID        : 82503-001-0000502-69676
+Product Key       : D9DWC-HPYVV-JGF4P-BTWQB-WX8BJ
+Installation Folder : C:\Program Files (x86)\Microsoft Office\Office14\
+Service Pack      : 
+Computer Name     : MRKPC
+Modified Time     : 1/18/2013 11:48:20 AM
+==================================================
+
+==================================================
+Product Name      : Windows 8 Pro
+Product ID        : 00178-10140-00000-AA049
+Product Key       : V3362-PQTMC-PQY2R-9GM8V-R88XV
+Installation Folder : C:\Windows
+Service Pack      : 
+Computer Name     : MRKPC
+Modified Time     : 1/25/2013 9:33:55 AM
+==================================================
+CRYQH
+
+
+Windows Product Key Viewer v1.04 - by RJL Software, Inc.
+http://www.rjlsoftware.com/
+
+Windows Version: Windows 8 Professional x64 6.2.9200
+Product ID: 00178-10140-00000-AA049
+Install Date/Time: 1/18/2013 3:24:18 AM
+Registered User: Mrk
+Registered Organization: 
+Product Key: V3362-PQTMC-PQY2R-9GM8V-R88XV
+
