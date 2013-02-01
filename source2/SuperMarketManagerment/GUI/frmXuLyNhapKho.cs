@@ -1643,7 +1643,14 @@ namespace GUI
                             Common.Utilities ck = new Common.Utilities();
                             string ngay = toolStrip_txtNgayhethan.Text;
                             string ngayhientai = this.Date.ToString("dd/MM/yyyy");
-                            if (DateTime.Parse(new Common.Utilities().KiemTraDinhDangNgayThangNam("ThangNgayNam", ngayhientai, '/')) <= DateTime.Parse(new Common.Utilities().KiemTraDinhDangNgayThangNam("ThangNgayNam", ngay, '/')))
+                            bool _kq0 = true; bool _kq1 = true;
+                            DateTime ngay1 = Utils.StringToDateTime(ngayhientai, out _kq0);  //DateTime.Parse(new Common.Utilities().KiemTraDinhDangNgayThangNam("ThangNgayNam", ngayhientai, '/'));
+                            DateTime ngay2 = Utils.StringToDateTime(ngay, out _kq1);  //DateTime.Parse(new Common.Utilities().KiemTraDinhDangNgayThangNam("ThangNgayNam", ngay, '/'));
+                            if (!_kq1 || !_kq0 || !(ngay1.Date <= ngay2.Date))
+                            {
+                                MessageBox.Show("Kiểm tra lại định dạng ngày hết hạn <dd/MM/yyyy>");
+                            }
+                            else
                             {
                                 add.Ngayhethan = ngay;
                                 if (float.Parse(toolStrip_txtGianhap.Text) > 0)
@@ -1656,32 +1663,17 @@ namespace GUI
                                     }
                                     else
                                     {
-                                        LayGiaTri(dgvInsertOrder, add);
-                                        DoiTen(dgvInsertOrder);
-                                        //ResetTool();
+                                        LayGiaTri(dgvInsertOrder, add); DoiTen(dgvInsertOrder);
                                     }
                                 }
-                                else
-                                {
-                                    MessageBox.Show("Kiểm tra giá nhập");
-                                }
+                                else MessageBox.Show("Kiểm tra giá nhập");
                             }
-                            else
-                            { MessageBox.Show("Kiểm tra lại định dạng ngày hết hạn <dd/MM/yyyy>"); }
-
                         }
                         else
-                        {
-                            //ResetTool();
-                            MessageBox.Show("Chọn nhà cung cấp");
-                            return;
-                        }
+                        { MessageBox.Show("Chọn nhà cung cấp"); return; }
                     }
                     else
-                    {
-                        MessageBox.Show("Phải nhập hàng hóa");
-                        return;
-                    }
+                    { MessageBox.Show("Phải nhập hàng hóa"); return; }
                 }
                 #endregion
 
@@ -3570,7 +3562,7 @@ namespace GUI
             {
                 if (hanhdong == "Insert")
                 {
-                    if (txtCKTM0.Text != "")
+                    if (!string.IsNullOrEmpty(txtCKTM0.Text))
                     {
                         if (dgvInsertOrder.RowCount > 0)
                         {
@@ -3602,10 +3594,10 @@ namespace GUI
 
         private void txtCKTM0_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
-            {
-                e.Handled = true;
-            }
+            //if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
+            //{
+            //    e.Handled = true;
+            //}
         }
 
         private void txtCKTM0_KeyUp(object sender, KeyEventArgs e)

@@ -128,9 +128,9 @@
             this.toolStripStatus_In,
             this.toolStripStatus_Thanhtoan,
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 576);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 572);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1019, 26);
+            this.statusStrip1.Size = new System.Drawing.Size(1015, 26);
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -138,7 +138,7 @@
             // 
             this.toolStripStatus_Themmoi.Image = global::GUI.Properties.Resources.Them;
             this.toolStripStatus_Themmoi.Name = "toolStripStatus_Themmoi";
-            this.toolStripStatus_Themmoi.Size = new System.Drawing.Size(251, 21);
+            this.toolStripStatus_Themmoi.Size = new System.Drawing.Size(250, 21);
             this.toolStripStatus_Themmoi.Spring = true;
             this.toolStripStatus_Themmoi.Tag = "1";
             this.toolStripStatus_Themmoi.Text = "Thêm";
@@ -151,7 +151,7 @@
             // 
             this.toolStripStatus_In.Image = global::GUI.Properties.Resources.In;
             this.toolStripStatus_In.Name = "toolStripStatus_In";
-            this.toolStripStatus_In.Size = new System.Drawing.Size(251, 21);
+            this.toolStripStatus_In.Size = new System.Drawing.Size(250, 21);
             this.toolStripStatus_In.Spring = true;
             this.toolStripStatus_In.Tag = "2";
             this.toolStripStatus_In.Text = "In";
@@ -164,7 +164,7 @@
             // 
             this.toolStripStatus_Thanhtoan.Image = global::GUI.Properties.Resources.Don_dat_hang__1_;
             this.toolStripStatus_Thanhtoan.Name = "toolStripStatus_Thanhtoan";
-            this.toolStripStatus_Thanhtoan.Size = new System.Drawing.Size(251, 21);
+            this.toolStripStatus_Thanhtoan.Size = new System.Drawing.Size(250, 21);
             this.toolStripStatus_Thanhtoan.Spring = true;
             this.toolStripStatus_Thanhtoan.Tag = "3";
             this.toolStripStatus_Thanhtoan.Text = "Lập phiếu thanh toán";
@@ -177,7 +177,7 @@
             // 
             this.toolStripStatusLabel1.Image = global::GUI.Properties.Resources.Xoa;
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(251, 21);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(250, 21);
             this.toolStripStatusLabel1.Spring = true;
             this.toolStripStatusLabel1.Tag = "4";
             this.toolStripStatusLabel1.Text = "Trở về";
@@ -222,7 +222,7 @@
             this.palNhap.Dock = System.Windows.Forms.DockStyle.Top;
             this.palNhap.Location = new System.Drawing.Point(0, 0);
             this.palNhap.Name = "palNhap";
-            this.palNhap.Size = new System.Drawing.Size(1019, 223);
+            this.palNhap.Size = new System.Drawing.Size(1015, 223);
             this.palNhap.TabIndex = 1;
             // 
             // label5
@@ -616,7 +616,7 @@
             this.palXem.Dock = System.Windows.Forms.DockStyle.Fill;
             this.palXem.Location = new System.Drawing.Point(0, 223);
             this.palXem.Name = "palXem";
-            this.palXem.Size = new System.Drawing.Size(1019, 353);
+            this.palXem.Size = new System.Drawing.Size(1015, 349);
             this.palXem.TabIndex = 2;
             // 
             // txtTienCKTM0
@@ -647,7 +647,6 @@
             this.txtCKTM0.Click += new System.EventHandler(this.txtCKTM0_Click);
             this.txtCKTM0.TextChanged += new System.EventHandler(this.txtCKTM0_TextChanged);
             this.txtCKTM0.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCKTM0_KeyPress);
-            this.txtCKTM0.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtCKTM0_KeyUp);
             // 
             // lbtinhtrang
             // 
@@ -679,7 +678,7 @@
             this.label8.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(661, 234);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(96, 19);
+            this.label8.Size = new System.Drawing.Size(95, 19);
             this.label8.TabIndex = 100;
             this.label8.Text = "Thuế GTGT:";
             // 
@@ -865,7 +864,7 @@
             this.grbDataGridview.Dock = System.Windows.Forms.DockStyle.Top;
             this.grbDataGridview.Location = new System.Drawing.Point(0, 0);
             this.grbDataGridview.Name = "grbDataGridview";
-            this.grbDataGridview.Size = new System.Drawing.Size(1019, 190);
+            this.grbDataGridview.Size = new System.Drawing.Size(1015, 190);
             this.grbDataGridview.TabIndex = 0;
             this.grbDataGridview.TabStop = false;
             // 
@@ -879,7 +878,7 @@
             this.dgvInsertOrder.Location = new System.Drawing.Point(3, 44);
             this.dgvInsertOrder.Name = "dgvInsertOrder";
             this.dgvInsertOrder.ReadOnly = true;
-            this.dgvInsertOrder.Size = new System.Drawing.Size(1013, 143);
+            this.dgvInsertOrder.Size = new System.Drawing.Size(1009, 143);
             this.dgvInsertOrder.TabIndex = 4;
             this.dgvInsertOrder.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvInsertOrder_CellClick);
             this.dgvInsertOrder.DoubleClick += new System.EventHandler(this.dgvInsertOrder_DoubleClick);
@@ -892,7 +891,7 @@
             this.palThem.Dock = System.Windows.Forms.DockStyle.Top;
             this.palThem.Location = new System.Drawing.Point(3, 16);
             this.palThem.Name = "palThem";
-            this.palThem.Size = new System.Drawing.Size(1013, 28);
+            this.palThem.Size = new System.Drawing.Size(1009, 28);
             this.palThem.TabIndex = 3;
             // 
             // toolStrip_Insert
@@ -919,7 +918,7 @@
             this.toolStrip_btnThem});
             this.toolStrip_Insert.Location = new System.Drawing.Point(0, 0);
             this.toolStrip_Insert.Name = "toolStrip_Insert";
-            this.toolStrip_Insert.Size = new System.Drawing.Size(1013, 25);
+            this.toolStrip_Insert.Size = new System.Drawing.Size(1009, 25);
             this.toolStrip_Insert.TabIndex = 3;
             this.toolStrip_Insert.Text = "toolStrip1";
             // 
@@ -940,7 +939,7 @@
             // toolStripLabel8
             // 
             this.toolStripLabel8.Name = "toolStripLabel8";
-            this.toolStripLabel8.Size = new System.Drawing.Size(29, 22);
+            this.toolStripLabel8.Size = new System.Drawing.Size(30, 22);
             this.toolStripLabel8.Text = "Tên:";
             // 
             // toolStrip_txtTenhang
@@ -980,7 +979,7 @@
             // toolStripLabel5
             // 
             this.toolStripLabel5.Name = "toolStripLabel5";
-            this.toolStripLabel5.Size = new System.Drawing.Size(25, 22);
+            this.toolStripLabel5.Size = new System.Drawing.Size(26, 22);
             this.toolStripLabel5.Text = "GG:";
             this.toolStripLabel5.ToolTipText = "Giá nhàcung cấp bán ra";
             // 
@@ -1023,7 +1022,7 @@
             // toolStripLabel3
             // 
             this.toolStripLabel3.Name = "toolStripLabel3";
-            this.toolStripLabel3.Size = new System.Drawing.Size(23, 22);
+            this.toolStripLabel3.Size = new System.Drawing.Size(24, 22);
             this.toolStripLabel3.Text = "TT:";
             // 
             // toolStrip_txtGianhap
@@ -1042,7 +1041,7 @@
             // toolStripLabel4
             // 
             this.toolStripLabel4.Name = "toolStripLabel4";
-            this.toolStripLabel4.Size = new System.Drawing.Size(43, 22);
+            this.toolStripLabel4.Size = new System.Drawing.Size(47, 22);
             this.toolStripLabel4.Text = "TGTGT:";
             this.toolStripLabel4.ToolTipText = "Thuế giá trị gia tăng";
             // 
@@ -1062,7 +1061,7 @@
             // toolStripLabel6
             // 
             this.toolStripLabel6.Name = "toolStripLabel6";
-            this.toolStripLabel6.Size = new System.Drawing.Size(28, 22);
+            this.toolStripLabel6.Size = new System.Drawing.Size(30, 22);
             this.toolStripLabel6.Text = "C/K:";
             this.toolStripLabel6.ToolTipText = "Chiết khấu theo phần trăm chiết khấu";
             // 
@@ -1081,7 +1080,7 @@
             // toolStripLabel7
             // 
             this.toolStripLabel7.Name = "toolStripLabel7";
-            this.toolStripLabel7.Size = new System.Drawing.Size(31, 22);
+            this.toolStripLabel7.Size = new System.Drawing.Size(33, 22);
             this.toolStripLabel7.Text = "HSD:";
             // 
             // toolStrip_txtNgayhethan
@@ -1101,7 +1100,7 @@
             this.toolStrip_btnThem.Image = ((System.Drawing.Image)(resources.GetObject("toolStrip_btnThem.Image")));
             this.toolStrip_btnThem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStrip_btnThem.Name = "toolStrip_btnThem";
-            this.toolStrip_btnThem.Size = new System.Drawing.Size(53, 22);
+            this.toolStrip_btnThem.Size = new System.Drawing.Size(58, 22);
             this.toolStrip_btnThem.Tag = "5";
             this.toolStrip_btnThem.Text = "Thêm";
             this.toolStrip_btnThem.ToolTipText = "Thêm hàng hóa vào danh sách đơn hàng";
@@ -1111,7 +1110,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1019, 602);
+            this.ClientSize = new System.Drawing.Size(1015, 598);
             this.ControlBox = false;
             this.Controls.Add(this.palXem);
             this.Controls.Add(this.palNhap);
