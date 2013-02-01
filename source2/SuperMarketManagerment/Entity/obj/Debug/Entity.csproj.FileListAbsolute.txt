@@ -1,5 +1,0 @@
-D:\DHT\Source\SuperMarketManagerment\Entity\bin\Debug\Entity.dll
-D:\DHT\Source\SuperMarketManagerment\Entity\bin\Debug\Entity.pdb
-D:\DHT\Source\SuperMarketManagerment\Entity\obj\Debug\ResolveAssemblyReference.cache
-D:\DHT\Source\SuperMarketManagerment\Entity\obj\Debug\Entity.dll
-D:\DHT\Source\SuperMarketManagerment\Entity\obj\Debug\Entity.pdb

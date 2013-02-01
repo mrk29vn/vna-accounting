@@ -1,5 +1,0 @@
-C:\Users\Red\Desktop\Cong ty L&T\Source\SuperMarketManagerment\BO\bin\Debug\BO.dll
-C:\Users\Red\Desktop\Cong ty L&T\Source\SuperMarketManagerment\BO\bin\Debug\BO.pdb
-C:\Users\Red\Desktop\Cong ty L&T\Source\SuperMarketManagerment\BO\obj\Debug\ResolveAssemblyReference.cache
-C:\Users\Red\Desktop\Cong ty L&T\Source\SuperMarketManagerment\BO\obj\Debug\BO.dll
-C:\Users\Red\Desktop\Cong ty L&T\Source\SuperMarketManagerment\BO\obj\Debug\BO.pdb
