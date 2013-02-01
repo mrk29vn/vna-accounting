@@ -1475,6 +1475,7 @@
     <Compile Include="ucTrangChinh.xaml.cs">
       <DependentUpon>ucTrangChinh.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utils.cs" />
     <EmbeddedResource Include="frmBaoCaoTongHopThuChi.resx">
       <DependentUpon>frmBaoCaoTongHopThuChi.cs</DependentUpon>
     </EmbeddedResource>

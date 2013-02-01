@@ -42,7 +42,7 @@
                        Loaded="img_Loaded" MouseLeave="img_MouseLeave" MouseMove="img_MouseMove"/>
                 <Image ToolTip="Báo cáo tồn kho theo nhóm hàng" Margin="13,3,6,0" Name="bcTonKhoTheoNhomHang" Grid.Column="1" Grid.Row="2"
                       Loaded="img_Loaded" MouseLeave="img_MouseLeave" MouseMove="img_MouseMove"/>
-                <Image ToolTip="Báo cáo xuất nhập tồn theo kho" Margin="13,3,6,0" Name="bcXNTTheoKho" Grid.Column="1" Grid.Row="3"
+                <Image ToolTip="Báo cáo xuất nhập tồn theo kho" Margin="13,3,6,0" Name="bcXNTTheoKho" Grid.Column="2" Grid.Row="3"
                        Loaded="img_Loaded" MouseLeave="img_MouseLeave" MouseMove="img_MouseMove"/>
                 <Image ToolTip="Báo cáo xuất nhập tồn theo nhóm hàng" Margin="13,3,6,0" Name="bcXNTTheoNhomHang" Grid.Column="1" Grid.Row="4"
                         Loaded="img_Loaded" MouseLeave="img_MouseLeave" MouseMove="img_MouseMove"/>
@@ -50,7 +50,7 @@
                        Loaded="img_Loaded" MouseLeave="img_MouseLeave" MouseMove="img_MouseMove" />
                 <Image ToolTip="Báo cáo xuất nhập tồn theo loại hàng" Margin="13,3,6,0" Name="bcXNTTheoLoaiHang" Grid.Column="2" Grid.Row="2"
                         Loaded="img_Loaded" MouseLeave="img_MouseLeave" MouseMove="img_MouseMove" />
-                <Image ToolTip="Báo cáo Mức Tồn Tối Thiểu - Tối Đa" Margin="13,3,6,0" Name="bcMucTonToiThieuToiDa" Grid.Column="2" Grid.Row="3"
+                <Image ToolTip="Báo cáo Mức Tồn Tối Thiểu - Tối Đa" Margin="13,3,6,0" Name="bcMucTonToiThieuToiDa" Grid.Column="1" Grid.Row="3"
                        Loaded="img_Loaded" MouseLeave="img_MouseLeave" MouseMove="img_MouseMove"/>
 
             </Grid>

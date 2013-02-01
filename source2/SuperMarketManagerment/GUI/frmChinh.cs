@@ -768,6 +768,12 @@ namespace GUI
 
         private void frmChinh_Load(object sender, EventArgs e)
         {
+            //Show or Hide XNT
+            xuToolStripMenuItem.Visible = Utils.showXNT;
+            xuấtnhậptồnTheoKhoToolStripMenuItem.Visible = Utils.showXNT;
+            xuấtnhậptồnTheoLoạiHàngToolStripMenuItem.Visible = Utils.showXNT;
+            xuấtnhậptồnTheoToolStripMenuItem.Visible = Utils.showXNT;
+
             if (Luu.Server.Equals("server"))
             {
                 toolStripMenuItem5.Visible = true;
@@ -1768,7 +1774,7 @@ namespace GUI
             MessageBox.Show("chưa xử lý");
         }
 
-        
+
         private void loạiHangHoaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!frmDangNhap.User.Administrator && !CheckQuyen("frmQuanLyLoaiHangHoa", 1))

@@ -23,6 +23,13 @@ namespace GUI
         {
             InitializeComponent();
             imgbaocao.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BaoCao_icon.png"));
+
+            //Show or Hide XNT
+            Visibility _configXNT = Utils.showXNT ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
+            bcXNTTheoNhomHang.Visibility = _configXNT;
+            bcXNTTheoPhieuXuatHuy.Visibility = _configXNT;
+            bcXNTTheoLoaiHang.Visibility = _configXNT;
+            bcXNTTheoKho.Visibility = _configXNT;
         }
 
 
