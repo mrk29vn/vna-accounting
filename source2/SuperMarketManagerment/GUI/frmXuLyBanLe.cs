@@ -1492,9 +1492,7 @@ namespace GUI
                     txtkhachtra.Focus();
                 }
             }
-            catch
-            {
-            }
+            catch { }
         }
         int i;
 
@@ -1928,10 +1926,7 @@ namespace GUI
                     txtKhachPhaiTra.Text = new Common.Utilities().FormatMoney(tongtien);
                     this.tongtien = tongtien.ToString();
                 }
-                catch (Exception)
-                {
-
-                }
+                catch { }
             }
         }
 
@@ -2090,15 +2085,9 @@ namespace GUI
                 if (cngkh == null)
                     cngkh = new Entities.CapNhatGia[0];
             }
-            catch
-            {
-            }
-            finally
-            {
-
-
-            }
+            catch { }
         }
+
         /// <summary>
         /// xử lý khi ấn phím
         /// </summary>
@@ -2217,11 +2206,6 @@ namespace GUI
             {
                 return;
             }
-            finally
-            {
-
-
-            }
         }
         /// <summary>
         /// xử lý timer
@@ -2241,13 +2225,7 @@ namespace GUI
                     }
                 }
             }
-            catch
-            {
-            }
-            finally
-            {
-
-            }
+            catch { }
         }
         /// <summary>
         /// kiểm tra dtgv trước khi trừ số lượng
@@ -2324,13 +2302,12 @@ namespace GUI
 
                     if (!string.IsNullOrEmpty(txtKhachPhaiTra.Text))
                         KhacPhaiTra = double.Parse(txtKhachPhaiTra.Text);
+
                     duTra = khachTra - KhacPhaiTra;
 
                     txtdutra.Text = new Common.Utilities().FormatMoney(duTra);
                 }
-                catch (Exception)
-                {
-                }
+                catch { }
             }
         }
         /// <summary>
@@ -2342,6 +2319,7 @@ namespace GUI
         {
             this.WindowState = FormWindowState.Normal;
         }
+
         /// <summary>
         /// xử lý khi click
         /// </summary>
@@ -2352,31 +2330,15 @@ namespace GUI
             try
             {
                 string khachtra = "0";
-                if (txtkhachtra.Text == "")
+                if (string.IsNullOrEmpty(txtkhachtra.Text))
                     khachtra = "0";
                 else
                     khachtra = txtkhachtra.Text;
                 txtkhachtra.Text = String.Format("{0:0}", Convert.ToDouble(khachtra));
             }
-            catch
-            {
-            }
+            catch { }
         }
-        //private void EventChung_Click(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        string khachtra = "0";
-        //        if (txtkhachtra.Text == "")
-        //            khachtra = "0";
-        //        else
-        //            khachtra = txtkhachtra.Text;
-        //        txtkhachtra.Text = new Common.Utilities().FormatMoney(Convert.ToDouble(khachtra));
-        //    }
-        //    catch
-        //    {
-        //    }
-        //}
+
         /// <summary>
         /// xử nó khi click
         /// </summary>
@@ -2461,14 +2423,10 @@ namespace GUI
                         else
                             toolStrip_txtTracuu.ReadOnly = false;
                     }
-                    catch
-                    {
-                    }
+                    catch { }
                 }
             }
-            catch
-            {
-            }
+            catch { }
         }
 
         private void toolStripStatusLabel3_Click(object sender, EventArgs e)
@@ -2484,14 +2442,13 @@ namespace GUI
                 frmBaoCaorpt bcrpt = new frmBaoCaorpt("HDBanLe", txtSochungtu.Text, Double.Parse(txtGiamgia.Text), khachtra, txtdutra.Text, txtKhachPhaiTra.Text, txtGTGT.Text, lbnhanvien.Text, "kin", mskngaychungtu.Text, txtGTTheVip.Text, txtGTTheGT.Text, "", txtChietkhau.Text, "", "", "");
                 bcrpt.ShowDialog();
             }
-            catch
-            {
-            }
+            catch { }
             finally
             {
                 this.Enabled = true;
             }
         }
+
         public void XuLyDTGV()
         {
             try
@@ -2562,10 +2519,7 @@ namespace GUI
 
                 }
             }
-            catch (Exception ex)
-            {
-
-            }
+            catch { }
             finally
             {
                 try
@@ -2573,23 +2527,13 @@ namespace GUI
                     tsslsoluong.Focus();
                     fix();
                 }
-                catch
-                {
-                }
+                catch { }
             }
         }
 
         private void dtgvsanpham_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-
-            try
-            {
-                XuLyDTGV();
-            }
-            catch
-            {
-
-            }
+            XuLyDTGV();
         }
 
         private void dtgvsanpham_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -2607,9 +2551,7 @@ namespace GUI
                 }
                 KeyDown_Chung(sender, e);
             }
-            catch
-            {
-            }
+            catch { }
         }
 
         private void dtgvsanpham_KeyUp(object sender, KeyEventArgs e)
@@ -2646,20 +2588,20 @@ namespace GUI
                 XuLyDTGV();
                 tsslsoluong.Focus();
             }
-            if (e.KeyCode == Keys.F5)
+            else if (e.KeyCode == Keys.F5)
             {
                 txtkhachtra.Focus();
             }
-            if (e.KeyCode == Keys.F7)
+            else if (e.KeyCode == Keys.F7)
             {
                 txtPhantramchietkhau.Focus();
             }
-            if (e.KeyCode == Keys.F8)
+            else if (e.KeyCode == Keys.F8)
             {
                 txtMaTheVip.Focus();
                 txtMaTheVip.SelectAll();
             }
-            if (e.KeyCode == Keys.F4)
+            else if (e.KeyCode == Keys.F4)
             {
                 try
                 {
@@ -2693,11 +2635,10 @@ namespace GUI
                     else
                         toolStrip_txtTracuu.ReadOnly = false;
                 }
-                catch
-                {
-                }
+                catch { }
             }
         }
+
         public Entities.TheVip LayGiaTriThe(string mathe)
         {
             try
@@ -2711,11 +2652,9 @@ namespace GUI
                 }
                 return null;
             }
-            catch
-            {
-                return null;
-            }
+            catch { return null; }
         }
+
         public Entities.TheGiamGia LayGiaTriTheGiamGia(string mathe)
         {
             try
@@ -2733,13 +2672,9 @@ namespace GUI
                 }
                 return null;
             }
-            catch
-            {
-                return null;
-            }
+            catch { return null; }
         }
         string loaithe = "";
-
 
         private void cbkiemtra_Enter(object sender, EventArgs e)
         {
@@ -2758,39 +2693,8 @@ namespace GUI
                 }
                 KeyDown_Chung(sender, e);
             }
-            catch
-            {
-            }
+            catch { }
         }
-
-        //private void txtgiatrithe_TextChanged(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        TinhToan();
-        //        if (txtPhantramchietkhau.Text == "")
-        //            phantramchietkhau = "0";
-        //        else
-        //            phantramchietkhau = txtPhantramchietkhau.Text;
-        //        txtChietkhau.Text = new Common.Utilities().FormatMoney(((Convert.ToDouble(phantramchietkhau) / 100) * Convert.ToDouble(txtTienhang.Text)));
-        //        txtTongtien.Text = new Common.Utilities().FormatMoney(Convert.ToDouble(tongtienthanhtoan) - Convert.ToDouble(txtChietkhau.Text) - Convert.ToDouble(txtGiamgia.Text));
-        //        txtkhachtra.Text = new Common.Utilities().FormatMoney(Convert.ToDouble(txtTongtien.Text) - Convert.ToDouble(txtgiatrithe.Text));
-        //        if (Convert.ToDouble(txtkhachtra.Text) < 0)
-        //            txtkhachtra.Text = "0";
-        //        string khachtra = "0";
-        //        if (txtkhachtra.Text == "")
-        //            khachtra = "0";
-        //        else
-        //            khachtra = txtkhachtra.Text;
-        //        if (Convert.ToDouble(txtTongtien.Text) >= Convert.ToDouble(txtgiatrithe.Text))
-        //            txtdutra.Text = new Common.Utilities().FormatMoney(Convert.ToDouble(khachtra) - Convert.ToDouble(txtTongtien.Text) + Convert.ToDouble(txtgiatrithe.Text));
-        //        else
-        //            txtdutra.Text = txtkhachtra.Text;
-        //    }
-        //    catch
-        //    {
-        //    }
-        //}
 
         private void txtthegiamgia_Click(object sender, EventArgs e)
         {
@@ -2802,8 +2706,7 @@ namespace GUI
                     txtGTTheVip.Text = "0";
                     txtKhachPhaiTra.Text = txtTongtien.Text = new Common.Utilities().FormatMoney(double.Parse(this.tongtien));
                 }
-                catch (Exception)
-                { }
+                catch { }
             }
         }
 
@@ -2833,14 +2736,9 @@ namespace GUI
                         frmTimKH.drvr = null;
                     }
                 }
-                catch (Exception ex)
-                {
-
-                }
+                catch { }
             }
         }
-
-
 
         private void txtthegiamgia_KeyDown(object sender, KeyEventArgs e)
         {
@@ -2905,11 +2803,8 @@ namespace GUI
                             txtdutra.Text = duTra.ToString();
                         }
                     }
-
                 }
-                catch
-                {
-                }
+                catch { }
             }
         }
 
@@ -2973,13 +2868,74 @@ namespace GUI
                         txtkhachtra.Text = khachTra.ToString();
                         txtdutra.Text = duTra.ToString();
                     }
-
                 }
-                catch
-                {
-                }
+                catch { }
             }
         }
 
+        
+        private void txtCKTienMat_TextChanged(object sender, EventArgs e)
+        {
+            new TienIch().AutoFormatMoney(sender);
+        }
+
+        void TinhTongTienHangTrongBanLe()
+        {
+            if (!string.IsNullOrEmpty(str) && str.Equals("Them"))
+            {
+                txtTongtien.Text = string.Empty;
+
+                double tongtienHangGTGT = 0;
+                double tienHang = 0;
+                double giamGia = 0;
+                double thueGTGT = 0;
+
+                double ptckTongHD = 0;
+                double gtckTongHD = 0;
+                double tongtien = 0;
+
+                try
+                {
+                    if (!string.IsNullOrEmpty(txtTienhang.Text)) tienHang = double.Parse(txtTienhang.Text);
+                    if (!string.IsNullOrEmpty(txtGiamgia.Text)) giamGia = double.Parse(txtGiamgia.Text);
+                    if (!string.IsNullOrEmpty(txtGTGT.Text)) thueGTGT = double.Parse(txtGTGT.Text);
+                    if (!string.IsNullOrEmpty(txtPhantramchietkhau.Text)) ptckTongHD = double.Parse(txtPhantramchietkhau.Text);
+
+                    tongtienHangGTGT = tienHang - giamGia + thueGTGT;   //Tổng tiền hàng bao gồm tiền hàng - giảm giá + thuế GTGT
+                    gtckTongHD = (tongtienHangGTGT * ptckTongHD) / 100; //giá trị chiết khấu trên tổng tiền hàng
+                    tongtien = tongtienHangGTGT - gtckTongHD;   //số tiền còn lại sau khi chiết khấu
+
+                    txtTongtien.Text = new Common.Utilities().FormatMoney(tongtien);
+                    txtKhachPhaiTra.Text = new Common.Utilities().FormatMoney(tongtien);
+                    this.tongtien = tongtien.ToString();
+                }
+                catch { }
+            }
+        }
+
+        double _cktienmat = 0;
+        private void txtCKTienMat_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                try
+                {
+                    //Chiết khấu tiền mặt -> double
+                    double ckTienMat = double.Parse(txtCKTienMat.Text);
+                    double tongtien = double.Parse(this.tongtien);
+
+                    double chenhlech = _cktienmat - ckTienMat;  //tiền hiện tại - tiền trước đó
+                    _cktienmat = ckTienMat; //lưu hiện tại
+
+                    txtTongtien.Text = new Common.Utilities().FormatMoney(tongtien + chenhlech);
+                    txtKhachPhaiTra.Text = txtTongtien.Text;
+                    this.tongtien = txtTongtien.Text;
+
+                    txtkhachtra.Focus();
+                    txtkhachtra.SelectAll();
+                }
+                catch { }
+            }
+        }
     }
 }

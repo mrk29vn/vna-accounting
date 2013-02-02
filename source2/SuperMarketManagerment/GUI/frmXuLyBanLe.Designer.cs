@@ -98,6 +98,8 @@
             this.tsslgtgt = new System.Windows.Forms.ToolStripTextBox();
             this.toolStrip_btnThem = new System.Windows.Forms.ToolStripButton();
             this.timerRun = new System.Windows.Forms.Timer(this.components);
+            this.txtCKTienMat = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.palNhap.SuspendLayout();
             this.palXem.SuspendLayout();
@@ -126,7 +128,7 @@
             // 
             this.tsslthem.Image = ((System.Drawing.Image)(resources.GetObject("tsslthem.Image")));
             this.tsslthem.Name = "tsslthem";
-            this.tsslthem.Size = new System.Drawing.Size(264, 21);
+            this.tsslthem.Size = new System.Drawing.Size(274, 21);
             this.tsslthem.Spring = true;
             this.tsslthem.Text = "Thanh Toán";
             this.tsslthem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -138,7 +140,7 @@
             // 
             this.toolStripStatusLabel3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripStatusLabel3.Image")));
             this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(264, 21);
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(274, 21);
             this.toolStripStatusLabel3.Spring = true;
             this.toolStripStatusLabel3.Text = "In";
             this.toolStripStatusLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -150,7 +152,7 @@
             // 
             this.tssltrove.Image = ((System.Drawing.Image)(resources.GetObject("tssltrove.Image")));
             this.tssltrove.Name = "tssltrove";
-            this.tssltrove.Size = new System.Drawing.Size(264, 21);
+            this.tssltrove.Size = new System.Drawing.Size(274, 21);
             this.tssltrove.Spring = true;
             this.tssltrove.Text = "Trở về";
             this.tssltrove.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -404,6 +406,8 @@
             // 
             // palXem
             // 
+            this.palXem.Controls.Add(this.txtCKTienMat);
+            this.palXem.Controls.Add(this.label7);
             this.palXem.Controls.Add(this.txtGTTheGT);
             this.palXem.Controls.Add(this.txtMaTheGT);
             this.palXem.Controls.Add(this.label6);
@@ -926,6 +930,30 @@
             this.timerRun.Interval = 1000;
             this.timerRun.Tick += new System.EventHandler(this.timerRun_Tick);
             // 
+            // txtCKTienMat
+            // 
+            this.txtCKTienMat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtCKTienMat.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCKTienMat.Location = new System.Drawing.Point(213, 437);
+            this.txtCKTienMat.Name = "txtCKTienMat";
+            this.txtCKTienMat.Size = new System.Drawing.Size(235, 22);
+            this.txtCKTienMat.TabIndex = 37;
+            this.txtCKTienMat.TabStop = false;
+            this.txtCKTienMat.Text = "0";
+            this.txtCKTienMat.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtCKTienMat.TextChanged += new System.EventHandler(this.txtCKTienMat_TextChanged);
+            this.txtCKTienMat.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCKTienMat_KeyDown);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(96, 440);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(112, 15);
+            this.label7.TabIndex = 38;
+            this.label7.Text = "Chiết khấu tiền mặt:";
+            // 
             // frmXuLyBanLe
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
@@ -1031,5 +1059,7 @@
         private System.Windows.Forms.TextBox txtMaTheGT;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblTenKH;
+        private System.Windows.Forms.TextBox txtCKTienMat;
+        private System.Windows.Forms.Label label7;
     }
 }
