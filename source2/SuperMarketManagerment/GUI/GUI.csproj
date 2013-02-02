@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon_0181.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="BarcodeLib, Version=1.0.0.11, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -2471,6 +2474,7 @@
     <None Include="Resources\danhmuc1.png" />
     <None Include="Resources\home.png" />
     <None Include="Resources\home1.png" />
+    <Content Include="icon_0181.ico" />
     <Content Include="Resources\khac.jpg" />
     <None Include="Resources\khac1.jpg" />
     <None Include="Resources\refresh.png" />
