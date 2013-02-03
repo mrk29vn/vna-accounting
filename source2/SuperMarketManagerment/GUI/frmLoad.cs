@@ -79,9 +79,7 @@ namespace GUI
                 frmBaoCaorpt a = new frmBaoCaorpt("Test");
                 a.Close();
             }
-            catch
-            {
-            }
+            catch { }
         }
 
         /// <summary>
