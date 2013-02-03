@@ -12,6 +12,8 @@ namespace GUI
         #endregion
 
         #region Function Utils
+
+
         public static DateTime StringToDateTime(string ddMMyyyy, out bool kq)
         {
             kq = true;
