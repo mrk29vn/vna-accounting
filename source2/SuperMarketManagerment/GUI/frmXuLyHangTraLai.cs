@@ -2000,15 +2000,40 @@ namespace GUI
             {
                 Entities.KhachHangTraLai xuly = new Entities.KhachHangTraLai();
                 Common.Utilities ck = new Common.Utilities();
-                string thoigian_1 = makNgaydonhang.Text;
-                string thoigian_2 = makHanthanhtoan.Text;
-                string thoigian_sosanh = DateServer.Date().ToString("dd/MM/yyyy");
-                if (ck.SoSanhNgay('/', ">=", thoigian_1, thoigian_sosanh) == true)
+
+                //Mrk Fix 3/2/2013
+                string _makNgaydonhang = makNgaydonhang.Text;
+                string _makHanthanhtoan = makHanthanhtoan.Text;
+                //if (string.IsNullOrEmpty(_makNgaydonhang))
+                //{
+                //    MessageBox.Show("Vui lòng kiểm tra lại ngày đơn hàng! \r\nkhông được phép rỗng!");
+                //    return;
+                //}
+                //else if (string.IsNullOrEmpty(_makHanthanhtoan))
+                //{
+                //    MessageBox.Show("Vui lòng kiểm tra lại Hạn thanh toán! \r\nkhông được phép rỗng!");
+                //    return;
+                //}
+                string[] temp_makNgaydonhang = _makNgaydonhang.Split('/');
+                string[] temp_makHanthanhtoan = _makHanthanhtoan.Split('/');
+                DateTime temp_date1 = new DateTime(int.Parse(temp_makNgaydonhang[2]), int.Parse(temp_makNgaydonhang[1]), int.Parse(temp_makNgaydonhang[0]));
+                DateTime temp_date11 = new DateTime(int.Parse(temp_makHanthanhtoan[2]), int.Parse(temp_makHanthanhtoan[1]), int.Parse(temp_makHanthanhtoan[0]));
+                DateTime temp_date2 = DateServer.Date();
+                if (temp_date1.Date >= temp_date2.Date)
                 {
-                    xuly.NgayNhap = DateTime.Parse(new Common.Utilities().KiemTraDinhDangNgayThangNam("ThangNgayNam", thoigian_1, '/'));
-                    thoigian_1 = null;
-                    xuly.HanThanhToan = DateTime.Parse(new Common.Utilities().KiemTraDinhDangNgayThangNam("ThangNgayNam", thoigian_2, '/'));
-                    thoigian_2 = null;
+                    xuly.NgayNhap = temp_date1;
+                    xuly.HanThanhToan = temp_date11;
+                    ///////////////////////////////////////////////////////
+
+                    //string thoigian_1 = makNgaydonhang.Text;
+                    //string thoigian_2 = makHanthanhtoan.Text;
+                    //string thoigian_sosanh = DateServer.Date().ToString("dd/MM/yyyy");
+                    //if (ck.SoSanhNgay('/', ">=", thoigian_1, thoigian_sosanh) == true)
+                    //{
+                    //xuly.NgayNhap = DateTime.Parse(new Common.Utilities().KiemTraDinhDangNgayThangNam("ThangNgayNam", thoigian_1, '/'));
+                    //thoigian_1 = null;
+                    //xuly.HanThanhToan = DateTime.Parse(new Common.Utilities().KiemTraDinhDangNgayThangNam("ThangNgayNam", thoigian_2, '/'));
+                    //thoigian_2 = null;
                     xuly.Hanhdong = hanhdong;
                     xuly.KhachHangTraLaiID = KhachHangID;
                     xuly.MaKhachHangTraLai = txtSodonhang.Text;
@@ -2483,12 +2508,28 @@ namespace GUI
             {
                 Entities.TraLaiNCC xuly = new Entities.TraLaiNCC();
                 Common.Utilities ck = new Common.Utilities();
-                string thoigian_1 = makNgaydonhang.Text;
-                string thoigian_sosanh = DateServer.Date().ToString("dd/MM/yyyy");
-                if (ck.SoSanhNgay('/', ">=", thoigian_1, thoigian_sosanh) == true && thoigian_1 != null)
+
+                //Mrk Fix 3/2/2013
+                string _makNgaydonhang = makNgaydonhang.Text;
+                if (string.IsNullOrEmpty(_makNgaydonhang))
                 {
-                    xuly.Ngaytra = DateTime.Parse(new Common.Utilities().KiemTraDinhDangNgayThangNam("ThangNgayNam", thoigian_1, '/'));
-                    thoigian_1 = null;
+                    MessageBox.Show("Vui lòng kiểm tra lại ngày! \r\nkhông được phép rỗng!");
+                    return;
+                }
+                string[] temp = _makNgaydonhang.Split('/');
+                DateTime temp_date1 = new DateTime(int.Parse(temp[2]), int.Parse(temp[1]), int.Parse(temp[0]));
+                DateTime temp_date2 = DateServer.Date();
+                if (temp_date1.Date >= temp_date2.Date)
+                {
+                    xuly.Ngaytra = temp_date1;
+                    ///////////////////////////////////////////////////////
+
+                    //string thoigian_1 = makNgaydonhang.Text;
+                    //string thoigian_sosanh = DateServer.Date().ToString("dd/MM/yyyy");
+                    //if (ck.SoSanhNgay('/', ">=", thoigian_1, thoigian_sosanh) == true && thoigian_1 != null)
+                    //{
+                    //xuly.Ngaytra = DateTime.Parse(new Common.Utilities().KiemTraDinhDangNgayThangNam("ThangNgayNam", thoigian_1, '/'));
+                    //thoigian_1 = null;
                     xuly.Hanhdong = hanhdong;
                     xuly.TraLaiNCCID = NhaCungCapID;
                     xuly.MaHDTraLaiNCC = txtSodonhang.Text;
@@ -3478,12 +3519,7 @@ namespace GUI
         private string makiemtra;
         private void toolStripStatus_Themmoi_Click(object sender, EventArgs e)
         {
-            try
-            {
-                ThemMoi();
-            }
-            catch
-            { }
+            ThemMoi();
         }
         private void toolStrip_btnThem_Click(object sender, EventArgs e)
         {
