@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Accounting.Core.Domain.Department, Accounting.Core" table="DepartmentMRK" >
+    <id name="DepartmentID" column="DepartmentID" type="Int32" unsaved-value="0">
+      <generator class="identity" />
+    </id>
+    <property name="CodeDepartment" column="CodeDepartment" type="string" length="50" />
+    <property name="NameDepartment" column="NameDepartment" type="string" length="400" />
+    <property name="Interpretation" column="Interpretation" type="string" length="400" />
+    <property name="WageCostsAccount" column="WageCostsAccount" type="string" length="50" />
+    <property name="StopFollowing" column="StopFollowing" type="bool"/>
+  </class>
+</hibernate-mapping>

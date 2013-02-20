@@ -1,0 +1,51 @@
+﻿<Sections>	
+		<Items>
+			<!--Tờ khai thuế GTGT/-->
+			<Item Value ="1###01###Tờ khai GTGT khấu trừ (01/GTGT)" type ="M" isShow = "1"/>
+			<Item Value ="1###02###Tờ khai thuế GTGT dành cho dự án đầu tư (02/GTGT)" type ="M" isShow = "1"/>
+			<Item Value ="1###04###Tờ khai GTGT trực tiếp trên GTGT (03/GTGT)" type ="M" isShow = "1"/>
+			<Item Value ="1###07###Tờ khai thuế giá trị gia tăng (04/GTGT)" type ="M" isShow = "1"/>
+      <Item Value ="1###00###Tờ khai thuế GTGT KD ngoại tỉnh (05/GTGT)" type ="M" isShow = "1"/>
+			<!--Tờ khai thuế TNDN/-->
+      <Item Value ="2###11###Tờ khai thuế TNDN tạm tính (01A/TNDN)" type= "Q" isShow = "1"/>
+      <Item Value ="2###12###Tờ khai thuế TNDN tạm tính (01B/TNDN)" type ="Q" isShow = "1"/>
+      <Item Value ="2###12###Tờ khai thuế TNDN (02/TNDN)" type= "Y" isShow = "1"/>
+			<Item Value ="2###03###Tờ khai quyết toán thuế TNDN (03/TNDN)" type= "Y" isShow = "1"/>
+			<!--Tờ khai thuế TNCN/-->
+			<Item Value ="3###15###Tờ khai khấu trừ thuế thu nhập cá nhân-Mẫu 02/KK-TNCN (2009)" type ="M" isShow = "1"/>
+			<Item Value ="3###16###Tờ khai khấu trừ thuế thu nhập cá nhân-Mẫu 03/KK-TNCN (2009)" type ="M" isShow = "1"/>
+			<Item Value ="3###47###Tờ khai khấu trừ thuế thu nhập cá nhân-Mẫu 02/KK-TNCN(Theo tháng)" type ="M" isShow = "1"/>
+			<Item Value ="3###47###Tờ khai khấu trừ thuế thu nhập cá nhân-Mẫu 03/KK-TNCN(Theo tháng)" type ="M" isShow = "1"/>
+			<Item Value ="3###42###Tờ khai quyết toán thuế thu nhập cá nhân (05/KK-TNCN)" type ="Y" isShow = "1"/>			
+			<Item Value ="3###43###Tờ khai quyết toán thuế thu nhập cá nhân (02/KK-BH)" type ="Y" isShow = "1"/>
+			<Item Value ="3###44###Tờ khai quyết toán thuế thu nhập cá nhân (02/KK-XS)" type ="Y" isShow = "1"/>
+			<Item Value ="3###45###Tờ khai khấu trừ thuế thu nhập cá nhân-Mẫu 01/KK-BH" type ="M" isShow = "1"/>
+			<Item Value ="3###46###Tờ khai khấu trừ thuế thu nhập cá nhân-Mẫu 01/KK-XS" type ="M" isShow = "1"/>
+			<Item Value ="3###47###Tờ khai khấu trừ thuế thu nhập cá nhân-Mẫu 02/KK-TNCN(Theo quý)" type ="Q" isShow = "1"/>
+			<Item Value ="3###48###Tờ khai khấu trừ thuế thu nhập cá nhân-Mẫu 03/KK-TNCN(Theo quý)" type ="Q" isShow = "1"/>
+			<!--Tờ khai thuế Tài nguyên/-->
+			<Item Value ="4###06###Tờ khai thuế tài nguyên (01/TAIN)" type= "M" isShow = "1"/>
+			<Item Value ="4###08###Tờ khai thuế quyết toán thuế tài nguyên (02/TAIN)" type= "Y" isShow = "1"/>
+			<!--Tờ khai thuế TTDB/-->
+			<Item Value ="5###05###Tờ khai thuế tiêu thụ đặc biệt (01/TTDB)" type ="M" isShow = "1"/>
+			<!--Tờ khai thuế nhà thầu nước ngoài/-->
+			<Item Value ="6###41###Tờ khai thuế nhà thầu nước ngoài (01/NTNN)" type ="M" isShow = "1"/>
+			<!--Báo cáo tài chính/-->
+			<Item Value ="7###49###Bộ báo cáo tài chính (QĐ 15/2006-BTC)" type="Y" isShow = "1"/>
+			<Item Value ="7###50###Bộ báo cáo tài chính (QĐ 48/2006-BTC)" type ="Y" isShow = "1"/>
+			<Item Value ="7###51###Bộ báo cáo tài chính (QĐ 16/2007-NHNN)" type= "Y" isShow = "1"/>
+			<Item Value ="7###52###Bộ báo cáo tài chính (QĐ 99/2000-BTC)" type= "Y" isShow = "1"/>
+			<!--Tờ khai thuế Môn bài/-->
+			<Item Value ="8###55###Tờ khai thuế môn bài (01/MBAI)" type= "Y" isShow = "1"/>
+			<!--PHÍ, LỆ PHÍ/-->
+			<Item Value ="9###58###Tờ khai phí xăng dầu (Mẫu 01/PHXD)" type= "Y" isShow = "0"/>
+			<Item Value ="9###59###Tờ khai phí bảo vệ môi trường(Mẫu 01/BVMT)" type= "Y" isShow = "1"/>
+			<Item Value ="9###60###Tờ khai quyết toán phí bảo vệ môi trường(Mẫu 02/BVMT)" type ="Y" isShow = "1"/>
+			<Item Value ="9###61###Tờ khai phí, lệ phí (Mẫu 01/PHLP)" type ="Y" isShow = "1"/>
+			<Item Value ="9###62###Tờ khai quyết toán phí, lệ phí năm (Mẫu 02/PHLP)" type ="Y" isShow = "1"/>
+			<!--BÁO CÁO HÓA ĐƠN/-->
+			<Item Value ="10###104###Báo cáo mất, cháy, hỏng hóa đơn (BC21/AC)" type ="M" isShow = "1"/>
+			<Item Value ="10###102###Báo cáo tình hình sử dụng hóa đơn(BC26/AC)" type ="Q" isShow = "1"/>
+			<Item Value ="10###101###Báo cáo sử dụng chứng từ khấu trừ thuế TNCN tự in" type ="M" isShow = "0"/>
+		</Items>	
+</Sections>

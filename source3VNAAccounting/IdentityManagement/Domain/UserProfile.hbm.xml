@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="IdentityManagement.Domain.UserProfile, IdentityManagement" table="UserProfile" >
+    <id name="ProfileID" column="ProfileID" type="int">
+      <generator class="identity" />
+    </id>
+    <property name="UserId" column="UserId" type="int"/>
+    <property name="PropertyName" column="PropertyName" type="string" length="255" />
+    <property name="PropertyValuesString" column="PropertyValuesString" type="string" />
+    <property name="PropertyValuesBinary" column="PropertyValuesBinary" type="binary" />
+    <property name="LastUpdateDate" column="LastUpdateDate" type="DateTime" />
+  </class>
+
+</hibernate-mapping>
