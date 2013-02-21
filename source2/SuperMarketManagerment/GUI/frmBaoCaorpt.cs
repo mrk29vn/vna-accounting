@@ -996,11 +996,11 @@ namespace GUI
                 report.SetParameterValue("FaxCongTy", CT.Fax);
                 report.SetParameterValue("Web", CT.Website);
                 report.SetParameterValue("TenBaoCao", "Báo Cáo Doanh Thu Theo Hàng Hóa");
-                report.SetParameterValue("NgayTao", new Common.Utilities().XuLy(2, DateServer.Date().ToShortDateString()));
+                report.SetParameterValue("NgayTao", DateServer.Date().ToString("dd/MM/yyyy"));
                 report.SetParameterValue("MaNhanVien", Common.Utilities.User.TenNhanVien);
                 report.SetParameterValue("Email", CT.Email);
-                report.SetParameterValue("tuNgay", new Common.Utilities().XuLy(2, truoc.ToShortDateString()));
-                report.SetParameterValue("DenNgay", new Common.Utilities().XuLy(2, sau.ToShortDateString()));
+                report.SetParameterValue("tuNgay", truoc.ToString("dd/MM/yyyy"));
+                report.SetParameterValue("DenNgay", sau.ToString("dd/MM/yyyy")));
                 crvReport.Show();
             }
             catch

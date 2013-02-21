@@ -279,8 +279,9 @@ namespace GUI
                                 kho.Mahanghoa = dgvInsertOrder.Rows[x].Cells[1].Value.ToString();
                                 kho.Soluong = int.Parse(dgvInsertOrder.Rows[x].Cells[3].Value.ToString());
                                 kho.Ngaynhap = Date.Date;
-                                string ngay = new Common.Utilities().KiemTraDinhDangNgayThangNam("ThangNgayNam", dgvInsertOrder.Rows[x].Cells[12].Value.ToString(), '/');
-                                kho.Ngayhethan = DateTime.Parse(ngay);
+                                //string ngay = new Common.Utilities().KiemTraDinhDangNgayThangNam("ThangNgayNam", dgvInsertOrder.Rows[x].Cells[12].Value.ToString(), '/');
+                                //kho.Ngayhethan = DateTime.Parse(ngay);
+                                kho.Ngayhethan = Utils.StringToDateTime(dgvInsertOrder.Rows[x].Cells[12].Value.ToString());
                                 kho.Ghichu = txtDiengiai.Text;
                                 kho.Deleted = false;
                                 kho.Gia = float.Parse(dgvInsertOrder.Rows[x].Cells[4].Value.ToString());
@@ -460,90 +461,93 @@ namespace GUI
         {
             try
             {
-                if (KiemTraNgayHetHan() == true)
-                {
-                    thanhtoan = new Entities.HoaDonNhap[1];
-                    Entities.HoaDonNhap don = new Entities.HoaDonNhap();
-                    Common.Utilities ck = new Common.Utilities();
-                    string thoigian_1 = makNgaydonhang.Text;
-                    string thoigian_2 = makHanthanhtoan.Text;
-                    string thoigian_sosanh = Date.ToString("dd/MM/yyyy");
-                    if (ck.SoSanhNgay('/', ">=", thoigian_1, thoigian_sosanh) == true && thoigian_1 != null && thoigian_2 != null && ck.SoSanhNgay('/', ">=", thoigian_2, thoigian_sosanh) == true)
-                    {
-                        don.NgayNhap = DateTime.Parse(new Common.Utilities().KiemTraDinhDangNgayThangNam("ThangNgayNam", thoigian_1, '/'));
-                        thoigian_1 = null;
-                        don.HanThanhToan = DateTime.Parse(new Common.Utilities().KiemTraDinhDangNgayThangNam("ThangNgayNam", thoigian_2, '/'));
-                        thoigian_2 = null;
-                        don.Hanhdong = hanhdong;
-                        don.HoaDonNhapID = ID;
-                        don.MaHoaDonNhap = txtSodonhang.Text;
-                        don.MaNhaCungCap = txtManhacungcap.Text;
-                        don.NoHienThoi = txtNohienthoi.Text;
-                        don.NguoiGiaoHang = "" + txtnguoigiaohang.Text;
-                        don.HinhThucThanhToan = cbxHinhthucthanhtoan.SelectedItem.ToString();
-                        string kh = "";
-                        try { kh = cbxKhoHang.SelectedValue.ToString(); }
-                        catch (Exception ex) { MessageBox.Show("Kiểm tra mã kho"); kh = ""; return; }
-                        don.MaKho = kh;
-                        string MaDonDatHang = txtMadondathang.Text;
-                        if (MaDonDatHang == "<F4 - Tra cứu>" || MaDonDatHang.Length <= 0)
-                        {
-                            MaDonDatHang = "NULL";
-                        }
-                        don.MaDonDatHang = MaDonDatHang;
-                        string tt = "";
-                        try { tt = cbxTienTe_TyGia.SelectedValue.ToString(); }
-                        catch (Exception ex) { MessageBox.Show("Kiểm tra mã tiền tệ"); tt = ""; return; }
-                        don.MaTienTe = tt;
-                        don.ChietKhau = Double.Parse(0 + txtTienCKTM0.Text).ToString();
-                        don.ThanhToanNgay = Double.Parse(0 + txtThanhtoanngay.Text.Replace(",", "")).ToString();
-                        don.ThueGTGT = Double.Parse(0 + txtGiatrigiatang.Text).ToString();
-                        don.TongTien = Double.Parse(0 + txtTongThanhToan.Text).ToString();
-                        don.GhiChu = "" + txtDiengiai.Text;
-                        don.Deleted = false;
-                        don.Manhanvien = Common.Utilities.User.NhanVienID;
-                        don.Tendangnhap = Common.Utilities.User.TenDangNhap;
-                        don.ThanhToanSauKhiLapPhieu = "0";
-                        if (dgvInsertOrder.RowCount > 0)
-                        {
-                            if (CheckData(don) == true)
-                            {
-                                cl = new Server_Client.Client();
-                                this.client = cl.Connect(Luu.IP, Luu.Ports);
-                                clientstrem = cl.SerializeObj(this.client, "HoaDonNhap", don);
-                                Entities.HoaDonNhap[] tralai = new Entities.HoaDonNhap[1];
-                                int trave = System.Convert.ToInt32(cl.DeserializeHepper(clientstrem, tralai));
-                                if (trave == 1)
-                                {
-                                    thanhtoan[0] = don;
-                                    try
-                                    {
-                                        LuuChiTietDonHang();
-                                    }
-                                    catch { }
-                                    CapNhatTrangThaiDonDatHang("Update", MaDonDatHang, "Đã thành công");
-                                    frmQuanLyNhapKho.BaoDong = "";
-                                    DialogResult giatri = MessageBox.Show("Bạn có muốn thêm phiếu nhập tiếp không?", "Thông Báo", System.Windows.Forms.MessageBoxButtons.YesNo);
-                                    {
-                                        if (giatri == DialogResult.No)
-                                            frmQuanLyNhapKho.BaoDong = "A";
-                                    } this.Close();
-                                }
-                                else
-                                {
-                                    MessageBox.Show("Thất bại");
-                                }
-                            }
-                        }
-                        else
-                        { MessageBox.Show("Không có hàng hóa trong đơn đặt hàng"); }
-                    }
-                    else
-                    { MessageBox.Show("Kiểm tra ngày"); }
+                if (!KiemTraNgayHetHan()) return;
 
+                thanhtoan = new Entities.HoaDonNhap[1];
+                Entities.HoaDonNhap don = new Entities.HoaDonNhap();
+                Common.Utilities ck = new Common.Utilities();
+                string thoigian_1 = makNgaydonhang.Text;
+                string thoigian_2 = makHanthanhtoan.Text;
+                string thoigian_sosanh = Date.ToString("dd/MM/yyyy");
+                if (string.IsNullOrEmpty(thoigian_1) || string.IsNullOrEmpty(thoigian_2))
+                {
+                    MessageBox.Show("Kiểm tra ngày"); return;
+                }
+                if (!(ck.SoSanhNgay('/', ">=", thoigian_1, thoigian_sosanh) && ck.SoSanhNgay('/', ">=", thoigian_2, thoigian_sosanh)))
+                {
+                    MessageBox.Show("Kiểm tra ngày"); return;
                 }
                 else
-                { }
+                {
+                    bool _kq0 = true; bool _kq1 = true;
+                    don.NgayNhap = Utils.StringToDateTime(thoigian_1, out _kq0);
+                    don.HanThanhToan = Utils.StringToDateTime(thoigian_2, out _kq1);
+                    //don.NgayNhap = DateTime.Parse(new Common.Utilities().KiemTraDinhDangNgayThangNam("ThangNgayNam", thoigian_1, '/'));
+                    //don.HanThanhToan = DateTime.Parse(new Common.Utilities().KiemTraDinhDangNgayThangNam("ThangNgayNam", thoigian_2, '/'));
+                    don.Hanhdong = hanhdong;
+                    don.HoaDonNhapID = ID;
+                    don.MaHoaDonNhap = txtSodonhang.Text;
+                    don.MaNhaCungCap = txtManhacungcap.Text;
+                    don.NoHienThoi = txtNohienthoi.Text;
+                    don.NguoiGiaoHang = "" + txtnguoigiaohang.Text;
+                    don.HinhThucThanhToan = cbxHinhthucthanhtoan.SelectedItem.ToString();
+                    string kh = "";
+                    try { kh = cbxKhoHang.SelectedValue.ToString(); }
+                    catch (Exception ex) { MessageBox.Show("Kiểm tra mã kho"); kh = ""; return; }
+                    don.MaKho = kh;
+                    string MaDonDatHang = txtMadondathang.Text;
+                    if (MaDonDatHang == "<F4 - Tra cứu>" || MaDonDatHang.Length <= 0)
+                    {
+                        MaDonDatHang = "NULL";
+                    }
+                    don.MaDonDatHang = MaDonDatHang;
+                    string tt = "";
+                    try { tt = cbxTienTe_TyGia.SelectedValue.ToString(); }
+                    catch (Exception ex) { MessageBox.Show("Kiểm tra mã tiền tệ"); tt = ""; return; }
+                    don.MaTienTe = tt;
+                    don.ChietKhau = Double.Parse(0 + txtTienCKTM0.Text).ToString();
+                    don.ThanhToanNgay = Double.Parse(0 + txtThanhtoanngay.Text.Replace(",", "")).ToString();
+                    don.ThueGTGT = Double.Parse(0 + txtGiatrigiatang.Text).ToString();
+                    don.TongTien = Double.Parse(0 + txtTongThanhToan.Text).ToString();
+                    don.GhiChu = "" + txtDiengiai.Text;
+                    don.Deleted = false;
+                    don.Manhanvien = Common.Utilities.User.NhanVienID;
+                    don.Tendangnhap = Common.Utilities.User.TenDangNhap;
+                    don.ThanhToanSauKhiLapPhieu = "0";
+                    if (dgvInsertOrder.RowCount > 0)
+                    {
+                        if (CheckData(don) == true)
+                        {
+                            cl = new Server_Client.Client();
+                            this.client = cl.Connect(Luu.IP, Luu.Ports);
+                            clientstrem = cl.SerializeObj(this.client, "HoaDonNhap", don);
+                            Entities.HoaDonNhap[] tralai = new Entities.HoaDonNhap[1];
+                            int trave = System.Convert.ToInt32(cl.DeserializeHepper(clientstrem, tralai));
+                            if (trave == 1)
+                            {
+                                thanhtoan[0] = don;
+                                try
+                                {
+                                    LuuChiTietDonHang();
+                                }
+                                catch { }
+                                CapNhatTrangThaiDonDatHang("Update", MaDonDatHang, "Đã thành công");
+                                frmQuanLyNhapKho.BaoDong = "";
+                                DialogResult giatri = MessageBox.Show("Bạn có muốn thêm phiếu nhập tiếp không?", "Thông Báo", System.Windows.Forms.MessageBoxButtons.YesNo);
+                                {
+                                    if (giatri == DialogResult.No)
+                                        frmQuanLyNhapKho.BaoDong = "A";
+                                } this.Close();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Thất bại");
+                            }
+                        }
+                    }
+                    else
+                    { MessageBox.Show("Không có hàng hóa trong đơn đặt hàng"); }
+                }
             }
             catch (Exception ex)
             {
@@ -906,7 +910,8 @@ namespace GUI
                         row.Thuegiatrigiatang = chitiet[i].Thuegiatrigiatang;
                         row.GiaNhap = gianhap;
                         row.TongTien = (Double.Parse(chitiet[i].GiaGoc) * Double.Parse(chitiet[i].SoLuongDat.ToString())).ToString();
-                        ngaythangnam = new Common.Utilities().KiemTraDinhDangNgayThangNam("NgayThangNam", chitiet[i].Ngayhethan, '/');
+                        //ngaythangnam = new Common.Utilities().KiemTraDinhDangNgayThangNam("NgayThangNam", chitiet[i].Ngayhethan, '/');
+                        ngaythangnam = chitiet[i].Ngayhethan;
                         row.Ngayhethan = ngaythangnam;
                         arr.Add(row);
                     }
@@ -1562,7 +1567,6 @@ namespace GUI
                     {
                         if (txtManhacungcap.Text != "")
                         {
-
                             Entities.HienThi_ChiTiet_DonDatHang add = new Entities.HienThi_ChiTiet_DonDatHang();
                             add.MaHangHoa = txtTraCuuTEM.ToUpper();
                             string thongbao = KiemTraMa(add);
@@ -1579,7 +1583,7 @@ namespace GUI
                             Common.Utilities ck = new Common.Utilities();
                             string ngay = toolStrip_txtNgayhethan.Text;
                             string ngayhientai = this.Date.ToString("dd/MM/yyyy");
-                            if (DateTime.Parse(new Common.Utilities().KiemTraDinhDangNgayThangNam("ThangNgayNam", ngayhientai, '/')) <= DateTime.Parse(new Common.Utilities().KiemTraDinhDangNgayThangNam("ThangNgayNam", ngay, '/')))
+                            if (Utils.StringToDateTime(ngayhientai).Date <= Utils.StringToDateTime(ngay).Date)
                             {
                                 add.Ngayhethan = ngay;
                                 if (float.Parse(toolStrip_txtGianhap.Text) > 0)
@@ -1727,7 +1731,7 @@ namespace GUI
                             string ngayhientai = DateServer.Date().ToString("dd/MM/yyyy");
                             if (toolStrip_txtTracuu.Text.Length > 0)
                             {
-                                if (DateTime.Parse(new Common.Utilities().KiemTraDinhDangNgayThangNam("ThangNgayNam", ngayhientai, '/')) <= DateTime.Parse(new Common.Utilities().KiemTraDinhDangNgayThangNam("ThangNgayNam", ngay, '/')))
+                                if (Utils.StringToDateTime(ngayhientai) <= Utils.StringToDateTime(ngay))
                                 {
                                     LuuNgayHetHan(dgvInsertOrder, MaHangHoa, ngay);
                                     ResetTool();
@@ -1836,7 +1840,8 @@ namespace GUI
                     giatrigiatang = Double.Parse(0 + dgv[8, i].Value.ToString()).ToString();
                     toolStrip_Chietkhau.Text = "0";
                     toolStrip_txtGianhap.Text = (Double.Parse(0 + dgv[4, i].Value.ToString()) * int.Parse(toolStrip_txtSoluong.Text)).ToString();
-                    date = new Common.Utilities().KiemTraDinhDangNgayThangNam("NgayThangNam", dgv[12, i].Value.ToString(), '/');
+                    //date = new Common.Utilities().KiemTraDinhDangNgayThangNam("NgayThangNam", dgv[12, i].Value.ToString(), '/');
+                    date = dgv[12, i].Value.ToString();
                     if (date.Length <= 0)
                     { date = toolStrip_txtNgayhethan.Text = DateServer.Date().ToString("dd/MM/yyyy"); }
                     toolStrip_txtNgayhethan.Text = date;
@@ -1928,7 +1933,8 @@ namespace GUI
                     giatrigiatang = Double.Parse(0 + dgv[8, i].Value.ToString()).ToString();
                     toolStrip_Chietkhau.Text = "0";
                     toolStrip_txtGianhap.Text = (Double.Parse(0 + dgv[4, i].Value.ToString()) * int.Parse(toolStrip_txtSoluong.Text)).ToString();
-                    date = new Common.Utilities().KiemTraDinhDangNgayThangNam("NgayThangNam", dgv[12, i].Value.ToString(), '/');
+                    //date = new Common.Utilities().KiemTraDinhDangNgayThangNam("NgayThangNam", dgv[12, i].Value.ToString(), '/');
+                    date = dgv[12, i].Value.ToString();
                     if (date.Length <= 0)
                     { date = toolStrip_txtNgayhethan.Text = this.Date.ToString("dd/MM/yyyy"); }
                     toolStrip_txtNgayhethan.Text = date;
@@ -3123,28 +3129,34 @@ namespace GUI
                         string ngayhientai = this.Date.ToString("dd/MM/yyyy");
                         if (toolStrip_txtTracuu.Text.Length > 0)
                         {
-                            DateTime Nhientai = new DateTime();
-                            DateTime Nngay = new DateTime();
-                            try
+                            //DateTime Nhientai = new DateTime();
+                            //DateTime Nngay = new DateTime();
+                            //try
+                            //{
+                            //Nhientai = DateTime.Parse(new Common.Utilities().KiemTraDinhDangNgayThangNam("ThangNgayNam", ngayhientai, '/'));
+                            //Nngay = DateTime.Parse(new Common.Utilities().KiemTraDinhDangNgayThangNam("ThangNgayNam", ngay, '/'));
+                            bool tempKQ1 = false; bool tempKQ2 = false;
+                            DateTime Nhientai = Utils.StringToDateTime(ngayhientai, out tempKQ1);
+                            DateTime Nngay = Utils.StringToDateTime(ngay, out tempKQ2);
+                            if (!tempKQ1 || !tempKQ2)
                             {
-                                Nhientai = DateTime.Parse(new Common.Utilities().KiemTraDinhDangNgayThangNam("ThangNgayNam", ngayhientai, '/'));
-                                Nngay = DateTime.Parse(new Common.Utilities().KiemTraDinhDangNgayThangNam("ThangNgayNam", ngay, '/'));
-                                if (Nhientai <= Nngay)
-                                {
-                                    LuuNgayHetHan(dgvInsertOrder, MaHangHoa, ngay);
-                                    ResetTool();
-                                }
-                                else
-                                {
-                                    MessageBox.Show("Kiểm tra lại định dạng ngày hết hạn <dd/MM/yyyy>");
-                                    txtTygia.Focus();
-                                }
+                                MessageBox.Show("Ngày Không Hợp Lệ!"); txtTygia.Focus(); return;
                             }
-                            catch
+                            if (Nhientai <= Nngay)
                             {
-                                MessageBox.Show("Ngày Không Hợp Lệ!");
-                                txtTygia.Focus();
+                                LuuNgayHetHan(dgvInsertOrder, MaHangHoa, ngay);
+                                ResetTool();
                             }
+                            else
+                            {
+                                MessageBox.Show("Kiểm tra lại định dạng ngày hết hạn <dd/MM/yyyy>"); txtTygia.Focus(); return;
+                            }
+                            //}
+                            //catch
+                            //{
+                            //    MessageBox.Show("Ngày Không Hợp Lệ!");
+                            //    txtTygia.Focus();
+                            //}
                         }
                     }
                 }

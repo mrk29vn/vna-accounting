@@ -8,12 +8,18 @@ namespace GUI
     public class Utils
     {
         #region Khai báo
+        public static bool tempKQ = true;   //Phục vụ cho StringToDateTime(string input, out bool kq)
         public static bool showXNT = false;
         #endregion
 
         #region Function Utils
 
-        public DateTime StringToDateTime(string input, out bool kq)
+        public static DateTime StringToDateTime(string input)
+        {
+            bool kq = false;
+            return StringToDateTime(input, out kq, "dd/MM/yyyy");
+        }
+        public static DateTime StringToDateTime(string input, out bool kq)
         {
             return StringToDateTime(input, out kq, "dd/MM/yyyy");
         }

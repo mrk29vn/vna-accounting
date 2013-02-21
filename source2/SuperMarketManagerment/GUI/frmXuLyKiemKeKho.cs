@@ -1340,7 +1340,8 @@ namespace GUI
                 }
                 Entities.KiemKeKho kiemke = new Entities.KiemKeKho();
                 kiemke.MaKiemKe = txtSochungtu.Text;
-                kiemke.NgayKiemKe = DateTime.Parse(new Common.Utilities().KiemTraDinhDangNgayThangNam("ThangNgayNam", makNgaychungtu.Text, '/'));
+                kiemke.NgayKiemKe = Utils.StringToDateTime(makNgaychungtu.Text);
+                //kiemke.NgayKiemKe = DateTime.Parse(new Common.Utilities().KiemTraDinhDangNgayThangNam("ThangNgayNam", makNgaychungtu.Text, '/'));
                 kiemke.Tenkho = cbxKhoban.Text;
                 kiemke.GhiChu = new Common.Utilities().FormatMoney(Double.Parse(txtTienhang.Text));
                 kiemke.Hanhdong = "Hóa Đơn Kiểm Kê Kho";
@@ -1377,7 +1378,8 @@ namespace GUI
                 }
                 Entities.KiemKeKho kiemke = new Entities.KiemKeKho();
                 kiemke.MaKiemKe = txtSochungtu.Text;
-                kiemke.NgayKiemKe = DateTime.Parse(new Common.Utilities().KiemTraDinhDangNgayThangNam("ThangNgayNam", makNgaychungtu.Text, '/'));
+                kiemke.NgayKiemKe = Utils.StringToDateTime(makNgaychungtu.Text);
+                //kiemke.NgayKiemKe = DateTime.Parse(new Common.Utilities().KiemTraDinhDangNgayThangNam("ThangNgayNam", makNgaychungtu.Text, '/'));
                 kiemke.Tenkho = cbxKhoban.Text;
                 kiemke.GhiChu = new Common.Utilities().FormatMoney(Double.Parse(txtTienhang.Text));
                 kiemke.Hanhdong = "Hóa Đơn Kiểm Kê Kho";

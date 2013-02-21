@@ -41,7 +41,7 @@ namespace GUI
             int soNgayTrongThang = DateTime.DaysInMonth(nam, thang);
             truoc = new DateTime(nam, thang, 1);
             sau = new DateTime(nam, thang, soNgayTrongThang);
-            lbtenbaocao.Text = "Báo Cáo Hàng Hết Hạn Từ Ngày " + new Common.Utilities().XuLy(2, truoc.ToShortDateString()) + " Đến Ngày " + new Common.Utilities().XuLy(2, sau.ToShortDateString());
+            lbtenbaocao.Text = "Báo Cáo Hàng Hết Hạn Từ Ngày " + truoc.ToString("dd/MM/yyyy") + " Đến Ngày " + sau.ToString("dd/MM/yyyy");
             ctkhArr = GetData(truoc, sau, now);
             BinData(ctkhArr);
         }
@@ -268,7 +268,7 @@ namespace GUI
                     this.ketthuc = frmLocDieuKien.sau;
                     truoc = Convert.ToDateTime(batdau);
                     sau = Convert.ToDateTime(ketthuc);
-                    lbtenbaocao.Text = "Báo Cáo Hàng Hết Hạn Từ Ngày " + new Common.Utilities().XuLy(2, truoc.ToShortDateString()) + " Đến Ngày " + new Common.Utilities().XuLy(2, sau.ToShortDateString());
+                    lbtenbaocao.Text = "Báo Cáo Hàng Hết Hạn Từ Ngày " + truoc.ToString("dd/MM/yyyy") + " Đến Ngày " + sau.ToString("dd/MM/yyyy");
                     ctkhArr = GetData(truoc, sau, now);
                     BinData(ctkhArr);
                     frmLocDieuKien.truoc = frmLocDieuKien.sau = "";

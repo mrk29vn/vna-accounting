@@ -508,10 +508,11 @@ namespace GUI
                 if (ck.SoSanhNgay('/', ">=", thoigian_1, thoigian_sosanh) == true && thoigian_1 != null && thoigian_2 != null && ck.SoSanhNgay('/', ">=", thoigian_2, thoigian_sosanh) == true)
                 {
                     kiemtrama(check_loaidathang, txtManhacungcap.Text, txtManhacungcap.Text);
-                    don.NgayDonHang = DateTime.Parse(new Common.Utilities().KiemTraDinhDangNgayThangNam("ThangNgayNam", thoigian_1, '/'));
-                    thoigian_1 = null;
-                    don.NgayNhapDuKien = DateTime.Parse(new Common.Utilities().KiemTraDinhDangNgayThangNam("ThangNgayNam", thoigian_2, '/'));
-                    thoigian_2 = null;
+                    bool temp = false;
+                    don.NgayDonHang = Utils.StringToDateTime(thoigian_1, out temp);
+                    //don.NgayDonHang = DateTime.Parse(new Common.Utilities().KiemTraDinhDangNgayThangNam("ThangNgayNam", thoigian_1, '/'));
+                    don.NgayNhapDuKien = Utils.StringToDateTime(thoigian_2, out temp);
+                    //don.NgayNhapDuKien = DateTime.Parse(new Common.Utilities().KiemTraDinhDangNgayThangNam("ThangNgayNam", thoigian_2, '/'));
                     don.Hanhdong = hanhdong;
                     don.DonDatHangID = ID;
                     don.MaDonDatHang = "" + txtSodonhang.Text.ToUpper();
@@ -941,8 +942,9 @@ namespace GUI
                 if (ck.SoSanhNgay('/', "!=", gitri.NgayDonHang.ToString(), sosanh.NgayDonHang.ToString()) == true)
                 {
                     kiemtra = false;
-                    string ngay = ck.KiemTraDinhDangNgayThangNam("NgayThangNam", sosanh.NgayDonHang.ToString(), '/');
-                    makNgaydonhang.Text = new Common.Utilities().XuLy(2, ngay);
+                    makNgaydonhang.Text = sosanh.NgayDonHang.ToString("dd/MM/yyyy");
+                    //string ngay = ck.KiemTraDinhDangNgayThangNam("NgayThangNam", sosanh.NgayDonHang.ToString(), '/');
+                    //makNgaydonhang.Text = new Common.Utilities().XuLy(2, ngay);
                 }
                 else { kiemtra = true; count = count + 1; }
                 if (gitri.MaNhaCungCap != sosanh.MaNhaCungCap)
@@ -957,8 +959,9 @@ namespace GUI
                 if (ck.SoSanhNgay('/', "!=", gitri.NgayNhapDuKien.ToString(), sosanh.NgayNhapDuKien.ToString()) == true)
                 {
                     kiemtra = false;
-                    string ngay = ck.KiemTraDinhDangNgayThangNam("NgayThangNam", sosanh.NgayNhapDuKien.ToString(), '/');
-                    makNgaynhapdukien.Text = new Common.Utilities().XuLy(2, ngay);
+                    makNgaynhapdukien.Text = sosanh.NgayNhapDuKien.ToString("dd/MM/yyyy");
+                    //string ngay = ck.KiemTraDinhDangNgayThangNam("NgayThangNam", sosanh.NgayNhapDuKien.ToString(), '/');
+                    //makNgaynhapdukien.Text = new Common.Utilities().XuLy(2, ngay);
                 }
                 else { kiemtra = true; count = count + 1; }
                 if (gitri.HinhThucThanhToan != sosanh.HinhThucThanhToan)

@@ -197,7 +197,7 @@ namespace Common
             {
                 return false;
             }
-            
+
         }
         /// <summary>
         /// thong tin file config=================vuong hung===============
@@ -549,6 +549,10 @@ namespace Common
         /// <returns></returns>
         public string XuLy(int viet, string chuoi)
         {
+            //Hàm này của thằng hungvv có tác dụng đổi một chuỗi string ngày tháng năm thành một chuỗi string ngày tháng năm khác theo chuẩn nó đặt ra
+            //ví dụ: viet = 1 => string bất kỳ thành dạng MM/dd/yyyy
+            //       viet = 2 => string bất kỳ thành dạng dd/MM/yyyy
+            //       viet = 3 => string bất kỳ thành dạng ddMMyyyy
             string tralai = "";
             try
             {
@@ -761,18 +765,21 @@ namespace Common
         /// <returns></returns>
         public string KiemTraDinhDangNgayThangNam(string hanhdong, string chuoikiemtra, char kitucat)
         {
-            string tralai = "";
-            try
-            {
-                string[] tam = chuoikiemtra.Split(kitucat);
-                int ngay = int.Parse(tam[0].ToString());
-                int thang = int.Parse(tam[1].ToString());
-                int nam = int.Parse(tam[2].ToString().Substring(0, 4).ToString());
-                tralai = kiem_tra(hanhdong, ngay, thang, nam);
-            }
-            catch (Exception ex)
-            { string s = ex.Message; tralai = ""; }
-            return tralai;
+            //Mrk Fix 21/02/2013 --- Hàm của hungvv lởm vl
+            return chuoikiemtra;
+
+            //string tralai = "";
+            //try
+            //{
+            //    string[] tam = chuoikiemtra.Split(kitucat);
+            //    int ngay = int.Parse(tam[0].ToString());
+            //    int thang = int.Parse(tam[1].ToString());
+            //    int nam = int.Parse(tam[2].ToString().Substring(0, 4).ToString());
+            //    tralai = kiem_tra(hanhdong, ngay, thang, nam);
+            //}
+            //catch (Exception ex)
+            //{ string s = ex.Message; tralai = ""; }
+            //return tralai;
         }
         /// <summary>
         /// so sanh ngay thang
@@ -784,65 +791,100 @@ namespace Common
         /// <returns></returns>
         public Boolean SoSanhNgay(char kitucat, string phepsosanh, string NgayCanSoSanh, string NgayLamMocSoSanh)
         {
-            Boolean tralai = false;
-            try
+            #region Mrk Fix  trên cơ sở hàm cũ 21/02/2013 --- Hàm của hungvv lởm vl
+            bool _kq0 = true; bool _kq1 = true;
+            DateTime ngay1 = StringToDateTime_Common(NgayCanSoSanh, out _kq0);  //DateTime.Parse(new Common.Utilities().KiemTraDinhDangNgayThangNam("ThangNgayNam", ngayhientai, '/'));
+            DateTime ngay2 = StringToDateTime_Common(NgayLamMocSoSanh, out _kq1);  //DateTime.Parse(new Common.Utilities().KiemTraDinhDangNgayThangNam("ThangNgayNam", ngay, '/'));
+            bool ketqua = false;
+            if (_kq1 && _kq0)   //convert thành công string to DateTime
             {
-                string date1 = KiemTraDinhDangNgayThangNam("ThangNgayNam", NgayCanSoSanh, kitucat);
-                string date2 = KiemTraDinhDangNgayThangNam("ThangNgayNam", NgayLamMocSoSanh, kitucat);
-                if (date1.Length >= 8 && date2.Length >= 8)
+                switch (phepsosanh)
                 {
-                    DateTime ngay1 = DateTime.Parse(date1);
-                    DateTime ngay2 = DateTime.Parse(date2);
-                    if (phepsosanh == ">=")
-                    {
-                        if (ngay1 >= ngay2)
-                        { tralai = true; }
-                        else
-                        { tralai = false; }
-                    }
-                    if (phepsosanh == "<=")
-                    {
-                        if (ngay1 <= ngay2)
-                        { tralai = true; }
-                        else
-                        { tralai = false; }
-                    }
-                    if (phepsosanh == ">")
-                    {
-                        if (ngay1 > ngay2)
-                        { tralai = true; }
-                        else
-                        { tralai = false; }
-                    }
-                    if (phepsosanh == "<")
-                    {
-                        if (ngay1 < ngay2)
-                        { tralai = true; }
-                        else
-                        { tralai = false; }
-                    }
-                    if (phepsosanh == "=")
-                    {
-                        if (ngay1 == ngay2)
-                        { tralai = true; }
-                        else
-                        { tralai = false; }
-                    }
-                    if (phepsosanh == "!=")
-                    {
-                        if (ngay1 != ngay2)
-                        { tralai = true; }
-                        else
-                        { tralai = false; }
-                    }
+                    case ">=":
+                        ketqua = (ngay1.Date >= ngay2.Date);
+                        break;
+                    case "<=":
+                        ketqua = (ngay1.Date <= ngay2.Date);
+                        break;
+                    case "<":
+                        ketqua = (ngay1.Date < ngay2.Date);
+                        break;
+                    case ">":
+                        ketqua = (ngay1.Date > ngay2.Date);
+                        break;
+                    case "=":
+                        ketqua = (ngay1.Date == ngay2.Date);
+                        break;
+                    case "!=":
+                        ketqua = (ngay1.Date != ngay2.Date);
+                        break;
+                    default:
+                        ketqua = false;
+                        break;
                 }
-                else
-                { tralai = false; }
-
             }
-            catch (Exception ex)
-            { string s = ex.Message.ToString(); tralai = false; }
-            return tralai;
+            return ketqua;
+            #endregion
+
+            //Boolean tralai = false;
+            //try
+            //{
+            //    string date1 = KiemTraDinhDangNgayThangNam("ThangNgayNam", NgayCanSoSanh, kitucat);
+            //    string date2 = KiemTraDinhDangNgayThangNam("ThangNgayNam", NgayLamMocSoSanh, kitucat);
+            //    if (date1.Length >= 8 && date2.Length >= 8)
+            //    {
+            //        DateTime ngay1 = DateTime.Parse(date1);
+            //        DateTime ngay2 = DateTime.Parse(date2);
+            //        if (phepsosanh == ">=")
+            //        {
+            //            if (ngay1 >= ngay2)
+            //            { tralai = true; }
+            //            else
+            //            { tralai = false; }
+            //        }
+            //        if (phepsosanh == "<=")
+            //        {
+            //            if (ngay1 <= ngay2)
+            //            { tralai = true; }
+            //            else
+            //            { tralai = false; }
+            //        }
+            //        if (phepsosanh == ">")
+            //        {
+            //            if (ngay1 > ngay2)
+            //            { tralai = true; }
+            //            else
+            //            { tralai = false; }
+            //        }
+            //        if (phepsosanh == "<")
+            //        {
+            //            if (ngay1 < ngay2)
+            //            { tralai = true; }
+            //            else
+            //            { tralai = false; }
+            //        }
+            //        if (phepsosanh == "=")
+            //        {
+            //            if (ngay1 == ngay2)
+            //            { tralai = true; }
+            //            else
+            //            { tralai = false; }
+            //        }
+            //        if (phepsosanh == "!=")
+            //        {
+            //            if (ngay1 != ngay2)
+            //            { tralai = true; }
+            //            else
+            //            { tralai = false; }
+            //        }
+            //    }
+            //    else
+            //    { tralai = false; }
+
+            //}
+            //catch (Exception ex)
+            //{ string s = ex.Message.ToString(); tralai = false; }
+            //return tralai;
         }
         /// <summary>
         /// kiem tra thoi gian
@@ -1069,335 +1111,335 @@ namespace Common
             {
                 switch (im.Name)
                 {
-                                case Common.Constants.lnkBanBuon:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/banbuon.png")); 
-                                        break;
-                                    }
-                                case Common.Constants.lnkBanLe:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/banle.png")); 
-                                        break;
-                                    }
-                                case Common.Constants.lnkKhoanMuc:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/khoanmucthuchi.png")); 
-                                        break;
-                                    }
-                                case Common.Constants.lnkKhoHang:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/khohang.png")); 
-                                        break;
-                                    }
-                                case Common.Constants.lnkKiemKeKho:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/kiemkekho.png"));
-                                        break;
-                                    }
-                                case Common.Constants.lnkLoaiHangHoa :
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/loaihh.png")); 
-                                        break;
-                                    }
-                                case Common.Constants.lnkNhaCungCap:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/nhacungcap.png")); 
-                                        break;
-                                    }
-                                case Common.Constants.lnkNhanVien:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/nhanvien.png")); 
-                                        break;
-                                    }
-                                case Common.Constants.lnkKhachHang:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/khachhang.png")); 
-                                        break;
-                                    }
-                                case Common.Constants.lnkDonViTinh:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/donvt.png")); 
-                                        break;
-                                    }
-                                case Common.Constants.lnkTienTe:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/tiente.png")); 
-                                        break;
-                                    }
+                    case Common.Constants.lnkBanBuon:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/banbuon.png"));
+                            break;
+                        }
+                    case Common.Constants.lnkBanLe:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/banle.png"));
+                            break;
+                        }
+                    case Common.Constants.lnkKhoanMuc:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/khoanmucthuchi.png"));
+                            break;
+                        }
+                    case Common.Constants.lnkKhoHang:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/khohang.png"));
+                            break;
+                        }
+                    case Common.Constants.lnkKiemKeKho:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/kiemkekho.png"));
+                            break;
+                        }
+                    case Common.Constants.lnkLoaiHangHoa:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/loaihh.png"));
+                            break;
+                        }
+                    case Common.Constants.lnkNhaCungCap:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/nhacungcap.png"));
+                            break;
+                        }
+                    case Common.Constants.lnkNhanVien:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/nhanvien.png"));
+                            break;
+                        }
+                    case Common.Constants.lnkKhachHang:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/khachhang.png"));
+                            break;
+                        }
+                    case Common.Constants.lnkDonViTinh:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/donvt.png"));
+                            break;
+                        }
+                    case Common.Constants.lnkTienTe:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/tiente.png"));
+                            break;
+                        }
 
-                                case Common.Constants.lnkNhomHangHoa:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/nhomhh.png")); 
-                                        break;
-                                    }
-                              
-                                case Common.Constants.lnkSoQuy:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/soquy.png")); 
-                                        break;
-                                    }
-                                case Common.Constants.lnkTaiKhoanKT:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/tkketoan.png")); 
-                                        break;
-                                    }
-                                case Common.Constants.lnkThue:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/thue.png")); 
-                                        break;
-                                    }
-                                case Common.Constants.lnkInTemMaVach:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/inmavach.png")); 
-                                        break;
-                                    }
-                                case Common.Constants.BCDoanhThu:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/bcdoanhthu.png")); 
-                                        break;
-                                    }
-                                case Common.Constants.BCTonKho:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/bctonkho.png")); 
-                                        break;
-                                    }
-                                case Common.Constants.BCXuatHang:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/bcxuathang.png")); 
-                                        break;
-                                    }
-                                case Common.Constants.BCNhapHang:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/bcnhaphang.png")); 
-                                        break;
-                                    }
-                                case Common.Constants.BCCongNo:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/bccongno.png")); 
-                                        break;
-                                    }
-                                case Common.Constants.lnkSoDuDauKy:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/sodudauky.png")); 
-                                        break;
-                                    }
-                                case Common.Constants.lnkKetChuyenSoDu:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/ketchuyensodu.png")); 
-                                        break;
-                                    }
-                                case Common.Constants.lnkNhapKho:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/nhapkho.png")); 
-                                        break;
-                                    }
-                                case Common.Constants.lnkNhomTKKT:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/nhomtkketoan.png")); 
-                                        break;
-                                    }
-                                case Common.Constants.lnkPhieuChi:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/phieuchi.png")); 
-                                        break;
-                                    }
-                                case Common.Constants.lnkPhieuThu:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/phieuthu.png")); 
-                                        break;
-                                    }
-                                case Common.Constants.lnklbPhongBan:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/phongban.png")); 
-                                        break;
-                                    }
-                                case Common.Constants.lnkDieuChuyenKho:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/dieuchuyenkho.png")); 
-                                        break;
-                                    }
-                                case Common.Constants.lnkXNDieuChuyenKho:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/xacnhandieuchuyenkho.png"));
-                                        break;
-                                    }
-                                case Common.Constants.lnkPhieuXuatHuy:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/phieuxuathuy.png"));
-                                        break;
-                                    }
-                                case Common.Constants.lnkXNPhieuXuatHuy:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/xacnhanphieuxuathuy.png")); 
-                                        break;
-                                    }
-                                case Common.Constants.lnkHangHoa:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/hanghoa.png")); 
-                                        break;
-                                    }
-                                case Common.Constants.lnkNhapSoDuTonKho:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/sodutonkho.png")); 
-                                        break;
-                                    }
-                                case Common.Constants.lnkKhachHangTraLai:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/khtralai.png")); 
-                                        break;
-                                    }
-                                case Common.Constants.lnkTraLaiNCC:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/tralaincc.png")); 
-                                        break;
-                                    }
-                                case Common.Constants.lnkDonDatHang:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/dondathang.png")); 
-                                        break;
-                                    }
-                                case Common.Constants.imgDHT:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/DHT.jpg"));
-                                        break;
-                                    }
-                                case Common.Constants.bcDTTheoTG:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bcthoigian.png"));
-                                        break;
-                                    }
-                                case Common.Constants.bcDTTheoNV:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bcnhanvien.png"));
-                                        break;
-                                    }
-                                case Common.Constants.bcDTTheoNhomHang:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bcnhomhang.png"));
-                                        break;
-                                    }
-                                case Common.Constants.bcDTTheoHangHoa:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bchanghoa.png"));
-                                        break;
-                                    }
-                                case Common.Constants.bcLaiLo:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bclailo.png"));
-                                        break;
-                                    }
-                                case Common.Constants.bcCNTheoNCC:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bcncc.png"));
-                                        break;
-                                    }
-                                case Common.Constants.bcCNTheoKH:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bckh.png"));
-                                        break;
-                                    }
-                                case Common.Constants.bcXHTheoKho:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bckho.png"));
-                                        break;
-                                    }
-                                case Common.Constants.bcXHTheoNhomHang:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bcnhomhang.png"));
-                                        break;
-                                    }
-                                case Common.Constants.bcXHTheoHangHoa:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bchanghoa.png"));
-                                        break;
-                                    }
-                                case Common.Constants.bcNHTheoKho:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bckho.png"));
-                                        break;
-                                    }
-                                case Common.Constants.bcNHTheoNhomHang:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bcnhomhang.png"));
-                                        break;
-                                    }
-                                case Common.Constants.bcNHTheoHangHoa:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bchanghoa.png"));
-                                        break;
-                                    }
-                                case Common.Constants.bcNHTheoTG:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bcthoigian.png"));
-                                        break;
-                                    }
-                                case Common.Constants.bcTonKhoTheoKho:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bckho.png"));
-                                        break;
-                                    }
-                                case Common.Constants.bcTonKhoTheoNhomHang:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bcnhomhang.png"));
-                                        break;
-                                    }
-                                case Common.Constants.bcXNTTheoKho:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bcxntkho.png"));
-                                        break;
-                                    }
-                                case Common.Constants.bcXNTTheoNhomHang:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bcnhomhang.png"));
-                                        break;
-                                    }
-                                case Common.Constants.bcXNTTheoPhieuXuatHuy:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bcxntxuathuy.png"));
-                                        break;
-                                    }
-                                case Common.Constants.bcXNTTheoLoaiHang:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bcxntloaihang.png"));
-                                        break;
-                                    }
-                                case Common.Constants.bcXHTheoTG:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bcthoigian.png"));
-                                        break;
-                                    }
-                                case Common.Constants.bcMucTonToiThieuToiDa:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bctoithieutoida.png"));
-                                        break;
-                                    }
-                                case Common.Constants.lnkcongty:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/congty.png"));
-                                        break;
-                                    }
-                                case Common.Constants.lnkgoihang:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/goihang.png"));
-                                        break;
-                                    }
-                                case Common.Constants.lnkquydoi:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/quydoi.png"));
-                                        break;
-                                    }
-                                case "NULL":
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/banbuon.png")); 
-                                        break;
-                                    }
-                                default:
-                                    {
-                                        im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/banbuon.png")); 
-                                        break;
-                                    }
+                    case Common.Constants.lnkNhomHangHoa:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/nhomhh.png"));
+                            break;
+                        }
+
+                    case Common.Constants.lnkSoQuy:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/soquy.png"));
+                            break;
+                        }
+                    case Common.Constants.lnkTaiKhoanKT:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/tkketoan.png"));
+                            break;
+                        }
+                    case Common.Constants.lnkThue:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/thue.png"));
+                            break;
+                        }
+                    case Common.Constants.lnkInTemMaVach:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/inmavach.png"));
+                            break;
+                        }
+                    case Common.Constants.BCDoanhThu:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/bcdoanhthu.png"));
+                            break;
+                        }
+                    case Common.Constants.BCTonKho:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/bctonkho.png"));
+                            break;
+                        }
+                    case Common.Constants.BCXuatHang:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/bcxuathang.png"));
+                            break;
+                        }
+                    case Common.Constants.BCNhapHang:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/bcnhaphang.png"));
+                            break;
+                        }
+                    case Common.Constants.BCCongNo:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/bccongno.png"));
+                            break;
+                        }
+                    case Common.Constants.lnkSoDuDauKy:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/sodudauky.png"));
+                            break;
+                        }
+                    case Common.Constants.lnkKetChuyenSoDu:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/ketchuyensodu.png"));
+                            break;
+                        }
+                    case Common.Constants.lnkNhapKho:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/nhapkho.png"));
+                            break;
+                        }
+                    case Common.Constants.lnkNhomTKKT:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/nhomtkketoan.png"));
+                            break;
+                        }
+                    case Common.Constants.lnkPhieuChi:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/phieuchi.png"));
+                            break;
+                        }
+                    case Common.Constants.lnkPhieuThu:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/phieuthu.png"));
+                            break;
+                        }
+                    case Common.Constants.lnklbPhongBan:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/phongban.png"));
+                            break;
+                        }
+                    case Common.Constants.lnkDieuChuyenKho:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/dieuchuyenkho.png"));
+                            break;
+                        }
+                    case Common.Constants.lnkXNDieuChuyenKho:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/xacnhandieuchuyenkho.png"));
+                            break;
+                        }
+                    case Common.Constants.lnkPhieuXuatHuy:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/phieuxuathuy.png"));
+                            break;
+                        }
+                    case Common.Constants.lnkXNPhieuXuatHuy:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/xacnhanphieuxuathuy.png"));
+                            break;
+                        }
+                    case Common.Constants.lnkHangHoa:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/hanghoa.png"));
+                            break;
+                        }
+                    case Common.Constants.lnkNhapSoDuTonKho:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/sodutonkho.png"));
+                            break;
+                        }
+                    case Common.Constants.lnkKhachHangTraLai:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/khtralai.png"));
+                            break;
+                        }
+                    case Common.Constants.lnkTraLaiNCC:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/tralaincc.png"));
+                            break;
+                        }
+                    case Common.Constants.lnkDonDatHang:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/dondathang.png"));
+                            break;
+                        }
+                    case Common.Constants.imgDHT:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/DHT.jpg"));
+                            break;
+                        }
+                    case Common.Constants.bcDTTheoTG:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bcthoigian.png"));
+                            break;
+                        }
+                    case Common.Constants.bcDTTheoNV:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bcnhanvien.png"));
+                            break;
+                        }
+                    case Common.Constants.bcDTTheoNhomHang:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bcnhomhang.png"));
+                            break;
+                        }
+                    case Common.Constants.bcDTTheoHangHoa:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bchanghoa.png"));
+                            break;
+                        }
+                    case Common.Constants.bcLaiLo:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bclailo.png"));
+                            break;
+                        }
+                    case Common.Constants.bcCNTheoNCC:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bcncc.png"));
+                            break;
+                        }
+                    case Common.Constants.bcCNTheoKH:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bckh.png"));
+                            break;
+                        }
+                    case Common.Constants.bcXHTheoKho:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bckho.png"));
+                            break;
+                        }
+                    case Common.Constants.bcXHTheoNhomHang:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bcnhomhang.png"));
+                            break;
+                        }
+                    case Common.Constants.bcXHTheoHangHoa:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bchanghoa.png"));
+                            break;
+                        }
+                    case Common.Constants.bcNHTheoKho:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bckho.png"));
+                            break;
+                        }
+                    case Common.Constants.bcNHTheoNhomHang:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bcnhomhang.png"));
+                            break;
+                        }
+                    case Common.Constants.bcNHTheoHangHoa:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bchanghoa.png"));
+                            break;
+                        }
+                    case Common.Constants.bcNHTheoTG:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bcthoigian.png"));
+                            break;
+                        }
+                    case Common.Constants.bcTonKhoTheoKho:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bckho.png"));
+                            break;
+                        }
+                    case Common.Constants.bcTonKhoTheoNhomHang:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bcnhomhang.png"));
+                            break;
+                        }
+                    case Common.Constants.bcXNTTheoKho:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bcxntkho.png"));
+                            break;
+                        }
+                    case Common.Constants.bcXNTTheoNhomHang:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bcnhomhang.png"));
+                            break;
+                        }
+                    case Common.Constants.bcXNTTheoPhieuXuatHuy:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bcxntxuathuy.png"));
+                            break;
+                        }
+                    case Common.Constants.bcXNTTheoLoaiHang:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bcxntloaihang.png"));
+                            break;
+                        }
+                    case Common.Constants.bcXHTheoTG:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bcthoigian.png"));
+                            break;
+                        }
+                    case Common.Constants.bcMucTonToiThieuToiDa:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BC/bctoithieutoida.png"));
+                            break;
+                        }
+                    case Common.Constants.lnkcongty:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/congty.png"));
+                            break;
+                        }
+                    case Common.Constants.lnkgoihang:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/goihang.png"));
+                            break;
+                        }
+                    case Common.Constants.lnkquydoi:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/quydoi.png"));
+                            break;
+                        }
+                    case "NULL":
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/banbuon.png"));
+                            break;
+                        }
+                    default:
+                        {
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/banbuon.png"));
+                            break;
+                        }
                 }
-            
+
             }
             catch
             {
@@ -1413,187 +1455,187 @@ namespace Common
                 {
                     case Common.Constants.lnkBanBuon:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/banbuon1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/banbuon1.png"));
                             break;
                         }
                     case Common.Constants.lnkBanLe:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/banle1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/banle1.png"));
                             break;
                         }
                     case Common.Constants.lnkKhoanMuc:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/khoanmucthuchi1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/khoanmucthuchi1.png"));
                             break;
                         }
                     case Common.Constants.lnkKhoHang:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/khohang1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/khohang1.png"));
                             break;
                         }
                     case Common.Constants.lnkKiemKeKho:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/kiemkekho1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/kiemkekho1.png"));
                             break;
                         }
                     case Common.Constants.lnkLoaiHangHoa:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/loaihh1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/loaihh1.png"));
                             break;
                         }
                     case Common.Constants.lnkNhaCungCap:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/nhacungcap1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/nhacungcap1.png"));
                             break;
                         }
                     case Common.Constants.lnkNhanVien:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/nhanvien1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/nhanvien1.png"));
                             break;
                         }
                     case Common.Constants.lnkNhomHangHoa:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/nhomhh1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/nhomhh1.png"));
                             break;
                         }
                     case Common.Constants.lnkSoQuy:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/soquy1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/soquy1.png"));
                             break;
                         }
                     case Common.Constants.lnkTaiKhoanKT:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/tkketoan1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/tkketoan1.png"));
                             break;
                         }
                     case Common.Constants.lnkThue:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/thue1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/thue1.png"));
                             break;
                         }
                     case Common.Constants.lnkInTemMaVach:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/inmavach1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/inmavach1.png"));
                             break;
                         }
                     case Common.Constants.BCDoanhThu:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/bcdoanhthu1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/bcdoanhthu1.png"));
                             break;
                         }
                     case Common.Constants.BCTonKho:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/bctonkho1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/bctonkho1.png"));
                             break;
                         }
                     case Common.Constants.BCXuatHang:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/bcxuathang1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/bcxuathang1.png"));
                             break;
                         }
                     case Common.Constants.BCNhapHang:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/bcnhaphang1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/bcnhaphang1.png"));
                             break;
                         }
                     case Common.Constants.BCCongNo:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/bccongno1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/bccongno1.png"));
                             break;
                         }
                     case Common.Constants.lnkKhachHang:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/khachhang1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/khachhang1.png"));
                             break;
                         }
                     case Common.Constants.lnkDonViTinh:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/donvt1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/donvt1.png"));
                             break;
                         }
                     case Common.Constants.lnkTienTe:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/tiente1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/tiente1.png"));
                             break;
                         }
                     case Common.Constants.lnkSoDuDauKy:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/sodudauky1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/sodudauky1.png"));
                             break;
                         }
                     case Common.Constants.lnkKetChuyenSoDu:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/ketchuyensodu1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/ketchuyensodu1.png"));
                             break;
                         }
                     case Common.Constants.lnkNhapKho:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/nhapkho1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/nhapkho1.png"));
                             break;
                         }
                     case Common.Constants.lnkNhomTKKT:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/nhomtkketoan1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/nhomtkketoan1.png"));
                             break;
                         }
                     case Common.Constants.lnkPhieuChi:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/phieuchi1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/phieuchi1.png"));
                             break;
                         }
                     case Common.Constants.lnkPhieuThu:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/phieuthu1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/phieuthu1.png"));
                             break;
                         }
                     case Common.Constants.lnklbPhongBan:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/phongban1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/phongban1.png"));
                             break;
                         }
                     case Common.Constants.lnkDieuChuyenKho:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/dieuchuyenkho1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/dieuchuyenkho1.png"));
                             break;
                         }
                     case Common.Constants.lnkXNDieuChuyenKho:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/xacnhandieuchuyenkho1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/xacnhandieuchuyenkho1.png"));
                             break;
                         }
                     case Common.Constants.lnkPhieuXuatHuy:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/phieuxuathuy1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/phieuxuathuy1.png"));
                             break;
                         }
                     case Common.Constants.lnkXNPhieuXuatHuy:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/xacnhanphieuxuathuy1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/xacnhanphieuxuathuy1.png"));
                             break;
                         }
                     case Common.Constants.lnkHangHoa:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/hanghoa1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/hanghoa1.png"));
                             break;
                         }
                     case Common.Constants.lnkNhapSoDuTonKho:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/sodutonkho1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/sodutonkho1.png"));
                             break;
                         }
                     case Common.Constants.lnkKhachHangTraLai:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/khtralai1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/khtralai1.png"));
                             break;
                         }
                     case Common.Constants.lnkTraLaiNCC:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/tralaincc1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/tralaincc1.png"));
                             break;
                         }
                     case Common.Constants.lnkDonDatHang:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/dondathang1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/dondathang1.png"));
                             break;
                         }
                     case Common.Constants.bcDTTheoTG:
@@ -1723,12 +1765,12 @@ namespace Common
                         }
                     case "NULL":
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/banbuon1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/banbuon1.png"));
                             break;
                         }
                     default:
                         {
-                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/banbuon1.png")); 
+                            im.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/banbuon1.png"));
                             break;
                         }
                 }
@@ -1767,5 +1809,36 @@ namespace Common
 
         #endregion
 
+
+        //Mrk fix 21/02/2013 - hơi bị trùng hàm
+        public static DateTime StringToDateTime_Common(string input, out bool kq)
+        {
+            return StringToDateTime_Common(input, out kq, "dd/MM/yyyy");
+        }
+        public static DateTime StringToDateTime_Common(string input, out bool kq, string Patterns)
+        {
+            kq = true;
+            try
+            {
+                DateTime dt = new DateTime(1753, 1, 1);
+                switch (Patterns)
+                {
+                    case "dd/MM/yyyy":
+                        {
+                            string[] arr = input.Split('/');
+                            dt = new DateTime(int.Parse(arr[2]), int.Parse(arr[1]), int.Parse(arr[0]));
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                kq = false;
+                return new DateTime(1753, 1, 1);
+            }
+        }
     }
 }

@@ -1574,8 +1574,9 @@ namespace GUI
                 if (ck.SoSanhNgay('/', "!=", gitri.NgayNhap.ToString(), sosanh.NgayNhap.ToString()) == true)
                 {
                     kiemtra = false;
-                    string ngay = ck.KiemTraDinhDangNgayThangNam("NgayThangNam", sosanh.NgayNhap.ToString(), '/');
-                    makNgaydonhang.Text = new Common.Utilities().XuLy(2, ngay);
+                    makNgaydonhang.Text = sosanh.NgayNhap.ToString("dd/MM/yyyy");
+                    //string ngay = ck.KiemTraDinhDangNgayThangNam("NgayThangNam", sosanh.NgayNhap.ToString(), '/');
+                    //makNgaydonhang.Text = new Common.Utilities().XuLy(2, ngay);
                 }
                 else { kiemtra = true; count = count + 1; }
                 if (gitri.MaKhachHang != sosanh.MaKhachHang)
@@ -1593,8 +1594,9 @@ namespace GUI
                 if (ck.SoSanhNgay('/', "!=", gitri.HanThanhToan.ToString(), sosanh.HanThanhToan.ToString()) == true)
                 {
                     kiemtra = false;
-                    string ngay = ck.KiemTraDinhDangNgayThangNam("NgayThangNam", sosanh.HanThanhToan.ToString(), '/');
-                    makHanthanhtoan.Text = new Common.Utilities().XuLy(2, ngay);
+                    makHanthanhtoan.Text = sosanh.HanThanhToan.ToString("dd/MM/yyyy");
+                    //string ngay = ck.KiemTraDinhDangNgayThangNam("NgayThangNam", sosanh.HanThanhToan.ToString(), '/');
+                    //makHanthanhtoan.Text = new Common.Utilities().XuLy(2, ngay);
                 }
                 else { kiemtra = true; count = count + 1; }
                 if (gitri.MaHoaDonMuaHang != sosanh.MaHoaDonMuaHang)
@@ -2156,8 +2158,9 @@ namespace GUI
                 if (ck.SoSanhNgay('/', "!=", gitri.Ngaytra.ToString(), sosanh.Ngaytra.ToString()) == true)
                 {
                     kiemtra = false;
-                    string ngay = ck.KiemTraDinhDangNgayThangNam("NgayThangNam", sosanh.Ngaytra.ToString(), '/');
-                    makNgaydonhang.Text = new Common.Utilities().XuLy(2, ngay);
+                    makNgaydonhang.Text = sosanh.Ngaytra.ToString("dd/MM/yyyy");
+                    //string ngay = ck.KiemTraDinhDangNgayThangNam("NgayThangNam", sosanh.Ngaytra.ToString(), '/');
+                    //makNgaydonhang.Text = new Common.Utilities().XuLy(2, ngay);
                 }
                 else { kiemtra = true; count = count + 1; }
                 if (gitri.MaNCC != sosanh.MaNCC)
