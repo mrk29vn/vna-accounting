@@ -87,8 +87,6 @@ namespace Common
         public const string bcMucTonToiThieuToiDa = "bcMucTonToiThieuToiDa";
         #endregion
 
-       
-
         public class Sql
         {
             public Sql() { }
