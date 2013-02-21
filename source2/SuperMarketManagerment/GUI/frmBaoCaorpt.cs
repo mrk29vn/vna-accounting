@@ -1000,12 +1000,10 @@ namespace GUI
                 report.SetParameterValue("MaNhanVien", Common.Utilities.User.TenNhanVien);
                 report.SetParameterValue("Email", CT.Email);
                 report.SetParameterValue("tuNgay", truoc.ToString("dd/MM/yyyy"));
-                report.SetParameterValue("DenNgay", sau.ToString("dd/MM/yyyy")));
+                report.SetParameterValue("DenNgay", sau.ToString("dd/MM/yyyy"));
                 crvReport.Show();
             }
-            catch
-            {
-            }
+            catch { }
         }
 
         public frmBaoCaorpt(Entities.BCDTTheoNhomHang[] pt1, DateTime truoc, DateTime sau, string path, string hanhDong)
