@@ -13,14 +13,27 @@ namespace GUI
 
         #region Function Utils
 
-
-        public static DateTime StringToDateTime(string ddMMyyyy, out bool kq)
+        public DateTime StringToDateTime(string input, out bool kq)
+        {
+            return StringToDateTime(input, out kq, "dd/MM/yyyy");
+        }
+        public static DateTime StringToDateTime(string input, out bool kq, string Patterns)
         {
             kq = true;
             try
             {
-                string[] arr = ddMMyyyy.Split('/');
-                DateTime dt = new DateTime(int.Parse(arr[2]), int.Parse(arr[1]), int.Parse(arr[0]));
+                DateTime dt = new DateTime(1753, 1, 1);
+                switch (Patterns)
+                {
+                    case "dd/MM/yyyy":
+                        {
+                            string[] arr = input.Split('/');
+                            dt = new DateTime(int.Parse(arr[2]), int.Parse(arr[1]), int.Parse(arr[0]));
+                        }
+                        break;
+                    default:
+                        break;
+                }
                 return dt;
             }
             catch (Exception ex)
