@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using System.Net.Sockets;
 using System.Collections;
-using System.Threading;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Sockets;
+using System.Windows.Forms;
 
 namespace GUI
 {
@@ -3600,21 +3595,8 @@ namespace GUI
 
         private void txtCKTM0_Click(object sender, EventArgs e)
         {
-            txtCKTM0.Text = "";
+            txtCKTM0.Text = string.Empty;
             txtTienCKTM0.Text = "0";
-        }
-
-        private void txtCKTM0_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            //if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
-            //{
-            //    e.Handled = true;
-            //}
-        }
-
-        private void txtCKTM0_KeyUp(object sender, KeyEventArgs e)
-        {
-            //
         }
 
         private void txtCKTMs0()

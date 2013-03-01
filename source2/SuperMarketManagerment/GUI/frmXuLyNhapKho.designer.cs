@@ -646,7 +646,6 @@
             this.txtCKTM0.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtCKTM0.Click += new System.EventHandler(this.txtCKTM0_Click);
             this.txtCKTM0.TextChanged += new System.EventHandler(this.txtCKTM0_TextChanged);
-            this.txtCKTM0.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCKTM0_KeyPress);
             // 
             // lbtinhtrang
             // 
