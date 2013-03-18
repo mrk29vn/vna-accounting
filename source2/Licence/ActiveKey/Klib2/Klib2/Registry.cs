@@ -125,7 +125,6 @@ namespace Klib2
 
         public static void SetRegistry(string SubKey, List<List<string>> input)
         {
-
             Microsoft.Win32.RegistryKey tem;
             string[] Select = SubKey.Split('\\');
             if (Select[0].ToUpper().Equals("HKEY_CLASSES_ROOT"))
@@ -176,15 +175,7 @@ namespace Klib2
                         tt += Select[i] + @"\";
                     }
                 }
-                try
-                {
-                    tem = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(tt);
-                }
-                catch (Exception ex)
-                {
-                    tem = Microsoft.Win32.Registry.LocalMachine.CreateSubKey(tt);
-                }
-                
+                tem = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(tt);
                 //tem = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(tt);
             }
             else if (Select[0].ToUpper().Equals("HKEY_USERS"))
