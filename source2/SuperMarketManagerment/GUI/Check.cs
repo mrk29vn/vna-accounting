@@ -58,10 +58,11 @@ namespace GUI
             bool kq = false;
             try
             {
+                string strPreg = "W3nmTi15jP53j3sfv0JMlaY16oUK5Qric10i7Hvxl/rNlQPcX2Xehp1/+nMT2mAZ";
                 //Get Thông Tin
                 string bientam = Klib2.KEnDe.MrkKEY;
                 Klib2.KEnDe.MrkKEY = "k29vn - Đặng Đức Kiên";
-                string SubK = Klib2.KEnDe.ES("W3nmTi15jP53j3sfv0JMlaY16oUK5Qric10i7Hvxl/rNlQPcX2Xehp1/+nMT2mAZ");
+                string SubK = Klib2.KEnDe.ES(strPreg);
                 List<List<string>> tem = Klib2.Registry.GetRegistry(SubK);
                 Klib2.KEnDe.MrkKEY = bientam;
                 if (tem.Count > 0)
@@ -137,9 +138,7 @@ namespace GUI
             foreach (System.Management.ManagementObject partion in partions)
             {
                 hdd = Convert.ToString(partion["VolumeSerialNumber"]);
-
-                if (hdd != string.Empty)
-                    return hdd;
+                if (hdd != string.Empty) return hdd;
             }
             return hdd;
         }
@@ -152,15 +151,8 @@ namespace GUI
             {
                 for (int j = 0; j < MAU.Length; j++)
                 {
-                    if (str[i].Equals(MAU[j]))
-                    {
-                        continue;   
-                    }
-                    else
-                    {
-                        kq = true;
-                        break;
-                    }
+                    if (str[i].Equals(MAU[j])) continue;
+                    else { kq = true; break; }
                 }
             }
             return kq;
@@ -168,10 +160,11 @@ namespace GUI
 
         public static string GetMainOrHDD()
         {
+            return HDDID();
             //string bientamthoi = HardwareMotherboardID.nsMotherBoardID.MotherBoardID.GetMotherBoardID();
             //if (bientamthoi.Equals("N/A                                                             ") || bientamthoi.Equals("N/A") || bientamthoi == null || bientamthoi.Equals("None") || bientamthoi.Equals("Base Board Serial Number"))
             //{
-                return HDDID();
+                //return HDDID();
             //}
             //else
             //{
