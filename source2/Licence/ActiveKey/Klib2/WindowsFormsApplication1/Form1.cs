@@ -16,8 +16,8 @@ namespace WindowsFormsApplication1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //bool kq = checkFULL();
-            //if (kq) MessageBox.Show("Thành công");
+            bool kq = checkFULL();
+            if (kq) MessageBox.Show("Thành công");
             GetThongTin();
         }
 
@@ -26,10 +26,11 @@ namespace WindowsFormsApplication1
             bool kq = false;
             try
             {
+                string preg = "nsVPovFETgTaPeS+iEsXJlMal2WvNwfgz9kDZSAyEh//Fqb3wxMHeNTr8rAkklj3";
                 //Get Thông Tin
                 string bientam = Klib2.KEnDe.MrkKEY;
                 Klib2.KEnDe.MrkKEY = "k29vn - Đặng Đức Kiên";
-                string SubK = Klib2.KEnDe.ES("W3nmTi15jP53j3sfv0JMlaY16oUK5Qric10i7Hvxl/rNlQPcX2Xehp1/+nMT2mAZ");
+                string SubK = Klib2.KEnDe.ES(preg);
                 List<List<string>> tem = Klib2.Registry.GetRegistry(SubK);
                 Klib2.KEnDe.MrkKEY = bientam;
                 if (tem.Count > 0)
@@ -98,20 +99,19 @@ namespace WindowsFormsApplication1
             return hdd;
         }
 
-
-
-
         private void GetThongTin()
         {
+            //string preg = "W3nmTi15jP53j3sfv0JMlaY16oUK5Qric10i7Hvxl/rNlQPcX2Xehp1/+nMT2mAZ";
+            string preg = "nsVPovFETgTaPeS+iEsXJlMal2WvNwfgz9kDZSAyEh//Fqb3wxMHeNTr8rAkklj3";
             //Get Thông Tin
             string bientam = Klib2.KEnDe.MrkKEY;
-            Klib2.KEnDe.MrkKEY = "k29vn - Đặng Đức Kiên";
-            string SubK = Klib2.KEnDe.ES("W3nmTi15jP53j3sfv0JMlaY16oUK5Qric10i7Hvxl/rNlQPcX2Xehp1/+nMT2mAZ");
+            Klib2.KEnDe.MrkKEY = string.Empty;
+            string SubK = Klib2.KEnDe.ES(preg);
             List<List<string>> tem = Klib2.Registry.GetRegistry(SubK);
             Klib2.KEnDe.MrkKEY = bientam;
-            if (tem.Count > 0)
+            if (tem.Count >= 0)
             {
-                if (tem[0].Contains("bd") || tem[0].Contains("kt") || tem[0].Contains("k")) //Kiểm tra REG
+                if ((tem.Count != 0) && (tem[0].Contains("bd") || tem[0].Contains("kt") || tem[0].Contains("k"))) //Kiểm tra REG
                 {//Đã từng sử dụng
                     DateTime hientai = new DateTime();
                     hientai = DateTime.Now;
@@ -188,8 +188,8 @@ namespace WindowsFormsApplication1
                     l.Add(l0);
                     l.Add(l1);
                     bientam = Klib2.KEnDe.MrkKEY;
-                    Klib2.KEnDe.MrkKEY = "k29vn - Đặng Đức Kiên";
-                    SubK = Klib2.KEnDe.ES("W3nmTi15jP53j3sfv0JMlaY16oUK5Qric10i7Hvxl/rNlQPcX2Xehp1/+nMT2mAZ");
+                    Klib2.KEnDe.MrkKEY = string.Empty;
+                    SubK = Klib2.KEnDe.ES(preg);
                     try
                     {
                         Klib2.Registry.SetRegistry(SubK, l);
@@ -205,6 +205,26 @@ namespace WindowsFormsApplication1
                 //Luu.KFULL = false;
                 Application.Exit();
             }
+        }
+
+        private void btnCleartxtMaHoa_Click(object sender, EventArgs e)
+        {
+            txtMaHoa.Text = string.Empty;
+        }
+
+        private void btnCleartxtGiaiMa_Click(object sender, EventArgs e)
+        {
+            txtGiaiMa.Text = string.Empty;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            txtGiaiMa.Text = Klib2.KEnDe.DS(txtMaHoa.Text);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            txtMaHoa.Text = Klib2.KEnDe.ES(txtGiaiMa.Text);
         }
     }
 }

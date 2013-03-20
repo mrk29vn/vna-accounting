@@ -31311,4 +31311,15 @@ namespace Klib2
             return k;
         }
     }
+
+    public class InternetConnection
+    {
+        [System.Runtime.InteropServices.DllImport("wininet.dll")]
+        private extern static bool InternetGetConnectedState(out int description, int reservedValue);
+        public static bool IsConnectedToInternet()
+        {
+            int desc;
+            return InternetGetConnectedState(out desc, 0);
+        }
+    }
 }

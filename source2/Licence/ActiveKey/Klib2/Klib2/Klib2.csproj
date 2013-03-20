@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="KEnDe.cs" />
     <Compile Include="KTienIch.cs" />
+    <Compile Include="KUtilsTime.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Registry.cs" />
   </ItemGroup>
