@@ -9,10 +9,23 @@ using System.Text.RegularExpressions;
 
 namespace Klib2
 {
-    class KUtilsTime
+    public class KUtilsTime
     {
+        public static DateTime GetTimeInternet()
+        {
+            return GetTimeInternet(0);
+        }
+        public static DateTime GetTimeInternet(int select)
+        {
+            if (select == 0) return GetNetworkTime();
+            else if (select == 1) return GetNistTime2();
+            else if (select == 2) return GetNistTime1();
+            else if (select == 3) return GetFastestNISTDate();
+            else return new DateTime(1753, 1, 1);
+        }
+
         #region Get Time Internet By Mrk
-        public static DateTime GetNetworkTime()
+        private static DateTime GetNetworkTime()
         {
             DateTime kq = new DateTime(1753, 1, 1);
             try
@@ -38,7 +51,7 @@ namespace Klib2
             return kq.AddHours(7); //(UTC+07:00) Bangkok, Hanoi, Jakarta (convert to Vietnamese Timezone by Mrk)
         }
 
-        static uint SwapEndianness(ulong x) // stackoverflow.com/a/3294698/162671
+        private static uint SwapEndianness(ulong x) // stackoverflow.com/a/3294698/162671
         {
             return (uint)(((x & 0x000000ff) << 24) +
                            ((x & 0x0000ff00) << 8) +
@@ -47,7 +60,7 @@ namespace Klib2
         }
         #endregion
 
-        public static DateTime GetNistTime2()
+        private static DateTime GetNistTime2()
         {//http: //tf.nist.gov/tf-cgi/servers.cgi
             DateTime kq = new DateTime(1753, 1, 1);
             try
@@ -65,7 +78,7 @@ namespace Klib2
             return kq;
         }
 
-        public static DateTime GetNistTime1()
+        private static DateTime GetNistTime1()
         {
             DateTime dateTime = DateTime.MinValue;
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://nist.time.gov/timezone.cgi?UTC/s/0");
@@ -85,10 +98,9 @@ namespace Klib2
             return dateTime.ToLocalTime();
         }
 
-        public static DateTime GetFastestNISTDate()
+        private static DateTime GetFastestNISTDate()
         {
             var result = DateTime.MinValue;
-
             // Initialize the list of NIST time servers
             // http://tf.nist.gov/tf-cgi/servers.cgi
             string[] servers = new string[] {

@@ -10,10 +10,9 @@ namespace Klib2
         public static String CtoBase64(int so, int nbase)
         {
             String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            if (nbase < 2 || nbase > chars.Length)
-                return "";
+            if (nbase < 2 || nbase > chars.Length) return string.Empty;
             int r;
-            String kq = "";
+            String kq = string.Empty;
             while (so >= nbase)
             {
                 r = so % nbase;
@@ -40,29 +39,17 @@ namespace Klib2
         }
         public static string KDS(string toEncrypt)
         {
-            if (toEncrypt.Equals("2+9=88"))
-            {
-                toEncrypt = "Mrk&^765BHHHMrkMrkMrk7hv4v4884g4";
-            }
+            if (toEncrypt.Equals("2+9=88")) toEncrypt = "Mrk&^765BHHHMrkMrkMrk7hv4v4884g4";
             string tem = toEncrypt;
-            for (int i = 2; i < 9; i++)
-            {
-                tem = DS(tem);
-            }
+            for (int i = 2; i < 9; i++) tem = DS(tem);
             return tem;
         }
         public static string DS(string toEncrypt)
         {
             string key = "k29vn - Đặng Đức Kiên";
-            if (MrkKEY.Equals(""))
-            {
-                key = "k29vn - Đặng Đức Kiên";
-            }
-            else
-            {
-                key = MrkKEY;
-            }
-            string rt = "";
+            if (string.IsNullOrEmpty(MrkKEY)) key = "k29vn - Đặng Đức Kiên";
+            else key = MrkKEY;
+            string rt = string.Empty;
             try
             {
                 byte[] keyArray;
@@ -77,8 +64,7 @@ namespace Klib2
                 byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
                 rt = System.Convert.ToBase64String(resultArray, 0, resultArray.Length);
             }
-            catch (Exception ex)
-            { string s = ex.Message; rt = ""; }
+            catch { rt = string.Empty; }
             return rt;
         }
 
@@ -88,29 +74,17 @@ namespace Klib2
         }
         public static string KES(string toDecrypt)
         {
-            if (toDecrypt.Equals("1+1=2"))
-            {
-                toDecrypt = "Mrk&^765BHHHMrkMrkMrk7hv4v4884g4";
-            }
+            if (toDecrypt.Equals("1+1=2")) toDecrypt = "Mrk&^765BHHHMrkMrkMrk7hv4v4884g4";
             string tem = toDecrypt;
-            for (int i = 2; i < 9; i++)
-            {
-                tem = ES(tem);
-            }
+            for (int i = 2; i < 9; i++) tem = ES(tem);
             return tem;
         }
         public static string ES(string toDecrypt)
         {
             string key = "k29vn - Đặng Đức Kiên";
-            if (MrkKEY.Equals(""))
-            {
-                key = "k29vn - Đặng Đức Kiên";
-            }
-            else
-            {
-                key = MrkKEY;
-            }
-            string rt = "";
+            if (string.IsNullOrEmpty(MrkKEY)) key = "k29vn - Đặng Đức Kiên";
+            else key = MrkKEY;
+            string rt = string.Empty;
             try
             {
                 byte[] keyArray;
@@ -125,8 +99,7 @@ namespace Klib2
                 byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
                 rt = UTF8Encoding.UTF8.GetString(resultArray);
             }
-            catch (Exception ex)
-            { string s = ex.Message; rt = ""; }
+            catch { rt = string.Empty; }
             return rt;
         }
     }
