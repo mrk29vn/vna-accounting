@@ -56,9 +56,19 @@ namespace GUI
         public bool checkFULL()
         {
             bool kq = false;
+            string strPreg = "W3nmTi15jP53j3sfv0JMlaY16oUK5Qric10i7Hvxl/rNlQPcX2Xehp1/+nMT2mAZ";    //Old
+            string strPreg1 = "nsVPovFETgTaPeS+iEsXJlMal2WvNwfgz9kDZSAyEh//Fqb3wxMHeNTr8rAkklj3";   //New
+            //if (!(!checkFULL(strPreg) && !checkFULL(strPreg1))) return true;
+            if (checkFULL(strPreg1, true)) return true;
+            else if (checkFULL(strPreg, false)) return true;
+            return kq;
+        }
+        public bool checkFULL(string strPreg, bool mahoa)
+        {
+            bool kq = false;
             try
             {
-                string strPreg = "W3nmTi15jP53j3sfv0JMlaY16oUK5Qric10i7Hvxl/rNlQPcX2Xehp1/+nMT2mAZ";
+                //string strPreg = "W3nmTi15jP53j3sfv0JMlaY16oUK5Qric10i7Hvxl/rNlQPcX2Xehp1/+nMT2mAZ";
                 //Get Thông Tin
                 string bientam = Klib2.KEnDe.MrkKEY;
                 Klib2.KEnDe.MrkKEY = "k29vn - Đặng Đức Kiên";
@@ -67,26 +77,15 @@ namespace GUI
                 Klib2.KEnDe.MrkKEY = bientam;
                 if (tem.Count > 0)
                 {
-                    if (tem[0].Contains("bd") || tem[0].Contains("kt") || tem[0].Contains("k")) //Kiểm tra REG
+                    string key1 = mahoa ? "sk29vnbd2988" : "bd";
+                    string key2 = mahoa ? "ek29vnkt2988" : "kt";
+                    string key3 = mahoa ? "kk29vnkk2988" : "k";
+
+                    if (tem[0].Contains(key1) || tem[0].Contains(key2) || tem[0].Contains(key3)) //Kiểm tra REG
                     {//Đã từng sử dụng
-                        DateTime hientai = new DateTime();
-                        if (Luu.Server.Equals("client"))
-                        {
-                            try
-                            {
-                                hientai = DateServer.Date();
-                            }
-                            catch
-                            {
-                                hientai = DateTime.Now;
-                            }
-                        }
-                        else if (Luu.Server.Equals("server"))
-                        {
-                            hientai = DateTime.Now;
-                        }
-                        DateTime batdau = DateTime.Parse(GET("bd", tem));
-                        DateTime ketthuc = DateTime.Parse(GET("kt", tem));
+                        DateTime hientai = Utils.GetDateTimeNow(Luu.Server);
+                        DateTime batdau = DateTime.Parse(mahoa ? Klib2.KEnDe.ES(GET(key1, tem)) : GET(key1, tem));
+                        DateTime ketthuc = DateTime.Parse(mahoa ? Klib2.KEnDe.ES(GET(key2, tem)) : GET(key2, tem));
                         string temtem = TienIch.GetMainOrHDD();
                         string MAU = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
                         string _ma = temtem;
@@ -96,19 +95,13 @@ namespace GUI
                         {
                             for (int j = 0; j < MAU.Length; j++)
                             {
-                                if (_ma[i].Equals(MAU[j]))
-                                {
-                                    tong += j;
-                                    test.Add(j);
-                                }
+                                if (_ma[i].Equals(MAU[j])) { tong += j; test.Add(j); }
                             }
                         }
-                        if (GET("k", tem).Equals(Luu.GKOK[tong])) //Kiểm tra KEY
+                        string getKey3Tem = mahoa ? Klib2.KEnDe.ES(GET(key3, tem)) : GET(key3, tem);
+                        if (getKey3Tem.Equals(Luu.GKOK[tong])) //Kiểm tra KEY
                         {//KEY Full
-                            if ((hientai >= batdau) && (hientai <= ketthuc))
-                            {
-                                kq = true;
-                            }
+                            if ((hientai >= batdau) && (hientai <= ketthuc)) kq = true;
                         }
                     }
                 }
@@ -119,7 +112,7 @@ namespace GUI
 
         string GET(string ten, List<List<string>> l)
         {
-            string kq = "";
+            string kq = string.Empty;
             for (int i = 0; i < l[0].Count; i++)
             {
                 if (l[0][i].Equals(ten))
@@ -164,7 +157,7 @@ namespace GUI
             //string bientamthoi = HardwareMotherboardID.nsMotherBoardID.MotherBoardID.GetMotherBoardID();
             //if (bientamthoi.Equals("N/A                                                             ") || bientamthoi.Equals("N/A") || bientamthoi == null || bientamthoi.Equals("None") || bientamthoi.Equals("Base Board Serial Number"))
             //{
-                //return HDDID();
+            //return HDDID();
             //}
             //else
             //{
