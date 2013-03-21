@@ -49,33 +49,27 @@ namespace GUI
             }
         }
 
-        class InternetConnection
+        public static DateTime GetDateTimeNow(string select)
         {
-            [System.Runtime.InteropServices.DllImport("wininet.dll")]
-            private extern static bool InternetGetConnectedState(out int description, int reservedValue);
-            public static bool IsConnectedToInternet()
+            if (string.IsNullOrEmpty(select)) select = "server";
+            DateTime dateTime = new DateTime(1753, 1, 1);
+            //check kết nối mạng
+            if (Klib2.InternetConnection.IsConnectedToInternet()) dateTime = Klib2.KUtilsTime.GetTimeInternet();
+            bool a = dateTime.Date == (new DateTime(1753, 1, 1)).Date;
+            bool b = dateTime.Date == (new DateTime()).Date;
+            bool c = a || b;
+            if (c && select.Equals("client"))
             {
-                int desc;
-                return InternetGetConnectedState(out desc, 0);
+                try
+                { dateTime = DateServer.Date(); }
+                catch
+                { dateTime = DateTime.Now; }
             }
-        }
-
-        public static DateTime GetTimeInternet()
-        {//http: //tf.nist.gov/tf-cgi/servers.cgi
-            DateTime kq = new DateTime(1753, 1, 1);
-            try
+            else if (c && select.Equals("server"))
             {
-                var client = new System.Net.Sockets.TcpClient("time.nist.gov", 13);
-                using (var streamReader = new System.IO.StreamReader(client.GetStream()))
-                {
-                    var response = streamReader.ReadToEnd();
-                    var utcDateTimeString = response.Substring(7, 17);
-                    var localDateTime = DateTime.ParseExact(utcDateTimeString, "yy-MM-dd hh:mm:ss", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.AssumeUniversal);
-                    kq = localDateTime;
-                }
+                dateTime = DateTime.Now;
             }
-            catch { }
-            return kq;
+            return dateTime;
         }
         #endregion
     }
