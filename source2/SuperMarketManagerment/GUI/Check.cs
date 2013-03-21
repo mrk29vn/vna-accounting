@@ -86,20 +86,8 @@ namespace GUI
                         DateTime hientai = Utils.GetDateTimeNow(Luu.Server);
                         DateTime batdau = DateTime.Parse(mahoa ? Klib2.KEnDe.ES(GET(key1, tem)) : GET(key1, tem));
                         DateTime ketthuc = DateTime.Parse(mahoa ? Klib2.KEnDe.ES(GET(key2, tem)) : GET(key2, tem));
-                        string temtem = TienIch.GetMainOrHDD();
-                        string MAU = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-                        string _ma = temtem;
-                        int tong = 0;
-                        List<int> test = new List<int>();
-                        for (int i = 0; i < _ma.Length; i++)
-                        {
-                            for (int j = 0; j < MAU.Length; j++)
-                            {
-                                if (_ma[i].Equals(MAU[j])) { tong += j; test.Add(j); }
-                            }
-                        }
                         string getKey3Tem = mahoa ? Klib2.KEnDe.ES(GET(key3, tem)) : GET(key3, tem);
-                        if (getKey3Tem.Equals(Luu.GKOK[tong])) //Kiểm tra KEY
+                        if (isTrueKey(getKey3Tem)) //Kiểm tra KEY
                         {//KEY Full
                             if ((hientai >= batdau) && (hientai <= ketthuc)) kq = true;
                         }
@@ -113,14 +101,27 @@ namespace GUI
         string GET(string ten, List<List<string>> l)
         {
             string kq = string.Empty;
-            for (int i = 0; i < l[0].Count; i++)
+            for (int i = 0; i < l[0].Count; i++) { if (l[0][i].Equals(ten)) kq = l[1][i]; }
+            return kq;
+        }
+
+        public static bool isTrueKey(string strCheck)
+        {
+            if (Luu.GKOK.Count <= 0) Luu.GKOK = Klib2.KTienIch.GEN();
+            string temtem = GetMainOrHDD();
+            string MAU = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            string _ma = temtem;
+            int tong = 0;
+            List<int> test = new List<int>();
+            for (int i = 0; i < _ma.Length; i++)
             {
-                if (l[0][i].Equals(ten))
+                for (int j = 0; j < MAU.Length; j++)
                 {
-                    kq = l[1][i];
+                    if (_ma[i].Equals(MAU[j])) { tong += j; test.Add(j); }
                 }
             }
-            return kq;
+            if (strCheck.Equals(Luu.GKOK[tong])) return true;
+            else return false;
         }
 
         public static string HDDID()
@@ -129,31 +130,14 @@ namespace GUI
             System.Management.ManagementObjectCollection partions = partionsClass.GetInstances();
             string hdd = string.Empty;
             foreach (System.Management.ManagementObject partion in partions)
-            {
-                hdd = Convert.ToString(partion["VolumeSerialNumber"]);
-                if (hdd != string.Empty) return hdd;
-            }
+            { hdd = Convert.ToString(partion["VolumeSerialNumber"]); if (hdd != string.Empty) return hdd; }
             return hdd;
-        }
-
-        bool kiemtra(string str)
-        {
-            bool kq = false;
-            string MAU = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            for (int i = 0; i < str.Length; i++)
-            {
-                for (int j = 0; j < MAU.Length; j++)
-                {
-                    if (str[i].Equals(MAU[j])) continue;
-                    else { kq = true; break; }
-                }
-            }
-            return kq;
         }
 
         public static string GetMainOrHDD()
         {
             return HDDID();
+            #region temp
             //string bientamthoi = HardwareMotherboardID.nsMotherBoardID.MotherBoardID.GetMotherBoardID();
             //if (bientamthoi.Equals("N/A                                                             ") || bientamthoi.Equals("N/A") || bientamthoi == null || bientamthoi.Equals("None") || bientamthoi.Equals("Base Board Serial Number"))
             //{
@@ -163,6 +147,7 @@ namespace GUI
             //{
             //    return bientamthoi;
             //}
+            #endregion
         }
 
         public void AutoFormatMoney(object sender)

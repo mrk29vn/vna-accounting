@@ -23,45 +23,29 @@ namespace GUI
         private void btnDangKy_Click(object sender, EventArgs e)
         {
             string strPregNew = "nsVPovFETgTaPeS+iEsXJlMal2WvNwfgz9kDZSAyEh//Fqb3wxMHeNTr8rAkklj3"; //PatchNew
-            string strPreg = "W3nmTi15jP53j3sfv0JMlaY16oUK5Qric10i7Hvxl/rNlQPcX2Xehp1/+nMT2mAZ";    //PatchOld
-            if (string.IsNullOrEmpty(textBox2.Text))
-            {
-                MessageBox.Show("Chưa nhập key đăng ký!", "Hệ thống cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
-            }
+            //string strPreg = "W3nmTi15jP53j3sfv0JMlaY16oUK5Qric10i7Hvxl/rNlQPcX2Xehp1/+nMT2mAZ";    //PatchOld
+            if (string.IsNullOrEmpty(textBox2.Text)) MessageBox.Show("Chưa nhập key đăng ký!", "Hệ thống cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
             else
             {
-                string MAU = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-                string _ma = textBox1.Text;
-                int tong = 0;
-                List<int> test = new List<int>();
-                for (int i = 0; i < _ma.Length; i++)
+                if (TienIch.isTrueKey(textBox2.Text))
                 {
-                    for (int j = 0; j < MAU.Length; j++)
-                    {
-                        if (_ma[i].Equals(MAU[j])) { tong += j; test.Add(j); }
-                    }
-                }
-                if (textBox2.Text.Equals(Luu.GKOK[tong]))
-                {
-                    DateTime hientai = DateServer.Date();
+                    DateTime hientai = Utils.GetDateTimeNow(Luu.Server);
                     DateTime tuonglai = hientai.AddYears(2);
                     string now = hientai.Month + "/" + hientai.Day + "/" + hientai.Year;
                     string future = tuonglai.Month + "/" + tuonglai.Day + "/" + tuonglai.Year;
                     //Lưu lại
-                    string key1 = mahoa ? "sk29vnbd2988" : "bd";
-                    string key2 = mahoa ? "ek29vnkt2988" : "kt";
-                    string key3 = mahoa ? "kk29vnkk2988" : "k";
-                    string value_key1 = mahoa ? Klib2.KEnDe.DS(now) : now;
-                    string value_key2 = mahoa ? Klib2.KEnDe.DS(future) : future;
-                    string value_key3 = mahoa ? Klib2.KEnDe.DS(textBox2.Text) : textBox2.Text;
+                    string key1 = "sk29vnbd2988";
+                    string key2 = "ek29vnkt2988";
+                    string key3 = "kk29vnkk2988";
+                    string value_key1 = Klib2.KEnDe.DS(now);
+                    string value_key2 = Klib2.KEnDe.DS(future);
+                    string value_key3 = Klib2.KEnDe.DS(textBox2.Text);
 
                     List<string> l0 = new List<string>() { key1, key2, key3 };
                     List<string> l1 = new List<string>() { value_key1, value_key2, value_key3 };
-                    List<List<string>> l = new List<List<string>>();
-                    l.Add(l0);
-                    l.Add(l1);
+                    List<List<string>> l = new List<List<string>>(); l.Add(l0); l.Add(l1);
                     string bientam = Klib2.KEnDe.MrkKEY; Klib2.KEnDe.MrkKEY = string.Empty;
-                    string SubK = Klib2.KEnDe.ES(mahoa ? strPregNew : strPreg);
+                    string SubK = Klib2.KEnDe.ES(strPregNew);
                     try
                     {
                         Klib2.Registry.SetRegistry(SubK, l);
