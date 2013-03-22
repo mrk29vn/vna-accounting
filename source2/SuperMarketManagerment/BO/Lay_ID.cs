@@ -48,6 +48,8 @@ namespace BizLogic
             }
             Entities.LayID arrC = new Entities.LayID();
             arrC.ID = phandau + "_" + max;
+
+            if (string.IsNullOrEmpty(phandau)) return null;
             //End Fix 14/01/2013
 
             ////Insert Category into ArrayList
