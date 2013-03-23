@@ -153,7 +153,7 @@ namespace BizLogic
                 cn.Close();
                 conn.closeConnection();
             }
-            return arr.ToArray();
+            return arr == null ? null : arr.ToArray();
         }
 
         /// <summary>

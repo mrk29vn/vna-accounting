@@ -20,7 +20,6 @@ namespace Entities
         private string chietKhau;
         private string tongTien;
         private string thuegiatrigiatang;
-
        
         public string HanhDong
         {

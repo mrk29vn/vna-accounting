@@ -1,14 +1,216 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Sockets;
 using System.Linq;
+using System.Net.Sockets;
 using System.Windows.Forms;
+using Entities;
 
 namespace GUI
 {
     public partial class frmXuLyHangHoa : Form
     {
-        #region Khuyen mai thoe so luong
+        #region Khai báo
+        public TcpClient tcpClient;
+        public TcpClient client1;
+        public NetworkStream networkStream;
+        public NetworkStream clientstrem;
+        string maHangHoaMoi;
+        string tenHangHoa, maLoaiHang, maNhomHang, maDVT, maThue, kieuHanghoa, Seri, ghiChu;
+        string giaNhap, giaBanBuon, giaBanLe;
+        int mucTonToiThieu, MucDatHang;
+
+        Entities.QuyDoiDonViTinh[] quidoidvt;
+        Server_Client.Client cl;
+        private string hanhdong;
+        public string Hanhdong
+        {
+            get { return hanhdong; }
+            set { hanhdong = value; }
+        }
+        #endregion
+
+        #region khởi tạo
+        public frmXuLyHangHoa()
+        {
+            InitializeComponent();
+        }
+
+        public frmXuLyHangHoa(string hanhDong)
+        {
+            InitializeComponent();
+
+            if (hanhDong == "Insert")
+            {
+                tssSua.Enabled = false;
+                tabPage3.Enabled = false;
+                tabPage2.Enabled = false;
+                label4.Visible = false;
+                txtSTT.Visible = false;
+                this.Text = "THÊM - HÀNG HÓA";
+                XuLyCombobox();
+            }
+        }
+
+        public frmXuLyHangHoa(string hanhdong, string giatri)
+        {
+            InitializeComponent();
+            this.hanhdong = hanhdong;
+            if (hanhdong == "ThemNhapKho")
+            {
+                XuLyCombobox();
+                tssSua.Enabled = false;
+                tabPage3.Enabled = false;
+                tabPage2.Enabled = false;
+                label4.Visible = false;
+                txtSTT.Visible = false;
+                this.Text = "THÊM - HÀNG HÓA";
+                txtMaHangHoa.Text = giatri;
+                txtMaHangHoa.Focus();
+            }
+        }
+
+        public frmXuLyHangHoa(string hanhDong, DataGridViewRow dgvr)
+        {
+            InitializeComponent();
+
+            XuLyCombobox();
+            txtMaHangHoa.Focus();
+            if (hanhDong == "Insert")
+            {
+                tssSua.Enabled = false;
+                tabPage3.Enabled = false;
+                tabPage2.Enabled = false;
+                label4.Visible = false;
+                txtSTT.Visible = false;
+                this.Text = "THÊM - HÀNG HÓA";
+                if (dgvHienThi.DataSource != null)
+                {
+                    QuyDoiDVT();
+                }
+            }
+            else
+                if (hanhDong == "Update")
+                {
+                    maquydoidvt = ProMaQuyDoi("QuyDoiDonViTinh");
+                    tabPage2.Enabled = true;
+                    this.Text = "SỬA - HÀNG HÓA";
+                    tssThem.Enabled = false;
+                    txtSTT.Enabled = false;
+                    txtMaHangHoa.Enabled = false;
+                    id = dgvr.Cells["HangHoaID"].Value.ToString();
+                    txtSTT.Text = dgvr.Cells[0].Value.ToString();
+                    maHangHoaMoi = txtMaHangHoa.Text = dgvr.Cells["MaHangHoa"].Value.ToString();
+                    cbbLoaiHangHoa.SelectedIndex = cbbLoaiHangHoa_sua(dgvr.Cells["MaNhomHangHoa"].Value.ToString());
+                    Entities.LoaiHangHoa lh = (Entities.LoaiHangHoa)cbbLoaiHangHoa.SelectedItem;
+                    maLoaiHang = lh.MaLoaiHang;
+
+                    cmbMaNhomHangHoa.SelectedIndex = cmbmaMaNhomHangHoa_sua(dgvr.Cells["MaNhomHangHoa"].Value.ToString());
+                    Entities.NhomHang nh = (Entities.NhomHang)cmbMaNhomHangHoa.SelectedItem;
+                    maNhomHang = nh.MaNhomHang;
+
+                    tenHangHoa = txtTenHangHoa.Text = dgvr.Cells["TenHangHoa"].Value.ToString();
+
+                    cmbMaDonViTinh.SelectedIndex = cmbmaDonViTinh_sua(dgvr.Cells["MaDonViTinh"].Value.ToString());
+                    Entities.DVT dvt = (Entities.DVT)cmbMaDonViTinh.SelectedItem;
+                    maDVT = dvt.MaDonViTinh;
+
+                    txtGiaNhap.Text = dgvr.Cells["GiaNhap"].Value.ToString();
+                    giaNhap = txtGiaNhap.Text;
+
+                    txtGiaBanBuon.Text = dgvr.Cells["GiaBanBuon"].Value.ToString();
+                    giaBanBuon = txtGiaBanBuon.Text;
+                    txtGiaBanLe.Text = dgvr.Cells["GiaBanLe"].Value.ToString();
+                    giaBanLe = txtGiaBanLe.Text;
+                    cbbThue.SelectedIndex = cbbThue_sua(dgvr.Cells["MaThueGiaTriGiaTang"].Value.ToString());
+                    Entities.Thue Thue = (Entities.Thue)cbbThue.SelectedItem;
+                    maThue = Thue.MaThue;
+
+                    kieuHanghoa = txtKieuHangHoa.Text = dgvr.Cells["KieuHangHoa"].Value.ToString();
+                    Seri = txtSeri.Text = dgvr.Cells["SeriLo"].Value.ToString();
+                    txtMucDatHang.Text = dgvr.Cells["MucDatHang"].Value.ToString();
+                    MucDatHang = int.Parse(txtMucDatHang.Text);
+                    txtMucTonToiThieu.Text = dgvr.Cells["MucTonToiThieu"].Value.ToString();
+                    mucTonToiThieu = int.Parse(txtMucTonToiThieu.Text);
+                    ghiChu = txtGhiChu.Text = dgvr.Cells["GhiChu"].Value.ToString();
+                    HienThiDgvChinhSachGiaKhuyenMai(dgvr.Cells["MaHangHoa"].Value.ToString());
+                    txtMaCapNhat.Text = LayID("CapNhatGia");
+                    //txtGN.Text = txtGiaNhap.Text;
+                    QuyDoiDVT();
+                }
+        }
+
+        public frmXuLyHangHoa(string hanhDong, HangHoa Input)
+        {
+            InitializeComponent();
+
+            XuLyCombobox();
+            txtMaHangHoa.Focus();
+            if (hanhDong == "Insert")
+            {
+                tssSua.Enabled = false;
+                tabPage3.Enabled = false;
+                tabPage2.Enabled = false;
+                label4.Visible = false;
+                txtSTT.Visible = false;
+                this.Text = "THÊM - HÀNG HÓA";
+                if (dgvHienThi.DataSource != null)
+                {
+                    QuyDoiDVT();
+                }
+            }
+            else
+                if (hanhDong == "Update")
+                {
+                    maquydoidvt = ProMaQuyDoi("QuyDoiDonViTinh");
+                    tabPage2.Enabled = true;
+                    this.Text = "SỬA - HÀNG HÓA";
+                    tssThem.Enabled = false;
+                    txtSTT.Enabled = false;
+                    txtMaHangHoa.Enabled = false;
+                    id = Input.HangHoaID.ToString();
+                    txtSTT.Text = Input.HangHoaID.ToString();
+                    maHangHoaMoi = txtMaHangHoa.Text = Input.MaHangHoa.ToString();
+                    cbbLoaiHangHoa.SelectedIndex = cbbLoaiHangHoa_sua(Input.MaNhomHangHoa.ToString());
+                    Entities.LoaiHangHoa lh = (Entities.LoaiHangHoa)cbbLoaiHangHoa.SelectedItem;
+                    maLoaiHang = lh.MaLoaiHang;
+
+                    cmbMaNhomHangHoa.SelectedIndex = cmbmaMaNhomHangHoa_sua(Input.MaNhomHangHoa.ToString());
+                    Entities.NhomHang nh = (Entities.NhomHang)cmbMaNhomHangHoa.SelectedItem;
+                    maNhomHang = nh.MaNhomHang;
+
+                    tenHangHoa = txtTenHangHoa.Text = Input.TenHangHoa.ToString();
+
+                    cmbMaDonViTinh.SelectedIndex = cmbmaDonViTinh_sua(Input.MaDonViTinh.ToString());
+                    Entities.DVT dvt = (Entities.DVT)cmbMaDonViTinh.SelectedItem;
+                    maDVT = dvt.MaDonViTinh;
+
+                    txtGiaNhap.Text = Input.GiaNhap.ToString();
+                    giaNhap = txtGiaNhap.Text;
+
+                    txtGiaBanBuon.Text = Input.GiaBanBuon.ToString();
+                    giaBanBuon = txtGiaBanBuon.Text;
+                    txtGiaBanLe.Text = Input.GiaBanLe.ToString();
+                    giaBanLe = txtGiaBanLe.Text;
+                    cbbThue.SelectedIndex = cbbThue_sua(Input.MaThueGiaTriGiaTang.ToString());
+                    Entities.Thue Thue = (Entities.Thue)cbbThue.SelectedItem;
+                    maThue = Thue.MaThue;
+
+                    kieuHanghoa = txtKieuHangHoa.Text = Input.KieuHangHoa.ToString();
+                    Seri = txtSeri.Text = Input.SeriLo.ToString();
+                    txtMucDatHang.Text = Input.MucDatHang.ToString();
+                    MucDatHang = int.Parse(txtMucDatHang.Text);
+                    txtMucTonToiThieu.Text = Input.MucTonToiThieu.ToString();
+                    mucTonToiThieu = int.Parse(txtMucTonToiThieu.Text);
+                    ghiChu = txtGhiChu.Text = Input.GhiChu.ToString();
+                    HienThiDgvChinhSachGiaKhuyenMai(Input.MaHangHoa.ToString());
+                    txtMaCapNhat.Text = LayID("CapNhatGia");
+                    //txtGN.Text = txtGiaNhap.Text;
+                    QuyDoiDVT();
+                }
+        }
+        #endregion
+
+        #region Khuyen mai theo so luong
         Entities.KhuyenMaiSoLuong[] source = null;
 
         /// <summary>
@@ -220,9 +422,7 @@ namespace GUI
                 txtKMGiaBanBuon.Text = item.GiaBanBuon.ToString();
                 txtKMGiaBanLe.Text = item.GiaBanLe.ToString();
             }
-            catch
-            {
-            }
+            catch { }
         }
 
         /// <summary>
@@ -467,21 +667,11 @@ namespace GUI
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void txtKMGiaBanLe_TextChanged(object sender, EventArgs e)
         {
             new TienIch().AutoFormatMoney(sender);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void txtKMGiaBanBuon_TextChanged(object sender, EventArgs e)
         {
             new TienIch().AutoFormatMoney(sender);
@@ -492,27 +682,31 @@ namespace GUI
         /// </summary>
         public void Fix()
         {
-            grvKhuyenMaiSL.RowHeadersVisible = false;
-            grvKhuyenMaiSL.Columns[0].Visible = false;
-            grvKhuyenMaiSL.Columns[grvKhuyenMaiSL.ColumnCount - 1].Visible = false;
-            grvKhuyenMaiSL.AllowUserToResizeRows = false;
-            grvKhuyenMaiSL.MultiSelect = false;
-            grvKhuyenMaiSL.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            grvKhuyenMaiSL.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            grvKhuyenMaiSL.ReadOnly = true;
-            grvKhuyenMaiSL.Columns["ID"].Visible = false;
-            grvKhuyenMaiSL.Columns["MaHangHoa"].Visible = false;
-            grvKhuyenMaiSL.Columns["TenHangHoa"].Visible = false;
-            grvKhuyenMaiSL.Columns["GiaBanLe"].Visible = true;
+            try
+            {
+                grvKhuyenMaiSL.RowHeadersVisible = false;
+                grvKhuyenMaiSL.Columns[0].Visible = false;
+                grvKhuyenMaiSL.Columns[grvKhuyenMaiSL.ColumnCount - 1].Visible = false;
+                grvKhuyenMaiSL.AllowUserToResizeRows = false;
+                grvKhuyenMaiSL.MultiSelect = false;
+                grvKhuyenMaiSL.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                grvKhuyenMaiSL.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+                grvKhuyenMaiSL.ReadOnly = true;
+                grvKhuyenMaiSL.Columns["ID"].Visible = false;
+                grvKhuyenMaiSL.Columns["MaHangHoa"].Visible = false;
+                grvKhuyenMaiSL.Columns["TenHangHoa"].Visible = false;
+                grvKhuyenMaiSL.Columns["GiaBanLe"].Visible = true;
 
-            grvKhuyenMaiSL.Columns["NgayBatDau"].DefaultCellStyle.Format = "dd/MM/yyyy";
-            grvKhuyenMaiSL.Columns["NgayBatDau"].HeaderText = "Ngày Bắt Đầu";
-            grvKhuyenMaiSL.Columns["NgayKetThuc"].DefaultCellStyle.Format = "dd/MM/yyyy";
-            grvKhuyenMaiSL.Columns["NgayKetThuc"].HeaderText = "Ngày Kết Thúc";
-            grvKhuyenMaiSL.Columns["GiaBanBuon"].HeaderText = "Giá Bán Buôn";
-            grvKhuyenMaiSL.Columns["GiaBanLe"].HeaderText = "Giá Bán Lẻ";
-            grvKhuyenMaiSL.Columns["SoLuong"].HeaderText = "Số Lượng Khuyến Mại";
-            new Common.Utilities().CountDatagridview(grvKhuyenMaiSL);
+                grvKhuyenMaiSL.Columns["NgayBatDau"].DefaultCellStyle.Format = "dd/MM/yyyy";
+                grvKhuyenMaiSL.Columns["NgayBatDau"].HeaderText = "Ngày Bắt Đầu";
+                grvKhuyenMaiSL.Columns["NgayKetThuc"].DefaultCellStyle.Format = "dd/MM/yyyy";
+                grvKhuyenMaiSL.Columns["NgayKetThuc"].HeaderText = "Ngày Kết Thúc";
+                grvKhuyenMaiSL.Columns["GiaBanBuon"].HeaderText = "Giá Bán Buôn";
+                grvKhuyenMaiSL.Columns["GiaBanLe"].HeaderText = "Giá Bán Lẻ";
+                grvKhuyenMaiSL.Columns["SoLuong"].HeaderText = "Số Lượng Khuyến Mại";
+                new Common.Utilities().CountDatagridview(grvKhuyenMaiSL);
+            }
+            catch { }
         }
 
         /// <summary>
@@ -527,14 +721,9 @@ namespace GUI
             {
                 if (source == null)
                     return null;
-                // sap xep
                 retVal = source.OrderBy(c => c.SoLuong).ToArray();
             }
-            catch
-            {
-                retVal = null;
-            }
-
+            catch { retVal = null; }
             return retVal;
         }
 
@@ -643,129 +832,10 @@ namespace GUI
 
         #endregion
 
-
         //Phần Xử Lý Tab Hàng Hóa
         #region Phần Hàng Hóa
-        //Phần Khai Báo
+
         #region Khai Báo
-        public TcpClient tcpClient;
-        public TcpClient client1;
-        public NetworkStream networkStream;
-        public NetworkStream clientstrem;
-        string maHangHoaMoi;
-        string tenHangHoa, maLoaiHang, maNhomHang, maDVT, maThue, kieuHanghoa, Seri, ghiChu;
-        string giaNhap, giaBanBuon, giaBanLe;
-        int mucTonToiThieu, MucDatHang;
-
-        public frmXuLyHangHoa(string hanhDong)
-        {
-            InitializeComponent();
-
-            if (hanhDong == "Insert")
-            {
-                tssSua.Enabled = false;
-                tabPage3.Enabled = false;
-                tabPage2.Enabled = false;
-                label4.Visible = false;
-                txtSTT.Visible = false;
-                this.Text = "THÊM - HÀNG HÓA";
-                XuLyCombobox();
-            }
-        }
-        Entities.QuyDoiDonViTinh[] quidoidvt;
-        Server_Client.Client cl;
-        private string hanhdong;
-        public string Hanhdong
-        {
-            get { return hanhdong; }
-            set { hanhdong = value; }
-        }
-        public frmXuLyHangHoa(string hanhdong, string giatri)
-        {
-            InitializeComponent();
-            this.hanhdong = hanhdong;
-            if (hanhdong == "ThemNhapKho")
-            {
-                XuLyCombobox();
-                tssSua.Enabled = false;
-                tabPage3.Enabled = false;
-                tabPage2.Enabled = false;
-                label4.Visible = false;
-                txtSTT.Visible = false;
-                this.Text = "THÊM - HÀNG HÓA";
-                txtMaHangHoa.Text = giatri;
-                txtMaHangHoa.Focus();
-            }
-        }
-        public frmXuLyHangHoa(string hanhDong, DataGridViewRow dgvr)
-        {
-            InitializeComponent();
-
-            XuLyCombobox();
-            txtMaHangHoa.Focus();
-            if (hanhDong == "Insert")
-            {
-                tssSua.Enabled = false;
-                tabPage3.Enabled = false;
-                tabPage2.Enabled = false;
-                label4.Visible = false;
-                txtSTT.Visible = false;
-                this.Text = "THÊM - HÀNG HÓA";
-                if (dgvHienThi.DataSource != null)
-                {
-                    QuyDoiDVT();
-                }
-            }
-            else
-                if (hanhDong == "Update")
-                {
-                    maquydoidvt = ProMaQuyDoi("QuyDoiDonViTinh");
-                    tabPage2.Enabled = true;
-                    this.Text = "SỬA - HÀNG HÓA";
-                    tssThem.Enabled = false;
-                    txtSTT.Enabled = false;
-                    txtMaHangHoa.Enabled = false;
-                    id = dgvr.Cells["HangHoaID"].Value.ToString();
-                    txtSTT.Text = dgvr.Cells[0].Value.ToString();
-                    maHangHoaMoi = txtMaHangHoa.Text = dgvr.Cells["MaHangHoa"].Value.ToString();
-                    cbbLoaiHangHoa.SelectedIndex = cbbLoaiHangHoa_sua(dgvr.Cells["MaNhomHangHoa"].Value.ToString());
-                    Entities.LoaiHangHoa lh = (Entities.LoaiHangHoa)cbbLoaiHangHoa.SelectedItem;
-                    maLoaiHang = lh.MaLoaiHang;
-
-                    cmbMaNhomHangHoa.SelectedIndex = cmbmaMaNhomHangHoa_sua(dgvr.Cells["MaNhomHangHoa"].Value.ToString());
-                    Entities.NhomHang nh = (Entities.NhomHang)cmbMaNhomHangHoa.SelectedItem;
-                    maNhomHang = nh.MaNhomHang;
-
-                    tenHangHoa = txtTenHangHoa.Text = dgvr.Cells["TenHangHoa"].Value.ToString();
-
-                    cmbMaDonViTinh.SelectedIndex = cmbmaDonViTinh_sua(dgvr.Cells["MaDonViTinh"].Value.ToString());
-                    Entities.DVT dvt = (Entities.DVT)cmbMaDonViTinh.SelectedItem;
-                    maDVT = dvt.MaDonViTinh;
-
-                    txtGiaNhap.Text = dgvr.Cells["GiaNhap"].Value.ToString();
-                    giaNhap = txtGiaNhap.Text;
-
-                    txtGiaBanBuon.Text = dgvr.Cells["GiaBanBuon"].Value.ToString();
-                    giaBanBuon = txtGiaBanBuon.Text;
-                    txtGiaBanLe.Text = dgvr.Cells["GiaBanLe"].Value.ToString();
-                    giaBanLe = txtGiaBanLe.Text;
-                    cbbThue.SelectedIndex = cbbThue_sua(dgvr.Cells["MaThueGiaTriGiaTang"].Value.ToString());
-                    Entities.Thue Thue = (Entities.Thue)cbbThue.SelectedItem;
-                    maThue = Thue.MaThue;
-
-                    kieuHanghoa = txtKieuHangHoa.Text = dgvr.Cells["KieuHangHoa"].Value.ToString();
-                    Seri = txtSeri.Text = dgvr.Cells["SeriLo"].Value.ToString();
-                    txtMucDatHang.Text = dgvr.Cells["MucDatHang"].Value.ToString();
-                    MucDatHang = int.Parse(txtMucDatHang.Text);
-                    txtMucTonToiThieu.Text = dgvr.Cells["MucTonToiThieu"].Value.ToString();
-                    mucTonToiThieu = int.Parse(txtMucTonToiThieu.Text);
-                    ghiChu = txtGhiChu.Text = dgvr.Cells["GhiChu"].Value.ToString();
-                    HienThiDgvChinhSachGiaKhuyenMai(dgvr.Cells["MaHangHoa"].Value.ToString());
-                    txtMaCapNhat.Text = LayID("CapNhatGia");
-                    //txtGN.Text = txtGiaNhap.Text;
-                    QuyDoiDVT();
-                }
-        }
 
         public void QuyDoiDVT()
         {
@@ -899,10 +969,7 @@ namespace GUI
             finally { }
         }
 
-        public frmXuLyHangHoa()
-        {
-            InitializeComponent();
-        }
+        
 
         //Hiển thị dữ liệu khi load
         private void frmXuLyHangHoa_Load(object sender, EventArgs e)

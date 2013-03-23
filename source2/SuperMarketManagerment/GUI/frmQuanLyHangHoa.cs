@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Windows.Forms;
 using System.Linq;
-
+using Entities;
 
 namespace GUI
 {
@@ -15,6 +15,8 @@ namespace GUI
         public NetworkStream networkStream;
 
         Entities.HangHoa[] MANG = new Entities.HangHoa[0];
+
+        HangHoa selectHangHoa = new HangHoa();
         #endregion
 
         #region Khởi Tạo

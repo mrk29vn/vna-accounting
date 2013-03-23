@@ -31,15 +31,13 @@ namespace BizLogic
             cn = null;
         }
         //Entities
-        public Entities.HangHoa[] sp_SelectHangHoasAll()
+        public Entities.HangHoa[] sp_SelectHangHoasAll(Entities.HangHoa input)
         {
             List<Entities.HangHoa> l = new List<Entities.HangHoa>();
             try
             {
                 cn = new Connection().openConnection();
                 cmd = new SqlCommand("exec sp_HangHoaFIX @ThaoTac,@MaHangHoa,@MaNhomHangHoa,@TenHangHoa,@MaDonViTinh,@GiaNhap,@GiaBanBuon,@GiaBanLe,@MaThueGiaTriGiaTang,@KieuHangHoa,@SeriLo,@MucDatHang,@MucTonToiThieu,@GhiChu,@Deleted", cn);
-                Entities.HangHoa input = new Entities.HangHoa();
-                input.ThaoTac = "select";
                 cmd.Parameters.Add("ThaoTac", SqlDbType.NVarChar).Value = input.ThaoTac;
                 cmd.Parameters.Add("MaHangHoa", SqlDbType.VarChar).Value = input.MaHangHoa;
                 cmd.Parameters.Add("MaNhomHangHoa", SqlDbType.NVarChar).Value = input.MaNhomHangHoa;
@@ -141,13 +139,19 @@ namespace BizLogic
             return l.ToArray();
         }
 
-        public Entities.HangHoa[] Select()
-        {
-            return sp_SelectHangHoasAll();
-        }
         public Entities.HangHoa[] SelectAll()
         {
-            return sp_SelectHangHoasAll();
+            Entities.HangHoa temp = new Entities.HangHoa(); temp.ThaoTac = "select";
+            return sp_SelectHangHoasAll(temp);
+        }
+        public Entities.HangHoa[] Select()
+        {
+            return SelectAll();
+        }
+        public Entities.HangHoa[] SelectHangHoa_Theo_MaHangHoa(string mahanghoa)
+        {
+            Entities.HangHoa temp = new Entities.HangHoa(); temp.ThaoTac = "select_TheoMaHangHoa"; temp.MaHangHoa = mahanghoa.ToUpper();
+            return sp_SelectHangHoasAll(temp);
         }
         public string LayNhomHangHoa(string MaNH)
         {

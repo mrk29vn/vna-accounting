@@ -5343,13 +5343,19 @@ namespace Server_Client
                     }
                 case "Select":
                     {
-                        Entities.HangHoa[] hhoa = new BizLogic.HangHoa().sp_SelectHangHoasAll();
+                        Entities.HangHoa[] hhoa = new BizLogic.HangHoa().SelectAll();
                         formatter.Serialize(clientStream, hhoa);
                         break;
                     }
                 case "SelectAll":
                     {
                         Entities.HangHoa[] hhoa = new BizLogic.HangHoa().SelectAll();
+                        formatter.Serialize(clientStream, hhoa);
+                        break;
+                    }
+                case "SelectHangHoa_Theo_MaHangHoa":
+                    {
+                        Entities.HangHoa[] hhoa = new BizLogic.HangHoa().SelectHangHoa_Theo_MaHangHoa(hh.MaHangHoa);
                         formatter.Serialize(clientStream, hhoa);
                         break;
                     }
