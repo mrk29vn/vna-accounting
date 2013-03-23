@@ -1,12 +1,14 @@
-﻿USE master
- IF EXISTS (SELECT * FROM sysdatabases WHERE name = 'SupermarketManagementDHT')
- DROP DATABASE SupermarketManagementDHT
+﻿USE MASTER
+ IF EXISTS (SELECT * FROM SYSDATABASES WHERE name = 'SupermarketManagementDHT')
+	BEGIN
+	ALTER DATABASE SupermarketManagementDHT SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+	ALTER DATABASE SupermarketManagementDHT SET MULTI_USER;
+	DROP DATABASE SupermarketManagementDHT
+	END
 GO
----create database
-create database SupermarketManagementDHT
-go
-use SupermarketManagementDHT
-
+CREATE DATABASE SupermarketManagementDHT
+GO
+USE SupermarketManagementDHT
 --                          Khuyen mai theo so luong
 go
 create table KhuyenMaiSoLuong
