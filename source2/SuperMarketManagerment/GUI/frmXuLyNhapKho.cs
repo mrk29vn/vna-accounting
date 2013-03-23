@@ -67,7 +67,7 @@ namespace GUI
                     cbxHinhthucthanhtoan.SelectedIndex = 0;
                     toolStrip_txtNgayhethan.Text = this.Date.ToString("dd/MM/yyyy");
                     toolStripStatus_Themmoi.Enabled = true;
-                    Application.OpenForms[fr.Name].Text = "Thêm đơn nhập kho - F3 Thanh toán - F6 sửa hàng hóa";
+                    Application.OpenForms[fr.Name].Text = "Thêm đơn nhập kho - F3 Thanh toán - F6 sửa hàng hóa - F9 Sửa giá hàng hóa";
                     Entities.HienThi_ChiTiet_DonDatHang[] lay = new Entities.HienThi_ChiTiet_DonDatHang[0];
                     dgvInsertOrder.DataSource = null;
                     dgvInsertOrder.DataSource = lay;
@@ -118,7 +118,7 @@ namespace GUI
                     txtManhacungcap.ReadOnly = true;
                     btnTimnhacungcap.Enabled = false;
                     toolStripStatus_Themmoi.Enabled = false;
-                    Application.OpenForms[fr.Name].Text = "Quản lý hóa đơn nhập - Xem hóa đơn nhập <Enter - Thêm hàng hóa, F3 - Thanh toán>";
+                    Application.OpenForms[fr.Name].Text = "Quản lý hóa đơn nhập - Xem hóa đơn nhập <Enter - Thêm hàng hóa, F3 - Thanh toán  - F9 Sửa giá hàng hóa>";
                     DoDuLieu(this.hoadon);
                     toolStripStatus_In.Enabled = true;
                 }
@@ -1784,7 +1784,7 @@ namespace GUI
             {
                 if (chekChonLoai.Checked == false)
                 {
-                    Application.OpenForms[this.Name].Text = "Thêm đơn nhập kho - F3 Thanh toán - F6 sửa hàng hóa";
+                    Application.OpenForms[this.Name].Text = "Thêm đơn nhập kho - F3 Thanh toán - F6 sửa hàng hóa - F9 sửa giá hàng hóa";
                     dgvInsertOrder.DataSource = null;
                     Entities.HienThi_ChiTiet_DonDatHang[] row = new Entities.HienThi_ChiTiet_DonDatHang[0];
                     dgvInsertOrder.DataSource = row;
@@ -1798,7 +1798,7 @@ namespace GUI
                 }
                 if (chekChonLoai.Checked == true)
                 {
-                    Application.OpenForms[this.Name].Text = "Thêm đơn nhập kho - F3 Thanh toán";
+                    Application.OpenForms[this.Name].Text = "Thêm đơn nhập kho - F3 Thanh toán - F9 Sửa giá hàng hóa";
                     txtMadondathang.ReadOnly = false;
                     btnTimMadatmuahang.Enabled = true;
                     //toolStrip_btnThem.Enabled = false;
