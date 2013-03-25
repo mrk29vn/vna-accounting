@@ -54,7 +54,7 @@ namespace GUI
             if (string.IsNullOrEmpty(select)) select = "server";
             DateTime dateTime = new DateTime(1753, 1, 1);
             //check kết nối mạng
-            if (Klib2.InternetConnection.IsConnectedToInternet()) dateTime = Klib2.KUtilsTime.GetTimeInternet();
+            //if (Klib2.InternetConnection.IsConnectedToInternet()) dateTime = Klib2.KUtilsTime.GetTimeInternet();
             bool a = dateTime.Date == (new DateTime(1753, 1, 1)).Date;
             bool b = dateTime.Date == (new DateTime()).Date;
             bool c = a || b;
