@@ -45,12 +45,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_0EF85AA109EE44A6A40D98D785E9F4E4"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_11DA069E4DC04B0EA9B7538531CC7E33"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -303,6 +297,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_5B96B664785146E4B08DFA9727B3E70A"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_5D174DD817674CC2800440CAF1E74522"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -376,13 +376,13 @@
         "Entry"
         {
         "MsmKey" = "8:_701A05BE42838707100A3ED8A95FAFCD"
-        "OwnerKey" = "8:_9419B7D34B65456A9826339F536408F5"
+        "OwnerKey" = "8:_868767DEF76677FF1CDC546574D59D89"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_701A05BE42838707100A3ED8A95FAFCD"
-        "OwnerKey" = "8:_868767DEF76677FF1CDC546574D59D89"
+        "OwnerKey" = "8:_9419B7D34B65456A9826339F536408F5"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -406,13 +406,7 @@
         "Entry"
         {
         "MsmKey" = "8:_7B0528F274AAA2D5D47510149DB64E9F"
-        "OwnerKey" = "8:_580D26B68A2FB2833B88178D67909503"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_7B0528F274AAA2D5D47510149DB64E9F"
-        "OwnerKey" = "8:_9419B7D34B65456A9826339F536408F5"
+        "OwnerKey" = "8:_868767DEF76677FF1CDC546574D59D89"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -424,13 +418,13 @@
         "Entry"
         {
         "MsmKey" = "8:_7B0528F274AAA2D5D47510149DB64E9F"
-        "OwnerKey" = "8:_868767DEF76677FF1CDC546574D59D89"
+        "OwnerKey" = "8:_9419B7D34B65456A9826339F536408F5"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_7B81A155D5F540AD9182C534BC6862D3"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_7B0528F274AAA2D5D47510149DB64E9F"
+        "OwnerKey" = "8:_580D26B68A2FB2833B88178D67909503"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -885,6 +879,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_FEE83D12673B4091BF25AAE6704970B4"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_9419B7D34B65456A9826339F536408F5"
         "MsmSig" = "8:_UNDEFINED"
@@ -892,49 +892,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_580D26B68A2FB2833B88178D67909503"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_BA2F872D447362A686D952CE83453324"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_39B67B61CABE9761D3CD71EEDCFCC06E"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_E50AE63724F7F53E554DF35CAFB3D7B6"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_FB7CF5EBA09039EEBB2570F0753B858F"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_6B00E8770689FEBC8833C75BCE402AD6"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_868767DEF76677FF1CDC546574D59D89"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_701A05BE42838707100A3ED8A95FAFCD"
+        "OwnerKey" = "8:_16CC19B57A527088F46D5F85E8A00969"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -946,7 +904,49 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_16CC19B57A527088F46D5F85E8A00969"
+        "OwnerKey" = "8:_701A05BE42838707100A3ED8A95FAFCD"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_868767DEF76677FF1CDC546574D59D89"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_6B00E8770689FEBC8833C75BCE402AD6"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_FB7CF5EBA09039EEBB2570F0753B858F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_E50AE63724F7F53E554DF35CAFB3D7B6"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_39B67B61CABE9761D3CD71EEDCFCC06E"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_BA2F872D447362A686D952CE83453324"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_580D26B68A2FB2833B88178D67909503"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -1130,26 +1130,6 @@
             "TargetName" = "8:banle.png"
             "Tag" = "8:"
             "Folder" = "8:_13E849AC527A4538A2B3C89E1B704948"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0EF85AA109EE44A6A40D98D785E9F4E4"
-            {
-            "SourcePath" = "8:..\\..\\..\\..\\Release04062012\\Setup_DHT\\Database\\SupermarketManagementDHT_log.LDF"
-            "TargetName" = "8:SupermarketManagementDHT_log.LDF"
-            "Tag" = "8:"
-            "Folder" = "8:_638F39520B094CE89FE86B7F784F59BE"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -2002,6 +1982,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5B96B664785146E4B08DFA9727B3E70A"
+            {
+            "SourcePath" = "8:G:\\New folder (2)\\SupermarketManagementDHT.mdf"
+            "TargetName" = "8:SupermarketManagementDHT.mdf"
+            "Tag" = "8:"
+            "Folder" = "8:_638F39520B094CE89FE86B7F784F59BE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5D174DD817674CC2800440CAF1E74522"
             {
             "SourcePath" = "8:..\\GUI\\bin\\Debug\\Images\\BC\\bcxntloaihang1.png"
@@ -2298,26 +2298,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7B81A155D5F540AD9182C534BC6862D3"
-            {
-            "SourcePath" = "8:..\\..\\..\\..\\Release04062012\\Setup_DHT\\Database\\SupermarketManagementDHT.mdf"
-            "TargetName" = "8:SupermarketManagementDHT.mdf"
-            "Tag" = "8:"
-            "Folder" = "8:_638F39520B094CE89FE86B7F784F59BE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7BEC9B306B6D403EB308B982450D9D8E"
@@ -3790,6 +3770,26 @@
             "TargetName" = "8:bctonkho1.png"
             "Tag" = "8:"
             "Folder" = "8:_13E849AC527A4538A2B3C89E1B704948"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FEE83D12673B4091BF25AAE6704970B4"
+            {
+            "SourcePath" = "8:G:\\New folder (2)\\SupermarketManagementDHT_log.LDF"
+            "TargetName" = "8:SupermarketManagementDHT_log.LDF"
+            "Tag" = "8:"
+            "Folder" = "8:_638F39520B094CE89FE86B7F784F59BE"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
