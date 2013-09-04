@@ -2876,7 +2876,7 @@ namespace GUI
         
         private void txtCKTienMat_TextChanged(object sender, EventArgs e)
         {
-            new TienIch().AutoFormatMoney(sender);
+            //new TienIch().AutoFormatMoney(sender);
         }
 
         void TinhTongTienHangTrongBanLe()
@@ -2913,29 +2913,29 @@ namespace GUI
             }
         }
 
-        double _cktienmat = 0;
+        //double _cktienmat = 0;
         private void txtCKTienMat_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                try
-                {
-                    //Chiết khấu tiền mặt -> double
-                    double ckTienMat = double.Parse(txtCKTienMat.Text);
-                    double tongtien = double.Parse(this.tongtien);
+            //if (e.KeyCode == Keys.Enter)
+            //{
+            //    try
+            //    {
+            //        //Chiết khấu tiền mặt -> double
+            //        double ckTienMat = double.Parse(txtCKTienMat.Text);
+            //        double tongtien = double.Parse(this.tongtien);
 
-                    double chenhlech = _cktienmat - ckTienMat;  //tiền hiện tại - tiền trước đó
-                    _cktienmat = ckTienMat; //lưu hiện tại
+            //        double chenhlech = _cktienmat - ckTienMat;  //tiền hiện tại - tiền trước đó
+            //        _cktienmat = ckTienMat; //lưu hiện tại
 
-                    txtTongtien.Text = new Common.Utilities().FormatMoney(tongtien + chenhlech);
-                    txtKhachPhaiTra.Text = txtTongtien.Text;
-                    this.tongtien = txtTongtien.Text;
+            //        txtTongtien.Text = new Common.Utilities().FormatMoney(tongtien + chenhlech);
+            //        txtKhachPhaiTra.Text = txtTongtien.Text;
+            //        this.tongtien = txtTongtien.Text;
 
-                    txtkhachtra.Focus();
-                    txtkhachtra.SelectAll();
-                }
-                catch { }
-            }
+            //        txtkhachtra.Focus();
+            //        txtkhachtra.SelectAll();
+            //    }
+            //    catch { }
+            //}
         }
     }
 }

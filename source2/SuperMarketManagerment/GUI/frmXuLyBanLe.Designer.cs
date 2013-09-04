@@ -55,6 +55,8 @@
             this.lblMakhachhang = new System.Windows.Forms.Label();
             this.lblSochungtu = new System.Windows.Forms.Label();
             this.palXem = new System.Windows.Forms.Panel();
+            this.txtCKTienMat = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.txtGTTheGT = new System.Windows.Forms.TextBox();
             this.txtMaTheGT = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -98,8 +100,6 @@
             this.tsslgtgt = new System.Windows.Forms.ToolStripTextBox();
             this.toolStrip_btnThem = new System.Windows.Forms.ToolStripButton();
             this.timerRun = new System.Windows.Forms.Timer(this.components);
-            this.txtCKTienMat = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.palNhap.SuspendLayout();
             this.palXem.SuspendLayout();
@@ -435,6 +435,32 @@
             this.palXem.Name = "palXem";
             this.palXem.Size = new System.Drawing.Size(839, 486);
             this.palXem.TabIndex = 456;
+            // 
+            // txtCKTienMat
+            // 
+            this.txtCKTienMat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtCKTienMat.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCKTienMat.Location = new System.Drawing.Point(213, 437);
+            this.txtCKTienMat.Name = "txtCKTienMat";
+            this.txtCKTienMat.Size = new System.Drawing.Size(235, 22);
+            this.txtCKTienMat.TabIndex = 37;
+            this.txtCKTienMat.TabStop = false;
+            this.txtCKTienMat.Text = "0";
+            this.txtCKTienMat.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtCKTienMat.Visible = false;
+            this.txtCKTienMat.TextChanged += new System.EventHandler(this.txtCKTienMat_TextChanged);
+            this.txtCKTienMat.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCKTienMat_KeyDown);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(96, 440);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(112, 15);
+            this.label7.TabIndex = 38;
+            this.label7.Text = "Chiết khấu tiền mặt:";
+            this.label7.Visible = false;
             // 
             // txtGTTheGT
             // 
@@ -929,30 +955,6 @@
             // 
             this.timerRun.Interval = 1000;
             this.timerRun.Tick += new System.EventHandler(this.timerRun_Tick);
-            // 
-            // txtCKTienMat
-            // 
-            this.txtCKTienMat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtCKTienMat.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCKTienMat.Location = new System.Drawing.Point(213, 437);
-            this.txtCKTienMat.Name = "txtCKTienMat";
-            this.txtCKTienMat.Size = new System.Drawing.Size(235, 22);
-            this.txtCKTienMat.TabIndex = 37;
-            this.txtCKTienMat.TabStop = false;
-            this.txtCKTienMat.Text = "0";
-            this.txtCKTienMat.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtCKTienMat.TextChanged += new System.EventHandler(this.txtCKTienMat_TextChanged);
-            this.txtCKTienMat.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCKTienMat_KeyDown);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(96, 440);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(112, 15);
-            this.label7.TabIndex = 38;
-            this.label7.Text = "Chiết khấu tiền mặt:";
             // 
             // frmXuLyBanLe
             // 
