@@ -5,8 +5,8 @@ using System.Text;
 
 namespace Entities
 {
-     [Serializable]
-  public  class Barcode
+    [Serializable]
+    public class Barcode
     {
         private string maHangHoa;
         private string tenHangHoa;
@@ -25,23 +25,24 @@ namespace Entities
             get { return donGia; }
             set { donGia = value; }
         }
+
         public byte[] MaVach
         {
             get { return maVach; }
             set { maVach = value; }
         }
-       
+
         public string TenHangHoa
         {
             get { return tenHangHoa; }
             set { tenHangHoa = value; }
         }
-       
+
         public string MaHangHoa
         {
             get { return maHangHoa; }
             set { maHangHoa = value; }
         }
-         
+
     }
 }
