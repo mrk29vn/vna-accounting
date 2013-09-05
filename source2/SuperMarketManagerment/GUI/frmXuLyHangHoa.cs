@@ -106,7 +106,7 @@ namespace GUI
 
                     cmbMaNhomHangHoa.SelectedIndex = cmbmaMaNhomHangHoa_sua(dgvr.Cells["MaNhomHangHoa"].Value.ToString());
                     Entities.NhomHang nh = (Entities.NhomHang)cmbMaNhomHangHoa.SelectedItem;
-                    maNhomHang = nh.MaNhomHang;
+                    maNhomHang = nh == null ? maNhomHang : nh.MaNhomHang;
 
                     tenHangHoa = txtTenHangHoa.Text = dgvr.Cells["TenHangHoa"].Value.ToString();
 
@@ -969,7 +969,7 @@ namespace GUI
             finally { }
         }
 
-        
+
 
         //Hiển thị dữ liệu khi load
         private void frmXuLyHangHoa_Load(object sender, EventArgs e)
@@ -1060,9 +1060,7 @@ namespace GUI
             }
 
             try
-            {
-                float.Parse(txtGiaNhap.Text);
-            }
+            { float.Parse(txtGiaNhap.Text); }
             catch
             {
                 kt2 = "Bạn đã nhập sai định dang Giá Nhập - Hãy Nhập Số";
@@ -1072,9 +1070,7 @@ namespace GUI
             }
 
             try
-            {
-                float.Parse(txtGiaBanBuon.Text);
-            }
+            { float.Parse(txtGiaBanBuon.Text); }
             catch
             {
                 kt2 = "Bạn đã nhập sai định dang Giá Bán Buôn - Hãy Nhập Số";
@@ -1082,10 +1078,9 @@ namespace GUI
                 MessageBox.Show(kt2, "Hệ Thống Cảnh Báo");
                 return false;
             }
+
             try
-            {
-                float.Parse(txtGiaBanLe.Text);
-            }
+            { float.Parse(txtGiaBanLe.Text); }
             catch
             {
                 kt2 = "Bạn đã nhập sai định dang Giá Bán Lẻ - Hãy Nhập Số";
@@ -1093,19 +1088,28 @@ namespace GUI
                 MessageBox.Show(kt2, "Hệ Thống Cảnh Báo");
                 return false;
             }
-            //if (double.Parse(txtGiaBanBuon.Text) > double.Parse(txtGiaBanLe.Text))
-            //{
-            //    MessageBox.Show("Giá buôn không thể lớn hơn Giá lẻ", "Hệ thống cảnh báo");
-            //    return false;
-            //}
-            //if (double.Parse(txtGiaBanBuon.Text) < double.Parse(txtGiaNhap.Text))
-            //{
-            //    MessageBox.Show("Giá buôn không thể nhỏ hơn Giá nhập", "Hệ thống cảnh báo");
-            //    return false;
-            //}
-            if (cbbLoaiHangHoa.DataSource == null || cbbThue.DataSource == null || cmbMaDonViTinh.DataSource == null || cmbMaNhomHangHoa.DataSource == null)
+
+            if (cbbLoaiHangHoa.DataSource == null)
             {
-                MessageBox.Show("Chưa có dữ liệu trong Cơ sở dữ liệu(DataBase)", "Hệ thống cảnh báo");
+                MessageBox.Show("Chưa có dữ liệu về LOẠI HÀNG HÓA", "Hệ thống cảnh báo");
+                return false;
+            }
+
+            if (cmbMaNhomHangHoa.DataSource == null)
+            {
+                MessageBox.Show("Chưa có dữ liệu về NHÓM HÀNG HÓA", "Hệ thống cảnh báo");
+                return false;
+            }
+
+            if (cmbMaDonViTinh.DataSource == null)
+            {
+                MessageBox.Show("Chưa có dữ liệu về ĐƠN VỊ TÍNH", "Hệ thống cảnh báo");
+                return false;
+            }
+
+            if (cbbThue.DataSource == null)
+            {
+                MessageBox.Show("Chưa có dữ liệu về THUẾ GTGT", "Hệ thống cảnh báo");
                 return false;
             }
 
@@ -1592,12 +1596,10 @@ namespace GUI
         public int cmbmaMaNhomHangHoa_sua(string maNH)
         {
             Entities.NhomHang[] pb = (Entities.NhomHang[])cmbMaNhomHangHoa.DataSource;
+            if (pb == null) return -1;
             for (int i = 0; i < pb.Length; i++)
             {
-                if (pb[i].MaNhomHang == maNH)
-                {
-                    return i;
-                }
+                if (pb[i].MaNhomHang == maNH) return i;
             }
             return -1;
         }

@@ -2434,11 +2434,7 @@ namespace GUI
             this.Enabled = false;
             try
             {
-                string khachtra = "0";
-                if (txtkhachtra.Text == "")
-                    khachtra = "0";
-                else
-                    khachtra = txtkhachtra.Text;
+                string khachtra = string.IsNullOrEmpty(txtkhachtra.Text) ? "0" : txtkhachtra.Text;
                 frmBaoCaorpt bcrpt = new frmBaoCaorpt("HDBanLe", txtSochungtu.Text, Double.Parse(txtGiamgia.Text), khachtra, txtdutra.Text, txtKhachPhaiTra.Text, txtGTGT.Text, lbnhanvien.Text, "kin", mskngaychungtu.Text, txtGTTheVip.Text, txtGTTheGT.Text, "", txtChietkhau.Text, "", "", "");
                 bcrpt.ShowDialog();
             }
@@ -2873,7 +2869,7 @@ namespace GUI
             }
         }
 
-        
+
         private void txtCKTienMat_TextChanged(object sender, EventArgs e)
         {
             //new TienIch().AutoFormatMoney(sender);

@@ -2083,7 +2083,9 @@ namespace GUI
                                 report.SetParameterValue("giatrithe", new Common.Utilities().FormatMoney(double.Parse(giatrithe)));
                                 report.SetParameterValue("GiaTriTheGT", new Common.Utilities().FormatMoney(double.Parse(giaTriTheGT)));
                                 report.SetParameterValue("ChietKhauTongHD", new Common.Utilities().FormatMoney(Convert.ToDouble(chietKhauTongHD)));
-                                report.SetParameterValue("KhachTra", new Common.Utilities().FormatMoney(double.Parse(thanhTien)));
+                                report.SetParameterValue("TienTra", new Common.Utilities().FormatMoney(double.Parse(thanhTien)));
+                                report.SetParameterValue("KhachTra", new Common.Utilities().FormatMoney(double.Parse(khachTra)));
+                                report.SetParameterValue("SoDu", new Common.Utilities().FormatMoney(double.Parse(soDU)));
 
                                 if (HanhDong == "in")
                                 {
@@ -2113,7 +2115,9 @@ namespace GUI
                                 report.SetParameterValue("giatrithe", new Common.Utilities().FormatMoney(double.Parse(giatrithe)));
                                 report.SetParameterValue("GiaTriTheGT", new Common.Utilities().FormatMoney(double.Parse(giaTriTheGT)));
                                 report.SetParameterValue("ChietKhauTongHD", new Common.Utilities().FormatMoney(Convert.ToDouble(chietKhauTongHD)));
-                                report.SetParameterValue("KhachTra", new Common.Utilities().FormatMoney(double.Parse(thanhTien)));
+                                report.SetParameterValue("TienTra", new Common.Utilities().FormatMoney(double.Parse(thanhTien)));
+                                report.SetParameterValue("KhachTra", new Common.Utilities().FormatMoney(double.Parse(khachTra)));
+                                report.SetParameterValue("SoDu", new Common.Utilities().FormatMoney(double.Parse(soDU)));
 
                                 if (HanhDong == "in")
                                 {
