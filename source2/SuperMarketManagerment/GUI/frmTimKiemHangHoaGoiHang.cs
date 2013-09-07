@@ -442,7 +442,7 @@ namespace GUI
                     return;
                 }
                 this.GetRow(this.MaHangHoa);
-                frmQuanLyMaVach.timhanghoa = this.banghi;
+                frmQuanLyMaVach.Timhanghoa = this.banghi;
                 this.Close();
             }
             catch (Exception)
@@ -457,7 +457,7 @@ namespace GUI
 
         private void toolStripStatus_Huybo_Click(object sender, EventArgs e)
         {
-            frmQuanLyMaVach.timhanghoa = null;
+            frmQuanLyMaVach.Timhanghoa = null;
             this.Close();
         }
         string MaHangHoa = string.Empty;
