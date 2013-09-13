@@ -102,7 +102,7 @@ namespace GUI
                     maHangHoaMoi = txtMaHangHoa.Text = dgvr.Cells["MaHangHoa"].Value.ToString();
                     cbbLoaiHangHoa.SelectedIndex = cbbLoaiHangHoa_sua(dgvr.Cells["MaNhomHangHoa"].Value.ToString());
                     Entities.LoaiHangHoa lh = (Entities.LoaiHangHoa)cbbLoaiHangHoa.SelectedItem;
-                    maLoaiHang = lh.MaLoaiHang;
+                    maLoaiHang = lh == null ? string.Empty : lh.MaLoaiHang;
 
                     cmbMaNhomHangHoa.SelectedIndex = cmbmaMaNhomHangHoa_sua(dgvr.Cells["MaNhomHangHoa"].Value.ToString());
                     Entities.NhomHang nh = (Entities.NhomHang)cmbMaNhomHangHoa.SelectedItem;
@@ -112,7 +112,7 @@ namespace GUI
 
                     cmbMaDonViTinh.SelectedIndex = cmbmaDonViTinh_sua(dgvr.Cells["MaDonViTinh"].Value.ToString());
                     Entities.DVT dvt = (Entities.DVT)cmbMaDonViTinh.SelectedItem;
-                    maDVT = dvt.MaDonViTinh;
+                    maDVT = dvt == null ? string.Empty : dvt.MaDonViTinh;
 
                     txtGiaNhap.Text = dgvr.Cells["GiaNhap"].Value.ToString();
                     giaNhap = txtGiaNhap.Text;
@@ -1539,6 +1539,7 @@ namespace GUI
                 }
 
                 Entities.LoaiHangHoa[] pb = (Entities.LoaiHangHoa[])cbbLoaiHangHoa.DataSource;
+                if (pb == null) return -1;
                 for (int i = 0; i < pb.Length; i++)
                 {
                     if (pb[i].MaLoaiHang == maloaihang)
@@ -1627,6 +1628,7 @@ namespace GUI
         public int cmbmaDonViTinh_sua(string dvt)
         {
             Entities.DVT[] pb = (Entities.DVT[])cmbMaDonViTinh.DataSource;
+            if (pb == null) return -1;
             for (int i = 0; i < pb.Length; i++)
             {
                 if (pb[i].MaDonViTinh == dvt)

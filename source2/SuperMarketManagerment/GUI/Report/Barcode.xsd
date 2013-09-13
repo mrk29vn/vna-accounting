@@ -12,7 +12,7 @@
   <xs:element name="Barcode" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="Barcode" msprop:Generator_UserDSName="Barcode">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="Barcode" msprop:Generator_TableClassName="BarcodeDataTable" msprop:Generator_TableVarName="tableBarcode" msprop:Generator_TablePropName="_Barcode" msprop:Generator_RowDeletingName="BarcodeRowDeleting" msprop:Generator_UserTableName="Barcode" msprop:Generator_RowChangingName="BarcodeRowChanging" msprop:Generator_RowEvHandlerName="BarcodeRowChangeEventHandler" msprop:Generator_RowDeletedName="BarcodeRowDeleted" msprop:Generator_RowEvArgName="BarcodeRowChangeEvent" msprop:Generator_RowChangedName="BarcodeRowChanged" msprop:Generator_RowClassName="BarcodeRow">
+        <xs:element name="Barcode" msprop:Generator_TableClassName="BarcodeDataTable" msprop:Generator_TableVarName="tableBarcode" msprop:Generator_RowChangedName="BarcodeRowChanged" msprop:Generator_TablePropName="_Barcode" msprop:Generator_RowDeletingName="BarcodeRowDeleting" msprop:Generator_RowChangingName="BarcodeRowChanging" msprop:Generator_RowEvHandlerName="BarcodeRowChangeEventHandler" msprop:Generator_RowDeletedName="BarcodeRowDeleted" msprop:Generator_RowClassName="BarcodeRow" msprop:Generator_UserTableName="Barcode" msprop:Generator_RowEvArgName="BarcodeRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="MaHangHoa" msprop:Generator_ColumnVarNameInTable="columnMaHangHoa" msprop:Generator_ColumnPropNameInRow="MaHangHoa" msprop:Generator_ColumnPropNameInTable="MaHangHoaColumn" msprop:Generator_UserColumnName="MaHangHoa" type="xs:string" minOccurs="0" />
@@ -20,6 +20,7 @@
               <xs:element name="MaVach" msprop:Generator_ColumnVarNameInTable="columnMaVach" msprop:Generator_ColumnPropNameInRow="MaVach" msprop:Generator_ColumnPropNameInTable="MaVachColumn" msprop:Generator_UserColumnName="MaVach" type="xs:base64Binary" minOccurs="0" />
               <xs:element name="DonGia" msprop:Generator_ColumnVarNameInTable="columnDonGia" msprop:Generator_ColumnPropNameInRow="DonGia" msprop:Generator_ColumnPropNameInTable="DonGiaColumn" msprop:Generator_UserColumnName="DonGia" type="xs:double" minOccurs="0" />
               <xs:element name="SoLuong" msprop:Generator_ColumnVarNameInTable="columnSoLuong" msprop:Generator_ColumnPropNameInRow="SoLuong" msprop:Generator_ColumnPropNameInTable="SoLuongColumn" msprop:Generator_UserColumnName="SoLuong" type="xs:int" minOccurs="0" />
+              <xs:element name="TenSieuThi" msprop:Generator_ColumnVarNameInTable="columnTenSieuThi" msprop:Generator_ColumnPropNameInRow="TenSieuThi" msprop:Generator_ColumnPropNameInTable="TenSieuThiColumn" msprop:Generator_UserColumnName="TenSieuThi" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

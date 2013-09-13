@@ -29,32 +29,15 @@ namespace GUI
 
         private void đăngXuấtToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    Server_Client.Client cl = new Server_Client.Client();
-            //    // gán TCPclient
-            //    System.Net.Sockets.TcpClient client1 = cl.Connect(Luu.IP, Luu.Ports);
-            //    System.Net.Sockets.NetworkStream clientstrem = cl.SerializeObj(client1, "LogOut", frmDangNhap.User);
-            //    // đổ mảng đối tượng vào datagripview       
-            //    cl.DeserializeHepper(clientstrem, null);
-
-            //}
-            //catch (Exception)
-            //{
-            //}
-            //finally
-            //{
             frmDangNhap.User = null;
             frmDangNhap.CTQ = null;
             Form fr = new frmDangNhap();
             fr.Show();
-            this.Hide();
-            //}
+            Hide();
         }
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            //MessageBox.Show("chưa xử lý");
             if (!frmDangNhap.User.Administrator)
             {
                 MessageBox.Show("Không Có Quyền Vào Chức Năng Này");
@@ -62,7 +45,6 @@ namespace GUI
             }
             frmQuanLyLogFile lf = new frmQuanLyLogFile();
             lf.ShowDialog();
-
         }
 
         private void toolStripMenuItem5_Click(object sender, EventArgs e)
@@ -81,7 +63,7 @@ namespace GUI
         }
         public bool Check(string form)
         {
-            Form[] frm = this.MdiChildren;
+            Form[] frm = MdiChildren;
             foreach (Form temp in frm)
             {
                 if (temp.Name.Equals(form))
@@ -95,7 +77,7 @@ namespace GUI
         }
         public bool ThoatFormTrangChinh()
         {
-            Form[] frm = this.MdiChildren;
+            Form[] frm = MdiChildren;
             foreach (Form temp in frm)
             {
                 if (temp.Name.Equals("frmTrangChinh"))
@@ -159,11 +141,6 @@ namespace GUI
 
         }
 
-        private void nhómĐốiTácKinhDoanhToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void kháchHàngToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!frmDangNhap.User.Administrator && !CheckQuyen("frmQuanLyKhachHang", 1))
@@ -196,11 +173,6 @@ namespace GUI
             closeall(ncc.Name);
             ncc.MdiParent = this;
             ncc.Show();
-        }
-
-        private void nhàSảnXuấtToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ;
         }
 
         private void nhânViênToolStripMenuItem_Click(object sender, EventArgs e)

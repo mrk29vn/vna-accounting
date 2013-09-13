@@ -1,96 +1,40 @@
-﻿
-
-
-
-
-
-
-
-
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
 
 namespace Entities
 {
     [Serializable]
     public class ThongTinMaVach
     {
-        private Boolean chonIn;
-        private string hanhDong;
-        private string maHangHoa;
-        private string tenHangHoa;
-        private string giaNhap;
-        private string giaBanBuon;
-        private string giaBanLe;
+        public bool ChonIn { get; set; }
+        public string HanhDong { get; set; }
+        public string MaHangHoa { get; set; }
+        public string TenHangHoa { get; set; }
+        public string GiaNhap { get; set; }
+        public string GiaBanBuon { get; set; }
+        public string GiaBanLe { get; set; }
+        public string GhiChu { get; set; }
 
-        private string ghiChu;
-
-        public Boolean ChonIn
+        public ThongTinMaVach()
         {
-            get { return chonIn; }
-            set { chonIn = value; }
+            HanhDong = "";
+            MaHangHoa = "";
+            TenHangHoa = "";
+            GiaNhap = "";
+            GiaBanBuon = "";
+            GiaBanLe = "";
+            GhiChu = "";
         }
-        public string HanhDong
-        {
-            get { return hanhDong; }
-            set { hanhDong = value; }
-        }
-        public string MaHangHoa
-        {
-            get { return this.maHangHoa; }
-            set
-            {
-                this.maHangHoa = value;
-            }
-        }
-        public string TenHangHoa
-        {
-            get { return this.tenHangHoa; }
-            set { this.tenHangHoa = value; }
-        }
-        public string GiaNhap
-        {
-            get { return this.giaNhap; }
-            set { this.giaNhap = value; }
-        }
-        public string GiaBanBuon
-        {
-            get { return this.giaBanBuon; }
-            set { this.giaBanBuon = value; }
-        }
-        public string GiaBanLe
-        {
-            get { return this.giaBanLe; }
-            set { this.giaBanLe = value; }
-        }
-        public string GhiChu
-        {
-            get { return this.ghiChu; }
-            set { this.ghiChu = value; }
-        }
-        public ThongTinMaVach() {
-            this.hanhDong = "";
-            this.maHangHoa = "";
-            this.tenHangHoa = "";
-            this.giaNhap = "";
-            this.GiaBanBuon = "";
-            this.giaBanLe = "";
-            this.ghiChu = "";
-        }
-        public ThongTinMaVach(string hanhDong) { this.hanhDong = hanhDong; }
+        public ThongTinMaVach(string hanhDong) { this.HanhDong = hanhDong; }
         public ThongTinMaVach(Boolean chonIn, string hanhDong, string maHangHoa, string tenHangHoa, string giaNhap, string giaBanBuon, string giaBanLe, string ghiChu)
         {
-            this.chonIn = chonIn;
-            this.hanhDong = hanhDong;
-            this.maHangHoa = maHangHoa;
-            this.tenHangHoa = tenHangHoa;
-            this.giaNhap = giaNhap;
+            this.ChonIn = chonIn;
+            this.HanhDong = hanhDong;
+            this.MaHangHoa = maHangHoa;
+            this.TenHangHoa = tenHangHoa;
+            this.GiaNhap = giaNhap;
             this.GiaBanBuon = giaBanBuon;
-            this.giaBanLe = giaBanLe;
-            this.ghiChu = ghiChu;
+            this.GiaBanLe = giaBanLe;
+            this.GhiChu = ghiChu;
         }
     }
 }

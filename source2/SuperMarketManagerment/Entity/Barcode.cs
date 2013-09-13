@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Entities
 {
     [Serializable]
     public class Barcode
     {
+        private string tenSieuThi;
         private string maHangHoa;
         private string tenHangHoa;
         private byte[] maVach;
@@ -44,5 +42,10 @@ namespace Entities
             set { maHangHoa = value; }
         }
 
+        public string TenSieuThi
+        {
+            get { return tenSieuThi; }
+            set { tenSieuThi = value; }
+        }
     }
 }

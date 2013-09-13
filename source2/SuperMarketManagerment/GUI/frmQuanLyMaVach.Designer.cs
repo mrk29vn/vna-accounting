@@ -85,6 +85,7 @@
             this.btnThem = new System.Windows.Forms.Button();
             this.txtMaHangHoa = new System.Windows.Forms.TextBox();
             this.txtSoLuongIn = new System.Windows.Forms.TextBox();
+            this.txtGia = new System.Windows.Forms.TextBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -115,7 +116,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(752, 282);
+            this.panel1.Size = new System.Drawing.Size(754, 282);
             this.panel1.TabIndex = 31;
             // 
             // groupBox1
@@ -153,7 +154,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(302, 282);
+            this.groupBox1.Size = new System.Drawing.Size(304, 282);
             this.groupBox1.TabIndex = 35;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cài đặt mã vạch";
@@ -517,7 +518,7 @@
             this.groupBox2.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.groupBox2.Controls.Add(this.panel4);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.groupBox2.Location = new System.Drawing.Point(302, 0);
+            this.groupBox2.Location = new System.Drawing.Point(304, 0);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(450, 282);
             this.groupBox2.TabIndex = 37;
@@ -573,9 +574,9 @@
             // 
             this.panel2.Controls.Add(this.statusStrip1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 447);
+            this.panel2.Location = new System.Drawing.Point(0, 431);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(752, 25);
+            this.panel2.Size = new System.Drawing.Size(754, 25);
             this.panel2.TabIndex = 32;
             // 
             // statusStrip1
@@ -587,7 +588,7 @@
             this.toolStripStatusLabel2});
             this.statusStrip1.Location = new System.Drawing.Point(0, -1);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(752, 26);
+            this.statusStrip1.Size = new System.Drawing.Size(754, 26);
             this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 31;
             this.statusStrip1.Text = "statusStrip1";
@@ -596,7 +597,7 @@
             // 
             this.toolStripStatusLabel1.Image = global::GUI.Properties.Resources.In_tem_ma_vach__1_;
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(368, 21);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(364, 21);
             this.toolStripStatusLabel1.Spring = true;
             this.toolStripStatusLabel1.Text = "In danh sách";
             this.toolStripStatusLabel1.Click += new System.EventHandler(this.ToolStripStatusLabel1Click);
@@ -605,7 +606,7 @@
             // 
             this.toolStripStatusLabel2.Image = global::GUI.Properties.Resources.Xoa;
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(368, 21);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(364, 21);
             this.toolStripStatusLabel2.Spring = true;
             this.toolStripStatusLabel2.Text = "Đóng";
             this.toolStripStatusLabel2.Click += new System.EventHandler(this.toolStripStatusLabel2_Click);
@@ -617,7 +618,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(0, 282);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(752, 165);
+            this.panel3.Size = new System.Drawing.Size(754, 149);
             this.panel3.TabIndex = 33;
             // 
             // panel7
@@ -626,7 +627,7 @@
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel7.Location = new System.Drawing.Point(0, 53);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(752, 112);
+            this.panel7.Size = new System.Drawing.Size(754, 96);
             this.panel7.TabIndex = 2;
             // 
             // dgvHangHoa
@@ -642,7 +643,7 @@
             this.dgvHangHoa.RowHeadersVisible = false;
             this.dgvHangHoa.RowHeadersWidth = 10;
             this.dgvHangHoa.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvHangHoa.Size = new System.Drawing.Size(752, 112);
+            this.dgvHangHoa.Size = new System.Drawing.Size(754, 96);
             this.dgvHangHoa.TabIndex = 0;
             this.dgvHangHoa.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvHangHoa_CellClick);
             this.dgvHangHoa.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvHangHoa_CellDoubleClick);
@@ -654,7 +655,7 @@
             this.panel6.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel6.Location = new System.Drawing.Point(0, 0);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(752, 53);
+            this.panel6.Size = new System.Drawing.Size(754, 53);
             this.panel6.TabIndex = 1;
             // 
             // groupBox3
@@ -667,11 +668,12 @@
             this.groupBox3.Controls.Add(this.btnThem);
             this.groupBox3.Controls.Add(this.txtMaHangHoa);
             this.groupBox3.Controls.Add(this.txtSoLuongIn);
+            this.groupBox3.Controls.Add(this.txtGia);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.ForeColor = System.Drawing.Color.Black;
             this.groupBox3.Location = new System.Drawing.Point(0, 0);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(752, 53);
+            this.groupBox3.Size = new System.Drawing.Size(754, 53);
             this.groupBox3.TabIndex = 37;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Tìm kiếm";
@@ -741,6 +743,14 @@
             this.txtSoLuongIn.TabIndex = 0;
             this.txtSoLuongIn.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSoLuongIn_KeyDown);
             // 
+            // txtGia
+            // 
+            this.txtGia.Location = new System.Drawing.Point(102, 33);
+            this.txtGia.Name = "txtGia";
+            this.txtGia.Size = new System.Drawing.Size(136, 20);
+            this.txtGia.TabIndex = 6;
+            this.txtGia.Visible = false;
+            // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
@@ -749,7 +759,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(752, 472);
+            this.ClientSize = new System.Drawing.Size(754, 456);
             this.ControlBox = false;
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
@@ -761,7 +771,6 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = " In tem mã vạch";
-            this.Load += new System.EventHandler(this.frmQuanLyMaVach_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
@@ -791,7 +800,6 @@
 
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.DataGridView dgvHangHoa;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
@@ -846,5 +854,7 @@
         private System.Windows.Forms.RadioButton rdoHH;
         private System.Windows.Forms.RadioButton rdoTV;
         private System.Windows.Forms.RadioButton rdoTGT;
+        private System.Windows.Forms.DataGridView dgvHangHoa;
+        private System.Windows.Forms.TextBox txtGia;
     }
 }

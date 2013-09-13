@@ -11,39 +11,595 @@ namespace GUI
 {
     public partial class frmQuanLyMaVach : Form
     {
-        ThongTinCongTy congTy;
-        List<QuyDoiDonViTinh> _k = new List<QuyDoiDonViTinh>();
-        ///////////////////////////////////////////////////MRK FIX
-        List<QuyDoiDonViTinh> Bangquydoidonvitinh()
-        {
-            // quy đổi đơn vị tính
-            Server_Client.Client client2 = new Server_Client.Client();
-            TcpClient client1 = client2.Connect(Luu.IP, Luu.Ports);
-            CheckRefer ctxh = new CheckRefer("QD");
-            clientstrem = client2.SerializeObj(client1, "Select", ctxh);
-            QuyDoiDonViTinh[] quidoidvt = new QuyDoiDonViTinh[0];
-            return ((QuyDoiDonViTinh[])client2.DeserializeHepper1(clientstrem, quidoidvt)).ToList();
-        }
-        //////////////////////////////////////////////////////////
-
-        string GetTenRdo()
-        {
-            return rdoTV.Checked ? rdoTV.Text : rdoHH.Text;
-        }
-
-        public frmQuanLyMaVach()
-        {
-            InitializeComponent();
-            congTy = GetCongTy();
-
-        }
-        #region hungvv==============================================khoi tao=====================================================================
+        #region Khai báo
+        readonly ThongTinCongTy _congTy;
         private TcpClient client;
         private NetworkStream clientstrem;
         Server_Client.Client cl;
+        readonly List<ThongTinMaVach> _dsHangHoaGoiHang = new List<ThongTinMaVach>();
+        readonly List<QuyDoiDonViTinh> _dsQuyDoiDonViTinh = new List<QuyDoiDonViTinh>();     //Bảng quy đổi đơn vị tính
+        private string _maHangHoa = string.Empty;
+        public static ThongTinMaVach Timhanghoa;    //Phục vụ cho Form tìm kiếm hàng hóa
+        private readonly List<ThongTinMaVach> _dsThongTinMaVachTheVip = new List<ThongTinMaVach>();
+        private readonly List<ThongTinMaVach> _dsThongTinMaVachTheGiaTri = new List<ThongTinMaVach>();
+        private BarcodeLib.Barcode b = new BarcodeLib.Barcode();
+        #endregion
+
+        #region Khởi tạo
+        public frmQuanLyMaVach()
+        {
+            InitializeComponent();
+            try
+            {
+                _dsHangHoaGoiHang = GetHangHoaGoiHang();
+                _dsQuyDoiDonViTinh = GetQuyDoiDonViTinh();
+                _congTy = GetCongTy();
+                _dsThongTinMaVachTheVip = getTheVip();
+                _dsThongTinMaVachTheGiaTri = GetTheGiaTri();
+
+                chkGenerateLabel.Checked = false;
+
+                //Khởi tạo Cbb loại giấy
+                cbxLoaigiay.Items.Clear();
+                cbxLoaigiay.Items.AddRange(new object[] { "Loại A5", "Loại 110", "Loại A4" });
+                cbxLoaigiay.SelectedIndex = 0;
+
+                btnLoadImage.Visible = false;
+                Bitmap temp = new Bitmap(1, 1);
+                temp.SetPixel(0, 0, BackColor);
+                barcode.Image = temp;
+                cbEncodeType.SelectedIndex = 0;
+                cbBarcodeAlign.SelectedIndex = 0;
+                cbLabelLocation.SelectedIndex = 0;
+                cbRotateFlip.DataSource = Enum.GetNames(typeof(RotateFlipType));
+                int i = 0;
+                foreach (object o in cbRotateFlip.Items)
+                {
+                    if (o.ToString().Trim().ToLower() == "rotatenoneflipnone")
+                        break;
+                    i++;
+                }
+                cbRotateFlip.SelectedIndex = i;
+                btnBackColor.BackColor = b.BackColor;
+                btnForeColor.BackColor = b.ForeColor;
+
+                dgvHangHoa.DataSource = new List<ThongTinMaVach>().ToArray();
+                FixDatagridview();
+            }
+            catch
+            {
+                if (dgvHangHoa.RowCount > 0) return;
+                toolStripStatusLabel1.Enabled = false; checkBox1.Enabled = false;
+            }
+        }
+        #endregion
+
+        #region Nghiệp vụ
+        private void AddRow()
+        {
+            ThongTinMaVach rows = RowsData();
+            if (rows == null) return;
+
+            //không có thì thêm vào, có rồi thì cộng số lượng
+            List<ThongTinMaVach> dsThongTinMaVach = ((ThongTinMaVach[])dgvHangHoa.DataSource).ToList();
+            foreach (ThongTinMaVach thongTinMaVach in dsThongTinMaVach.Where(thongTinMaVach => thongTinMaVach.MaHangHoa.ToUpper().Equals(rows.MaHangHoa.ToUpper())))
+            {
+                thongTinMaVach.GhiChu = (int.Parse(thongTinMaVach.GhiChu) + int.Parse(rows.GhiChu)).ToString();
+                dgvHangHoa.DataSource = dsThongTinMaVach.ToArray();
+                FixDatagridview();
+                return;
+            }
+            dsThongTinMaVach.Add(rows);
+            dgvHangHoa.DataSource = dsThongTinMaVach.ToArray();
+            FixDatagridview();
+
+            txtMaHangHoa.Text = string.Empty;
+            txtTenHangHoa.Text = string.Empty;
+            txtSoLuongIn.Text = string.Empty;
+            txtMaHangHoa.Focus();
+        }
+
+        private void Edits(string maHangHoa)
+        {
+            List<ThongTinMaVach> dsThongTinMaVach = ((ThongTinMaVach[])dgvHangHoa.DataSource).ToList();
+            foreach (ThongTinMaVach item in dsThongTinMaVach.Where(item => item.MaHangHoa.ToUpper().Equals(maHangHoa.ToUpper())))
+            {
+                txtMaHangHoa.Text = item.MaHangHoa;
+                txtTenHangHoa.Text = item.TenHangHoa;
+                txtSoLuongIn.Text = item.GhiChu;
+                txtGia.Text = string.Format("{0}#{1}#{2}", item.GiaNhap, item.GiaBanBuon, item.GiaBanLe);
+                txtSoLuongIn.Focus();
+                dsThongTinMaVach.Remove(item);
+                break;
+            }
+            dgvHangHoa.DataSource = dsThongTinMaVach.ToArray();
+            FixDatagridview();
+        }
+        #endregion
+
+        #region Event
+        private void rdoTV_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!rdoTV.Checked) return;
+            label14.Text = "Mã thẻ vip:";
+            label15.Text = "Tên khách hàng: ";
+            dgvHangHoa.DataSource = new List<ThongTinMaVach>().ToArray();
+        }
+
+        private void rdoHH_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!rdoHH.Checked) return;
+            label14.Text = "Mã hàng hóa:";
+            label15.Text = "Tên hàng hóa: ";
+            dgvHangHoa.DataSource = new List<ThongTinMaVach>().ToArray();
+        }
+
+        private void rdoTGT_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!rdoTGT.Checked) return;
+            label14.Text = "Mã thẻ giá trị:";
+            label15.Text = "Tên khách hàng: ";
+            dgvHangHoa.DataSource = new List<ThongTinMaVach>().ToArray();
+        }
+
+        private void txtTenHangHoa_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtTenHangHoa.Text)) return;
+            string maHangHoa = txtMaHangHoa.Text;
+            Image img = CreateImg(maHangHoa);
+            barcode.Image = img;
+            txtTen.Text = txtTenHangHoa.Text;
+        }
+
+        private void dgvHangHoa_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                _maHangHoa = dgvHangHoa.Rows[e.RowIndex].Cells["maHangHoa"].Value.ToString();
+            }
+            catch { }
+        }
+
+        private void btnThem_Click(object sender, EventArgs e)
+        {
+            AddRow();
+        }
+
+        private void txtSoLuongIn_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.Enter) return;
+            btnThem.PerformClick();
+        }
+
+        private void cbxLoaigiay_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                txtWidth.ReadOnly = true;
+                txtHeight.ReadOnly = true;
+                if (cbxLoaigiay.SelectedItem.ToString() == "Loại A5")
+                {
+                    txtWidth.Text = "36 mm";
+                    txtHeight.Text = "19 mm";
+                }
+                if (cbxLoaigiay.SelectedItem.ToString() == "Loại 110")
+                {
+                    txtWidth.Text = "36 mm";
+                    txtHeight.Text = "21 mm";
+                }
+                if (cbxLoaigiay.SelectedItem.ToString() == "Loại A4")
+                {
+                    txtWidth.Text = "36 mm";
+                    txtHeight.Text = "19 mm";
+                }
+            }
+            catch { }
+        }
+
+        private void txtWidth_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtHeight_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtMaHangHoa_Click(object sender, EventArgs e)
+        {
+            txtMaHangHoa.Text = string.Empty;
+            txtTenHangHoa.Text = string.Empty;
+            txtSoLuongIn.Text = string.Empty;
+        }
+
+        private void txtMaHangHoa_TextChanged(object sender, EventArgs e)
+        {
+            txtTenHangHoa.Text = string.Empty;
+            txtSoLuongIn.Text = string.Empty;
+        }
+
+        private void dgvHangHoa_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Edits(_maHangHoa);
+        }
+
+        private void btnForeColor_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (ColorDialog cdialog = new ColorDialog())
+                {
+                    cdialog.AnyColor = true;
+                    if (cdialog.ShowDialog() != DialogResult.OK) return;
+                    b.ForeColor = cdialog.Color;
+                    btnForeColor.BackColor = this.b.ForeColor;
+                }
+            }
+            catch
+            {
+            }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (checkBox1.Checked)
+                {
+                    txtWidth.ReadOnly = true;
+                    txtHeight.ReadOnly = true;
+                    cbxLoaigiay.SelectedIndex = 0;
+                    cbxLoaigiay.Enabled = true;
+                }
+                if (checkBox1.Checked) return;
+                txtWidth.ReadOnly = false;
+                txtHeight.ReadOnly = false;
+                cbxLoaigiay.SelectedIndex = 0;
+                cbxLoaigiay.Enabled = false;
+            }
+            catch
+            {
+            }
+        }
+
+        private void txtMaHangHoa_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.Enter:
+                        GetHangHoa(txtMaHangHoa.Text);
+                        txtSoLuongIn.Focus();
+                        break;
+                    case Keys.F4:
+                        string tem = string.Empty;
+
+                        if (rdoHH.Checked)
+                            tem = "HH";
+
+                        if (rdoTV.Checked)
+                            tem = "TV";
+
+                        if (rdoTGT.Checked)
+                            tem = "TGT";
+
+                        frmTimKiemHangHoaGoiHang frm = new frmTimKiemHangHoaGoiHang(tem);
+                        frm.ShowDialog();
+                        if (Timhanghoa != null)
+                        {
+                            txtMaHangHoa.Text = Timhanghoa.MaHangHoa;
+                            txtTenHangHoa.Text = Timhanghoa.TenHangHoa;
+                            txtGia.Text = string.Format("{0}#{1}#{2}", Timhanghoa.GiaNhap, Timhanghoa.GiaBanBuon, Timhanghoa.GiaBanLe);
+                            txtSoLuongIn.Text = "1";
+                            txtSoLuongIn.Focus();
+                        }
+                        break;
+                }
+            }
+            catch
+            {
+            }
+        }
+
+        private void toolStripStatusLabel2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DialogResult giatri = MessageBox.Show("Bạn chắc chắn đóng lại không ?", "Thông Báo", MessageBoxButtons.YesNo);
+                {
+                    if (giatri == DialogResult.Yes)
+                    {
+                        frmQuanLyDonDatHang.BaoDong = "A";
+                        Close();
+                    }
+                }
+            }
+            catch
+            {
+            }
+        }
+
+        private void ToolStripStatusLabel1Click(object sender, EventArgs e)
+        {
+            try
+            {
+                statusStrip1.Focus();
+                //quyen
+                if (!Common.Utilities.User.Administrator && !CheckQuyen(Name, 4)) return;
+
+                if (checkBox1.Checked)
+                {
+                    if (dgvHangHoa.RowCount > 0)
+                    {
+                        Enabled = false;
+                        Enabled = true;
+                        Barcode[] barCode = GetProduct(dgvHangHoa, _congTy);
+                        MaVachThe[] theGt = GetTheGt(barCode, _congTy);
+                        MaVachThe[] theVip = GetTheVip(barCode, _congTy);
+                        string loaiGiay = cbxLoaigiay.SelectedItem.ToString();
+                        switch (loaiGiay)
+                        {
+                            case "Loại A5":
+                                //in theo 5 cot NGANG
+                                if (barCode.Length > 0)
+                                {
+                                    if (checkXemIn.Checked == false)
+                                    {
+                                        Report.rptBarcodeNamCotA5 report = new Report.rptBarcodeNamCotA5();
+                                        report.SetDataSource(barCode);
+                                        report.PrintToPrinter(1, true, 0, 999);
+                                    }
+                                    else
+                                    {
+
+                                        frmBaoCaoBarcode frm = new frmBaoCaoBarcode(barCode, "Loại A5", checkXemIn.Checked);
+                                        frm.ShowDialog();
+                                    }
+                                }
+                                else
+                                { MessageBox.Show("Chọn " + GetTenRdo() + " mới có thể in"); }
+                                break;
+
+                            case "Loại 110":
+                                // in theo 3 cot
+                                if (barCode.Length > 0)
+                                {
+                                    if (checkXemIn.Checked == false)
+                                    {
+                                        Report.rptBarcodeBaCot report = new Report.rptBarcodeBaCot();
+                                        report.SetDataSource(barCode);
+                                        report.PrintToPrinter(1, true, 0, 999);
+                                    }
+                                    else
+                                    {
+                                        frmBaoCaoBarcode frm = new frmBaoCaoBarcode(barCode, "Loại 110", checkXemIn.Checked);
+                                        frm.ShowDialog();
+                                    }
+                                }
+                                else
+                                { MessageBox.Show("Chọn " + GetTenRdo() + " mới có thể in"); }
+                                break;
+                            case "Loại A4":
+                                // in theo 5 cot
+                                if (barCode.Length > 0)
+                                {
+                                    if (checkXemIn.Checked == false)
+                                    {
+                                        // Hang Hoa
+                                        if (rdoHH.Checked)
+                                        {
+                                            Report.rptBarcodeNamCot report = new Report.rptBarcodeNamCot();
+                                            report.SetDataSource(barCode);
+                                            report.PrintToPrinter(1, true, 0, 999);
+                                        }
+                                        // The Vip
+                                        if (rdoTV.Checked)
+                                        {
+                                            Report.rptMaVachTheVip report = new Report.rptMaVachTheVip();
+                                            report.SetDataSource(theVip);
+                                            report.PrintToPrinter(1, true, 0, 999);
+                                        }
+                                        // The GT
+                                        if (rdoTGT.Checked)
+                                        {
+                                            Report.rptMaVachTheGT report = new Report.rptMaVachTheGT();
+                                            report.SetDataSource(theGt);
+                                            report.PrintToPrinter(1, true, 0, 999);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        // Hang hoa
+                                        if (rdoHH.Checked)
+                                        {
+                                            frmBaoCaoBarcode frm = new frmBaoCaoBarcode(barCode, "Loại A4", checkXemIn.Checked);
+                                            frm.ShowDialog();
+                                        }
+                                        // The Vip
+                                        if (rdoTV.Checked)
+                                        {
+                                            frmBaoCaoBarcode frm = new frmBaoCaoBarcode("TV", theVip);
+                                            frm.ShowDialog();
+                                        }
+                                        // The GT
+                                        if (rdoTGT.Checked)
+                                        {
+                                            frmBaoCaoBarcode frm = new frmBaoCaoBarcode("TGT", theGt);
+                                            frm.ShowDialog();
+                                        }
+                                    }
+                                }
+                                else
+                                { MessageBox.Show("Chọn " + GetTenRdo() + " mới có thể in"); }
+                                break;
+                        }
+                    }
+                    else
+                    { MessageBox.Show("Không có " + GetTenRdo() + " nào để in mã vạch"); }
+                }
+                else
+                { MessageBox.Show("Bạn đang chọn in một mã vạch"); checkBox1.Focus(); }
+            }
+            catch
+            {
+
+            }
+        }
+        #endregion
+
+        #region Utils
+        #region Lấy dữ liệu
+        /// <summary>
+        /// Lấy dữ liệu bảng hàng hóa và gói hàng (Chạy 1 lần để lấy dữ liệu và gán vào biến dùng chung)
+        /// </summary>
+        /// <returns></returns>
+        List<ThongTinMaVach> GetHangHoaGoiHang()
+        {
+            List<ThongTinMaVach> dsThongTinMaVachs = new List<ThongTinMaVach>();
+            try
+            {
+                //Lấy MaHangHoa,TenHangHoa,GiaNhap,GiaBanBuon,GiaBanLe,GhiChu từ bảng HÀNG HÓA
+                cl = new Server_Client.Client();
+                client = cl.Connect(Luu.IP, Luu.Ports);
+                ThongTinMaVach row1 = new ThongTinMaVach("Select");
+                clientstrem = cl.SerializeObj(client, "ThongTinMaVachHangHoa", row1);
+                ThongTinMaVach[] dsHangHoa = new ThongTinMaVach[0];
+                dsHangHoa = (ThongTinMaVach[])cl.DeserializeHepper(clientstrem, dsHangHoa);
+                client.Close();
+                clientstrem.Close();
+                if (dsHangHoa != null)
+                    dsThongTinMaVachs.AddRange(dsHangHoa);
+            }
+            catch { }
+
+            try
+            {
+                //Lấy a.GoiHangID,a.MaKho,a.MaGoiHang,a.TenGoiHang,a.MaNhomHang,b.TenNhomHang,a.GiaNhap,a.GiaBanBuon,a.GiaBanLe,a.Deleted
+                //FROM GoiHang a join NhomHang b on a.MaNhomHang=b.MaNhomHang  WHERE a.Deleted='False'
+                cl = new Server_Client.Client();
+                client = cl.Connect(Luu.IP, Luu.Ports);
+                GoiHang goi = new GoiHang("Select");
+                clientstrem = cl.SerializeObj(client, "GoiHang", goi);
+                GoiHang[] goiHang = new GoiHang[0];
+                goiHang = (GoiHang[])cl.DeserializeHepper1(clientstrem, goiHang);
+                if (goiHang != null)
+                {
+                    foreach (GoiHang item in goiHang)
+                    {
+                        if (item.Deleted) continue;
+                        ThongTinMaVach row = new ThongTinMaVach
+                                                 {
+                                                     MaHangHoa = item.MaGoiHang,
+                                                     TenHangHoa = item.TenGoiHang,
+                                                     GiaNhap = item.GiaNhap,
+                                                     GiaBanBuon = item.GiaBanBuon,
+                                                     GiaBanLe = item.GiaBanLe
+                                                 };
+                        dsThongTinMaVachs.Add(row);
+                    }
+                }
+            }
+            catch { }
+
+            return dsThongTinMaVachs;
+        }
 
         /// <summary>
-        /// 
+        /// Lấy dữ liệu bảng quy đổi đơn vị tính
+        /// </summary>
+        /// <returns></returns>
+        List<QuyDoiDonViTinh> GetQuyDoiDonViTinh()
+        {
+            List<QuyDoiDonViTinh> dsQuyDoiDonViTinh = new List<QuyDoiDonViTinh>();
+            try
+            {
+                // quy đổi đơn vị tính
+                Server_Client.Client client2 = new Server_Client.Client();
+                TcpClient client1 = client2.Connect(Luu.IP, Luu.Ports);
+                CheckRefer ctxh = new CheckRefer("QD");
+                clientstrem = client2.SerializeObj(client1, "Select", ctxh);
+                QuyDoiDonViTinh[] quidoidvt = new QuyDoiDonViTinh[0];
+                dsQuyDoiDonViTinh = ((QuyDoiDonViTinh[])client2.DeserializeHepper1(clientstrem, quidoidvt)).ToList();
+            }
+            catch { }
+            return dsQuyDoiDonViTinh;
+        }
+
+        /// <summary>
+        /// Lấy dữ liệu thông tin công ty
+        /// </summary>
+        /// <returns></returns>
+        public ThongTinCongTy GetCongTy()
+        {
+            ThongTinCongTy retVal;
+            try
+            {
+                cl = new Server_Client.Client();
+                // gán TCPclient
+                client = cl.Connect(Luu.IP, Luu.Ports);
+                // khởi tạo biến truyền vào với hàm khởi tạo
+                // truyền HanhDong
+                ThongTinCongTy thongTinCongTy = new ThongTinCongTy("Select");
+                // khởi tạo mảng đối tượng để hứng giá trị
+                ThongTinCongTy[] arr = new ThongTinCongTy[1];
+                clientstrem = cl.SerializeObj(client, "CongTy", thongTinCongTy);
+                // đổ mảng đối tượng vào daThongTinCongTytagripview       
+                arr = (ThongTinCongTy[])cl.DeserializeHepper1(clientstrem, arr);
+                retVal = arr[0];
+            }
+            catch (Exception)
+            {
+                retVal = null;
+            }
+
+            return retVal;
+        }
+
+        /// <summary>
+        /// Lấy dữ liệu thẻ Vip
+        /// </summary>
+        /// <returns></returns>
+        List<ThongTinMaVach> getTheVip()
+        {
+            cl = new Server_Client.Client();
+            client = cl.Connect(Luu.IP, Luu.Ports);
+            clientstrem = cl.SerializeObj(client, "THAOTAC_InMaVachTheVip", new ThongTinMaVach());
+            ThongTinMaVach[] bientam = new ThongTinMaVach[1];
+            //Tìm kiếm thẻ vip
+            bientam = (ThongTinMaVach[])cl.DeserializeHepper(clientstrem, bientam);
+            client.Close();
+            clientstrem.Close();
+            return bientam == null ? new List<ThongTinMaVach>() : bientam.ToList();
+        }
+
+        /// <summary>
+        /// Lấy dữ liệu thẻ giá trị
+        /// </summary>
+        /// <returns></returns>
+        List<ThongTinMaVach> GetTheGiaTri()
+        {
+            cl = new Server_Client.Client();
+            client = cl.Connect(Luu.IP, Luu.Ports);
+            clientstrem = cl.SerializeObj(client, "THAOTAC_InMaVachTheGiaTri", new ThongTinMaVach());
+            ThongTinMaVach[] bientam = new ThongTinMaVach[1];
+            //Tìm kiếm thẻ giá trị
+            bientam = (ThongTinMaVach[])cl.DeserializeHepper(clientstrem, bientam);
+            client.Close();
+            clientstrem.Close();
+            return bientam == null ? new List<ThongTinMaVach>() : bientam.ToList();
+        }
+        #endregion
+
+        /// <summary>
+        /// Config datagridView cho dễ nhìn
         /// </summary>
         private void FixDatagridview()
         {
@@ -70,132 +626,13 @@ namespace GUI
             catch
             { }
         }
-        #endregion
-        public bool CheckQuyen(string tenform, int quyen)
-        {
-            switch (quyen)
-            {
-                case 1:
-                    {
-                        foreach (ChiTietQuyen item in frmDangNhap.CTQ.Where(item => item.TenForm.ToLower().Equals(tenform.ToLower())))
-                            return item.QuyenXem;
-                        break;
-                    }
-                case 2:
-                    {
-                        foreach (ChiTietQuyen item in frmDangNhap.CTQ.Where(item => item.TenForm.ToLower().Equals(tenform.ToLower())))
-                            return item.QuyenSua;
-                        break;
-                    }
-                case 3:
-                    {
-                        foreach (ChiTietQuyen item in frmDangNhap.CTQ.Where(item => item.TenForm.ToLower().Equals(tenform.ToLower())))
-                            return item.QuyenXoa;
-                        break;
-                    }
-                case 4:
-                    {
-                        foreach (ChiTietQuyen item in frmDangNhap.CTQ.Where(item => item.TenForm.ToLower().Equals(tenform.ToLower())))
-                            return item.QuyenThem;
-                        break;
-                    }
-            }
-            return true;
-        }
-        private void frmQuanLyMaVach_Load(object sender, EventArgs e)
-        {
-            try
-            {
-                try
-                {
-                    SelectData();
-                    _k = Bangquydoidonvitinh();
-                }
-                catch
-                {
-                }
-                chkGenerateLabel.Checked = false;
-                cbxLoaigiay.Items.Clear();
-                cbxLoaigiay.Items.AddRange(new object[] { "Loại A5", "Loại 110", "Loại A4" });
-                cbxLoaigiay.SelectedIndex = 0;
-                btnLoadImage.Visible = false;
-                Bitmap temp = new Bitmap(1, 1);
-                temp.SetPixel(0, 0, BackColor);
-                barcode.Image = temp;
-                cbEncodeType.SelectedIndex = 0;
-                cbBarcodeAlign.SelectedIndex = 0;
-                cbLabelLocation.SelectedIndex = 0;
-                cbRotateFlip.DataSource = Enum.GetNames(typeof(RotateFlipType));
-                int i = 0;
-                foreach (object o in cbRotateFlip.Items)
-                {
-                    if (o.ToString().Trim().ToLower() == "rotatenoneflipnone")
-                        break;
-                    i++;
-                }
-                cbRotateFlip.SelectedIndex = i;
-                btnBackColor.BackColor = b.BackColor;
-                btnForeColor.BackColor = b.ForeColor;
-                ThongTinMaVach[] mv = new ThongTinMaVach[0];
-                dgvHangHoa.DataSource = mv;
-                FixDatagridview();
-            }
-            catch
-            {
-                if (dgvHangHoa.RowCount > 0) return;
-                toolStripStatusLabel1.Enabled = false; checkBox1.Enabled = false;
-            }
-        }
-
-        private void dgvHangHoa_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            Edits(MaHangHoa);
-        }
-
-        private void toolStripStatusLabel2_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                DialogResult giatri = MessageBox.Show("Bạn chắc chắn đóng lại không ?", "Thông Báo", MessageBoxButtons.YesNo);
-                {
-                    if (giatri == DialogResult.Yes)
-                    {
-                        frmQuanLyDonDatHang.BaoDong = "A";
-                        Close();
-                    }
-                }
-            }
-            catch
-            {
-            }
-        }
-
-        private BarcodeLib.Barcode b = new BarcodeLib.Barcode();
-        private void btnForeColor_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                using (ColorDialog cdialog = new ColorDialog())
-                {
-                    cdialog.AnyColor = true;
-                    if (cdialog.ShowDialog() == DialogResult.OK)
-                    {
-                        b.ForeColor = cdialog.Color;
-                        btnForeColor.BackColor = this.b.ForeColor;
-                    }
-                }
-            }
-            catch
-            {
-            }
-        }
 
         /// <summary>
-        /// Chuyen doi img Thanh mang byte
+        /// Chuyển Image thành byte[]
         /// </summary>
         /// <param name="img"></param>
         /// <returns></returns>
-        private byte[] ConvertToByte(Image img)
+        private static byte[] ConvertToByte(Image img)
         {
             byte[] bytes;
             try
@@ -214,7 +651,7 @@ namespace GUI
         }
 
         /// <summary>
-        /// Tao IMG .
+        /// Tạo Image mã vạch từ chuỗi String
         /// </summary>
         /// <param name="code"></param>
         /// <returns></returns>
@@ -282,7 +719,7 @@ namespace GUI
                         }//switch
 
                         //===== Encoding performed here =====
-                        img = b.Encode(type, code, this.btnForeColor.BackColor, this.btnBackColor.BackColor, W, H);
+                        img = b.Encode(type, code, btnForeColor.BackColor, btnBackColor.BackColor, W, H);
                         //barcode.Image = img;
                         //===================================
                         lblEncodingTime.Text = "(" + Math.Round(b.EncodingTime, 0, MidpointRounding.AwayFromZero).ToString() + "ms)";
@@ -301,15 +738,52 @@ namespace GUI
             return img;
         }
 
+        private string GetTenRdo()
+        {
+            return rdoTV.Checked ? rdoTV.Text : rdoHH.Text;
+        }
+
+        public bool CheckQuyen(string tenform, int quyen)
+        {
+            switch (quyen)
+            {
+                case 1:
+                    {
+                        foreach (ChiTietQuyen item in frmDangNhap.CTQ.Where(item => item.TenForm.ToLower().Equals(tenform.ToLower())))
+                            return item.QuyenXem;
+                        break;
+                    }
+                case 2:
+                    {
+                        foreach (ChiTietQuyen item in frmDangNhap.CTQ.Where(item => item.TenForm.ToLower().Equals(tenform.ToLower())))
+                            return item.QuyenSua;
+                        break;
+                    }
+                case 3:
+                    {
+                        foreach (ChiTietQuyen item in frmDangNhap.CTQ.Where(item => item.TenForm.ToLower().Equals(tenform.ToLower())))
+                            return item.QuyenXoa;
+                        break;
+                    }
+                case 4:
+                    {
+                        foreach (ChiTietQuyen item in frmDangNhap.CTQ.Where(item => item.TenForm.ToLower().Equals(tenform.ToLower())))
+                            return item.QuyenThem;
+                        break;
+                    }
+            }
+            return true;
+        }
 
         /// <summary>
         /// Lay hang hoa trong datagridview
         /// </summary>
         /// <param name="view"></param>
+        /// <param name="thongTinCongTy"> </param>
         /// <returns></returns>
-        private Entities.Barcode[] GetProduct(DataGridView view)
+        private Barcode[] GetProduct(DataGridView view, ThongTinCongTy thongTinCongTy)
         {
-            List<Entities.Barcode> hangHoaList = new List<Entities.Barcode>();
+            List<Barcode> hangHoaList = new List<Barcode>();
             try
             {
                 int count = 0;
@@ -317,26 +791,30 @@ namespace GUI
                     count = view.Rows.Count;
                 for (int i = 0; i < count; i++)
                 {
-                    string maHangHoa = view["MaHangHoa", i].Value.ToString();
+                    if (view == null) continue;
+                    string maHangHoa = view["maHangHoa", i].Value.ToString();
                     string tenHangHoa = view["TenHangHoa", i].Value.ToString();
+                    double dongia = double.Parse(view["GiaBanLe", i].Value.ToString());
                     int soLuong = 0;
                     if (view["GhiChu", i].Value != null)
                         soLuong = int.Parse(view["GhiChu", i].Value.ToString());
                     for (int j = 0; j < soLuong; j++)
                     {
-                        Entities.Barcode barcode = new Entities.Barcode();
-                        barcode.TenHangHoa = tenHangHoa;
-                        barcode.MaHangHoa = maHangHoa;
-                        Image img = CreateImg(maHangHoa);
-                        byte[] bytes = ConvertToByte(img);
-                        barcode.MaVach = bytes;
-                        hangHoaList.Add(barcode);
+                        Barcode item = new Barcode
+                                              {
+                                                  TenSieuThi = thongTinCongTy.TenCongTy,
+                                                  TenHangHoa = tenHangHoa,
+                                                  MaHangHoa = maHangHoa,
+                                                  MaVach = ConvertToByte(CreateImg(maHangHoa)),
+                                                  DonGia = dongia
+                                              };
+                        hangHoaList.Add(item);
                     }
                 }
             }
-            catch (Exception e)
+            catch
             {
-                hangHoaList = null;
+                return new List<Barcode>().ToArray();
             }
             return hangHoaList.ToArray();
         }
@@ -347,39 +825,40 @@ namespace GUI
         /// <param name="barCode"></param>
         /// <param name="congTy"></param>
         /// <returns></returns>
-        public Entities.MaVachThe[] GetTheGT(Entities.Barcode[] barCode, Entities.ThongTinCongTy congTy)
+        public MaVachThe[] GetTheGt(Barcode[] barCode, ThongTinCongTy congTy)
         {
-            List<Entities.MaVachThe> retVal = null;
+            List<MaVachThe> retVal = null;
             try
             {
-                retVal = new List<Entities.MaVachThe>();
+                retVal = new List<MaVachThe>();
                 cl = new Server_Client.Client();
                 // gán TCPclient
-                this.client = cl.Connect(Luu.IP, Luu.Ports);
+                client = cl.Connect(Luu.IP, Luu.Ports);
                 // khởi tạo biến truyền vào với hàm khởi tạo
-                Entities.TheGiamGia pt = new Entities.TheGiamGia();
-                pt.HanhDong = "Select";
-                clientstrem = cl.SerializeObj(this.client, "TheGiamGia", pt);
-                Entities.TheGiamGia[] tggArr = new Entities.TheGiamGia[1];
+                TheGiamGia pt = new TheGiamGia { HanhDong = "Select" };
+                clientstrem = cl.SerializeObj(client, "TheGiamGia", pt);
+                TheGiamGia[] tggArr = new TheGiamGia[1];
                 // đổ mảng đối tượng vào datagripview       
-                tggArr = (Entities.TheGiamGia[])cl.DeserializeHepper1(clientstrem, tggArr);
+                tggArr = (TheGiamGia[])cl.DeserializeHepper1(clientstrem, tggArr);
                 // 
-                foreach (Entities.Barcode code in barCode)
+                foreach (Barcode code in barCode)
                 {
-                    foreach (Entities.TheGiamGia item in tggArr)
+                    foreach (TheGiamGia item in tggArr)
                     {
                         if (code.MaHangHoa.Trim().ToUpper().Equals(item.MaTheGiamGia.Trim().ToUpper()))
                         {
-                            Entities.MaVachThe mavach = new Entities.MaVachThe();
-                            mavach.TenCongTy = congTy.TenCongTy + "\r\n" + congTy.DiaChi;
-                            mavach.TenThe = "Thẻ Giá Trị";
-                            mavach.MaKH = item.MaKhachHang;
-                            mavach.TenKH = code.TenHangHoa;
-                            mavach.NgayBatDau = item.NgayBatDau.ToShortDateString();
-                            mavach.NgayKetThuc = item.NgayKetThuc.ToShortDateString();
-                            mavach.MaVach = code.MaVach;
-                            mavach.MaThe = item.MaTheGiamGia;
-                            mavach.GiaTriThe = double.Parse(item.GiaTriThe);
+                            MaVachThe mavach = new MaVachThe
+                            {
+                                TenCongTy = congTy.TenCongTy + "\r\n" + congTy.DiaChi,
+                                TenThe = "Thẻ Giá Trị",
+                                MaKH = item.MaKhachHang,
+                                TenKH = code.TenHangHoa,
+                                NgayBatDau = item.NgayBatDau.ToShortDateString(),
+                                NgayKetThuc = item.NgayKetThuc.ToShortDateString(),
+                                MaVach = code.MaVach,
+                                MaThe = item.MaTheGiamGia,
+                                GiaTriThe = double.Parse(item.GiaTriThe)
+                            };
                             retVal.Add(mavach);
                             break;
                         }
@@ -421,17 +900,17 @@ namespace GUI
                     {
                         if (!code.MaHangHoa.Trim().ToUpper().Equals(item.MaThe.Trim().ToUpper())) continue;
                         MaVachThe maVachThe = new MaVachThe
-                                                  {
-                                                      TenCongTy = thongTinCongTy.TenCongTy + "\r\n" + thongTinCongTy.DiaChi,
-                                                      TenThe = "Thẻ Vip",
-                                                      MaKH = item.MaKhachHang,
-                                                      TenKH = code.TenHangHoa,
-                                                      NgayBatDau = new DateTime().ToShortDateString(),
-                                                      NgayKetThuc = new DateTime().ToShortDateString(),
-                                                      MaVach = code.MaVach,
-                                                      MaThe = item.MaThe,
-                                                      GiaTriThe = double.Parse(item.GiaTriThe)
-                                                  };
+                        {
+                            TenCongTy = thongTinCongTy.TenCongTy + "\r\n" + thongTinCongTy.DiaChi,
+                            TenThe = "Thẻ Vip",
+                            MaKH = item.MaKhachHang,
+                            TenKH = code.TenHangHoa,
+                            NgayBatDau = new DateTime().ToShortDateString(),
+                            NgayKetThuc = new DateTime().ToShortDateString(),
+                            MaVach = code.MaVach,
+                            MaThe = item.MaThe,
+                            GiaTriThe = double.Parse(item.GiaTriThe)
+                        };
                         retVal.Add(maVachThe);
                         break;
                     }
@@ -445,289 +924,14 @@ namespace GUI
             return retVal.ToArray();
         }
 
-        /// <summary>
-        /// GetCongTy
-        /// </summary>
-        /// <returns></returns>
-        public ThongTinCongTy GetCongTy()
-        {
-            ThongTinCongTy retVal;
-            try
-            {
-                cl = new Server_Client.Client();
-                // gán TCPclient
-                client = cl.Connect(Luu.IP, Luu.Ports);
-                // khởi tạo biến truyền vào với hàm khởi tạo
-                ThongTinCongTy congTy = new ThongTinCongTy();
-                // truyền HanhDong
-                congTy = new ThongTinCongTy("Select");
-                // khởi tạo mảng đối tượng để hứng giá trị
-                ThongTinCongTy[] arr = new ThongTinCongTy[1];
-                clientstrem = cl.SerializeObj(client, "CongTy", congTy);
-                // đổ mảng đối tượng vào daThongTinCongTytagripview       
-                arr = (ThongTinCongTy[])cl.DeserializeHepper1(clientstrem, arr);
-                retVal = arr[0];
-            }
-            catch (Exception)
-            {
-                retVal = null;
-            }
-
-            return retVal;
-        }
-
-        private void ToolStripStatusLabel1Click(object sender, EventArgs e)
-        {
-            try
-            {
-                statusStrip1.Focus();
-                //quyen
-                if (!Common.Utilities.User.Administrator && !CheckQuyen(Name, 4)) return;
-
-                if (checkBox1.Checked)
-                {
-                    if (dgvHangHoa.RowCount > 0)
-                    {
-                        Enabled = false;
-                        Enabled = true;
-                        Barcode[] barCode = GetProduct(dgvHangHoa);
-                        MaVachThe[] theGt = GetTheGT(barCode, congTy);
-                        MaVachThe[] theVip = GetTheVip(barCode, congTy);
-                        string loaiGiay = cbxLoaigiay.SelectedItem.ToString();
-                        switch (loaiGiay)
-                        {
-                            case "Loại A5":
-                                //in theo 5 cot NGANG
-                                if (barCode.Length > 0)
-                                {
-                                    if (checkXemIn.Checked == false)
-                                    {
-                                        Report.rptBarcodeNamCotA5 report = new GUI.Report.rptBarcodeNamCotA5();
-                                        report.SetDataSource(barCode);
-                                        report.PrintToPrinter(1, true, 0, 999);
-                                    }
-                                    else
-                                    {
-
-                                        frmBaoCaoBarcode frm = new frmBaoCaoBarcode(barCode, "Loại A5", checkXemIn.Checked);
-                                        frm.ShowDialog();
-                                    }
-                                }
-                                else
-                                { MessageBox.Show("Chọn " + GetTenRdo() + " mới có thể in"); }
-                                break;
-
-                            case "Loại 110":
-                                // in theo 3 cot
-                                if (barCode.Length > 0)
-                                {
-                                    if (checkXemIn.Checked == false)
-                                    {
-                                        Report.rptBarcodeBaCot report = new Report.rptBarcodeBaCot();
-                                        report.SetDataSource(barCode);
-                                        report.PrintToPrinter(1, true, 0, 999);
-                                    }
-                                    else
-                                    {
-                                        frmBaoCaoBarcode frm = new frmBaoCaoBarcode(barCode, "Loại 110", checkXemIn.Checked);
-                                        frm.ShowDialog();
-                                    }
-                                }
-                                else
-                                { MessageBox.Show("Chọn " + GetTenRdo() + " mới có thể in"); }
-                                break;
-                            case "Loại A4":
-                                // in theo 5 cot
-                                if (barCode.Length > 0)
-                                {
-                                    if (checkXemIn.Checked == false)
-                                    {
-                                        // Hang Hoa
-                                        if (rdoHH.Checked)
-                                        {
-                                            GUI.Report.rptBarcodeNamCot report = new GUI.Report.rptBarcodeNamCot();
-                                            report.SetDataSource(barCode);
-                                            report.PrintToPrinter(1, true, 0, 999);
-                                        }
-                                        // The Vip
-                                        if (rdoTV.Checked)
-                                        {
-                                            GUI.Report.rptMaVachTheVip report = new Report.rptMaVachTheVip();
-                                            report.SetDataSource(theVip);
-                                            report.PrintToPrinter(1, true, 0, 999);
-                                        }
-                                        // The GT
-                                        if (rdoTGT.Checked)
-                                        {
-
-                                            GUI.Report.rptMaVachTheGT report = new Report.rptMaVachTheGT();
-                                            report.SetDataSource(theGt);
-                                            report.PrintToPrinter(1, true, 0, 999);
-                                        }
-
-                                    }
-                                    else
-                                    {
-                                        // Hang hoa
-                                        if (rdoHH.Checked)
-                                        {
-                                            frmBaoCaoBarcode frm = new frmBaoCaoBarcode(barCode, "Loại A4", checkXemIn.Checked);
-                                            frm.ShowDialog();
-                                        }
-                                        // The Vip
-                                        if (rdoTV.Checked)
-                                        {
-                                            frmBaoCaoBarcode frm = new frmBaoCaoBarcode("TV", theVip);
-                                            frm.ShowDialog();
-                                        }
-                                        // The GT
-                                        if (rdoTGT.Checked)
-                                        {
-                                            frmBaoCaoBarcode frm = new frmBaoCaoBarcode("TGT", theGt);
-                                            frm.ShowDialog();
-                                        }
-
-
-                                    }
-                                }
-                                else
-                                { MessageBox.Show("Chọn " + GetTenRdo() + " mới có thể in"); }
-                                break;
-                        }
-                    }
-                    else
-                    { MessageBox.Show("Không có " + GetTenRdo() + " nào để in mã vạch"); }
-                }
-                else
-                { MessageBox.Show("Bạn đang chọn in một mã vạch"); checkBox1.Focus(); }
-            }
-            catch
-            {
-
-            }
-        }
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                if (checkBox1.Checked == true)
-                {
-                    txtWidth.ReadOnly = true;
-                    txtHeight.ReadOnly = true;
-                    cbxLoaigiay.SelectedIndex = 0;
-                    cbxLoaigiay.Enabled = true;
-                }
-                if (checkBox1.Checked == false)
-                {
-                    txtWidth.ReadOnly = false;
-                    txtHeight.ReadOnly = false;
-                    cbxLoaigiay.SelectedIndex = 0;
-                    cbxLoaigiay.Enabled = false;
-                }
-            }
-            catch
-            {
-            }
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="c"></param>
-        private ThongTinMaVach[] _search;
-
-        private void cbxLoaigiay_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                txtWidth.ReadOnly = true;
-                txtHeight.ReadOnly = true;
-                if (cbxLoaigiay.SelectedItem.ToString() == "Loại A5")
-                {
-                    txtWidth.Text = "36 mm";
-                    txtHeight.Text = "19 mm";
-                }
-                if (cbxLoaigiay.SelectedItem.ToString() == "Loại 110")
-                {
-                    txtWidth.Text = "36 mm";
-                    txtHeight.Text = "19 mm";
-                }
-                if (cbxLoaigiay.SelectedItem.ToString() == "Loại A4")
-                {
-                    txtWidth.Text = "36 mm";
-                    txtHeight.Text = "19 mm";
-                }
-            }
-            catch
-            {
-            }
-        }
-
-        private void txtWidth_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void txtHeight_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void txtMaHangHoa_Click(object sender, EventArgs e)
-        {
-            txtMaHangHoa.Text = string.Empty;
-            txtTenHangHoa.Text = string.Empty;
-            txtSoLuongIn.Text = string.Empty;
-        }
-        #region
-        ////////////////////////////////////////////MRk FIX
-        ThongTinMaVach[] getTheVip()
-        {
-            cl = new Server_Client.Client();
-            client = cl.Connect(Luu.IP, Luu.Ports);
-            clientstrem = cl.SerializeObj(client, "THAOTAC_InMaVachTheVip", new ThongTinMaVach());
-            ThongTinMaVach[] bientam = new ThongTinMaVach[1];
-            //Tìm kiếm thẻ vip
-            bientam = (ThongTinMaVach[])cl.DeserializeHepper(clientstrem, bientam);
-            client.Close();
-            clientstrem.Close();
-            return bientam ?? new ThongTinMaVach[0];
-        }
-        ThongTinMaVach[] getTheGiaTri()
-        {
-            cl = new Server_Client.Client();
-            client = cl.Connect(Luu.IP, Luu.Ports);
-            clientstrem = cl.SerializeObj(client, "THAOTAC_InMaVachTheGiaTri", new ThongTinMaVach());
-            ThongTinMaVach[] bientam = new ThongTinMaVach[1];
-            //Tìm kiếm thẻ giá trị
-            bientam = (ThongTinMaVach[])cl.DeserializeHepper(clientstrem, bientam);
-            client.Close();
-            clientstrem.Close();
-            return bientam ?? new ThongTinMaVach[0];
-        }
-        ////////////////////////////////////////////MRk FIX
-        private ArrayList list = new ArrayList();
         private void GetHangHoa(string mahanghoa)
         {
             try
             {
                 if (rdoTV.Checked)
                 {
-                    List<ThongTinMaVach> l = new List<ThongTinMaVach>();
-                    List<ThongTinMaVach> ll = new List<ThongTinMaVach>();
-                    l = getTheVip().ToList();
-                    ll = getTheGiaTri().ToList();
-                    if (l.Count == 0 || ll.Count == 0)
-                    {
-                        return;
-                    }
                     bool flag = false;
-                    foreach (ThongTinMaVach item in l.Where(item => item.MaHangHoa.ToUpper().Equals(mahanghoa.ToUpper())))
+                    foreach (ThongTinMaVach item in _dsThongTinMaVachTheVip.Where(item => item.MaHangHoa.ToUpper().Equals(mahanghoa.ToUpper())))
                     {
                         txtMaHangHoa.Text = item.MaHangHoa;
                         txtTenHangHoa.Text = item.TenHangHoa;
@@ -737,7 +941,7 @@ namespace GUI
                     }
                     if (!flag)
                     {//thẻ giá trị
-                        foreach (ThongTinMaVach item in ll)
+                        foreach (ThongTinMaVach item in _dsThongTinMaVachTheGiaTri)
                         {
                             txtMaHangHoa.Text = item.MaHangHoa;
                             txtTenHangHoa.Text = item.TenHangHoa;
@@ -751,43 +955,39 @@ namespace GUI
                     //////////////////////MRK FIX
                     bool quydoi = false;
                     //Kiểm tra bảng quy đổi đơn vị tính
-                    List<QuyDoiDonViTinh> lDvt = _k;
+                    List<QuyDoiDonViTinh> lDvt = _dsQuyDoiDonViTinh;
                     QuyDoiDonViTinh lDvtSelect = new QuyDoiDonViTinh();
-                    foreach (QuyDoiDonViTinh item in lDvt)
+                    foreach (QuyDoiDonViTinh item in lDvt.Where(item => item.MaHangQuyDoi.Equals(mahanghoa)))
                     {
-                        if (item.MaHangQuyDoi.Equals(mahanghoa))
-                        {
-                            //MaHang = item.MaHangDuocQuyDoi; //tạm thời chuyển mã hàng về mã hàng được quy đổi để lấy thông tin
-                            lDvtSelect = item;  //biến tạm
-                            quydoi = true; //trạng thái mã hàng đang nhập vào là hàng quy đổi hay không?
-                            break;
-                        }
+                        //MaHang = item.MaHangDuocQuyDoi; //tạm thời chuyển mã hàng về mã hàng được quy đổi để lấy thông tin
+                        lDvtSelect = item;  //biến tạm
+                        quydoi = true; //trạng thái mã hàng đang nhập vào là hàng quy đổi hay không?
+                        break;
                     }
                     /////////////////////////////
                     if (quydoi)
                     {
-                        if (_search == null)
-                        { return; }
-                        for (int i = 0; i < _search.Length; i++)
+                        if (_dsHangHoaGoiHang == null) return;
+                        if (_dsHangHoaGoiHang.Any(t => t.MaHangHoa.ToUpper() == lDvtSelect.MaHangDuocQuyDoi.ToUpper()))
                         {
-                            if (_search[i].MaHangHoa.ToUpper() == lDvtSelect.MaHangDuocQuyDoi.ToUpper())
-                            {
-                                txtMaHangHoa.Text = lDvtSelect.MaHangQuyDoi;
-                                txtTenHangHoa.Text = lDvtSelect.TenHangDuocQuyDoi;
-                                txtSoLuongIn.Text = "1";
-                                break;
-                            }
+                            txtMaHangHoa.Text = lDvtSelect.MaHangQuyDoi;
+                            txtTenHangHoa.Text = lDvtSelect.TenHangDuocQuyDoi;
+                            //Lấy giá của hàng hóa
+                            ThongTinMaVach temp =
+                                _dsHangHoaGoiHang.SingleOrDefault(
+                                    k => k.MaHangHoa.ToUpper().Equals(txtMaHangHoa.Text.ToUpper()));
+                            txtGia.Text = temp.GiaNhap + "#" + temp.GiaBanBuon + "#" + temp.GiaBanLe;
+                            txtSoLuongIn.Text = "1";
                         }
                     }
                     else
                     {
-                        if (_search == null)
-                        { return; }
-                        foreach (ThongTinMaVach t in _search)
+                        if (_dsHangHoaGoiHang == null) return;
+                        foreach (ThongTinMaVach t in _dsHangHoaGoiHang.Where(t => t.MaHangHoa.ToUpper() == mahanghoa.ToUpper()))
                         {
-                            if (t.MaHangHoa.ToUpper() != mahanghoa.ToUpper()) continue;
                             txtMaHangHoa.Text = t.MaHangHoa;
                             txtTenHangHoa.Text = t.TenHangHoa;
+                            txtGia.Text = t.GiaNhap + "#" + t.GiaBanBuon + "#" + t.GiaBanLe;
                             txtSoLuongIn.Text = "1";
                             break;
                         }
@@ -798,70 +998,7 @@ namespace GUI
             {
             }
         }
-        private void SelectData()
-        {
-            try
-            {
-                cl = new Server_Client.Client();
-                client = cl.Connect(Luu.IP, Luu.Ports);
-                ThongTinMaVach row = new ThongTinMaVach("Select");
-                clientstrem = cl.SerializeObj(client, "ThongTinMaVachHangHoa", row);
-                _search = new ThongTinMaVach[1];
-                _search = (ThongTinMaVach[])cl.DeserializeHepper(clientstrem, _search);
-                client.Close();
-                clientstrem.Close();
-                SelectGoiHang();
-            }
-            catch
-            {
-                _search = null;
-            }
-        }
-        public void SelectGoiHang()
-        {
-            try
-            {
-                cl = new Server_Client.Client();
-                client = cl.Connect(Luu.IP, Luu.Ports);
-                GoiHang goi = new GoiHang("Select");
-                clientstrem = cl.SerializeObj(client, "GoiHang", goi);
-                GoiHang[] goiHang = new GoiHang[1];
-                goiHang = (GoiHang[])cl.DeserializeHepper1(clientstrem, goiHang);
-                try
-                {
-                    foreach (GoiHang t in goiHang)
-                    {
-                        if (t.Deleted == false)
-                        {
-                            ThongTinMaVach row = new ThongTinMaVach
-                                                     {
-                                                         MaHangHoa = t.MaGoiHang,
-                                                         TenHangHoa = t.TenGoiHang
-                                                     };
-                            list.Add(row);
-                        }
-                    }
-                }
-                catch { }
-                try
-                {
-                    for (int i = 0; i < this._search.Length; i++)
-                    {
-                        list.Add(this._search[i]);
-                    }
-                }
-                catch { }
-                int k = list.Count;
-                if (k <= 0) _search = null;
-                else
-                {
-                    _search = new ThongTinMaVach[k];
-                    for (int i = 0; i < k; i++) _search[i] = (ThongTinMaVach)list[i];
-                }
-            }
-            catch { }
-        }
-        #endregion
+
         private ThongTinMaVach RowsData()
         {
             ThongTinMaVach r = new ThongTinMaVach();
@@ -903,6 +1040,13 @@ namespace GUI
                 r.MaHangHoa = txtMaHangHoa.Text;
                 r.TenHangHoa = txtTenHangHoa.Text;
                 r.GhiChu = txtSoLuongIn.Text;
+                string[] temp = txtGia.Text.Split('#');
+                if (temp.Length > 0)
+                {
+                    r.GiaNhap = temp[0];
+                    r.GiaBanBuon = temp[1];
+                    r.GiaBanLe = temp[2];
+                }
             }
             catch (Exception)
             {
@@ -910,215 +1054,6 @@ namespace GUI
             }
             return r;
         }
-        private ThongTinMaVach[] _listview;
-        private void AddRow(ThongTinMaVach rows)
-        {
-            ArrayList li = new ArrayList();
-            try
-            {
-                if (_listview == null)
-                {
-                    li.Add(rows);
-                }
-                else
-                {
-                    Boolean kt = false;
-                    foreach (ThongTinMaVach t in _listview)
-                    {
-                        if (t.MaHangHoa.Trim().ToUpper().Equals(rows.MaHangHoa.Trim().ToUpper()))
-                        {
-                            kt = true;
-                            int sl = int.Parse(t.GhiChu) + int.Parse(rows.GhiChu);
-                            rows.GhiChu = (sl).ToString();
-                            li.Add(rows);
-                        }
-                        else li.Add(t);
-                    }
-                    if (kt == false) li.Add(rows);
-                }
-                int x = li.Count;
-                if (x <= 0)
-                {
-                    _listview = new ThongTinMaVach[0];
-                }
-                else
-                {
-                    _listview = new ThongTinMaVach[x];
-                    for (int i = 0; i < x; i++)
-                    {
-                        _listview[i] = (ThongTinMaVach)li[i];
-                    }
-                }
-                dgvHangHoa.DataSource = _listview;
-                FixDatagridview();
-            }
-            catch
-            {
-            }
-        }
-
-        private void Edits(string MaHangHoa)
-        {
-            ArrayList li = new ArrayList();
-            try
-            {
-                if (_listview == null) li = null;
-                else
-                {
-                    foreach (ThongTinMaVach t in _listview)
-                    {
-                        if (t.MaHangHoa != MaHangHoa) { li.Add(t); continue; }
-                        txtMaHangHoa.Text = t.MaHangHoa;
-                        txtTenHangHoa.Text = t.TenHangHoa;
-                        txtSoLuongIn.Text = t.GhiChu;
-                        txtSoLuongIn.Focus();
-                    }
-                }
-
-                int k = li.Count;
-                if (k <= 0)
-                {
-                    _listview = new ThongTinMaVach[0];
-                }
-                else
-                {
-                    _listview = new ThongTinMaVach[k];
-                    for (int i = 0; i < k; i++)
-                    {
-                        _listview[i] = (ThongTinMaVach)li[i];
-                    }
-                }
-                dgvHangHoa.DataSource = _listview;
-                FixDatagridview();
-            }
-            catch
-            {
-            }
-        }
-
-        public static ThongTinMaVach Timhanghoa;
-        private void txtMaHangHoa_KeyDown(object sender, KeyEventArgs e)
-        {
-            try
-            {
-                switch (e.KeyCode)
-                {
-                    case Keys.Enter:
-                        GetHangHoa(txtMaHangHoa.Text);
-                        txtSoLuongIn.Focus();
-                        break;
-                    case Keys.F4:
-                        string tem = string.Empty;
-
-                        if (rdoHH.Checked)
-                            tem = "HH";
-
-                        if (rdoTV.Checked)
-                            tem = "TV";
-
-                        if (rdoTGT.Checked)
-                            tem = "TGT";
-
-                        frmTimKiemHangHoaGoiHang frm = new frmTimKiemHangHoaGoiHang(tem);
-                        frm.ShowDialog();
-                        if (Timhanghoa != null)
-                        {
-                            txtMaHangHoa.Text = Timhanghoa.MaHangHoa;
-                            txtTenHangHoa.Text = Timhanghoa.TenHangHoa;
-                            txtSoLuongIn.Text = "1";
-                            txtSoLuongIn.Focus();
-                        }
-                        break;
-                }
-            }
-            catch
-            {
-            }
-        }
-
-        private void txtMaHangHoa_TextChanged(object sender, EventArgs e)
-        {
-            txtTenHangHoa.Text = string.Empty;
-            txtSoLuongIn.Text = string.Empty;
-        }
-
-        private void btnThem_Click(object sender, EventArgs e)
-        {
-            Entities.ThongTinMaVach ttmv = RowsData();
-            if (ttmv == null)
-                return;
-
-            AddRow(ttmv);
-            txtMaHangHoa.Text = "";
-            txtTenHangHoa.Text = "";
-            txtSoLuongIn.Text = "";
-            txtMaHangHoa.Focus();
-        }
-
-        private void txtSoLuongIn_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                Entities.ThongTinMaVach ttmv = RowsData();
-                if (ttmv == null)
-                    return;
-
-                AddRow(ttmv);
-                txtMaHangHoa.Text = "";
-                txtTenHangHoa.Text = "";
-                txtSoLuongIn.Text = "";
-                txtMaHangHoa.Focus();
-            }
-        }
-        private string MaHangHoa = string.Empty;
-        private void dgvHangHoa_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            try
-            {
-                if (_listview != null)
-                {
-                    MaHangHoa = dgvHangHoa.Rows[e.RowIndex].Cells["MaHangHoa"].Value.ToString();
-                }
-            }
-            catch
-            {
-            }
-        }
-
-        private void rdoTV_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!rdoTV.Checked) return;
-            label14.Text = "Mã thẻ vip:";
-            label15.Text = "Tên khách hàng: ";
-            dgvHangHoa.DataSource = null;
-            _listview = null;
-        }
-
-        private void rdoHH_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!rdoHH.Checked) return;
-            label14.Text = "Mã hàng hóa:";
-            label15.Text = "Tên hàng hóa: ";
-            dgvHangHoa.DataSource = null;
-            _listview = null;
-        }
-
-        private void rdoTGT_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!rdoTGT.Checked) return;
-            label14.Text = "Mã thẻ giá trị:";
-            label15.Text = "Tên khách hàng: ";
-            dgvHangHoa.DataSource = null;
-            _listview = null;
-        }
-
-        private void txtTenHangHoa_TextChanged(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(txtTenHangHoa.Text)) return;
-            string maHangHoa = txtMaHangHoa.Text;
-            Image img = CreateImg(maHangHoa);
-            barcode.Image = img;
-            txtTen.Text = txtTenHangHoa.Text;
-        }
+        #endregion
     }
 }
