@@ -25,11 +25,11 @@ namespace GUI
             imgbaocao.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/Images/BaoCao_icon.png"));
 
             //Show or Hide XNT
-            Visibility _configXNT = Utils.showXNT ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
-            bcXNTTheoNhomHang.Visibility = _configXNT;
-            bcXNTTheoPhieuXuatHuy.Visibility = _configXNT;
-            bcXNTTheoLoaiHang.Visibility = _configXNT;
-            bcXNTTheoKho.Visibility = _configXNT;
+            Visibility configXnt = Utils.showXNT ? Visibility.Visible : Visibility.Hidden;
+            bcXNTTheoNhomHang.Visibility = configXnt;
+            bcXNTTheoPhieuXuatHuy.Visibility = configXnt;
+            bcXNTTheoLoaiHang.Visibility = configXnt;
+            bcXNTTheoKho.Visibility = configXnt;
         }
 
 
