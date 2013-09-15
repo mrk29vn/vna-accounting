@@ -7,120 +7,57 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using CrystalDecisions.Shared;
+using Entities;
 
 namespace GUI
 {
     public partial class frmBaoCaoBarcode : Form
     {
-        Entities.MaVachThe[] maVach;
+        #region Khai báo
+        readonly MaVachThe[] _maVach;
+        public Barcode[] Code { get; set; }
+        public int Banghi { get; set; }
+        public Barcode_110[] BaCot { get; set; }
+        public Barcode_A4[] NamCot { get; set; }
+        public Barcode_A5[] HaiCot { get; set; }
+        public bool XemIn { get; set; }
+        public string HanhDong { get; set; }
+        #endregion
 
+        #region khởi tạo
         public frmBaoCaoBarcode()
         {
             InitializeComponent();
         }
 
-        public frmBaoCaoBarcode(string hanhDong, Entities.MaVachThe[] maVach)
-        {
+        public frmBaoCaoBarcode(string hanhDong, MaVachThe[] maVach)
+        {//In mã vạch thẻ vip và thẻ giá trị
             InitializeComponent();
-            this.hanhDong = hanhDong;
-            this.maVach = maVach;
+
+            HanhDong = hanhDong;
+            _maVach = maVach;
         }
 
-        private Entities.Barcode[] code;
-        public Entities.Barcode[] Code
-        {
-            get { return code; }
-            set { code = value; }
-        }
-        private int banghi;
+        public frmBaoCaoBarcode(Barcode[] code, string hanhdong, Boolean xemIn)
+        {//In mã vạch hàng hóa
+            InitializeComponent();
 
-        public int Banghi
-        {
-            get { return banghi; }
-            set { banghi = value; }
+            Code = code;
+            HanhDong = hanhdong;
+            XemIn = xemIn;
         }
 
-        public frmBaoCaoBarcode(Entities.Barcode[] code, string hanhdong, Boolean xemIn)
-        {
-            InitializeComponent();
-            this.code = code;
-            this.hanhDong = hanhdong;
-            this.xemIn = xemIn;
-        }
-        public frmBaoCaoBarcode(Entities.Barcode[] code, int banghi)
-        {
-            InitializeComponent();
-            this.code = code;
-            this.banghi = banghi;
-        }
-
-        //======================================================================
-        private Entities.Barcode_110[] baCot;
-        public Entities.Barcode_110[] BaCot
-        {
-            get { return baCot; }
-            set { baCot = value; }
-        }
-        public frmBaoCaoBarcode(Entities.Barcode_110[] baCot, string hanhdong, Boolean xemIn)
-        {
-            InitializeComponent();
-            this.baCot = baCot;
-            this.hanhDong = hanhdong;
-            this.xemIn = xemIn;
-        }
-        //======================================================================
-        private Entities.Barcode_A4[] namCot;
-        public Entities.Barcode_A4[] NamCot
-        {
-            get { return namCot; }
-            set { namCot = value; }
-        }
-        public frmBaoCaoBarcode(Entities.Barcode_A4[] namCot, string hanhdong, Boolean xemIn)
-        {
-            InitializeComponent();
-            this.namCot = namCot;
-            this.hanhDong = hanhdong;
-            this.xemIn = xemIn;
-        }
-        //======================================================================
-        private Entities.Barcode_A5[] haiCot;
-        public Entities.Barcode_A5[] HaiCot
-        {
-            get { return haiCot; }
-            set { haiCot = value; }
-        }
-        private Boolean xemIn;
-
-        public Boolean XemIn
-        {
-            get { return xemIn; }
-            set { xemIn = value; }
-        }
-        public frmBaoCaoBarcode(Entities.Barcode_A5[] haiCot, string hanhdong, Boolean xemIn)
-        {
-            InitializeComponent();
-            this.haiCot = haiCot;
-            this.hanhDong = hanhdong;
-            this.xemIn = xemIn;
-        }
-        private string hanhDong;
-
-        public string HanhDong
-        {
-            get { return hanhDong; }
-            set { hanhDong = value; }
-        }
         private void frmBaoCaoBarcode_Load(object sender, EventArgs e)
         {
             try
             {
-                switch (hanhDong)
+                switch (HanhDong)
                 {
                     case "MotCot":
-                        if (code.Length > 0)
+                        if (Code.Length > 0)
                         {
-                            GUI.Report.rptBarcode report = new GUI.Report.rptBarcode();
-                            report.SetDataSource(this.code);
+                            Report.rptBarcode report = new Report.rptBarcode();
+                            report.SetDataSource(Code);
                             crvReport.ReportSource = report;
                             crvReport.Show();
                         }
@@ -128,10 +65,10 @@ namespace GUI
                         { MessageBox.Show("Chưa có mã vạch để in hãy kiểm tra lại"); this.Close(); }
                         break;
                     case "Loại A5":
-                        if (code.Length > 0)
+                        if (Code.Length > 0)
                         {
-                            GUI.Report.In_MaVach_Chuan report = new GUI.Report.In_MaVach_Chuan();
-                            report.SetDataSource(this.code);
+                            Report.In_MaVach_Chuan report = new Report.In_MaVach_Chuan();
+                            report.SetDataSource(Code);
                             crvReport.ReportSource = report;
                             crvReport.Show();
                         }
@@ -140,81 +77,84 @@ namespace GUI
                         break;
 
                     case "Loại 110":
-                        if (code.Length > 0)
+                        if (Code.Length > 0)
                         {
-                            GUI.Report.In_MaVach_ChuyenDung report = new GUI.Report.In_MaVach_ChuyenDung();
-                            report.SetDataSource(this.code);
+                            Report.In_MaVach_ChuyenDung report = new Report.In_MaVach_ChuyenDung();
+                            report.SetDataSource(Code);
                             crvReport.ReportSource = report;
                             crvReport.Show();
                         }
                         else
-                        { MessageBox.Show("Chưa có mã vạch để in hãy kiểm tra lại"); this.Close(); }
+                        { MessageBox.Show("Chưa có mã vạch để in hãy kiểm tra lại"); Close(); }
                         break;
                     case "Loại A4":
-                        if (code.Length > 0)
+                        if (Code.Length > 0)
                         {
-                            GUI.Report.In_MaVach_Khac report = new GUI.Report.In_MaVach_Khac();
-                            report.SetDataSource(this.code);
+                            Report.In_MaVach_Khac report = new Report.In_MaVach_Khac();
+                            report.SetDataSource(Code);
                             crvReport.ReportSource = report;
                             crvReport.Show();
                         }
                         else
-                        { MessageBox.Show("Chưa có mã vạch để in hãy kiểm tra lại"); this.Close(); }
+                        { MessageBox.Show("Chưa có mã vạch để in hãy kiểm tra lại"); Close(); }
                         break;
                     case "TV":
-                        if (this.maVach.Length > 0)
+                        if (_maVach.Length > 0)
                         {
-                            GUI.Report.rptMaVachTheVip report = new Report.rptMaVachTheVip();
-                            report.SetDataSource(maVach);
+                            Report.rptMaVachTheVip report = new Report.rptMaVachTheVip();
+                            report.SetDataSource(_maVach);
                             crvReport.ReportSource = report;
                             crvReport.Show();
                         }
                         else
-                        { MessageBox.Show("Chưa có mã vạch để in hãy kiểm tra lại"); this.Close(); }
+                        { MessageBox.Show("Chưa có mã vạch để in hãy kiểm tra lại"); Close(); }
                         break;
                     case "TGT":
-                        if (this.maVach.Length > 0)
+                        if (_maVach.Length > 0)
                         {
-                            GUI.Report.rptMaVachTheGT report = new Report.rptMaVachTheGT();
-                            report.SetDataSource(maVach);
+                            Report.rptMaVachTheGT report = new Report.rptMaVachTheGT();
+                            report.SetDataSource(_maVach);
                             crvReport.ReportSource = report;
                             crvReport.Show();
                         }
                         else
-                        { MessageBox.Show("Chưa có mã vạch để in hãy kiểm tra lại"); this.Close(); }
+                        { MessageBox.Show("Chưa có mã vạch để in hãy kiểm tra lại"); Close(); }
                         break;
                     default:
-                        this.Close();
+                        Close();
                         break;
                 }
             }
-            catch (Exception ex)
-            { string s = ex.Message; MessageBox.Show("Thất bại"); this.Close(); }
+            catch
+            {
+                MessageBox.Show("Thất bại"); Close();
+            }
         }
+        #endregion
 
+        #region Event
         private void toolStripStatus_Dong_Click(object sender, EventArgs e)
         {
-            System.Windows.Forms.DialogResult giatri = System.Windows.Forms.MessageBox.Show("Bạn chắc chắn đóng lại không ?", "Thông Báo", System.Windows.Forms.MessageBoxButtons.YesNo);
+            DialogResult giatri = MessageBox.Show("Bạn chắc chắn đóng lại không ?", "Thông Báo", System.Windows.Forms.MessageBoxButtons.YesNo);
             {
-                if (giatri == System.Windows.Forms.DialogResult.Yes)
+                if (giatri == DialogResult.Yes)
                 {
-                    this.Close();
+                    Close();
                 }
-                else
-                { }
             }
         }
 
         private void MouseLeave(object sender, EventArgs e)
         {
             ToolStripLabel tsl = (ToolStripLabel)sender;
-            tsl.BackColor = System.Drawing.Color.LightSteelBlue;
+            tsl.BackColor = Color.LightSteelBlue;
         }
 
         private void MouseMove(object sender, MouseEventArgs e)
         {
             ToolStripLabel tsl = (ToolStripLabel)sender;
-            tsl.BackColor = System.Drawing.Color.Snow;
+            tsl.BackColor = Color.Snow;
         }
+        #endregion
     }
 }
