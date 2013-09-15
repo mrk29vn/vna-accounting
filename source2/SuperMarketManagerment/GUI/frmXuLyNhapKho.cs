@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
 using System.Windows.Forms;
+using Entities;
 
 namespace GUI
 {
@@ -3620,6 +3621,38 @@ namespace GUI
             return false;
         }
         #endregion
+
+        private void toolStripStatus_InMaVach_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //Kiểm tra danh sách hàng hóa trong dgvInsertOrder
+                if (dgvInsertOrder.Rows.Count <= 0) return;
+                //chuyển danh sách về List<ThongTinMaVach>
+                List<ThongTinMaVach> dsThongTinMaVach = new List<ThongTinMaVach>();
+                for (int j = 0; j < dgvInsertOrder.Rows.Count; j++)
+                {
+                    string maHangHoa = dgvInsertOrder["MaHangHoa", j].Value.ToString();
+                    string tenHangHoa = dgvInsertOrder["TenHangHoa", j].Value.ToString();
+                    double gianhap = double.Parse(dgvInsertOrder["GiaNhap", j].Value.ToString());
+                    double giabanbuon = double.Parse(dgvInsertOrder["GiaBanBuon", j].Value.ToString());
+                    double giabanle = double.Parse(dgvInsertOrder["GiaBanLe", j].Value.ToString());
+                    double soluong = double.Parse(dgvInsertOrder["SoLuongDat", j].Value.ToString());
+                    dsThongTinMaVach.Add(new ThongTinMaVach
+                    {
+                        MaHangHoa = maHangHoa,
+                        TenHangHoa = tenHangHoa,
+                        GiaNhap = gianhap.ToString(),
+                        GiaBanBuon = giabanbuon.ToString(),
+                        GiaBanLe = giabanle.ToString(),
+                        GhiChu = soluong.ToString()
+                    });
+                }
+                //Gọi Form "In Mã Vạch"
+                new frmQuanLyMaVach(dsThongTinMaVach).ShowDialog();
+            }
+            catch { }
+        }
     }
 }
 

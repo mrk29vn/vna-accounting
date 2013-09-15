@@ -32,6 +32,9 @@
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.rdoVisiblePrice = new System.Windows.Forms.RadioButton();
+            this.rdoVisibleName = new System.Windows.Forms.RadioButton();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.rdoTGT = new System.Windows.Forms.RadioButton();
             this.rdoHH = new System.Windows.Forms.RadioButton();
@@ -90,6 +93,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -116,12 +120,13 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(754, 282);
+            this.panel1.Size = new System.Drawing.Size(753, 282);
             this.panel1.TabIndex = 31;
             // 
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.groupBox1.Controls.Add(this.groupBox5);
             this.groupBox1.Controls.Add(this.groupBox4);
             this.groupBox1.Controls.Add(this.checkXemIn);
             this.groupBox1.Controls.Add(this.cbxLoaigiay);
@@ -154,19 +159,53 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(304, 282);
+            this.groupBox1.Size = new System.Drawing.Size(303, 282);
             this.groupBox1.TabIndex = 35;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cài đặt mã vạch";
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.rdoVisiblePrice);
+            this.groupBox5.Controls.Add(this.rdoVisibleName);
+            this.groupBox5.Location = new System.Drawing.Point(4, 194);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(288, 33);
+            this.groupBox5.TabIndex = 64;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Chế độ hiển thị";
+            // 
+            // rdoVisiblePrice
+            // 
+            this.rdoVisiblePrice.AutoSize = true;
+            this.rdoVisiblePrice.Location = new System.Drawing.Point(163, 12);
+            this.rdoVisiblePrice.Name = "rdoVisiblePrice";
+            this.rdoVisiblePrice.Size = new System.Drawing.Size(108, 18);
+            this.rdoVisiblePrice.TabIndex = 63;
+            this.rdoVisiblePrice.TabStop = true;
+            this.rdoVisiblePrice.Text = "Hiện giá hàng hóa";
+            this.rdoVisiblePrice.UseVisualStyleBackColor = true;
+            // 
+            // rdoVisibleName
+            // 
+            this.rdoVisibleName.AutoSize = true;
+            this.rdoVisibleName.Checked = true;
+            this.rdoVisibleName.Location = new System.Drawing.Point(45, 12);
+            this.rdoVisibleName.Name = "rdoVisibleName";
+            this.rdoVisibleName.Size = new System.Drawing.Size(108, 18);
+            this.rdoVisibleName.TabIndex = 62;
+            this.rdoVisibleName.TabStop = true;
+            this.rdoVisibleName.Text = "hiện tên hàng hóa";
+            this.rdoVisibleName.UseVisualStyleBackColor = true;
             // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.rdoTGT);
             this.groupBox4.Controls.Add(this.rdoHH);
             this.groupBox4.Controls.Add(this.rdoTV);
-            this.groupBox4.Location = new System.Drawing.Point(4, 234);
+            this.groupBox4.Location = new System.Drawing.Point(4, 231);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(303, 33);
+            this.groupBox4.Size = new System.Drawing.Size(288, 33);
             this.groupBox4.TabIndex = 63;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Loại In";
@@ -518,7 +557,7 @@
             this.groupBox2.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.groupBox2.Controls.Add(this.panel4);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.groupBox2.Location = new System.Drawing.Point(304, 0);
+            this.groupBox2.Location = new System.Drawing.Point(303, 0);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(450, 282);
             this.groupBox2.TabIndex = 37;
@@ -574,9 +613,9 @@
             // 
             this.panel2.Controls.Add(this.statusStrip1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 431);
+            this.panel2.Location = new System.Drawing.Point(0, 423);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(754, 25);
+            this.panel2.Size = new System.Drawing.Size(753, 25);
             this.panel2.TabIndex = 32;
             // 
             // statusStrip1
@@ -588,7 +627,7 @@
             this.toolStripStatusLabel2});
             this.statusStrip1.Location = new System.Drawing.Point(0, -1);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(754, 26);
+            this.statusStrip1.Size = new System.Drawing.Size(753, 26);
             this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 31;
             this.statusStrip1.Text = "statusStrip1";
@@ -597,7 +636,7 @@
             // 
             this.toolStripStatusLabel1.Image = global::GUI.Properties.Resources.In_tem_ma_vach__1_;
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(364, 21);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(369, 21);
             this.toolStripStatusLabel1.Spring = true;
             this.toolStripStatusLabel1.Text = "In danh sách";
             this.toolStripStatusLabel1.Click += new System.EventHandler(this.ToolStripStatusLabel1Click);
@@ -606,7 +645,7 @@
             // 
             this.toolStripStatusLabel2.Image = global::GUI.Properties.Resources.Xoa;
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(364, 21);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(369, 21);
             this.toolStripStatusLabel2.Spring = true;
             this.toolStripStatusLabel2.Text = "Đóng";
             this.toolStripStatusLabel2.Click += new System.EventHandler(this.toolStripStatusLabel2_Click);
@@ -618,7 +657,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(0, 282);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(754, 149);
+            this.panel3.Size = new System.Drawing.Size(753, 141);
             this.panel3.TabIndex = 33;
             // 
             // panel7
@@ -627,7 +666,7 @@
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel7.Location = new System.Drawing.Point(0, 53);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(754, 96);
+            this.panel7.Size = new System.Drawing.Size(753, 88);
             this.panel7.TabIndex = 2;
             // 
             // dgvHangHoa
@@ -643,7 +682,7 @@
             this.dgvHangHoa.RowHeadersVisible = false;
             this.dgvHangHoa.RowHeadersWidth = 10;
             this.dgvHangHoa.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvHangHoa.Size = new System.Drawing.Size(754, 96);
+            this.dgvHangHoa.Size = new System.Drawing.Size(753, 88);
             this.dgvHangHoa.TabIndex = 0;
             this.dgvHangHoa.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvHangHoa_CellClick);
             this.dgvHangHoa.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvHangHoa_CellDoubleClick);
@@ -655,7 +694,7 @@
             this.panel6.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel6.Location = new System.Drawing.Point(0, 0);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(754, 53);
+            this.panel6.Size = new System.Drawing.Size(753, 53);
             this.panel6.TabIndex = 1;
             // 
             // groupBox3
@@ -673,7 +712,7 @@
             this.groupBox3.ForeColor = System.Drawing.Color.Black;
             this.groupBox3.Location = new System.Drawing.Point(0, 0);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(754, 53);
+            this.groupBox3.Size = new System.Drawing.Size(753, 53);
             this.groupBox3.TabIndex = 37;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Tìm kiếm";
@@ -759,7 +798,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(754, 456);
+            this.ClientSize = new System.Drawing.Size(753, 448);
             this.ControlBox = false;
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
@@ -775,6 +814,8 @@
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -856,5 +897,8 @@
         private System.Windows.Forms.RadioButton rdoTGT;
         private System.Windows.Forms.DataGridView dgvHangHoa;
         private System.Windows.Forms.TextBox txtGia;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.RadioButton rdoVisiblePrice;
+        private System.Windows.Forms.RadioButton rdoVisibleName;
     }
 }

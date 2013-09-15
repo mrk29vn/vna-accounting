@@ -12,16 +12,17 @@ namespace GUI
     public partial class frmQuanLyMaVach : Form
     {
         #region Khai báo
-        readonly ThongTinCongTy _congTy;
+
+        ThongTinCongTy _congTy;
         private TcpClient client;
         private NetworkStream clientstrem;
         Server_Client.Client cl;
-        readonly List<ThongTinMaVach> _dsHangHoaGoiHang = new List<ThongTinMaVach>();
-        readonly List<QuyDoiDonViTinh> _dsQuyDoiDonViTinh = new List<QuyDoiDonViTinh>();     //Bảng quy đổi đơn vị tính
+        List<ThongTinMaVach> _dsHangHoaGoiHang = new List<ThongTinMaVach>();
+        List<QuyDoiDonViTinh> _dsQuyDoiDonViTinh = new List<QuyDoiDonViTinh>();     //Bảng quy đổi đơn vị tính
         private string _maHangHoa = string.Empty;
         public static ThongTinMaVach Timhanghoa;    //Phục vụ cho Form tìm kiếm hàng hóa
-        private readonly List<ThongTinMaVach> _dsThongTinMaVachTheVip = new List<ThongTinMaVach>();
-        private readonly List<ThongTinMaVach> _dsThongTinMaVachTheGiaTri = new List<ThongTinMaVach>();
+        private List<ThongTinMaVach> _dsThongTinMaVachTheVip = new List<ThongTinMaVach>();
+        private List<ThongTinMaVach> _dsThongTinMaVachTheGiaTri = new List<ThongTinMaVach>();
         private BarcodeLib.Barcode b = new BarcodeLib.Barcode();
         #endregion
 
@@ -29,6 +30,20 @@ namespace GUI
         public frmQuanLyMaVach()
         {
             InitializeComponent();
+            IniForm();
+        }
+
+        public frmQuanLyMaVach(List<ThongTinMaVach> dsThongTinMaVach)
+        {
+            InitializeComponent();
+            IniForm();
+            //Gán dữ liệu
+            dgvHangHoa.DataSource = dsThongTinMaVach.ToArray();
+            FixDatagridview();
+        }
+
+        private void IniForm()
+        {
             try
             {
                 _dsHangHoaGoiHang = GetHangHoaGoiHang();
@@ -41,7 +56,7 @@ namespace GUI
 
                 //Khởi tạo Cbb loại giấy
                 cbxLoaigiay.Items.Clear();
-                cbxLoaigiay.Items.AddRange(new object[] { "Loại A5", "Loại 110", "Loại A4" });
+                cbxLoaigiay.Items.AddRange(new object[] {"Loại A5", "Loại 110", "Loại A4"});
                 cbxLoaigiay.SelectedIndex = 0;
 
                 btnLoadImage.Visible = false;
@@ -51,7 +66,7 @@ namespace GUI
                 cbEncodeType.SelectedIndex = 0;
                 cbBarcodeAlign.SelectedIndex = 0;
                 cbLabelLocation.SelectedIndex = 0;
-                cbRotateFlip.DataSource = Enum.GetNames(typeof(RotateFlipType));
+                cbRotateFlip.DataSource = Enum.GetNames(typeof (RotateFlipType));
                 int i = 0;
                 foreach (object o in cbRotateFlip.Items)
                 {
@@ -69,9 +84,11 @@ namespace GUI
             catch
             {
                 if (dgvHangHoa.RowCount > 0) return;
-                toolStripStatusLabel1.Enabled = false; checkBox1.Enabled = false;
+                toolStripStatusLabel1.Enabled = false;
+                checkBox1.Enabled = false;
             }
         }
+
         #endregion
 
         #region Nghiệp vụ
@@ -803,10 +820,10 @@ namespace GUI
                         Barcode item = new Barcode
                                               {
                                                   TenSieuThi = thongTinCongTy.TenCongTy,
-                                                  TenHangHoa = tenHangHoa,
+                                                  TenHangHoa = rdoVisibleName.Checked ? tenHangHoa : string.Empty,
                                                   MaHangHoa = maHangHoa,
                                                   MaVach = ConvertToByte(CreateImg(maHangHoa)),
-                                                  DonGia = dongia
+                                                  DonGia = rdoVisibleName.Checked ? -1 : dongia
                                               };
                         hangHoaList.Add(item);
                     }
@@ -1055,5 +1072,6 @@ namespace GUI
             return r;
         }
         #endregion
+
     }
 }
