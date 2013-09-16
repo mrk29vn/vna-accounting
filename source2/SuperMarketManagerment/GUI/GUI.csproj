@@ -38,24 +38,24 @@
     <ApplicationIcon>icon_0181.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BarcodeLib, Version=1.0.0.11, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>D:\DHT\Source\SuperMarketManagerment\GUI\bin\Debug\BarcodeLib.dll</HintPath>
+    <Reference Include="BarcodeLib">
+      <HintPath>..\Lib\BarcodeLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Common">
+      <HintPath>..\Lib\Common.dll</HintPath>
     </Reference>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="HardwareMotherboardID, Version=1.0.2464.9871, Culture=neutral">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\HardwareMotherboardID.dll</HintPath>
+    <Reference Include="HardwareMotherboardID">
+      <HintPath>..\Lib\HardwareMotherboardID.dll</HintPath>
     </Reference>
     <Reference Include="Klib">
-      <HintPath>..\..\..\..\wpf\Source\Supermarket_1_v2\GUI\bin\Debug\Klib.dll</HintPath>
+      <HintPath>..\Lib\Klib.dll</HintPath>
     </Reference>
-    <Reference Include="Klib2, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\Klib2.dll</HintPath>
+    <Reference Include="Klib2">
+      <HintPath>..\Lib\Klib2.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -2516,10 +2516,6 @@
     <ProjectReference Include="..\BO\BizLogic.csproj">
       <Project>{E21EDCE8-F6B4-414D-B8A5-03FEB7548908}</Project>
       <Name>BizLogic</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{60B10BA6-C46C-4C48-BD96-EE84935CAF24}</Project>
-      <Name>Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\DAL\DAL.csproj">
       <Project>{D0C1AE1B-2B3E-4480-AC7F-F8A6947B2CAE}</Project>
