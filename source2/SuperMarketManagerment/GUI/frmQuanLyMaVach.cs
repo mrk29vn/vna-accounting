@@ -56,7 +56,7 @@ namespace GUI
 
                 //Khởi tạo Cbb loại giấy
                 cbxLoaigiay.Items.Clear();
-                cbxLoaigiay.Items.AddRange(new object[] {"Loại A5", "Loại 110", "Loại A4"});
+                cbxLoaigiay.Items.AddRange(new object[] { "Loại A5", "Loại 110", "Loại A4" });
                 cbxLoaigiay.SelectedIndex = 0;
 
                 btnLoadImage.Visible = false;
@@ -66,7 +66,7 @@ namespace GUI
                 cbEncodeType.SelectedIndex = 0;
                 cbBarcodeAlign.SelectedIndex = 0;
                 cbLabelLocation.SelectedIndex = 0;
-                cbRotateFlip.DataSource = Enum.GetNames(typeof (RotateFlipType));
+                cbRotateFlip.DataSource = Enum.GetNames(typeof(RotateFlipType));
                 int i = 0;
                 foreach (object o in cbRotateFlip.Items)
                 {
@@ -312,6 +312,21 @@ namespace GUI
                         frm.ShowDialog();
                         if (Timhanghoa != null)
                         {
+                            ThongTinMaVach temp = _dsHangHoaGoiHang.SingleOrDefault(thongTinMaVach => thongTinMaVach.MaHangHoa.ToUpper().Equals(Timhanghoa.MaHangHoa.ToUpper()));
+                            temp.GiaNhap = string.IsNullOrEmpty(temp.GiaNhap) ? "0" : temp.GiaNhap;
+                            temp.GiaBanBuon = string.IsNullOrEmpty(temp.GiaBanBuon) ? "0" : temp.GiaBanBuon;
+                            temp.GiaBanLe = string.IsNullOrEmpty(temp.GiaBanLe) ? "0" : temp.GiaBanLe;
+
+                            Timhanghoa.GiaNhap = string.IsNullOrEmpty(Timhanghoa.GiaNhap)
+                                                     ? temp.GiaNhap
+                                                     : Timhanghoa.GiaNhap;
+                            Timhanghoa.GiaBanBuon = string.IsNullOrEmpty(Timhanghoa.GiaBanBuon)
+                                                     ? temp.GiaBanBuon
+                                                     : Timhanghoa.GiaBanBuon;
+                            Timhanghoa.GiaBanLe = string.IsNullOrEmpty(Timhanghoa.GiaBanLe)
+                                                     ? temp.GiaBanLe
+                                                     : Timhanghoa.GiaBanLe;
+
                             txtMaHangHoa.Text = Timhanghoa.MaHangHoa;
                             txtTenHangHoa.Text = Timhanghoa.TenHangHoa;
                             txtGia.Text = string.Format("{0}#{1}#{2}", Timhanghoa.GiaNhap, Timhanghoa.GiaBanBuon, Timhanghoa.GiaBanLe);
@@ -811,7 +826,8 @@ namespace GUI
                     if (view == null) continue;
                     string maHangHoa = view["maHangHoa", i].Value.ToString();
                     string tenHangHoa = view["TenHangHoa", i].Value.ToString();
-                    double dongia = double.Parse(view["GiaBanLe", i].Value.ToString());
+                    string dongiastr = view["GiaBanLe", i].Value.ToString();
+                    double dongia = double.Parse(string.IsNullOrEmpty(dongiastr) ? "0" : dongiastr);
                     int soLuong = 0;
                     if (view["GhiChu", i].Value != null)
                         soLuong = int.Parse(view["GhiChu", i].Value.ToString());
