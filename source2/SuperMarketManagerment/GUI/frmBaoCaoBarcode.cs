@@ -80,6 +80,8 @@ namespace GUI
                         if (Code.Length > 0)
                         {
                             Report.In_MaVach_ChuyenDung report = new Report.In_MaVach_ChuyenDung();
+                            report.PrintOptions.PaperSize = PaperSize.DefaultPaperSize;
+                            //report.PrintOptions.DissociatePageSizeAndPrinterPaperSize = true;
                             report.SetDataSource(Code);
                             crvReport.ReportSource = report;
                             crvReport.Show();
