@@ -83,7 +83,15 @@ namespace GUI
                             report.PrintOptions.PaperSize = PaperSize.DefaultPaperSize;
                             //report.PrintOptions.DissociatePageSizeAndPrinterPaperSize = true;
                             report.SetDataSource(Code);
+                            ////report.Section3.Height = 300;
+                            //report.PrintOptions.PageContentHeight
+                            //report.PrintOptions.PaperSize = PaperSize.PaperLegal;
                             crvReport.ReportSource = report;
+                            //crvReport.Size = new Size(300, 100);
+                            //crvReport.ToolPanelWidth = 300;
+                            //report.Section3.Height = 400;
+                            //report.PrintOptions.PaperSize = PaperSize.PaperLegal;
+                            //report.PrintOptions.DissociatePageSizeAndPrinterPaperSize = false;
                             crvReport.Show();
                         }
                         else

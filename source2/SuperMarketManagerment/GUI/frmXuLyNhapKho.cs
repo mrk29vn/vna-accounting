@@ -149,8 +149,8 @@ namespace GUI
                     MessageBox.Show("Vui lòng chọn hàng hóa cần sửa giá!\r\n tại ô nhập mã hàng hóa, vui lòng điền thông tin mã hàng hoặc ấn F4 để tìm kiếm hàng hóa");
                     toolStrip_txtTracuu.Focus(); return;
                 }
-                Entities.HangHoa temp = new Entities.HangHoa(); temp.MaHangHoa = maHangHoa;
-                Entities.HangHoa tempReturn = LayHangHoaTheoMa(temp);
+                HangHoa temp = new HangHoa { MaHangHoa = maHangHoa };
+                HangHoa tempReturn = LayHangHoaTheoMa(temp);
                 frmXuLyHangHoa frm = new frmXuLyHangHoa("Update", tempReturn);
                 frm.ShowDialog();
                 LayHangHoaTheoMa(maHangHoa);
@@ -2278,7 +2278,7 @@ namespace GUI
                     #region không có quy đổi
                     cl = new Server_Client.Client();
                     client = cl.Connect(Luu.IP, Luu.Ports);
-                    Entities.HangHoa temp = new Entities.HangHoa(); temp.HanhDong = "SelectHangHoa_Theo_MaHangHoa"; temp.MaHangHoa = MaHang;
+                    Entities.HangHoa temp = new Entities.HangHoa { HanhDong = "SelectHangHoa_Theo_MaHangHoa", MaHangHoa = MaHang };
                     clientstrem = cl.SerializeObj(client, "HangHoa", temp);
                     Entities.HangHoa[] hh1 = new Entities.HangHoa[1];
                     hh1 = (Entities.HangHoa[])cl.DeserializeHepper1(clientstrem, hh1);
