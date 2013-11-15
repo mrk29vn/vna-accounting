@@ -1,0 +1,9 @@
+C:\WORKING\ToolCheckDHTvietnam\ToolCheckDHTvietnam\bin\Debug\ToolCheckDHTvietnam.exe
+C:\WORKING\ToolCheckDHTvietnam\ToolCheckDHTvietnam\bin\Debug\ToolCheckDHTvietnam.pdb
+C:\WORKING\ToolCheckDHTvietnam\ToolCheckDHTvietnam\bin\Debug\Klib2.dll
+C:\WORKING\ToolCheckDHTvietnam\ToolCheckDHTvietnam\obj\x86\Debug\ToolCheckDHTvietnam.Form1.resources
+C:\WORKING\ToolCheckDHTvietnam\ToolCheckDHTvietnam\obj\x86\Debug\ToolCheckDHTvietnam.Properties.Resources.resources
+C:\WORKING\ToolCheckDHTvietnam\ToolCheckDHTvietnam\obj\x86\Debug\ToolCheckDHTvietnam.csproj.GenerateResource.Cache
+C:\WORKING\ToolCheckDHTvietnam\ToolCheckDHTvietnam\obj\x86\Debug\ToolCheckDHTvietnam.exe
+C:\WORKING\ToolCheckDHTvietnam\ToolCheckDHTvietnam\obj\x86\Debug\ToolCheckDHTvietnam.pdb
+C:\WORKING\ToolCheckDHTvietnam\ToolCheckDHTvietnam\obj\x86\Debug\ToolCheckDHTvietnam.csprojResolveAssemblyReference.cache
