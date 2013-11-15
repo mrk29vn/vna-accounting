@@ -967,10 +967,12 @@
             this.Controls.Add(this.statusStrip1);
             this.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.KeyPreview = true;
             this.Name = "frmXuLyBanLe";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Xử Lý Bán Lẻ";
             this.Load += new System.EventHandler(this.frmXuLy_BanLe_Load);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.frmXuLyBanLe_KeyUp);
             this.Resize += new System.EventHandler(this.frmXuLyBanLe_Resize);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();

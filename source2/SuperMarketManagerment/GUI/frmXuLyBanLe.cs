@@ -11,6 +11,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Net.Sockets;
 using System.Collections;
+using Entities;
 
 namespace GUI
 {
@@ -2932,6 +2933,53 @@ namespace GUI
             //    }
             //    catch { }
             //}
+        }
+
+        private void frmXuLyBanLe_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.F9) return; //Sửa giá hàng hóa
+            string maHangHoa = toolStrip_txtTracuu.Text.Trim().ToUpper();
+            if (string.IsNullOrEmpty(maHangHoa) || maHangHoa.Equals("<F4 - Tra cứu>"))
+            {
+                MessageBox.Show("Vui lòng chọn hàng hóa cần sửa giá!\r\n tại ô nhập mã hàng hóa, vui lòng điền thông tin mã hàng hoặc ấn F4 để tìm kiếm hàng hóa");
+                toolStrip_txtTracuu.Focus(); return;
+            }
+            HangHoa[] tempReturn;
+            bool kq = Utils.GetDataFromServer("HangHoa", new HangHoa { HanhDong = "SelectHangHoa_Theo_MaHangHoa", MaHangHoa = maHangHoa }, out tempReturn);
+            if (!kq && tempReturn.Length == 0) return;
+            frmXuLyHangHoa frm = new frmXuLyHangHoa("Update", tempReturn[0]);
+            frm.ShowDialog();
+            kq = Utils.GetDataFromServer("HangHoa", new HangHoa { HanhDong = "SelectHangHoa_Theo_MaHangHoa", MaHangHoa = maHangHoa }, out tempReturn);
+            if (!kq && tempReturn.Length == 0) return;
+            //Sửa xong thì cập nhật lại vào danh sách hàng hóa trong kho
+            foreach (HangHoa hangHoa in hangHoaTheoKho.Where(hangHoa => hangHoa.MaHangHoa.Equals(tempReturn[0].MaHangHoa)))
+                Utils.Copy(tempReturn[0], hangHoa);
+
+            HangHoa hangHoaTemp = GetGoodsByCode(maHangHoa);
+            if (hangHoaTemp == null) return;
+            try
+            {
+                mahanghoa = toolStrip_txtTracuu.Text = hangHoaTemp.MaHangHoa.ToUpper();
+                tssltenhang.Text = hangHoaTemp.TenHangHoa;
+                tsslgia.Text = new Common.Utilities().FormatMoney(double.Parse(hangHoaTemp.GiaBanLe));
+                KiemTraCK(cngkh);
+                LayGiaTriThue(hangHoaTemp.MaThueGiaTriGiaTang);
+                toolStrip_txtTracuu.ReadOnly = true;
+                tsslsoluong.Focus();
+            }
+            catch { phantramchietkhau = tsslchietkhau.Text = "0"; }
+        }
+
+        /// <summary>
+        /// Lấy hàng hóa theo mã
+        /// </summary>
+        /// <param name="code">Mã hàng hóa</param>
+        /// <param name="dsHangHoa">danh sách tìm kiếm hàng hóa (nếu null thì lấy trong _hangHoaTheoKho đã có sẵn)</param>
+        /// <returns>đối tượng hàng hóa</returns>
+        HangHoa GetGoodsByCode(string code, HangHoa[] dsHangHoa = null)
+        {
+            dsHangHoa = dsHangHoa ?? hangHoaTheoKho;
+            return dsHangHoa.FirstOrDefault(k => k.MaHangHoa.ToUpper().Equals(code.ToUpper()) && !k.Deleted);
         }
     }
 }
