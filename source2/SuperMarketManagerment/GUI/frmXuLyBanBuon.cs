@@ -1,23 +1,1358 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using System.Net;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Net.Sockets;
-using System.Drawing.Printing;
-using CrystalDecisions.CrystalReports.Engine;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Sockets;
+using System.Windows.Forms;
+using Entities;
 
 namespace GUI
 {
     public partial class frmXuLyBanBuon : Form
     {
+        #region Khai báo
+        KhuyenMaiSoLuong[] kmSoLuong;
+        public TcpClient client1;
+        public NetworkStream clientstrem;
+        public static string trave = "";
+        QuyDoiDonViTinh[] quidoidvt;
+        GoiHang[] goihang;
+        ChiTietGoiHang[] chitietgoihang;
+        DateTime datesv;
+        HangHoa[] _hangHoaTheoKho;
+        Thue[] thue;
+        string str;
+        readonly string id;
+        ChiTietHDBanHang[] pt1;
+        string nohienthoi, sochungtu, datetime, hanthanhtoan, makh, khoban, nhanvien, dondatbanhang, ghichu, nguoinhan, hinhthucthanhtoan, tientetygia, chietkhau, thanhtoankhilapphieu, thanhtoanngay, gtgt, tongtien;
+        ChiTietDonDatHang[] ctddh;
+        HangHoa[] hh1;
+        CapNhatGiaKhachHang[] cngkh;
+        SelectAll selectall;
+        Server_Client.Client cl;
+        KhoHang[] kh1;
+        TienTe[] tt;
+        bool kt = false;
+        string duno = "0";
+        string mahanghoa, phantramchietkhau;
+        HangHoaHienThi[] hh;
+        int i;
+        string ck = "";
+        string tongtienthanhtoan = "0";
+        int _run;
+        string thuegtgt = "0";
+        #endregion
+
+        #region Khởi tạo
+        public frmXuLyBanBuon()
+        {
+            InitializeComponent(); datesv = DateServer.Date();
+            this.kmSoLuong = GetData();
+        }
+        public frmXuLyBanBuon(string str)
+        {
+
+            try
+            {
+                InitializeComponent(); datesv = DateServer.Date();
+                tsslin.Enabled = false;
+                dtgvsanpham.DataSource = new Entities.HangHoaHienThi[0];
+                this.str = str;
+                try
+                {
+                    LayKhoHang();
+                    new Common.Utilities().ComboxKhoHang(cbbKhoban);
+                }
+                catch
+                {
+                }
+                try
+                {
+                    LayTenTT();
+                }
+                catch
+                {
+                }
+                datesv = DateServer.Date();
+                cbbHinhthucthanhtoan.SelectedIndex = 0;
+                makNgaychungtu.Text = makHanthanhtoan.Text = new Common.Utilities().XuLy(2, datesv.ToShortDateString());
+                lbnhanvien.Text = Common.Utilities.User.TenNhanVien;
+                //
+                this.KhoiTao();
+                this.kmSoLuong = GetData();
+            }
+            catch
+            {
+            }
+        }
+        public frmXuLyBanBuon(string str, DataGridViewRow dtgvr)
+        {
+            try
+            {
+                InitializeComponent(); datesv = DateServer.Date();
+                dtgvsanpham.DataSource = new Entities.HangHoaHienThi[0];
+                try
+                {
+                    LayKhoHang();
+                    LayTenTT();
+                }
+                catch { }
+                if (str != "Sua") return;
+                tssExcel.Enabled = true;
+                tssWord.Enabled = true;
+                tssPDF.Enabled = true;
+                palNhap.Enabled = palThem.Enabled = palXem.Enabled = tsslthem.Enabled = false;
+                id = dtgvr.Cells["HDBanHangID"].Value.ToString();
+                sochungtu = txtSochungtu.Text = dtgvr.Cells["MaHDBanHang"].Value.ToString();
+                datetime = makNgaychungtu.Text = new Common.Utilities().XuLy(2, dtgvr.Cells["NgayBan"].Value.ToString());
+                hanthanhtoan = makHanthanhtoan.Text = new Common.Utilities().XuLy(2, dtgvr.Cells["HanThanhToam"].Value.ToString());
+                makh = txtMakhachhang.Text = dtgvr.Cells["MaKhachHang"].Value.ToString();
+
+                khoban = dtgvr.Cells["MaKho"].Value.ToString();
+                cbbKhoban.Text = LayTenKho(khoban);
+                nhanvien = lbnhanvien.Text = dtgvr.Cells["MaNhanVien"].Value.ToString();
+                dondatbanhang = txtDondatbanhang.Text = dtgvr.Cells["MaDonDatHang"].Value.ToString();
+                ghichu = txtDiengiai.Text = dtgvr.Cells["GhiChu"].Value.ToString();
+                nguoinhan = txtnguoinhanhang.Text = dtgvr.Cells["NguoiNhanHang"].Value.ToString();
+                hinhthucthanhtoan = cbbHinhthucthanhtoan.Text = dtgvr.Cells["HinhThucThanhToan"].Value.ToString();
+                tientetygia = dtgvr.Cells["MaTienTe"].Value.ToString();
+                cbbtientetygia.Text = LayTenTT(tientetygia);
+                txttientetygia.Text = LayDonViTT(tientetygia);
+
+
+                if (dondatbanhang == "")
+                {
+                    SelectData();
+                }
+                else
+                    SelectData1(dondatbanhang);
+
+
+                double thanhToanNgay = 0;
+                double ptckTongHD = 0;
+                double gtckTongHD = 0;
+                double tongCK = 0;
+                double khachtra = 0;
+                double tienHang = 0;
+                double tongTien = 0;
+                double duTra = 0;
+                double tongGTGT = 0;
+                double tongTienGomVAT = 0;
+                double noHienThoi = 0;
+
+                //if (dtgvr.Cells["TongTienThanhToan"].Value != null)
+                //    tongTien = double.Parse(dtgvr.Cells["TongTienThanhToan"].Value.ToString());
+
+                if (dtgvr.Cells["KhachTra"].Value != null)
+                {
+                    khachtra = double.Parse(dtgvr.Cells["KhachTra"].Value.ToString());
+                    thanhtoankhilapphieu = khachtra.ToString();
+                }
+
+                if (dtgvr.Cells["ChietKhauTongHoaDon"].Value != null)
+                    ptckTongHD = double.Parse(dtgvr.Cells["ChietKhauTongHoaDon"].Value.ToString());
+
+                if (dtgvr.Cells["ChietKhau"].Value != null)
+                    tongCK = double.Parse(dtgvr.Cells["ChietKhau"].Value.ToString());
+
+                if (dtgvr.Cells["ThueGTGT"].Value != null)
+                    tongGTGT = double.Parse(dtgvr.Cells["ThueGTGT"].Value.ToString());
+
+                if (dtgvr.Cells["NoHienThoi"].Value != null)
+                    noHienThoi = double.Parse(dtgvr.Cells["NoHienThoi"].Value.ToString());
+                if (dtgvr.Cells["ThanhToanNgay"].Value != null)
+                {
+                    thanhToanNgay = double.Parse(dtgvr.Cells["ThanhToanNgay"].Value.ToString());
+                    thanhtoanngay = thanhToanNgay.ToString();
+                }
+
+
+                tienHang = double.Parse(TinhTien(dtgvsanpham));
+                tongTienGomVAT = tienHang - tongCK + tongGTGT;
+                gtckTongHD = (ptckTongHD * tongTienGomVAT) / 100;
+                tongTien = tongTienGomVAT - gtckTongHD;
+                duTra = khachtra - tongTien;
+
+
+
+                txtTienhang.Text = new Common.Utilities().FormatMoney(tienHang);
+                txtTongtien.Text = new Common.Utilities().FormatMoney(tongTien);
+                txtGTGT.Text = new Common.Utilities().FormatMoney(tongGTGT);
+                txtTongchietkhau.Text = new Common.Utilities().FormatMoney(tongCK);
+                txtThanhtoanngay.Text = new Common.Utilities().FormatMoney(khachtra);
+                txtConphaitra.Text = new Common.Utilities().FormatMoney(duTra);
+                txtkhachtra.Text = new Common.Utilities().FormatMoney(khachtra);
+                txtdutra.Text = new Common.Utilities().FormatMoney(duTra);
+                txtNohienthoi.Text = new Common.Utilities().FormatMoney(noHienThoi);
+                txtPhantramchietkhau.Text = new Common.Utilities().FormatMoney(ptckTongHD);
+                txtChietkhau.Text = new Common.Utilities().FormatMoney(gtckTongHD);
+                txtkhachtra.Text = new Common.Utilities().FormatMoney(khachtra);
+
+                if ((Convert.ToDouble(khachtra) + Convert.ToDouble(thanhToanNgay) == Convert.ToDouble(tongTien)))
+                {
+                    lbtinhtrang.Text = "Đã Thanh Toán";
+                    tssllapphieuthanhtoan.Enabled = false;
+                }
+                else
+                {
+                    lbtinhtrang.Text = "Chưa Thanh Toán";
+                    tssllapphieuthanhtoan.Enabled = true;
+                }
+
+                grbDataGridview.Enabled = false;
+            }
+            catch
+            {
+            }
+        }
+        #endregion
+
+        #region Event
+        /// <summary>
+        /// nút đóng
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tssltrove_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.DialogResult giatri = System.Windows.Forms.MessageBox.Show("Bạn chắc chắn đóng lại không ?", "Thông Báo", System.Windows.Forms.MessageBoxButtons.YesNo);
+            {
+                if (giatri == System.Windows.Forms.DialogResult.Yes)
+                {
+                    trave = "ok";
+                    this.Close();
+                }
+                else
+                { }
+            }
+        }
+        /// <summary>
+        /// tìm khách hàng
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnTimmakhachhang_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                frmTimKH tkh = new frmTimKH("PhieuTTCuaKH");
+                tkh.ShowDialog();
+                if (frmTimKH.drvr != null)
+                {
+                    txtMakhachhang.Text = frmTimKH.drvr.Cells["MaKH"].Value.ToString();
+                    txtDondatbanhang.Text = "";
+                    dtgvsanpham.DataSource = new Entities.HangHoaHienThi[0];
+                    toolStrip_Insert.Enabled = true;
+                    dtgvsanpham.Enabled = true;
+                    txtNohienthoi.Text = frmTimKH.drvr.Cells["DuNo"].Value.ToString();
+                    frmTimKH.drvr = null;
+                    txtnguoinhanhang.Focus();
+                }
+            }
+            catch
+            {
+            }
+            finally
+            {
+                try
+                {
+                    fix();
+                }
+                catch
+                {
+                }
+            }
+        }
+        /// <summary>
+        /// tìm đơn đặt hàng
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnTimdondat_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (txtMakhachhang.Text.Length != 0)
+                {
+                    frmTimDonDatHang fr = new frmTimDonDatHang(txtMakhachhang.Text);
+                    fr.ShowDialog();
+                    if (frmTimDonDatHang.drvr != null)
+                    {
+                        string maDonDatHang = txtDondatbanhang.Text = frmTimDonDatHang.drvr.Cells["MaDonDatHang"].Value.ToString();
+                        frmTimDonDatHang.drvr = null;
+                        toolStrip_Insert.Enabled = false;
+                        dtgvsanpham.Enabled = false;
+                        SelectData1(maDonDatHang);
+                        cbbHinhthucthanhtoan.Focus();
+                        if (txtPhantramchietkhau.Text == "")
+                            phantramchietkhau = "0";
+                        else
+                            phantramchietkhau = txtPhantramchietkhau.Text;
+                        TinhToan();
+                        txtChietkhau.Text = new Common.Utilities().FormatMoney(((Convert.ToDouble(phantramchietkhau) / 100) * Convert.ToDouble(txtTienhang.Text)));
+                        txtTongchietkhau.Text = new Common.Utilities().FormatMoney(Convert.ToDouble(TinhCK(dtgvsanpham)));
+                        txtTongchietkhau.Text = (Convert.ToDouble(txtChietkhau.Text) + Convert.ToDouble(txtTongchietkhau.Text)).ToString();
+                        txtTongtien.Text = new Common.Utilities().FormatMoney(Convert.ToDouble(tongtienthanhtoan) - Convert.ToDouble(txtTongchietkhau.Text) - Convert.ToDouble(txtgiatrithe.Text));
+                        txtConphaitra.Text = new Common.Utilities().FormatMoney(Convert.ToDouble(tongtienthanhtoan) - Convert.ToDouble(txtThanhtoanngay.Text) - Convert.ToDouble(txtTongchietkhau.Text));
+                        txtdutra.Text = new Common.Utilities().FormatMoney(Convert.ToDouble(txtkhachtra.Text) - Convert.ToDouble(tongtienthanhtoan) + Convert.ToDouble(txtTongchietkhau.Text));
+
+                    }
+                }
+                else
+                    MessageBox.Show("Bạn hãy nhập Mã khách hàng");
+            }
+            catch
+            {
+            }
+        }
+        /// <summary>
+        /// xử lý option
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void thiêtLâpThôngSôToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        /// <summary>
+        /// form load
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void frmXuLyBanBuon_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                XuLyStr();
+
+            }
+            catch
+            {
+            }
+            finally
+            {
+                try
+                {
+                    fix();
+                }
+                catch
+                {
+                }
+            }
+
+        }
+
+        private void tsslthem_Click(object sender, EventArgs e)
+        {
+            this.Enabled = false;
+            try
+            {
+                if (KiemTra() == true)
+                {
+                    //CheckConflictInsert();
+                    txtSochungtu.Text = ProID("HDBanHang");
+                    kt = true;
+                    if (kt == true)
+                    {
+                        cl = new Server_Client.Client();
+                        this.client1 = cl.Connect(Luu.IP, Luu.Ports);
+                        string date = "", date2 = "";
+                        date = new Common.Utilities().MyDateConversion(makNgaychungtu.Text);
+                        try
+                        {
+                            date2 = new Common.Utilities().MyDateConversion(makHanthanhtoan.Text);
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Nhập sai định dạng ngày tháng", "Hệ thông cảnh báo");
+                            date2 = "";
+                            return;
+                        }
+                        Entities.HDBanHang pt = new Entities.HDBanHang();
+                        string makho = LayMaKho(cbbKhoban.Text);
+                        string matt = LayMaTT(cbbtientetygia.Text);
+
+                        if (string.IsNullOrEmpty(txtPhantramchietkhau.Text))
+                            txtPhantramchietkhau.Text = "0";
+                        if (string.IsNullOrEmpty(txtkhachtra.Text))
+                            txtkhachtra.Text = "0";
+
+
+                        pt = new Entities.HDBanHang("Insert", 0, txtSochungtu.Text, Convert.ToDateTime(date), txtMakhachhang.Text,
+                            txtNohienthoi.Text, txtnguoinhanhang.Text, cbbHinhthucthanhtoan.Text, makho, DateTime.Parse(date2),
+                            txtDondatbanhang.Text, Common.Utilities.User.NhanVienID, matt, txtTongchietkhau.Text, "0",
+                            txtThanhtoanngay.Text, txtGTGT.Text, txtTongtien.Text, false, " ", "0", txtDiengiai.Text,
+                            false, Common.Utilities.User.TenDangNhap, txtkhachtra.Text, txtPhantramchietkhau.Text, string.Empty, "0");
+                        pt.ChiTietHDBanHang = CheckDataGridInsert(dtgvsanpham);
+                        if (txtDondatbanhang.Text.Length != 0)
+                        {
+                            pt.DonDatHang = CapNhatTrangThaiDonDatHang("Update", txtDondatbanhang.Text, "Đã thành công");
+                        }
+                        pt.ChiTietKhoHangTheoHoaHonNhap = CheckDataGridTruSL(dtgvsanpham);
+                        double khNo = 0;
+                        double tongTienHD = 0;
+                        double tongThanhToan = 0;
+
+                        if (!string.IsNullOrEmpty(txtTongtien.Text))
+                            tongTienHD = double.Parse(txtTongtien.Text);
+
+                        if (!string.IsNullOrEmpty(txtkhachtra.Text))
+                            tongThanhToan = double.Parse(txtkhachtra.Text);
+
+                        if (tongThanhToan > tongTienHD)
+                            khNo = 0;
+                        else
+                            khNo = tongTienHD - tongThanhToan;
+
+                        pt.KhachHang = new Entities.KhachHang("UpdateDuNo", txtMakhachhang.Text, khNo.ToString());
+                        clientstrem = cl.SerializeObj(this.client1, "HDBanHang", pt);
+                        bool kt1 = false;
+                        kt1 = (bool)cl.DeserializeHepper(clientstrem, kt1);
+                        if (kt1 == true)
+                        {
+                            ////Cập nhật điểm thưởng cho khách hàng
+                            //if (CapNhatDiemThuongKhachHang(txtMakhachhang.Text, txtTongtien.Text))
+                            //{
+                            //    //Cập nhật điểm thưởng khách hàng thành công
+                            //}
+                            //else
+                            //{
+                            //    //Cập nhật điểm thưởng khách hàng thất bại
+                            //}
+                            ///////////////////////////////////////
+
+                            string khachtra = "0";
+                            if (txtkhachtra.Text == "")
+                                khachtra = "0";
+                            else
+                                khachtra = txtkhachtra.Text;
+                            //timerRun.Start();
+                            if (cbkiemtra.Checked == true)
+                            {
+                                Entities.KhachHang kh = GetThongTinKhachHang(txtMakhachhang.Text);
+                                frmBaoCaorpt bcrpt = new frmBaoCaorpt("HDBanBuon", txtSochungtu.Text,
+                                    Double.Parse(txtTongchietkhau.Text), khachtra, txtdutra.Text, txtTongtien.Text,
+                                    txtGTGT.Text, Common.Utilities.User.TenNhanVien, "in", makNgaychungtu.Text, txtgiatrithe.Text, "0", "", txtChietkhau.Text, kh.DiaChi, txtnguoinhanhang.Text, txtDiengiai.Text);
+                            }
+                            //timerRun.Stop();
+                            GiaVonBanHang(pt.ChiTietHDBanHang);
+                            this.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Thêm thất bại - xin hãy thử lại", "Hệ thống cảnh báo");
+                        }
+
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                this.Enabled = true;
+            }
+
+        }
+        private void tsslsua_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (KiemTra() == true)
+                {
+                    CheckConflictUpdate();
+                    if (kt == true)
+                    {
+                        cl = new Server_Client.Client();
+                        this.client1 = cl.Connect(Luu.IP, Luu.Ports);
+                        string date = new Common.Utilities().MyDateConversion(makNgaychungtu.Text);
+                        string date2 = new Common.Utilities().MyDateConversion(makHanthanhtoan.Text);
+                        Entities.HDBanHang pt = new Entities.HDBanHang();
+                        string makho = LayMaKho(cbbKhoban.Text);
+                        string matt = LayMaTT(cbbtientetygia.Text);
+                        pt = new Entities.HDBanHang("Insert", 0, txtSochungtu.Text, Convert.ToDateTime(date), txtMakhachhang.Text,
+                                                    txtNohienthoi.Text, txtnguoinhanhang.Text, cbbHinhthucthanhtoan.Text, makho, DateTime.Parse(date2),
+                                                    txtDondatbanhang.Text, Common.Utilities.User.NhanVienID, matt, txtTongchietkhau.Text, "0",
+                                                    txtThanhtoanngay.Text, txtGTGT.Text, txtTongtien.Text, false, " ", "0", txtDiengiai.Text,
+                                                    false, Common.Utilities.User.TenDangNhap, txtkhachtra.Text, txtPhantramchietkhau.Text, string.Empty, "0");
+
+                        clientstrem = cl.SerializeObj(this.client1, "HDBanHang", pt);
+                        bool kt1 = false;
+                        kt1 = (bool)cl.DeserializeHepper(clientstrem, kt1);
+                        if (kt1 == true)
+                        {
+                            this.Close();
+                        }
+                        else
+                            MessageBox.Show("thất bại - xin kiểm tra lại dữ liệu", "Hệ thống cảnh báo");
+
+                    }
+                    else
+                        MessageBox.Show("Dữ liệu đã bị thay đổi - Hãy kiểm tra lại", "Hệ thống cảnh báo");
+                }
+            }
+            catch
+            {
+            }
+            finally
+            {
+
+
+            }
+        }
+        private void toolStrip_txtTracuu_KeyUp(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.F4)
+                {
+                    XuLyHH();
+                }
+                if (e.KeyCode == Keys.Enter)
+                {
+
+                    if (txtMakhachhang.Text.Length == 0)
+                    {
+                        MessageBox.Show("Bạn hãy nhập Mã khách hàng", "Hệ thống cảnh báo");
+                        btnTimmakhachhang.Focus();
+                        toolStrip_txtTracuu.Text = "";
+                        return;
+                    }
+                    if (cbbKhoban.Text.Length == 0)
+                    {
+                        MessageBox.Show("Bạn hãy nhập Kho hàng", "Hệ thống cảnh báo");
+                        cbbKhoban.Focus();
+                        toolStrip_txtTracuu.Text = "";
+                        return;
+                    }
+
+                    foreach (char ch in toolStrip_txtTracuu.Text)
+                    {
+                        if (TestCharacter(ch))
+                        {
+                            MessageBox.Show("        Mã Hàng Hóa Không được nhập tiếng việt có dấu " +
+                                          "\nNếu bạn đang dùng máy quét mã vạch hãy tắt bộ gõ Tiếng Tiệt đi! ", "Hệ Thống Cảnh Báo");
+                            toolStrip_txtTracuu.Focus();
+                            toolStrip_txtTracuu.SelectAll();
+                            return;
+                        }
+                    }
+                    mahanghoa = toolStrip_txtTracuu.Text;
+                    bool retVal = true;
+                    // Qui đổi đơn vị tính
+                    foreach (QuyDoiDonViTinh item in quidoidvt)
+                    {
+                        if (item.MaHangQuyDoi.ToUpper().Equals(mahanghoa.ToUpper()))
+                        {
+                            tssltenhang.Text = item.TenHangDuocQuyDoi;
+                            tsslsoluong.Focus();
+                            retVal = false;
+                            break;
+                        }
+                    }
+                    if (tssltenhang.Text.Length == 0)
+                    {
+                        //MessageBox.Show("Hàng hóa không có trong kho", "Hệ thống cảnh báo");
+                        //return;
+                    }
+                    if (retVal)
+                        LayHangHoaTheoMa();
+                }
+                if (e.KeyCode == Keys.F5)
+                {
+                    txtkhachtra.Focus();
+                }
+                if (e.KeyCode == Keys.F6)
+                {
+                    dtgvsanpham.Focus();
+                }
+                if (e.KeyCode == Keys.F7)
+                {
+                    txtPhantramchietkhau.Focus();
+                }
+            }
+            catch
+            {
+            }
+        }
+
+        /// <summary>
+        /// thêm row
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void toolStrip_btnThem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (cbbKhoban.Text.Length == 0)
+                {
+                    MessageBox.Show("Chưa có Kho hàng", "Hệ thống cảnh báo");
+                    cbbKhoban.Focus();
+                    return;
+                }
+                if (tssltenhang.Text.Length == 0)
+                {
+                    MessageBox.Show("Chưa có tên hàng", "Hệ thống cảnh báo");
+                    return;
+                }
+                if (tsslsoluong.Text.Length == 0)
+                {
+                    MessageBox.Show("Chưa có số lượng hàng", "Hệ thống cảnh báo");
+                    tsslsoluong.Focus();
+                    return;
+                }
+                mahanghoa = toolStrip_txtTracuu.Text;
+                // Qui đổi đơn vị tính
+                foreach (Entities.QuyDoiDonViTinh item in quidoidvt)
+                {
+                    if (item.MaHangQuyDoi == mahanghoa)
+                    {
+                        mahanghoa = toolStrip_txtTracuu.Text = item.MaHangDuocQuyDoi.ToUpper();
+                        tssltenhang.Text = item.TenHangDuocQuyDoi;
+                        tsslsoluong.Text = (item.SoLuongDuocQuyDoi * int.Parse(tsslsoluong.Text)).ToString();
+                        break;
+
+                    }
+                }
+                // Qui đổi đơn vị tính
+                foreach (Entities.QuyDoiDonViTinh item in quidoidvt)
+                {
+                    if (item.MaHangQuyDoi == mahanghoa)
+                    {
+                        mahanghoa = toolStrip_txtTracuu.Text = item.MaHangDuocQuyDoi.ToUpper();
+                        tssltenhang.Text = item.TenHangDuocQuyDoi;
+                        tsslsoluong.Text = (item.SoLuongDuocQuyDoi * int.Parse(tsslsoluong.Text)).ToString();
+                        break;
+
+                    }
+                }
+                LayHangHoaTheoMa();
+                NewRow();
+                toolStrip_txtTracuu.ReadOnly = false;
+            }
+            catch
+            {
+            }
+        }
+
+        /// <summary>
+        /// xử lý khi click tra cứu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void toolStrip_txtTracuu_Click(object sender, EventArgs e)
+        {
+            toolStrip_txtTracuu.ReadOnly = false;
+            toolStrip_txtTracuu.Text = "";
+            tssltenhang.Text = "";
+            tsslgia.Text = "0";
+            tsslchietkhau.Text = "0";
+            tsslgtgt.Text = "0";
+            tsslsoluong.Text = "";
+        }
+
+        /// <summary>
+        /// xử lý khi nhập vào control
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tsslsoluong_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                string sl = "0";
+                if (tsslsoluong.Text == "")
+                    sl = "0";
+                else
+                    sl = tsslsoluong.Text;
+                if (int.Parse(sl) > 0)
+                {
+                    return;
+                }
+                tsslsoluong.Text = "";
+
+            }
+            catch (Exception ex)
+            {
+                tsslsoluong.Text = "";
+            }
+        }
+        /// <summary>
+        /// xử lý khi nhập vào control
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtPhantramchietkhau_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(str) && str.Equals("Them"))
+            {
+                txtTongtien.Text = string.Empty;
+                txtChietkhau.Text = string.Empty;
+                double tienHang = 0;
+                double tongCK = 0;
+                double thueGTGT = 0;
+                double ptckTongHD = 0;
+                double gtckTongHD = 0;
+                double tongtienHangGTGT = 0;
+                double tongtien = 0;
+
+                try
+                {
+                    if (!string.IsNullOrEmpty(txtTienhang.Text))
+                        tienHang = double.Parse(txtTienhang.Text);
+
+                    if (!string.IsNullOrEmpty(txtTongchietkhau.Text))
+                        tongCK = double.Parse(txtTongchietkhau.Text);
+
+                    if (!string.IsNullOrEmpty(txtGTGT.Text))
+                        thueGTGT = double.Parse(txtGTGT.Text);
+
+                    if (!string.IsNullOrEmpty(txtPhantramchietkhau.Text))
+                        ptckTongHD = double.Parse(txtPhantramchietkhau.Text);
+
+                    tongtienHangGTGT = tienHang - tongCK + thueGTGT;
+                    gtckTongHD = (tongtienHangGTGT * ptckTongHD) / 100;
+                    tongtien = tongtienHangGTGT - gtckTongHD;
+                    txtChietkhau.Text = new Common.Utilities().FormatMoney(gtckTongHD);
+                    txtTongtien.Text = new Common.Utilities().FormatMoney(tongtien);
+                }
+                catch (Exception)
+                {
+
+                }
+            }
+        }
+        /// <summary>
+        /// xử lý khi nhập vào control
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtThanhtoanngay_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tsslin_Click(object sender, EventArgs e)
+        {
+            this.Enabled = false;
+            Entities.KhachHang kh = GetThongTinKhachHang(txtMakhachhang.Text);
+            try
+            {
+                string khachtra = "0";
+                if (txtkhachtra.Text == "")
+                    khachtra = "0";
+                else
+                    khachtra = txtkhachtra.Text;
+                frmBaoCaorpt bcrpt = new frmBaoCaorpt("HDBanBuon", txtSochungtu.Text, Double.Parse(txtTongchietkhau.Text), khachtra, txtdutra.Text, txtTongtien.Text, txtGTGT.Text, lbnhanvien.Text, "", makNgaychungtu.Text, txtgiatrithe.Text, "0", "", txtChietkhau.Text, kh.DiaChi, txtnguoinhanhang.Text, txtDiengiai.Text);
+                bcrpt.ShowDialog();
+            }
+            catch
+            {
+            }
+            finally
+            {
+                this.Enabled = true;
+            }
+        }
+
+        /// <summary>
+        /// xử lý timer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void timerRun_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                if (toolStrip_txtTracuu.Text.Length > 0)
+                {
+                    _run++;
+                    if (_run == 3)
+                    {
+                        this.Close();
+                    }
+                }
+            }
+            catch
+            {
+            }
+            finally
+            {
+
+            }
+        }
+        /// <summary>
+        /// xử lý khi nhập vào control
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtkhachtra_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(str) && str.Equals("Them"))
+            {
+                try
+                {
+                    new TienIch().AutoFormatMoney(sender);
+                    //txtkhachtra.Text = string.Empty;
+                    txtdutra.Text = string.Empty;
+                    txtThanhtoanngay.Text = string.Empty;
+                    txtConphaitra.Text = string.Empty;
+                    double khachTra = 0;
+                    double duTra = 0;
+                    double tongTien = 0;
+                    if (!string.IsNullOrEmpty(txtTongtien.Text))
+                        tongTien = double.Parse(txtTongtien.Text);
+
+                    if (!string.IsNullOrEmpty(txtkhachtra.Text))
+                        khachTra = double.Parse(txtkhachtra.Text);
+
+                    if (!string.IsNullOrEmpty(txtdutra.Text))
+                        duTra = double.Parse(txtdutra.Text);
+
+                    duTra = khachTra - tongTien;
+                    txtdutra.Text = new Common.Utilities().FormatMoney(duTra);
+                    txtConphaitra.Text = new Common.Utilities().FormatMoney(duTra);
+                    txtThanhtoanngay.Text = new Common.Utilities().FormatMoney(khachTra);
+                }
+                catch (Exception)
+                {
+                }
+            }
+
+        }
+        /// <summary>
+        /// xử lý khi thay đổi kích cỡ
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void frmXuLyBanBuon_Resize(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Normal;
+        }
+        /// <summary>
+        /// xử lý khi click vào lập phiếu thanh toán
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tssllapphieuthanhtoan_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string date = new Common.Utilities().MyDateConversion(makNgaychungtu.Text);
+                string date2 = new Common.Utilities().MyDateConversion(makHanthanhtoan.Text);
+                string makho = LayMaKho(cbbKhoban.Text);
+                string matt = LayMaTT(cbbtientetygia.Text);
+                Entities.HDBanHang[] pt1 = new Entities.HDBanHang[1];
+                pt1[0] = new Entities.HDBanHang("Update", int.Parse(id), txtSochungtu.Text, Convert.ToDateTime(date),
+                    txtMakhachhang.Text, txtNohienthoi.Text, txtnguoinhanhang.Text, cbbHinhthucthanhtoan.Text, makho,
+                    DateTime.Parse(date2), txtDondatbanhang.Text, Common.Utilities.User.TenNhanVien, matt,
+                    txtChietkhau.Text, thanhtoankhilapphieu, thanhtoanngay, txtGTGT.Text, txtTongtien.Text, false, " ", "0",
+                    txtDiengiai.Text, false, Common.Utilities.User.TenDangNhap, txtkhachtra.Text, txtPhantramchietkhau.Text, string.Empty, "0");
+
+                frmXuLyPhieuTTCuaKH pt = new frmXuLyPhieuTTCuaKH(pt1);
+                pt.ShowDialog();
+                this.Close();
+            }
+            catch
+            {
+            }
+        }
+
+        /// <summary>
+        /// xử lý khi ấn phím
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void toolStrip_Insert_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (cbbKhoban.Text.Length == 0)
+                {
+                    MessageBox.Show("Chưa có Kho hàng", "Hệ thống cảnh báo");
+                    cbbKhoban.Focus();
+                    return;
+                }
+                if (tssltenhang.Text.Length == 0)
+                {
+                    MessageBox.Show("Chưa có tên hàng", "Hệ thống cảnh báo");
+                    return;
+                }
+                if (tsslsoluong.Text.Length == 0)
+                {
+                    MessageBox.Show("Chưa có số lượng hàng", "Hệ thống cảnh báo");
+                    tsslsoluong.Focus();
+                    return;
+                }
+                mahanghoa = toolStrip_txtTracuu.Text;
+                // Qui đổi đơn vị tính
+                foreach (QuyDoiDonViTinh item in quidoidvt.Where(item => item.MaHangQuyDoi == mahanghoa))
+                {
+                    mahanghoa = toolStrip_txtTracuu.Text = item.MaHangDuocQuyDoi.ToUpper();
+                    tssltenhang.Text = item.TenHangDuocQuyDoi;
+                    tsslsoluong.Text = (item.SoLuongDuocQuyDoi * int.Parse(tsslsoluong.Text)).ToString();
+                    break;
+                }
+                LayHangHoaTheoMa();
+                NewRow();
+                toolStrip_txtTracuu_Click(sender, e);
+                toolStrip_txtTracuu.Focus();
+            }
+            KeyUp_Chung(sender, e);
+        }
+
+        private void cbbtientetygia_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                txttientetygia.Text = LayDonViTT(LayMaTT(cbbtientetygia.Text));
+            }
+            catch
+            {
+            }
+        }
+
+        private void dtgvsanpham_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            XuLyDTGV();
+        }
+
+        private void txtThanhtoanngay_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                txtThanhtoanngay.Text = String.Format("{0:0}", Convert.ToDouble(txtThanhtoanngay.Text));
+            }
+            catch
+            {
+            }
+        }
+
+        private void txtkhachtra_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string khachtra = "0";
+                if (txtkhachtra.Text == "")
+                    khachtra = "0";
+                else
+                    khachtra = txtkhachtra.Text;
+                txtkhachtra.Text = String.Format("{0:0}", Convert.ToDouble(khachtra));
+            }
+            catch
+            {
+            }
+        }
+
+        private void dtgvsanpham_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            i = e.RowIndex;
+        }
+
+        private void txtnguoinhanhang_KeyUp(object sender, KeyEventArgs e)
+        {
+            try
+            {
+
+                if (e.KeyCode == Keys.Enter)
+                {
+                    cbbHinhthucthanhtoan.Focus();
+                }
+                KeyUp_Chung(sender, e);
+            }
+            catch
+            {
+            }
+        }
+
+        private void cbbHinhthucthanhtoan_KeyUp(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    makHanthanhtoan.Focus();
+                    makHanthanhtoan.SelectAll();
+                }
+                KeyUp_Chung(sender, e);
+            }
+            catch
+            {
+            }
+        }
+
+        private void makHanthanhtoan_KeyUp(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    btnTimdondat.Focus();
+                }
+                KeyUp_Chung(sender, e);
+            }
+            catch
+            {
+            }
+        }
+
+        private void cbbKhoban_KeyUp(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    txtDiengiai.Focus();
+                }
+                KeyUp_Chung(sender, e);
+            }
+            catch
+            {
+            }
+        }
+
+        private void txtDiengiai_KeyUp(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    toolStrip_txtTracuu.Focus();
+                }
+                KeyUp_Chung(sender, e);
+            }
+            catch
+            {
+            }
+        }
+
+        public void KeyUp_Chung(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.F4)
+                {
+                    XuLyHH();
+                }
+                if (e.KeyCode == Keys.F5)
+                {
+                    txtkhachtra.Focus();
+                }
+                if (e.KeyCode == Keys.F6)
+                {
+                    dtgvsanpham.Focus();
+                }
+                if (e.KeyCode == Keys.F7)
+                {
+                    txtPhantramchietkhau.Focus();
+                }
+                if (e.KeyCode == Keys.F8)
+                {
+                    txtthegiamgia.Focus();
+                }
+            }
+            catch
+            {
+            }
+        }
+
+        private void dtgvsanpham_KeyUp(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+
+                    i = dtgvsanpham.SelectedRows[0].Index;
+                    XuLyDTGV();
+                }
+                KeyUp_Chung(sender, e);
+            }
+            catch
+            {
+            }
+        }
+
+        private void txtkhachtra_KeyUp(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    tsslthem_Click(sender, e);
+                }
+                KeyUp_Chung(sender, e);
+            }
+            catch
+            {
+            }
+        }
+
+        private void txtPhantramchietkhau_KeyUp(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    txtkhachtra.Focus();
+                }
+                KeyUp_Chung(sender, e);
+            }
+            catch
+            {
+            }
+        }
+
+        private void txtthegiamgia_KeyUp(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    txtkhachtra.Focus();
+                }
+                KeyUp_Chung(sender, e);
+            }
+            catch
+            {
+            }
+        }
+
+        private void cbbKhoban_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                dtgvsanpham.DataSource = new Entities.HangHoaHienThi[0];
+                fix();
+            }
+            catch
+            {
+            }
+        }
+
+        private void MouseLeave(object sender, EventArgs e)
+        {
+            ToolStripLabel tsl = (ToolStripLabel)sender;
+            tsl.BackColor = System.Drawing.Color.LightSteelBlue;
+        }
+
+        private void MouseMove(object sender, MouseEventArgs e)
+        {
+            ToolStripLabel tsl = (ToolStripLabel)sender;
+            tsl.BackColor = System.Drawing.Color.Snow;
+        }
+
+        private void tssExcel_MouseLeave(object sender, EventArgs e)
+        {
+            ToolStripLabel tsl = (ToolStripLabel)sender;
+            tsl.BackColor = System.Drawing.Color.LightSteelBlue;
+        }
+
+        private void tssExcel_MouseMove(object sender, MouseEventArgs e)
+        {
+            ToolStripLabel tsl = (ToolStripLabel)sender;
+            tsl.BackColor = System.Drawing.Color.Snow;
+        }
+
+        private void tssWord_MouseLeave(object sender, EventArgs e)
+        {
+            ToolStripLabel tsl = (ToolStripLabel)sender;
+            tsl.BackColor = System.Drawing.Color.LightSteelBlue;
+        }
+
+        private void tssWord_MouseMove(object sender, MouseEventArgs e)
+        {
+            ToolStripLabel tsl = (ToolStripLabel)sender;
+            tsl.BackColor = System.Drawing.Color.Snow;
+        }
+
+        private void tssPDF_MouseLeave(object sender, EventArgs e)
+        {
+            ToolStripLabel tsl = (ToolStripLabel)sender;
+            tsl.BackColor = System.Drawing.Color.LightSteelBlue;
+        }
+
+        private void tssPDF_MouseMove(object sender, MouseEventArgs e)
+        {
+            ToolStripLabel tsl = (ToolStripLabel)sender;
+            tsl.BackColor = System.Drawing.Color.Snow;
+        }
+
+        private void txtMakhachhang_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.Equals(Keys.F4))
+            {
+                try
+                {
+                    frmTimKH tkh = new frmTimKH("PhieuTTCuaKH");
+                    tkh.ShowDialog();
+                    if (frmTimKH.drvr != null)
+                    {
+                        txtMakhachhang.Text = frmTimKH.drvr.Cells["MaKH"].Value.ToString();
+                        txtDondatbanhang.Text = "";
+                        dtgvsanpham.DataSource = new Entities.HangHoaHienThi[0];
+                        toolStrip_Insert.Enabled = true;
+                        dtgvsanpham.Enabled = true;
+                        txtNohienthoi.Text = frmTimKH.drvr.Cells["DuNo"].Value.ToString();
+                        frmTimKH.drvr = null;
+                        txtnguoinhanhang.Focus();
+                    }
+                }
+                catch
+                {
+                }
+                finally
+                {
+                    try
+                    {
+                        fix();
+                    }
+                    catch
+                    {
+                    }
+                }
+            }
+        }
+
+        private void txtDondatbanhang_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.Equals(Keys.F4))
+            {
+                try
+                {
+                    if (txtMakhachhang.Text.Length != 0)
+                    {
+                        frmTimDonDatHang fr = new frmTimDonDatHang(txtMakhachhang.Text);
+                        fr.ShowDialog();
+                        if (frmTimDonDatHang.drvr != null)
+                        {
+                            string maDonDatHang = txtDondatbanhang.Text = frmTimDonDatHang.drvr.Cells["MaDonDatHang"].Value.ToString();
+                            frmTimDonDatHang.drvr = null;
+                            toolStrip_Insert.Enabled = false;
+                            dtgvsanpham.Enabled = false;
+                            SelectData1(maDonDatHang);
+                            cbbHinhthucthanhtoan.Focus();
+                            if (txtPhantramchietkhau.Text == "")
+                                phantramchietkhau = "0";
+                            else
+                                phantramchietkhau = txtPhantramchietkhau.Text;
+                            TinhToan();
+                            txtChietkhau.Text = new Common.Utilities().FormatMoney(((Convert.ToDouble(phantramchietkhau) / 100) * Convert.ToDouble(txtTienhang.Text)));
+                            txtTongchietkhau.Text = new Common.Utilities().FormatMoney(Convert.ToDouble(TinhCK(dtgvsanpham)));
+                            txtTongchietkhau.Text = (Convert.ToDouble(txtChietkhau.Text) + Convert.ToDouble(txtTongchietkhau.Text)).ToString();
+                            txtTongtien.Text = new Common.Utilities().FormatMoney(Convert.ToDouble(tongtienthanhtoan) - Convert.ToDouble(txtTongchietkhau.Text) - Convert.ToDouble(txtgiatrithe.Text));
+                            txtConphaitra.Text = new Common.Utilities().FormatMoney(Convert.ToDouble(tongtienthanhtoan) - Convert.ToDouble(txtThanhtoanngay.Text) - Convert.ToDouble(txtTongchietkhau.Text));
+                            txtdutra.Text = new Common.Utilities().FormatMoney(Convert.ToDouble(txtkhachtra.Text) - Convert.ToDouble(tongtienthanhtoan) + Convert.ToDouble(txtTongchietkhau.Text));
+
+                        }
+                    }
+                    else
+                        MessageBox.Show("Bạn hãy nhập Mã khách hàng");
+                }
+                catch
+                {
+                }
+            }
+        }
+
+        private void tssExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Entities.KhachHang kh = GetThongTinKhachHang(txtMakhachhang.Text);
+                if (i < 0)
+                    return;
+                saveFileDialog1.Filter = "Excel |*.xls";
+                saveFileDialog1.FileName = "";
+                if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    frmBaoCaorpt bcrpt = new frmBaoCaorpt("HDBanBuon", txtSochungtu.Text, Double.Parse(txtTongchietkhau.Text), txtkhachtra.Text, txtdutra.Text, txtTongtien.Text, txtGTGT.Text, lbnhanvien.Text, "Excel", makNgaychungtu.Text, txtgiatrithe.Text, "0", saveFileDialog1.FileName, txtChietkhau.Text, kh.DiaChi, txtnguoinhanhang.Text, txtDiengiai.Text);
+                }
+            }
+            catch
+            {
+            }
+        }
+
+        private void tssWord_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Entities.KhachHang kh = GetThongTinKhachHang(txtMakhachhang.Text);
+                if (i < 0)
+                    return;
+                saveFileDialog1.Filter = "Word |*.doc";
+                saveFileDialog1.FileName = "";
+                if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    frmBaoCaorpt bcrpt = new frmBaoCaorpt("HDBanBuon", txtSochungtu.Text, Double.Parse(txtTongchietkhau.Text), txtkhachtra.Text, txtdutra.Text, txtTongtien.Text, txtGTGT.Text, lbnhanvien.Text, "Word", makNgaychungtu.Text, txtgiatrithe.Text, "0", saveFileDialog1.FileName, txtChietkhau.Text, kh.DiaChi, txtnguoinhanhang.Text, txtDiengiai.Text);
+                }
+            }
+            catch
+            {
+            }
+        }
+
+        private void tssPDF_Click(object sender, EventArgs e)
+        {
+            Entities.KhachHang kh = GetThongTinKhachHang(txtMakhachhang.Text);
+            if (i < 0)
+                return;
+            saveFileDialog1.Filter = "PDF |*.pdf";
+            saveFileDialog1.FileName = "";
+            if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                frmBaoCaorpt bcrpt = new frmBaoCaorpt("HDBanBuon", txtSochungtu.Text, Double.Parse(txtTongchietkhau.Text), txtkhachtra.Text, txtdutra.Text, txtTongtien.Text, txtGTGT.Text, lbnhanvien.Text, "PDF", makNgaychungtu.Text, txtgiatrithe.Text, "0", saveFileDialog1.FileName, txtChietkhau.Text, kh.DiaChi, txtnguoinhanhang.Text, txtDiengiai.Text);
+            }
+        }
+
+        private void txtMakhachhang_TextChanged(object sender, EventArgs e)
+        {
+            SelectMaCapNhatKH();
+        }
+
+        private void FrmXuLyBanBuonKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.F9) return; //Sửa giá hàng hóa
+            string maHangHoa = toolStrip_txtTracuu.Text.Trim().ToUpper();
+            if (string.IsNullOrEmpty(maHangHoa) || maHangHoa.Equals("<F4 - Tra cứu>"))
+            {
+                MessageBox.Show("Vui lòng chọn hàng hóa cần sửa giá!\r\n tại ô nhập mã hàng hóa, vui lòng điền thông tin mã hàng hoặc ấn F4 để tìm kiếm hàng hóa");
+                toolStrip_txtTracuu.Focus(); return;
+            }
+            HangHoa[] tempReturn;
+            bool kq = Utils.GetDataFromServer("HangHoa", new HangHoa { HanhDong = "SelectHangHoa_Theo_MaHangHoa", MaHangHoa = maHangHoa }, out tempReturn);
+            if (!kq && tempReturn.Length == 0) return;
+            frmXuLyHangHoa frm = new frmXuLyHangHoa("Update", tempReturn[0]);
+            frm.ShowDialog();
+            kq = Utils.GetDataFromServer("HangHoa", new HangHoa { HanhDong = "SelectHangHoa_Theo_MaHangHoa", MaHangHoa = maHangHoa }, out tempReturn);
+            if (!kq && tempReturn.Length == 0) return;
+            //Sửa xong thì cập nhật lại vào danh sách hàng hóa trong kho
+            foreach (HangHoa hangHoa in _hangHoaTheoKho.Where(hangHoa => hangHoa.MaHangHoa.Equals(tempReturn[0].MaHangHoa)))
+                Utils.Copy(tempReturn[0], hangHoa);
+
+            HangHoa hangHoaTemp = GetGoodsByCode(maHangHoa);
+            if (hangHoaTemp == null) return;
+            try
+            {
+                mahanghoa = toolStrip_txtTracuu.Text = hangHoaTemp.MaHangHoa.ToUpper();
+                tssltenhang.Text = hangHoaTemp.TenHangHoa;
+                tsslgia.Text = new Common.Utilities().FormatMoney(double.Parse(hangHoaTemp.GiaBanBuon));
+                //SelectMaCapNhatKH();
+                KiemTraCK(cngkh);
+                LayGiaTriThue(hangHoaTemp.MaThueGiaTriGiaTang);
+                toolStrip_txtTracuu.ReadOnly = true;
+                tsslsoluong.Focus();
+            }
+            catch { phantramchietkhau = tsslchietkhau.Text = "0"; }
+            return;
+        }
+        #endregion
+
+        #region Utils
         #region Điểm thưởng khách hàng
         //Entities.DiemThuongKhachHang[] dtkh = new Entities.DiemThuongKhachHang[0];
         //private void DiemThuongKhachHang()
@@ -165,305 +1500,173 @@ namespace GUI
         //    catch { return false; }
         //}
         #endregion
-
-        Entities.KhuyenMaiSoLuong[] kmSoLuong;
-        public TcpClient client1;
-        public NetworkStream clientstrem;
-        public static string trave = "";
-        Entities.QuyDoiDonViTinh[] quidoidvt;
-        Entities.GoiHang[] goihang;
-        Entities.ChiTietGoiHang[] chitietgoihang;
-        DateTime datesv;
-        Entities.HangHoa[] hangHoaTheoKho;
-        Entities.Thue[] thue;
-        /// <summary>
-        /// xử lý giá trị truyền tới
-        /// </summary>
-        public frmXuLyBanBuon()
-        {
-            InitializeComponent(); datesv = DateServer.Date();
-            this.kmSoLuong = GetData();
-        }
-        string str;
-        /// <summary>
-        /// xử lý giá trị truyền tới
-        /// </summary>
-        /// <param name="str"></param>
-        public frmXuLyBanBuon(string str)
-        {
-
-            try
-            {
-                InitializeComponent(); datesv = DateServer.Date();
-                tsslin.Enabled = false;
-                dtgvsanpham.DataSource = new Entities.HangHoaHienThi[0];
-                this.str = str;
-                try
-                {
-                    LayKhoHang();
-                    new Common.Utilities().ComboxKhoHang(cbbKhoban);
-                }
-                catch
-                {
-                }
-                try
-                {
-                    LayTenTT();
-                }
-                catch
-                {
-                }
-                datesv = DateServer.Date();
-                cbbHinhthucthanhtoan.SelectedIndex = 0;
-                makNgaychungtu.Text = makHanthanhtoan.Text = new Common.Utilities().XuLy(2, datesv.ToShortDateString());
-                lbnhanvien.Text = Common.Utilities.User.TenNhanVien;
-                //
-                this.KhoiTao();
-                this.kmSoLuong = GetData();
-            }
-            catch
-            {
-            }
-        }
-
-
-
         public void KhoiTao()
         {
             try
             {
-                //
-                Server_Client.Client cl = new Server_Client.Client();
-                this.client1 = cl.Connect(Luu.IP, Luu.Ports);
-                Entities.CheckRefer ctxh = new Entities.CheckRefer("BanBuon");
-                clientstrem = cl.SerializeObj(this.client1, "Select", ctxh);
-                selectall = (Entities.SelectAll)cl.DeserializeHepper(clientstrem, selectall);
+                Server_Client.Client client = new Server_Client.Client();
+                client1 = client.Connect(Luu.IP, Luu.Ports);
+                CheckRefer ctxh = new CheckRefer("BanBuon");
+                clientstrem = client.SerializeObj(client1, "Select", ctxh);
+                selectall = (SelectAll)client.DeserializeHepper(clientstrem, selectall);
                 // gói hàng
                 goihang = selectall.GoiHang;
-
                 // chi tiết gói hàng
                 chitietgoihang = selectall.ChiTietGoiHang;
-
                 // quy đổi đơn vị tính
                 quidoidvt = selectall.QuyDoiDonViTinh;
 
                 // ++++++++++++++++++++++++++
-                cl = new Server_Client.Client();
+                client = new Server_Client.Client();
                 // gán TCPclient
-                this.client1 = cl.Connect(Luu.IP, Luu.Ports);
+                client1 = client.Connect(Luu.IP, Luu.Ports);
                 // lay hang hoa the kho
-                List<Entities.HangHoa> array = new List<Entities.HangHoa>();
-                cl = new Server_Client.Client();
-                Entities.HangHoa kh = new Entities.HangHoa();
-                Entities.TruyenGiaTri khoHang = (Entities.TruyenGiaTri)cbbKhoban.SelectedItem;
-                string makho = khoHang.Giatritruyen;
-                kh = new Entities.HangHoa("SelectTheoKho", makho);
-                clientstrem = cl.SerializeObj(this.client1, "HangHoa", kh);
-                Entities.HangHoa[] hhArr = new Entities.HangHoa[1];
-                hhArr = (Entities.HangHoa[])cl.DeserializeHepper1(clientstrem, hhArr);
+                client = new Server_Client.Client();
+                string makho = ((TruyenGiaTri)cbbKhoban.SelectedItem).Giatritruyen;
+                HangHoa kh = new HangHoa("SelectTheoKho", makho);
+                clientstrem = client.SerializeObj(client1, "HangHoa", kh);
+                HangHoa[] hhArr = new HangHoa[1];
+                hhArr = (HangHoa[])client.DeserializeHepper1(clientstrem, hhArr);
 
                 if (hhArr == null)
-                    hangHoaTheoKho = new Entities.HangHoa[0];
+                    _hangHoaTheoKho = new HangHoa[0];
 
-                if (hhArr.Length > 0)
-                {
-                    //
-                    array = hhArr.ToList();
-                    //
-                    Entities.HangHoa[] save = Common.Utilities.CheckGoiHang(hhArr, goihang, chitietgoihang);
-                    if (save != null)
-                    {
-                        foreach (Entities.HangHoa item in save)
-                        {
-                            array.Add(item);
-                        }
-                    }
-                    // lay hang hoa theo kho
-                    this.hangHoaTheoKho = array.ToArray();
+                if (hhArr.Length <= 0) return;
+                List<HangHoa> array = hhArr.ToList();
+                HangHoa[] save = Common.Utilities.CheckGoiHang(hhArr, goihang, chitietgoihang);
+                if (save != null) array.AddRange(save);
+                // lay hang hoa theo kho
+                _hangHoaTheoKho = array.ToArray();
+                // Lay Thue
+                client = new Server_Client.Client();
 
-                    // Lay Thue
-                    cl = new Server_Client.Client();
-
-                    Entities.Thue thueTemp = new Entities.Thue();
-                    thueTemp = new Entities.Thue("Select");
-                    clientstrem = cl.SerializeObj(this.client1, "Thue", thueTemp);
-                    this.thue = new Entities.Thue[1];
-                    thue = (Entities.Thue[])cl.DeserializeHepper1(clientstrem, thue);
-                    if (thue == null)
-                        thue = new Entities.Thue[0];
-                }
+                Thue thueTemp = new Thue("Select");
+                clientstrem = client.SerializeObj(this.client1, "Thue", thueTemp);
+                thue = new Thue[1];
+                thue = (Thue[])client.DeserializeHepper1(clientstrem, thue) ?? new Thue[0];
             }
             catch
             {
 
             }
         }
-
         #region Lay Gia Trong phan km theo so luong
-
-        /// <summary>
-        /// GetData
-        /// </summary>
-        /// <param name="maHangHoa"></param>
-        /// <returns></returns>
-        public Entities.KhuyenMaiSoLuong[] GetData()
+        public KhuyenMaiSoLuong[] GetData()
         {
-            Entities.KhuyenMaiSoLuong[] retVal = null;
             try
             {
                 cl = new Server_Client.Client();
                 // gán TCPclient
-                this.client1 = cl.Connect(Luu.IP, Luu.Ports);
+                client1 = cl.Connect(Luu.IP, Luu.Ports);
                 // khởi tạo biến truyền vào với hàm khởi tạo
-                Entities.KhuyenMaiSoLuong item = new Entities.KhuyenMaiSoLuong();
-                // truyền HanhDong
-                item = new Entities.KhuyenMaiSoLuong();
-                item.HanhDong = "SelectAll";
+                KhuyenMaiSoLuong item = new KhuyenMaiSoLuong { HanhDong = "SelectAll" };
                 // khởi tạo mảng đối tượng để hứng giá trị
-                Entities.KhuyenMaiSoLuong[] item1 = new Entities.KhuyenMaiSoLuong[1];
-                clientstrem = cl.SerializeObj(this.client1, "KhuyenMaiSoLuong", item);
+                KhuyenMaiSoLuong[] item1 = new KhuyenMaiSoLuong[1];
+                clientstrem = cl.SerializeObj(client1, "KhuyenMaiSoLuong", item);
                 // đổ mảng đối tượng vào datagripview       
-                item1 = (Entities.KhuyenMaiSoLuong[])cl.DeserializeHepper1(clientstrem, item1);
+                item1 = (KhuyenMaiSoLuong[])cl.DeserializeHepper1(clientstrem, item1);
                 // Gan gia tri
-                retVal = item1;
+                return item1;
             }
-            catch
-            {
-                retVal = null;
-            }
-
-            return retVal;
+            catch { return null; }
         }
 
-        /// <summary>
-        /// LayGia
-        /// </summary>
-        /// <param name="maHangHoa"></param>
-        /// <param name="sl"></param>
-        /// <param name="ngayLapHD"></param>
-        /// <param name="source"></param>
-        /// <returns></returns>
-        public Entities.KhuyenMaiSoLuong LayGia(string maHangHoa, string sl, DateTime ngayLapHD, Entities.KhuyenMaiSoLuong[] source)
+        public KhuyenMaiSoLuong LayGia(string maHangHoa, string sl, DateTime ngayLapHd, KhuyenMaiSoLuong[] source)
         {
-            Entities.KhuyenMaiSoLuong retVal = null;
             try
             {
-                Entities.KhuyenMaiSoLuong[] temp = frmXuLyHangHoa.GetSource(maHangHoa, source);
+                KhuyenMaiSoLuong[] temp = frmXuLyHangHoa.GetSource(maHangHoa, source);
                 temp = frmXuLyHangHoa.SapXep(temp);
-                retVal = frmXuLyHangHoa.GetDonGia(maHangHoa, sl, ngayLapHD, temp);
+                return frmXuLyHangHoa.GetDonGia(maHangHoa, sl, ngayLapHd, temp);
             }
-            catch
-            {
-                retVal = null;
-            }
-
-            return retVal;
+            catch { return null; }
         }
-
         #endregion
-
-
-        public Entities.GiaVon[] GiaVon()
+        public GiaVon[] GiaVon()
         {
-            Entities.GiaVon[] giaVon = null;
             try
             {
                 cl = new Server_Client.Client();
-                this.client1 = cl.Connect(Luu.IP, Luu.Ports);
-                ArrayList KArr = new ArrayList();
-                KArr.Add("SelectTheoDieuKien_GiaVon");
-                KArr.Add("Select_GIAVON");
-                KArr.Add(new Entities.GiaVon());
-                KArr.Add(new Entities.GiaVon());
-                clientstrem = cl.SerializeObj(this.client1, "GiaVon_k", KArr);
-                ////// đổ mảng đối tượng vào datagripview     
-                giaVon = (Entities.GiaVon[])cl.DeserializeHepper1(clientstrem, giaVon);
-                if (giaVon == null)
-                {
-                    giaVon = new Entities.GiaVon[0];
-                }
+                client1 = cl.Connect(Luu.IP, Luu.Ports);
+                ArrayList kArr = new ArrayList
+                                     {
+                                         "SelectTheoDieuKien_GiaVon",
+                                         "Select_GIAVON",
+                                         new GiaVon(),
+                                         new GiaVon()
+                                     };
+                clientstrem = cl.SerializeObj(client1, "GiaVon_k", kArr);
+                GiaVon[] giaVon = null;
+                giaVon = (GiaVon[])cl.DeserializeHepper1(clientstrem, giaVon) ?? new GiaVon[0];
+                return giaVon;
             }
-            catch (Exception)
-            {
-            }
-
-            return giaVon;
+            catch { return null; }
         }
-
-        public void GiaVonBanHang(Entities.ChiTietHDBanHang[] ct)
+        public void GiaVonBanHang(ChiTietHDBanHang[] ct)
         {
             try
             {
-                List<Entities.GiaVonBanHang> gvbhArr = new List<Entities.GiaVonBanHang>();
-                Entities.GoiHang[] goiHang = this.goihang;
-                Entities.GiaVon[] gv = GiaVon();
+                List<GiaVonBanHang> gvbhArr = new List<GiaVonBanHang>();
+                GoiHang[] goiHang = goihang;
+                GiaVon[] gv = GiaVon();
                 bool isHangHoa = false;
 
-                foreach (Entities.ChiTietHDBanHang bh in ct)
+                foreach (ChiTietHDBanHang bh in ct)
                 {
-                    Entities.GiaVonBanHang gvbh = new Entities.GiaVonBanHang();
-                    foreach (Entities.GiaVon item in gv)
+                    GiaVonBanHang gvbh = new GiaVonBanHang();
+                    ChiTietHDBanHang bh1 = bh;
+                    foreach (GiaVon item in gv.Where(item => item.MaHangHoa.Equals(bh1.MaHangHoa)))
                     {
-                        if (item.MaHangHoa.Equals(bh.MaHangHoa))
-                        {
-                            gvbh.HanhDong = "Insert";
-                            gvbh.MaHangHoa = bh.MaHangHoa;
-                            gvbh.MaHoaDon = bh.MaHDBanHang;
-                            gvbh.GiaVon = item.Gia;
-                            gvbhArr.Add(gvbh);
-                            isHangHoa = true;
-                            break;
-                        }
+                        gvbh.HanhDong = "Insert";
+                        gvbh.MaHangHoa = bh.MaHangHoa;
+                        gvbh.MaHoaDon = bh.MaHDBanHang;
+                        gvbh.GiaVon = item.Gia;
+                        gvbhArr.Add(gvbh);
+                        isHangHoa = true;
+                        break;
                     }
                     // neu ko phai la hang hoa thi la gia von trong goi hang
-                    if (!isHangHoa)
-                    {
-                        gvbh = GetGVGoiHang(bh.MaHDBanHang, bh.MaHangHoa, goiHang);
-
-                        if (gvbh != null)
-                            gvbhArr.Add(gvbh);
-                    }
+                    if (isHangHoa) continue;
+                    gvbh = GetGvGoiHang(bh.MaHDBanHang, bh.MaHangHoa, goiHang);
+                    if (gvbh != null)
+                        gvbhArr.Add(gvbh);
                 }
 
 
                 cl = new Server_Client.Client();
-                this.client1 = cl.Connect(Luu.IP, Luu.Ports);
-                foreach (Entities.GiaVonBanHang item in gvbhArr.ToArray())
+                client1 = cl.Connect(Luu.IP, Luu.Ports);
+                foreach (GiaVonBanHang item in gvbhArr.ToArray())
                 {
-                    clientstrem = cl.SerializeObj(this.client1, "GiaVonBanHang", item);
+                    clientstrem = cl.SerializeObj(client1, "GiaVonBanHang", item);
                 }
                 // đổ mảng đối tượng vào datagripview
                 bool kt = false;
                 kt = (bool)cl.DeserializeHepper(clientstrem, kt);
             }
-            catch (Exception)
-            {
-
-            }
+            catch { }
         }
-
         /// <summary>
         /// GetGVGoiHang
         /// </summary>
+        /// <param name="maHd"> </param>
         /// <param name="maGoi"></param>
         /// <param name="gh"></param>
         /// <returns></returns>
-        public Entities.GiaVonBanHang GetGVGoiHang(string maHD, string maGoi, Entities.GoiHang[] gh)
+        public GiaVonBanHang GetGvGoiHang(string maHd, string maGoi, GoiHang[] gh)
         {
-            Entities.GiaVonBanHang retVal = null;
+            GiaVonBanHang retVal = null;
             try
             {
-                foreach (Entities.GoiHang item in gh)
+                foreach (GoiHang item in gh.Where(item => item.MaGoiHang.Trim().ToUpper().Equals(maGoi.Trim().ToUpper())))
                 {
-                    if (item.MaGoiHang.Trim().ToUpper().Equals(maGoi.Trim().ToUpper()))
+                    retVal = new GiaVonBanHang
                     {
-                        retVal = new Entities.GiaVonBanHang();
-                        retVal.HanhDong = "Insert";
-                        retVal.MaHangHoa = maGoi.Trim().ToUpper();
-                        retVal.MaHoaDon = maHD.Trim().ToUpper();
-                        retVal.GiaVon = double.Parse(item.GiaNhap);
-                        break;
-                    }
+                        HanhDong = "Insert",
+                        MaHangHoa = maGoi.Trim().ToUpper(),
+                        MaHoaDon = maHd.Trim().ToUpper(),
+                        GiaVon = double.Parse(item.GiaNhap)
+                    };
+                    break;
                 }
             }
             catch
@@ -473,7 +1676,6 @@ namespace GUI
 
             return retVal;
         }
-
         /// <summary>
         /// Lấy giá trị id cuối cùng
         /// </summary>
@@ -483,173 +1685,23 @@ namespace GUI
         {
             try
             {
-                string idnew;
                 cl = new Server_Client.Client();
                 // gán TCPclient
-                this.client1 = cl.Connect(Luu.IP, Luu.Ports);
+                client1 = cl.Connect(Luu.IP, Luu.Ports);
                 // khởi tạo biến truyền vào với hàm khởi tạo
-                Entities.LayID lid1 = new Entities.LayID("Select", tenBang);
+                LayID lid1 = new LayID("Select", tenBang);
                 // khởi tạo mảng đối tượng để hứng giá trị
-                Entities.LayID lid = new Entities.LayID();
                 clientstrem = cl.SerializeObj(this.client1, "LayID", lid1);
                 // đổ mảng đối tượng vào datagripview       
-                lid = (Entities.LayID)cl.DeserializeHepper(clientstrem, pt1);
+                LayID lid = (LayID)cl.DeserializeHepper(clientstrem, pt1);
                 if (lid == null)
                     return "HDBH_0001";
                 Common.Utilities a = new Common.Utilities();
-                idnew = a.ProcessID(lid.ID);
+                string idnew = a.ProcessID(lid.ID);
                 return idnew;
             }
-            catch
-            {
-                return "";
-            }
-            finally
-            {
-
-
-            }
+            catch { return string.Empty; }
         }
-
-        string id;
-        string nohienthoi, sochungtu, datetime, hanthanhtoan, makh, khoban, nhanvien, dondatbanhang, ghichu, nguoinhan, hinhthucthanhtoan, tientetygia, chietkhau, thanhtoankhilapphieu, thanhtoanngay, gtgt, tongtien;
-        /// <summary>
-        /// xử lý giá trị truyền tới
-        /// </summary>
-        /// <param name="str"></param>
-        /// <param name="dtgvr"></param>
-        public frmXuLyBanBuon(string str, DataGridViewRow dtgvr)
-        {
-            try
-            {
-                InitializeComponent(); datesv = DateServer.Date();
-                dtgvsanpham.DataSource = new Entities.HangHoaHienThi[0];
-                try
-                {
-                    LayKhoHang();
-
-                }
-                catch
-                {
-                }
-                try
-                {
-                    LayTenTT();
-                }
-                catch
-                {
-                }
-                if (str == "Sua")
-                {
-                    tssExcel.Enabled = true;
-                    tssWord.Enabled = true;
-                    tssPDF.Enabled = true;
-                    palNhap.Enabled = palThem.Enabled = palXem.Enabled = tsslthem.Enabled = false;
-                    id = dtgvr.Cells["HDBanHangID"].Value.ToString();
-                    sochungtu = txtSochungtu.Text = dtgvr.Cells["MaHDBanHang"].Value.ToString();
-                    datetime = makNgaychungtu.Text = new Common.Utilities().XuLy(2, dtgvr.Cells["NgayBan"].Value.ToString());
-                    hanthanhtoan = makHanthanhtoan.Text = new Common.Utilities().XuLy(2, dtgvr.Cells["HanThanhToam"].Value.ToString());
-                    makh = txtMakhachhang.Text = dtgvr.Cells["MaKhachHang"].Value.ToString();
-
-                    khoban = dtgvr.Cells["MaKho"].Value.ToString();
-                    cbbKhoban.Text = LayTenKho(khoban);
-                    nhanvien = lbnhanvien.Text = dtgvr.Cells["MaNhanVien"].Value.ToString();
-                    dondatbanhang = txtDondatbanhang.Text = dtgvr.Cells["MaDonDatHang"].Value.ToString();
-                    ghichu = txtDiengiai.Text = dtgvr.Cells["GhiChu"].Value.ToString();
-                    nguoinhan = txtnguoinhanhang.Text = dtgvr.Cells["NguoiNhanHang"].Value.ToString();
-                    hinhthucthanhtoan = cbbHinhthucthanhtoan.Text = dtgvr.Cells["HinhThucThanhToan"].Value.ToString();
-                    tientetygia = dtgvr.Cells["MaTienTe"].Value.ToString();
-                    cbbtientetygia.Text = LayTenTT(tientetygia);
-                    txttientetygia.Text = LayDonViTT(tientetygia);
-
-
-                    if (dondatbanhang == "")
-                    {
-                        SelectData();
-                    }
-                    else
-                        SelectData1(dondatbanhang);
-
-
-                    double thanhToanNgay = 0;
-                    double ptckTongHD = 0;
-                    double gtckTongHD = 0;
-                    double tongCK = 0;
-                    double khachtra = 0;
-                    double tienHang = 0;
-                    double tongTien = 0;
-                    double duTra = 0;
-                    double tongGTGT = 0;
-                    double tongTienGomVAT = 0;
-                    double noHienThoi = 0;
-
-                    //if (dtgvr.Cells["TongTienThanhToan"].Value != null)
-                    //    tongTien = double.Parse(dtgvr.Cells["TongTienThanhToan"].Value.ToString());
-
-                    if (dtgvr.Cells["KhachTra"].Value != null)
-                    {
-                        khachtra = double.Parse(dtgvr.Cells["KhachTra"].Value.ToString());
-                        thanhtoankhilapphieu = khachtra.ToString();
-                    }
-
-                    if (dtgvr.Cells["ChietKhauTongHoaDon"].Value != null)
-                        ptckTongHD = double.Parse(dtgvr.Cells["ChietKhauTongHoaDon"].Value.ToString());
-
-                    if (dtgvr.Cells["ChietKhau"].Value != null)
-                        tongCK = double.Parse(dtgvr.Cells["ChietKhau"].Value.ToString());
-
-                    if (dtgvr.Cells["ThueGTGT"].Value != null)
-                        tongGTGT = double.Parse(dtgvr.Cells["ThueGTGT"].Value.ToString());
-
-                    if (dtgvr.Cells["NoHienThoi"].Value != null)
-                        noHienThoi = double.Parse(dtgvr.Cells["NoHienThoi"].Value.ToString());
-                    if (dtgvr.Cells["ThanhToanNgay"].Value != null)
-                    {
-                        thanhToanNgay = double.Parse(dtgvr.Cells["ThanhToanNgay"].Value.ToString());
-                        thanhtoanngay = thanhToanNgay.ToString();
-                    }
-
-
-                    tienHang = double.Parse(TinhTien(dtgvsanpham));
-                    tongTienGomVAT = tienHang - tongCK + tongGTGT;
-                    gtckTongHD = (ptckTongHD * tongTienGomVAT) / 100;
-                    tongTien = tongTienGomVAT - gtckTongHD;
-                    duTra = khachtra - tongTien;
-
-
-
-                    txtTienhang.Text = new Common.Utilities().FormatMoney(tienHang);
-                    txtTongtien.Text = new Common.Utilities().FormatMoney(tongTien);
-                    txtGTGT.Text = new Common.Utilities().FormatMoney(tongGTGT);
-                    txtTongchietkhau.Text = new Common.Utilities().FormatMoney(tongCK);
-                    txtThanhtoanngay.Text = new Common.Utilities().FormatMoney(khachtra);
-                    txtConphaitra.Text = new Common.Utilities().FormatMoney(duTra);
-                    txtkhachtra.Text = new Common.Utilities().FormatMoney(khachtra);
-                    txtdutra.Text = new Common.Utilities().FormatMoney(duTra);
-                    txtNohienthoi.Text = new Common.Utilities().FormatMoney(noHienThoi);
-                    txtPhantramchietkhau.Text = new Common.Utilities().FormatMoney(ptckTongHD);
-                    txtChietkhau.Text = new Common.Utilities().FormatMoney(gtckTongHD);
-                    txtkhachtra.Text = new Common.Utilities().FormatMoney(khachtra);
-
-                    if ((Convert.ToDouble(khachtra) + Convert.ToDouble(thanhToanNgay) == Convert.ToDouble(tongTien)))
-                    {
-                        lbtinhtrang.Text = "Đã Thanh Toán";
-                        tssllapphieuthanhtoan.Enabled = false;
-                    }
-                    else
-                    {
-                        lbtinhtrang.Text = "Chưa Thanh Toán";
-                        tssllapphieuthanhtoan.Enabled = true;
-                    }
-
-                    grbDataGridview.Enabled = false;
-                }
-            }
-            catch
-            {
-            }
-        }
-        Entities.ChiTietHDBanHang[] pt1;
         /// <summary>
         /// select chi tiết hóa đơn bán hàng
         /// </summary>
@@ -721,7 +1773,6 @@ namespace GUI
 
             }
         }
-        Entities.ChiTietDonDatHang[] ctddh;
         /// <summary>
         /// select chi tiết hóa đơn bán hàng
         /// </summary>
@@ -793,7 +1844,6 @@ namespace GUI
                 catch { }
             }
         }
-
         public void fix()
         {
             dtgvsanpham.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -812,8 +1862,6 @@ namespace GUI
             dtgvsanpham.AllowUserToDeleteRows = false;
             dtgvsanpham.AllowUserToResizeRows = false;
         }
-
-        Entities.HangHoa[] hh1;
         /// <summary>
         /// select hàng hóa
         /// </summary>
@@ -823,28 +1871,19 @@ namespace GUI
             {
                 cl = new Server_Client.Client();
                 // gán TCPclient
-                this.client1 = cl.Connect(Luu.IP, Luu.Ports);
+                client1 = cl.Connect(Luu.IP, Luu.Ports);
                 // khởi tạo biến truyền vào với hàm khởi tạo
-                Entities.HangHoa pt = new Entities.HangHoa("Select");
+                HangHoa pt = new HangHoa("Select");
                 // khởi tạo mảng đối tượng để hứng giá trị
-                hh1 = new Entities.HangHoa[1];
-                clientstrem = cl.SerializeObj(this.client1, "HangHoa", pt);
+                hh1 = new HangHoa[1];
+                clientstrem = cl.SerializeObj(client1, "HangHoa", pt);
                 // đổ mảng đối tượng vào datagripview       
-                hh1 = (Entities.HangHoa[])cl.DeserializeHepper1(clientstrem, hh1);
-                if (hh1 == null)
-                    hh1 = new Entities.HangHoa[0];
+                hh1 = (HangHoa[])cl.DeserializeHepper1(clientstrem, hh1) ?? new HangHoa[0];
             }
             catch
             {
             }
-            finally
-            {
-
-
-            }
         }
-
-        Entities.CapNhatGiaKhachHang[] cngkh;
         /// <summary>
         /// select mã cập nhật khách hàng
         /// </summary>
@@ -854,24 +1893,17 @@ namespace GUI
             {
                 cl = new Server_Client.Client();
                 // gán TCPclient
-                this.client1 = cl.Connect(Luu.IP, Luu.Ports);
+                client1 = cl.Connect(Luu.IP, Luu.Ports);
                 // khởi tạo biến truyền vào với hàm khởi tạo
-                Entities.CapNhatGiaKhachHang pt = new Entities.CapNhatGiaKhachHang("Select", txtMakhachhang.Text);
+                CapNhatGiaKhachHang pt = new CapNhatGiaKhachHang("Select", txtMakhachhang.Text);
                 // khởi tạo mảng đối tượng để hứng giá trị
-                cngkh = new Entities.CapNhatGiaKhachHang[1];
-                clientstrem = cl.SerializeObj(this.client1, "CapNhatGiaKH", pt);
+                cngkh = new CapNhatGiaKhachHang[1];
+                clientstrem = cl.SerializeObj(client1, "CapNhatGiaKH", pt);
                 // đổ mảng đối tượng vào datagripview       
-                cngkh = (Entities.CapNhatGiaKhachHang[])cl.DeserializeHepper1(clientstrem, cngkh);
-                if (cngkh == null)
-                    cngkh = new Entities.CapNhatGiaKhachHang[0];
+                cngkh = (CapNhatGiaKhachHang[])cl.DeserializeHepper1(clientstrem, cngkh) ?? new CapNhatGiaKhachHang[0];
             }
             catch
             {
-            }
-            finally
-            {
-
-
             }
         }
         /// <summary>
@@ -958,7 +1990,6 @@ namespace GUI
                 return "";
             }
         }
-        Entities.SelectAll selectall;
         /// <summary>
         /// xử lý giá trị truyền tới
         /// </summary>
@@ -976,24 +2007,6 @@ namespace GUI
             else if (str == "Sua")
             {
                 this.Text = "Quản Lý Bán Buôn - Sửa Hóa Đơn Bán Hàng";
-            }
-        }
-        /// <summary>
-        /// nút đóng
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tssltrove_Click(object sender, EventArgs e)
-        {
-            System.Windows.Forms.DialogResult giatri = System.Windows.Forms.MessageBox.Show("Bạn chắc chắn đóng lại không ?", "Thông Báo", System.Windows.Forms.MessageBoxButtons.YesNo);
-            {
-                if (giatri == System.Windows.Forms.DialogResult.Yes)
-                {
-                    trave = "ok";
-                    this.Close();
-                }
-                else
-                { }
             }
         }
         /// <summary>
@@ -1101,9 +2114,6 @@ namespace GUI
             }
             return true;
         }
-
-        Server_Client.Client cl;
-        Entities.KhoHang[] kh1;
         /// <summary>
         /// lấy kho hàng
         /// </summary>
@@ -1188,8 +2198,6 @@ namespace GUI
                 return "";
             }
         }
-
-        Entities.TienTe[] tt;
         /// <summary>
         /// lấy tên tiền tệ
         /// </summary>
@@ -1296,123 +2304,6 @@ namespace GUI
             }
             return "";
         }
-
-        /// <summary>
-        /// tìm khách hàng
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnTimmakhachhang_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                frmTimKH tkh = new frmTimKH("PhieuTTCuaKH");
-                tkh.ShowDialog();
-                if (frmTimKH.drvr != null)
-                {
-                    txtMakhachhang.Text = frmTimKH.drvr.Cells["MaKH"].Value.ToString();
-                    txtDondatbanhang.Text = "";
-                    dtgvsanpham.DataSource = new Entities.HangHoaHienThi[0];
-                    toolStrip_Insert.Enabled = true;
-                    dtgvsanpham.Enabled = true;
-                    txtNohienthoi.Text = frmTimKH.drvr.Cells["DuNo"].Value.ToString();
-                    frmTimKH.drvr = null;
-                    txtnguoinhanhang.Focus();
-                }
-            }
-            catch
-            {
-            }
-            finally
-            {
-                try
-                {
-                    fix();
-                }
-                catch
-                {
-                }
-            }
-        }
-        /// <summary>
-        /// tìm đơn đặt hàng
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnTimdondat_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (txtMakhachhang.Text.Length != 0)
-                {
-                    frmTimDonDatHang fr = new frmTimDonDatHang(txtMakhachhang.Text);
-                    fr.ShowDialog();
-                    if (frmTimDonDatHang.drvr != null)
-                    {
-                        string maDonDatHang = txtDondatbanhang.Text = frmTimDonDatHang.drvr.Cells["MaDonDatHang"].Value.ToString();
-                        frmTimDonDatHang.drvr = null;
-                        toolStrip_Insert.Enabled = false;
-                        dtgvsanpham.Enabled = false;
-                        SelectData1(maDonDatHang);
-                        cbbHinhthucthanhtoan.Focus();
-                        if (txtPhantramchietkhau.Text == "")
-                            phantramchietkhau = "0";
-                        else
-                            phantramchietkhau = txtPhantramchietkhau.Text;
-                        TinhToan();
-                        txtChietkhau.Text = new Common.Utilities().FormatMoney(((Convert.ToDouble(phantramchietkhau) / 100) * Convert.ToDouble(txtTienhang.Text)));
-                        txtTongchietkhau.Text = new Common.Utilities().FormatMoney(Convert.ToDouble(TinhCK(dtgvsanpham)));
-                        txtTongchietkhau.Text = (Convert.ToDouble(txtChietkhau.Text) + Convert.ToDouble(txtTongchietkhau.Text)).ToString();
-                        txtTongtien.Text = new Common.Utilities().FormatMoney(Convert.ToDouble(tongtienthanhtoan) - Convert.ToDouble(txtTongchietkhau.Text) - Convert.ToDouble(txtgiatrithe.Text));
-                        txtConphaitra.Text = new Common.Utilities().FormatMoney(Convert.ToDouble(tongtienthanhtoan) - Convert.ToDouble(txtThanhtoanngay.Text) - Convert.ToDouble(txtTongchietkhau.Text));
-                        txtdutra.Text = new Common.Utilities().FormatMoney(Convert.ToDouble(txtkhachtra.Text) - Convert.ToDouble(tongtienthanhtoan) + Convert.ToDouble(txtTongchietkhau.Text));
-
-                    }
-                }
-                else
-                    MessageBox.Show("Bạn hãy nhập Mã khách hàng");
-            }
-            catch
-            {
-            }
-        }
-        /// <summary>
-        /// xử lý option
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void thiêtLâpThôngSôToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-        /// <summary>
-        /// form load
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void frmXuLyBanBuon_Load(object sender, EventArgs e)
-        {
-            try
-            {
-                XuLyStr();
-
-            }
-            catch
-            {
-            }
-            finally
-            {
-                try
-                {
-                    fix();
-                }
-                catch
-                {
-                }
-            }
-
-        }
-        bool kt = false;
         /// <summary>
         /// kiểm tra trước khi insert
         /// </summary>
@@ -1504,7 +2395,7 @@ namespace GUI
         /// </summary>
         /// <param name="pxh"></param>
         /// <returns></returns>
-        public bool Check(Entities.HDBanHang pxh)
+        public bool Check(HDBanHang pxh)
         {
             bool gt = true;
             string datetimenew = new Common.Utilities().XuLy(2, (Convert.ToDateTime(pxh.NgayBan).ToShortDateString()));
@@ -1620,7 +2511,7 @@ namespace GUI
         /// kiểm tra dtgv trừ số lượng
         /// </summary>
         /// <param name="dgv"></param>
-        public Entities.ChiTietKhoHangTheoHoaHonNhap[] CheckDataGridTruSL(DataGridView dgv)
+        public ChiTietKhoHangTheoHoaHonNhap[] CheckDataGridTruSL(DataGridView dgv)
         {
             ArrayList array = new ArrayList();
             try
@@ -1665,11 +2556,7 @@ namespace GUI
                 return new Entities.ChiTietKhoHangTheoHoaHonNhap[0];
             }
         }
-
-        /// <summary>
-        /// cap nhat lai trang thai don dat hang
-        /// </summary>
-        private Entities.DonDatHang CapNhatTrangThaiDonDatHang(string hanhdong, string MaDonDatHang, string trangthai)
+        private DonDatHang CapNhatTrangThaiDonDatHang(string hanhdong, string MaDonDatHang, string trangthai)
         {
             try
             {
@@ -1706,194 +2593,6 @@ namespace GUI
                 return false;
             }
         }
-
-        string duno = "0";
-        /// <summary>
-        /// nút thêm
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tsslthem_Click(object sender, EventArgs e)
-        {
-            this.Enabled = false;
-            try
-            {
-                if (KiemTra() == true)
-                {
-                    //CheckConflictInsert();
-                    txtSochungtu.Text = ProID("HDBanHang");
-                    kt = true;
-                    if (kt == true)
-                    {
-                        cl = new Server_Client.Client();
-                        this.client1 = cl.Connect(Luu.IP, Luu.Ports);
-                        string date = "", date2 = "";
-                        date = new Common.Utilities().MyDateConversion(makNgaychungtu.Text);
-                        try
-                        {
-                            date2 = new Common.Utilities().MyDateConversion(makHanthanhtoan.Text);
-                        }
-                        catch
-                        {
-                            MessageBox.Show("Nhập sai định dạng ngày tháng", "Hệ thông cảnh báo");
-                            date2 = "";
-                            return;
-                        }
-                        Entities.HDBanHang pt = new Entities.HDBanHang();
-                        string makho = LayMaKho(cbbKhoban.Text);
-                        string matt = LayMaTT(cbbtientetygia.Text);
-
-                        if (string.IsNullOrEmpty(txtPhantramchietkhau.Text))
-                            txtPhantramchietkhau.Text = "0";
-                        if (string.IsNullOrEmpty(txtkhachtra.Text))
-                            txtkhachtra.Text = "0";
-
-
-                        pt = new Entities.HDBanHang("Insert", 0, txtSochungtu.Text, Convert.ToDateTime(date), txtMakhachhang.Text,
-                            txtNohienthoi.Text, txtnguoinhanhang.Text, cbbHinhthucthanhtoan.Text, makho, DateTime.Parse(date2),
-                            txtDondatbanhang.Text, Common.Utilities.User.NhanVienID, matt, txtTongchietkhau.Text, "0",
-                            txtThanhtoanngay.Text, txtGTGT.Text, txtTongtien.Text, false, " ", "0", txtDiengiai.Text,
-                            false, Common.Utilities.User.TenDangNhap, txtkhachtra.Text, txtPhantramchietkhau.Text, string.Empty, "0");
-                        pt.ChiTietHDBanHang = CheckDataGridInsert(dtgvsanpham);
-                        if (txtDondatbanhang.Text.Length != 0)
-                        {
-                            pt.DonDatHang = CapNhatTrangThaiDonDatHang("Update", txtDondatbanhang.Text, "Đã thành công");
-                        }
-                        pt.ChiTietKhoHangTheoHoaHonNhap = CheckDataGridTruSL(dtgvsanpham);
-                        double khNo = 0;
-                        double tongTienHD = 0;
-                        double tongThanhToan = 0;
-
-                        if (!string.IsNullOrEmpty(txtTongtien.Text))
-                            tongTienHD = double.Parse(txtTongtien.Text);
-
-                        if (!string.IsNullOrEmpty(txtkhachtra.Text))
-                            tongThanhToan = double.Parse(txtkhachtra.Text);
-
-                        if (tongThanhToan > tongTienHD)
-                            khNo = 0;
-                        else
-                            khNo = tongTienHD - tongThanhToan;
-
-                        pt.KhachHang = new Entities.KhachHang("UpdateDuNo", txtMakhachhang.Text, khNo.ToString());
-                        clientstrem = cl.SerializeObj(this.client1, "HDBanHang", pt);
-                        bool kt1 = false;
-                        kt1 = (bool)cl.DeserializeHepper(clientstrem, kt1);
-                        if (kt1 == true)
-                        {
-                            ////Cập nhật điểm thưởng cho khách hàng
-                            //if (CapNhatDiemThuongKhachHang(txtMakhachhang.Text, txtTongtien.Text))
-                            //{
-                            //    //Cập nhật điểm thưởng khách hàng thành công
-                            //}
-                            //else
-                            //{
-                            //    //Cập nhật điểm thưởng khách hàng thất bại
-                            //}
-                            ///////////////////////////////////////
-
-                            string khachtra = "0";
-                            if (txtkhachtra.Text == "")
-                                khachtra = "0";
-                            else
-                                khachtra = txtkhachtra.Text;
-                            //timerRun.Start();
-                            if (cbkiemtra.Checked == true)
-                            {
-                                Entities.KhachHang kh = GetThongTinKhachHang(txtMakhachhang.Text);
-                                frmBaoCaorpt bcrpt = new frmBaoCaorpt("HDBanBuon", txtSochungtu.Text,
-                                    Double.Parse(txtTongchietkhau.Text), khachtra, txtdutra.Text, txtTongtien.Text,
-                                    txtGTGT.Text, Common.Utilities.User.TenNhanVien, "in", makNgaychungtu.Text, txtgiatrithe.Text, "0", "", txtChietkhau.Text, kh.DiaChi, txtnguoinhanhang.Text, txtDiengiai.Text);
-                            }
-                            //timerRun.Stop();
-                            GiaVonBanHang(pt.ChiTietHDBanHang);
-                            this.Close();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Thêm thất bại - xin hãy thử lại", "Hệ thống cảnh báo");
-                        }
-
-                    }
-                }
-            }
-            catch
-            {
-
-            }
-            finally
-            {
-                this.Enabled = true;
-            }
-
-        }
-        /// <summary>
-        /// nút sửa
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tsslsua_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (KiemTra() == true)
-                {
-                    CheckConflictUpdate();
-                    if (kt == true)
-                    {
-                        cl = new Server_Client.Client();
-                        this.client1 = cl.Connect(Luu.IP, Luu.Ports);
-                        string date = new Common.Utilities().MyDateConversion(makNgaychungtu.Text);
-                        string date2 = new Common.Utilities().MyDateConversion(makHanthanhtoan.Text);
-                        Entities.HDBanHang pt = new Entities.HDBanHang();
-                        string makho = LayMaKho(cbbKhoban.Text);
-                        string matt = LayMaTT(cbbtientetygia.Text);
-                        pt = new Entities.HDBanHang("Insert", 0, txtSochungtu.Text, Convert.ToDateTime(date), txtMakhachhang.Text,
-                                                    txtNohienthoi.Text, txtnguoinhanhang.Text, cbbHinhthucthanhtoan.Text, makho, DateTime.Parse(date2),
-                                                    txtDondatbanhang.Text, Common.Utilities.User.NhanVienID, matt, txtTongchietkhau.Text, "0",
-                                                    txtThanhtoanngay.Text, txtGTGT.Text, txtTongtien.Text, false, " ", "0", txtDiengiai.Text,
-                                                    false, Common.Utilities.User.TenDangNhap, txtkhachtra.Text, txtPhantramchietkhau.Text, string.Empty, "0");
-
-                        clientstrem = cl.SerializeObj(this.client1, "HDBanHang", pt);
-                        bool kt1 = false;
-                        kt1 = (bool)cl.DeserializeHepper(clientstrem, kt1);
-                        if (kt1 == true)
-                        {
-                            this.Close();
-                        }
-                        else
-                            MessageBox.Show("thất bại - xin kiểm tra lại dữ liệu", "Hệ thống cảnh báo");
-
-                    }
-                    else
-                        MessageBox.Show("Dữ liệu đã bị thay đổi - Hãy kiểm tra lại", "Hệ thống cảnh báo");
-                }
-            }
-            catch
-            {
-            }
-            finally
-            {
-
-
-            }
-        }
-        //private void EventChung_Click(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        string khachtra = "0";
-        //        if (txtkhachtra.Text == "")
-        //            khachtra = "0";
-        //        else
-        //            khachtra = txtkhachtra.Text;
-        //        txtkhachtra.Text = new Common.Utilities().FormatMoney(Convert.ToDouble(khachtra));
-        //        txtThanhtoanngay.Text = new Common.Utilities().FormatMoney(Convert.ToDouble(txtThanhtoanngay.Text));
-        //    }
-        //    catch
-        //    {
-        //    }
-        //}
         public void XuLyHH()
         {
             try
@@ -1940,92 +2639,7 @@ namespace GUI
             {
             }
         }
-        string mahanghoa, phantramchietkhau;
-        /// <summary>
-        /// xử lý khi ấn phím
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void toolStrip_txtTracuu_KeyUp(object sender, KeyEventArgs e)
-        {
-            try
-            {
-                if (e.KeyCode == Keys.F4)
-                {
-                    XuLyHH();
-                }
-                if (e.KeyCode == Keys.Enter)
-                {
-
-                    if (txtMakhachhang.Text.Length == 0)
-                    {
-                        MessageBox.Show("Bạn hãy nhập Mã khách hàng", "Hệ thống cảnh báo");
-                        btnTimmakhachhang.Focus();
-                        toolStrip_txtTracuu.Text = "";
-                        return;
-                    }
-                    if (cbbKhoban.Text.Length == 0)
-                    {
-                        MessageBox.Show("Bạn hãy nhập Kho hàng", "Hệ thống cảnh báo");
-                        cbbKhoban.Focus();
-                        toolStrip_txtTracuu.Text = "";
-                        return;
-                    }
-
-                    foreach (char ch in toolStrip_txtTracuu.Text)
-                    {
-                        if (testCharacter(ch))
-                        {
-                            MessageBox.Show("        Mã Hàng Hóa Không được nhập tiếng việt có dấu " +
-                                          "\nNếu bạn đang dùng máy quét mã vạch hãy tắt bộ gõ Tiếng Tiệt đi! ", "Hệ Thống Cảnh Báo");
-                            toolStrip_txtTracuu.Focus();
-                            toolStrip_txtTracuu.SelectAll();
-                            return;
-                        }
-                    }
-                    mahanghoa = toolStrip_txtTracuu.Text;
-                    bool retVal = true;
-                    // Qui đổi đơn vị tính
-                    foreach (Entities.QuyDoiDonViTinh item in quidoidvt)
-                    {
-                        if (item.MaHangQuyDoi.ToUpper().Equals(mahanghoa.ToUpper()))
-                        {
-                            tssltenhang.Text = item.TenHangDuocQuyDoi;
-                            tsslsoluong.Focus();
-                            retVal = false;
-                            break;
-                        }
-                    }
-                    if (tssltenhang.Text.Length == 0)
-                    {
-                        //MessageBox.Show("Hàng hóa không có trong kho", "Hệ thống cảnh báo");
-                        //return;
-                    }
-                    if (retVal)
-                        LayHangHoaTheoMa();
-                }
-                if (e.KeyCode == Keys.F5)
-                {
-                    txtkhachtra.Focus();
-                }
-                if (e.KeyCode == Keys.F6)
-                {
-                    dtgvsanpham.Focus();
-                }
-                if (e.KeyCode == Keys.F7)
-                {
-                    txtPhantramchietkhau.Focus();
-                }
-            }
-            catch
-            {
-            }
-        }
-        /// <summary>
-        /// kiểm tra chiết khấu
-        /// </summary>
-        /// <param name="cnhkh"></param>
-        public void KiemTraCK(Entities.CapNhatGiaKhachHang[] cnhkh)
+        public void KiemTraCK(CapNhatGiaKhachHang[] cnhkh)
         {
             try
             {
@@ -2047,66 +2661,7 @@ namespace GUI
             {
             }
         }
-        Entities.HangHoaHienThi[] hh;
-        /// <summary>
-        /// thêm row
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void toolStrip_btnThem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (cbbKhoban.Text.Length == 0)
-                {
-                    MessageBox.Show("Chưa có Kho hàng", "Hệ thống cảnh báo");
-                    cbbKhoban.Focus();
-                    return;
-                }
-                if (tssltenhang.Text.Length == 0)
-                {
-                    MessageBox.Show("Chưa có tên hàng", "Hệ thống cảnh báo");
-                    return;
-                }
-                if (tsslsoluong.Text.Length == 0)
-                {
-                    MessageBox.Show("Chưa có số lượng hàng", "Hệ thống cảnh báo");
-                    tsslsoluong.Focus();
-                    return;
-                }
-                mahanghoa = toolStrip_txtTracuu.Text;
-                // Qui đổi đơn vị tính
-                foreach (Entities.QuyDoiDonViTinh item in quidoidvt)
-                {
-                    if (item.MaHangQuyDoi == mahanghoa)
-                    {
-                        mahanghoa = toolStrip_txtTracuu.Text = item.MaHangDuocQuyDoi.ToUpper();
-                        tssltenhang.Text = item.TenHangDuocQuyDoi;
-                        tsslsoluong.Text = (item.SoLuongDuocQuyDoi * int.Parse(tsslsoluong.Text)).ToString();
-                        break;
 
-                    }
-                }
-                // Qui đổi đơn vị tính
-                foreach (Entities.QuyDoiDonViTinh item in quidoidvt)
-                {
-                    if (item.MaHangQuyDoi == mahanghoa)
-                    {
-                        mahanghoa = toolStrip_txtTracuu.Text = item.MaHangDuocQuyDoi.ToUpper();
-                        tssltenhang.Text = item.TenHangDuocQuyDoi;
-                        tsslsoluong.Text = (item.SoLuongDuocQuyDoi * int.Parse(tsslsoluong.Text)).ToString();
-                        break;
-
-                    }
-                }
-                LayHangHoaTheoMa();
-                NewRow();
-                toolStrip_txtTracuu.ReadOnly = false;
-            }
-            catch
-            {
-            }
-        }
         /// <summary>
         /// xử ly thêm row
         /// </summary>
@@ -2314,23 +2869,7 @@ namespace GUI
                 }
             }
         }
-        int i;
-        string ck = "";
-        /// <summary>
-        /// xử lý khi click tra cứu
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void toolStrip_txtTracuu_Click(object sender, EventArgs e)
-        {
-            toolStrip_txtTracuu.ReadOnly = false;
-            toolStrip_txtTracuu.Text = "";
-            tssltenhang.Text = "";
-            tsslgia.Text = "0";
-            tsslchietkhau.Text = "0";
-            tsslgtgt.Text = "0";
-            tsslsoluong.Text = "";
-        }
+
         /// <summary>
         /// tính tiền hàng
         /// </summary>
@@ -2356,77 +2895,6 @@ namespace GUI
                 return "0";
             }
         }
-        /// <summary>
-        /// xử lý khi nhập vào control
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tsslsoluong_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                string sl = "0";
-                if (tsslsoluong.Text == "")
-                    sl = "0";
-                else
-                    sl = tsslsoluong.Text;
-                if (int.Parse(sl) > 0)
-                {
-                    return;
-                }
-                tsslsoluong.Text = "";
-
-            }
-            catch (Exception ex)
-            {
-                tsslsoluong.Text = "";
-            }
-        }
-        /// <summary>
-        /// xử lý khi nhập vào control
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void txtPhantramchietkhau_TextChanged(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(str) && str.Equals("Them"))
-            {
-                txtTongtien.Text = string.Empty;
-                txtChietkhau.Text = string.Empty;
-                double tienHang = 0;
-                double tongCK = 0;
-                double thueGTGT = 0;
-                double ptckTongHD = 0;
-                double gtckTongHD = 0;
-                double tongtienHangGTGT = 0;
-                double tongtien = 0;
-
-                try
-                {
-                    if (!string.IsNullOrEmpty(txtTienhang.Text))
-                        tienHang = double.Parse(txtTienhang.Text);
-
-                    if (!string.IsNullOrEmpty(txtTongchietkhau.Text))
-                        tongCK = double.Parse(txtTongchietkhau.Text);
-
-                    if (!string.IsNullOrEmpty(txtGTGT.Text))
-                        thueGTGT = double.Parse(txtGTGT.Text);
-
-                    if (!string.IsNullOrEmpty(txtPhantramchietkhau.Text))
-                        ptckTongHD = double.Parse(txtPhantramchietkhau.Text);
-
-                    tongtienHangGTGT = tienHang - tongCK + thueGTGT;
-                    gtckTongHD = (tongtienHangGTGT * ptckTongHD) / 100;
-                    tongtien = tongtienHangGTGT - gtckTongHD;
-                    txtChietkhau.Text = new Common.Utilities().FormatMoney(gtckTongHD);
-                    txtTongtien.Text = new Common.Utilities().FormatMoney(tongtien);
-                }
-                catch (Exception)
-                {
-
-                }
-            }
-        }
 
         /// <summary>
         /// tinh Tong tien
@@ -2447,7 +2915,6 @@ namespace GUI
             return double.Parse(tongtien);
         }
 
-        string tongtienthanhtoan = "0";
         /// <summary>
         /// tính toán
         /// </summary>
@@ -2550,93 +3017,57 @@ namespace GUI
                 return "0";
             }
         }
-        /// <summary>
-        /// xử lý khi nhập vào control
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void txtThanhtoanngay_TextChanged(object sender, EventArgs e)
-        {
 
+        /// <summary>
+        /// Lấy hàng hóa theo mã
+        /// </summary>
+        /// <param name="code">Mã hàng hóa</param>
+        /// <param name="dsHangHoa">danh sách tìm kiếm hàng hóa (nếu null thì lấy trong _hangHoaTheoKho đã có sẵn)</param>
+        /// <returns>đối tượng hàng hóa</returns>
+        HangHoa GetGoodsByCode(string code, HangHoa[] dsHangHoa = null)
+        {
+            dsHangHoa = dsHangHoa ?? _hangHoaTheoKho;
+            return dsHangHoa.FirstOrDefault(k => k.MaHangHoa.ToUpper().Equals(code.ToUpper()) && !k.Deleted);
         }
 
-        int run = 0;
-        /// <summary>
-        /// xử lý timer
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void toolStrip_txtTracuu_KeyPress(object sender, KeyPressEventArgs e)
+        private void LayHangHoaTheoMa(string maHangHoa)
         {
-        }
-        /// <summary>
-        /// lấy hàng hóa theo mã
-        /// </summary>
-        private void LayHangHoaTheoMa()
-        {
-            DateTime start = DateTime.Now;
-
-
             try
             {
-                if (this.hangHoaTheoKho.Length > 0)
+                HangHoa hangHoaTemp = GetGoodsByCode(maHangHoa);
+                if (hangHoaTemp != null)
                 {
-                    bool ktdata = false;
-                    foreach (Entities.HangHoa item in this.hangHoaTheoKho)
+                    try
                     {
-                        if (item.MaHangHoa.ToUpper().Equals(toolStrip_txtTracuu.Text.ToUpper()) && item.Deleted == false)
-                        {
-                            try
-                            {
-                                mahanghoa = toolStrip_txtTracuu.Text = item.MaHangHoa.ToUpper();
-                                tssltenhang.Text = item.TenHangHoa;
-                                tsslgia.Text = new Common.Utilities().FormatMoney(double.Parse(item.GiaBanBuon.ToString()));
-                                //SelectMaCapNhatKH();
-                                KiemTraCK(cngkh);
-                                LayGiaTriThue(item.MaThueGiaTriGiaTang);
-                                toolStrip_txtTracuu.ReadOnly = true;
-                                tsslsoluong.Focus();
-                                ktdata = true;
-                            }
-                            catch
-                            {
-                                phantramchietkhau = tsslchietkhau.Text = "0";
-                            }
-
-                            break;
-                        }
+                        mahanghoa = toolStrip_txtTracuu.Text = hangHoaTemp.MaHangHoa.ToUpper();
+                        tssltenhang.Text = hangHoaTemp.TenHangHoa;
+                        tsslgia.Text = new Common.Utilities().FormatMoney(double.Parse(hangHoaTemp.GiaBanBuon));
+                        //SelectMaCapNhatKH();
+                        KiemTraCK(cngkh);
+                        LayGiaTriThue(hangHoaTemp.MaThueGiaTriGiaTang);
+                        toolStrip_txtTracuu.ReadOnly = true;
+                        tsslsoluong.Focus();
                     }
-                    double end = (DateTime.Now - start).TotalMilliseconds;
-                    if (ktdata == false)
-                    {
-                        MessageBox.Show("Không có hàng hóa trong kho", "Hệ thống cảnh báo");
-                        tssltenhang.Text = "";
-                        tsslgia.Text = "0";
-                        tsslchietkhau.Text = "0";
-                        tsslgtgt.Text = "0";
-                        toolStrip_txtTracuu.ReadOnly = false;
-                    }
+                    catch { phantramchietkhau = tsslchietkhau.Text = "0"; }
+                    return;
                 }
-                else
-                {
-                    MessageBox.Show("Không có hàng hóa trong kho", "Hệ thống cảnh báo");
-                    tssltenhang.Text = "";
-                    tsslgia.Text = "0";
-                    tsslchietkhau.Text = "0";
-                    tsslgtgt.Text = "0";
-                    toolStrip_txtTracuu.ReadOnly = false;
-                }
+                MessageBox.Show("Không có hàng hóa trong kho", "Hệ thống cảnh báo");
+                tssltenhang.Text = "";
+                tsslgia.Text = "0";
+                tsslchietkhau.Text = "0";
+                tsslgtgt.Text = "0";
+                toolStrip_txtTracuu.ReadOnly = false;
             }
             catch
             {
-                return;
-            }
-            finally
-            {
-
             }
         }
-        string thuegtgt = "0";
+
+        private void LayHangHoaTheoMa()
+        {
+            LayHangHoaTheoMa(toolStrip_txtTracuu.Text);
+        }
+
         /// <summary>
         /// lấy giá trị thuế
         /// </summary>
@@ -2669,173 +3100,13 @@ namespace GUI
 
             }
         }
-        /// <summary>
-        /// xử lý timer
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void timerRun_Tick(object sender, EventArgs e)
-        {
-            try
-            {
-                if (toolStrip_txtTracuu.Text.Length > 0)
-                {
-                    run++;
-                    if (run == 3)
-                    {
-                        this.Close();
-                    }
-                }
-            }
-            catch
-            {
-            }
-            finally
-            {
-
-            }
-        }
-        /// <summary>
-        /// xử lý khi nhập vào control
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void txtkhachtra_TextChanged(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(str) && str.Equals("Them"))
-            {
-                try
-                {
-                    new TienIch().AutoFormatMoney(sender);
-                    //txtkhachtra.Text = string.Empty;
-                    txtdutra.Text = string.Empty;
-                    txtThanhtoanngay.Text = string.Empty;
-                    txtConphaitra.Text = string.Empty;
-                    double khachTra = 0;
-                    double duTra = 0;
-                    double tongTien = 0;
-                    if (!string.IsNullOrEmpty(txtTongtien.Text))
-                        tongTien = double.Parse(txtTongtien.Text);
-
-                    if (!string.IsNullOrEmpty(txtkhachtra.Text))
-                        khachTra = double.Parse(txtkhachtra.Text);
-
-                    if (!string.IsNullOrEmpty(txtdutra.Text))
-                        duTra = double.Parse(txtdutra.Text);
-
-                    duTra = khachTra - tongTien;
-                    txtdutra.Text = new Common.Utilities().FormatMoney(duTra);
-                    txtConphaitra.Text = new Common.Utilities().FormatMoney(duTra);
-                    txtThanhtoanngay.Text = new Common.Utilities().FormatMoney(khachTra);
-                }
-                catch (Exception)
-                {
-                }
-            }
-
-        }
-        /// <summary>
-        /// xử lý khi thay đổi kích cỡ
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void frmXuLyBanBuon_Resize(object sender, EventArgs e)
-        {
-            this.WindowState = FormWindowState.Normal;
-        }
-        /// <summary>
-        /// xử lý khi click vào lập phiếu thanh toán
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tssllapphieuthanhtoan_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                string date = new Common.Utilities().MyDateConversion(makNgaychungtu.Text);
-                string date2 = new Common.Utilities().MyDateConversion(makHanthanhtoan.Text);
-                string makho = LayMaKho(cbbKhoban.Text);
-                string matt = LayMaTT(cbbtientetygia.Text);
-                Entities.HDBanHang[] pt1 = new Entities.HDBanHang[1];
-                pt1[0] = new Entities.HDBanHang("Update", int.Parse(id), txtSochungtu.Text, Convert.ToDateTime(date),
-                    txtMakhachhang.Text, txtNohienthoi.Text, txtnguoinhanhang.Text, cbbHinhthucthanhtoan.Text, makho,
-                    DateTime.Parse(date2), txtDondatbanhang.Text, Common.Utilities.User.TenNhanVien, matt,
-                    txtChietkhau.Text, thanhtoankhilapphieu, thanhtoanngay, txtGTGT.Text, txtTongtien.Text, false, " ", "0",
-                    txtDiengiai.Text, false, Common.Utilities.User.TenDangNhap, txtkhachtra.Text, txtPhantramchietkhau.Text, string.Empty, "0");
-
-                frmXuLyPhieuTTCuaKH pt = new frmXuLyPhieuTTCuaKH(pt1);
-                pt.ShowDialog();
-                this.Close();
-            }
-            catch
-            {
-            }
-        }
-        /// <summary>
-        /// xử lý khi ấn phím
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void toolStrip_Insert_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                if (cbbKhoban.Text.Length == 0)
-                {
-                    MessageBox.Show("Chưa có Kho hàng", "Hệ thống cảnh báo");
-                    cbbKhoban.Focus();
-                    return;
-                }
-                if (tssltenhang.Text.Length == 0)
-                {
-                    MessageBox.Show("Chưa có tên hàng", "Hệ thống cảnh báo");
-                    return;
-                }
-                if (tsslsoluong.Text.Length == 0)
-                {
-                    MessageBox.Show("Chưa có số lượng hàng", "Hệ thống cảnh báo");
-                    tsslsoluong.Focus();
-                    return;
-                }
-                mahanghoa = toolStrip_txtTracuu.Text;
-                // Qui đổi đơn vị tính
-                foreach (Entities.QuyDoiDonViTinh item in quidoidvt)
-                {
-                    if (item.MaHangQuyDoi == mahanghoa)
-                    {
-                        mahanghoa = toolStrip_txtTracuu.Text = item.MaHangDuocQuyDoi.ToUpper();
-                        tssltenhang.Text = item.TenHangDuocQuyDoi;
-                        tsslsoluong.Text = (item.SoLuongDuocQuyDoi * int.Parse(tsslsoluong.Text)).ToString();
-                        break;
-
-                    }
-                }
-
-                LayHangHoaTheoMa();
-                NewRow();
-                toolStrip_txtTracuu_Click(sender, e);
-                toolStrip_txtTracuu.Focus();
-            }
-            KeyUp_Chung(sender, e);
-        }
-
-        private void cbbtientetygia_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                txttientetygia.Text = LayDonViTT(LayMaTT(cbbtientetygia.Text));
-            }
-            catch
-            {
-            }
-        }
 
         /// <summary>
         /// Lay Thong tin cua khach hang .
         /// </summary>
         /// <param name="maKhachHang"></param>
         /// <returns></returns>
-        private Entities.KhachHang GetThongTinKhachHang(string maKhachHang)
+        private KhachHang GetThongTinKhachHang(string maKhachHang)
         {
             Entities.KhachHang khachHang = new Entities.KhachHang();
             try
@@ -2867,29 +3138,7 @@ namespace GUI
             return khachHang;
         }
 
-        private void tsslin_Click(object sender, EventArgs e)
-        {
-            this.Enabled = false;
-            Entities.KhachHang kh = GetThongTinKhachHang(txtMakhachhang.Text);
-            try
-            {
-                string khachtra = "0";
-                if (txtkhachtra.Text == "")
-                    khachtra = "0";
-                else
-                    khachtra = txtkhachtra.Text;
-                frmBaoCaorpt bcrpt = new frmBaoCaorpt("HDBanBuon", txtSochungtu.Text, Double.Parse(txtTongchietkhau.Text), khachtra, txtdutra.Text, txtTongtien.Text, txtGTGT.Text, lbnhanvien.Text, "", makNgaychungtu.Text, txtgiatrithe.Text, "0", "", txtChietkhau.Text, kh.DiaChi, txtnguoinhanhang.Text, txtDiengiai.Text);
-                bcrpt.ShowDialog();
-            }
-            catch
-            {
-            }
-            finally
-            {
-                this.Enabled = true;
-            }
-        }
-        private bool testCharacter(char ch)
+        private static bool TestCharacter(char ch)
         {
             char[] a = new char[]{'+','-','~','`','@','#','$','%','^','&','*','(',')','{','}','[',']',':',';','|',
                 '<','>',',','.','?','/','-','=',
@@ -2911,6 +3160,7 @@ namespace GUI
             }
             return false;
         }
+
         public void XuLyDTGV()
         {
             if (i < 0)
@@ -2926,13 +3176,13 @@ namespace GUI
                     tsslsoluong.Text = dtgvsanpham[4, i].Value.ToString();
                     tsslchietkhau.Text = dtgvsanpham[5, i].Value.ToString();
                     tsslgtgt.Text = dtgvsanpham[6, i].Value.ToString();
-                    hh = new Entities.HangHoaHienThi[dtgvsanpham.RowCount - 1];
+                    hh = new HangHoaHienThi[dtgvsanpham.RowCount - 1];
                     int so = 0;
                     for (int j = 0; j < dtgvsanpham.RowCount; j++)
                     {
                         if (dtgvsanpham[1, j].Value.ToString() != dtgvsanpham[1, i].Value.ToString())
                         {
-                            hh[so] = new Entities.HangHoaHienThi(txtSochungtu.Text, dtgvsanpham[1, j].Value.ToString(), dtgvsanpham[2, j].Value.ToString(), dtgvsanpham[3, j].Value.ToString(), dtgvsanpham[4, j].Value.ToString(), dtgvsanpham[5, j].Value.ToString(), dtgvsanpham[6, j].Value.ToString(), dtgvsanpham[7, j].Value.ToString());
+                            hh[so] = new HangHoaHienThi(txtSochungtu.Text, dtgvsanpham[1, j].Value.ToString(), dtgvsanpham[2, j].Value.ToString(), dtgvsanpham[3, j].Value.ToString(), dtgvsanpham[4, j].Value.ToString(), dtgvsanpham[5, j].Value.ToString(), dtgvsanpham[6, j].Value.ToString(), dtgvsanpham[7, j].Value.ToString());
                             so++;
                         }
                     }
@@ -2957,7 +3207,7 @@ namespace GUI
                     tsslsoluong.Text = dtgvsanpham[4, i].Value.ToString();
                     tsslchietkhau.Text = dtgvsanpham[5, i].Value.ToString();
                     tsslgtgt.Text = dtgvsanpham[6, i].Value.ToString();
-                    dtgvsanpham.DataSource = new Entities.HangHoaHienThi[0];
+                    dtgvsanpham.DataSource = new HangHoaHienThi[0];
                     txtkhachtra.Text = txtTienhang.Text = txtGTGT.Text = txtTongtien.Text = txtTongchietkhau.Text = txtChietkhau.Text = txtdutra.Text = txtConphaitra.Text = txtThanhtoanngay.Text = "0";
                 }
 
@@ -2978,404 +3228,6 @@ namespace GUI
                 }
             }
         }
-        private void dtgvsanpham_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            XuLyDTGV();
-        }
-
-        private void txtThanhtoanngay_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                txtThanhtoanngay.Text = String.Format("{0:0}", Convert.ToDouble(txtThanhtoanngay.Text));
-            }
-            catch
-            {
-            }
-        }
-
-        private void txtkhachtra_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                string khachtra = "0";
-                if (txtkhachtra.Text == "")
-                    khachtra = "0";
-                else
-                    khachtra = txtkhachtra.Text;
-                txtkhachtra.Text = String.Format("{0:0}", Convert.ToDouble(khachtra));
-            }
-            catch
-            {
-            }
-        }
-
-        private void dtgvsanpham_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            i = e.RowIndex;
-        }
-
-        private void txtnguoinhanhang_KeyUp(object sender, KeyEventArgs e)
-        {
-            try
-            {
-
-                if (e.KeyCode == Keys.Enter)
-                {
-                    cbbHinhthucthanhtoan.Focus();
-                }
-                KeyUp_Chung(sender, e);
-            }
-            catch
-            {
-            }
-        }
-
-        private void cbbHinhthucthanhtoan_KeyUp(object sender, KeyEventArgs e)
-        {
-            try
-            {
-                if (e.KeyCode == Keys.Enter)
-                {
-                    makHanthanhtoan.Focus();
-                    makHanthanhtoan.SelectAll();
-                }
-                KeyUp_Chung(sender, e);
-            }
-            catch
-            {
-            }
-        }
-
-        private void makHanthanhtoan_KeyUp(object sender, KeyEventArgs e)
-        {
-            try
-            {
-                if (e.KeyCode == Keys.Enter)
-                {
-                    btnTimdondat.Focus();
-                }
-                KeyUp_Chung(sender, e);
-            }
-            catch
-            {
-            }
-        }
-
-        private void cbbKhoban_KeyUp(object sender, KeyEventArgs e)
-        {
-            try
-            {
-                if (e.KeyCode == Keys.Enter)
-                {
-                    txtDiengiai.Focus();
-                }
-                KeyUp_Chung(sender, e);
-            }
-            catch
-            {
-            }
-        }
-
-        private void txtDiengiai_KeyUp(object sender, KeyEventArgs e)
-        {
-            try
-            {
-                if (e.KeyCode == Keys.Enter)
-                {
-                    toolStrip_txtTracuu.Focus();
-                }
-                KeyUp_Chung(sender, e);
-            }
-            catch
-            {
-            }
-        }
-        public void KeyUp_Chung(object sender, KeyEventArgs e)
-        {
-            try
-            {
-                if (e.KeyCode == Keys.F4)
-                {
-                    XuLyHH();
-                }
-                if (e.KeyCode == Keys.F5)
-                {
-                    txtkhachtra.Focus();
-                }
-                if (e.KeyCode == Keys.F6)
-                {
-                    dtgvsanpham.Focus();
-                }
-                if (e.KeyCode == Keys.F7)
-                {
-                    txtPhantramchietkhau.Focus();
-                }
-                if (e.KeyCode == Keys.F8)
-                {
-                    txtthegiamgia.Focus();
-                }
-            }
-            catch
-            {
-            }
-        }
-        private void dtgvsanpham_KeyUp(object sender, KeyEventArgs e)
-        {
-            try
-            {
-                if (e.KeyCode == Keys.Enter)
-                {
-
-                    i = dtgvsanpham.SelectedRows[0].Index;
-                    XuLyDTGV();
-                }
-                KeyUp_Chung(sender, e);
-            }
-            catch
-            {
-            }
-        }
-
-        private void txtkhachtra_KeyUp(object sender, KeyEventArgs e)
-        {
-            try
-            {
-                if (e.KeyCode == Keys.Enter)
-                {
-                    tsslthem_Click(sender, e);
-                }
-                KeyUp_Chung(sender, e);
-            }
-            catch
-            {
-            }
-        }
-
-        private void txtPhantramchietkhau_KeyUp(object sender, KeyEventArgs e)
-        {
-            try
-            {
-                if (e.KeyCode == Keys.Enter)
-                {
-                    txtkhachtra.Focus();
-                }
-                KeyUp_Chung(sender, e);
-            }
-            catch
-            {
-            }
-        }
-
-        private void txtthegiamgia_KeyUp(object sender, KeyEventArgs e)
-        {
-            try
-            {
-                if (e.KeyCode == Keys.Enter)
-                {
-                    txtkhachtra.Focus();
-                }
-                KeyUp_Chung(sender, e);
-            }
-            catch
-            {
-            }
-        }
-
-        private void cbbKhoban_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                dtgvsanpham.DataSource = new Entities.HangHoaHienThi[0];
-                fix();
-            }
-            catch
-            {
-            }
-        }
-
-        private void MouseLeave(object sender, EventArgs e)
-        {
-            ToolStripLabel tsl = (ToolStripLabel)sender;
-            tsl.BackColor = System.Drawing.Color.LightSteelBlue;
-        }
-
-        private void MouseMove(object sender, MouseEventArgs e)
-        {
-            ToolStripLabel tsl = (ToolStripLabel)sender;
-            tsl.BackColor = System.Drawing.Color.Snow;
-        }
-
-        private void tssExcel_MouseLeave(object sender, EventArgs e)
-        {
-            ToolStripLabel tsl = (ToolStripLabel)sender;
-            tsl.BackColor = System.Drawing.Color.LightSteelBlue;
-        }
-
-        private void tssExcel_MouseMove(object sender, MouseEventArgs e)
-        {
-            ToolStripLabel tsl = (ToolStripLabel)sender;
-            tsl.BackColor = System.Drawing.Color.Snow;
-        }
-
-        private void tssWord_MouseLeave(object sender, EventArgs e)
-        {
-            ToolStripLabel tsl = (ToolStripLabel)sender;
-            tsl.BackColor = System.Drawing.Color.LightSteelBlue;
-        }
-
-        private void tssWord_MouseMove(object sender, MouseEventArgs e)
-        {
-            ToolStripLabel tsl = (ToolStripLabel)sender;
-            tsl.BackColor = System.Drawing.Color.Snow;
-        }
-
-        private void tssPDF_MouseLeave(object sender, EventArgs e)
-        {
-            ToolStripLabel tsl = (ToolStripLabel)sender;
-            tsl.BackColor = System.Drawing.Color.LightSteelBlue;
-        }
-
-        private void tssPDF_MouseMove(object sender, MouseEventArgs e)
-        {
-            ToolStripLabel tsl = (ToolStripLabel)sender;
-            tsl.BackColor = System.Drawing.Color.Snow;
-        }
-
-
-
-
-        private void txtMakhachhang_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode.Equals(Keys.F4))
-            {
-                try
-                {
-                    frmTimKH tkh = new frmTimKH("PhieuTTCuaKH");
-                    tkh.ShowDialog();
-                    if (frmTimKH.drvr != null)
-                    {
-                        txtMakhachhang.Text = frmTimKH.drvr.Cells["MaKH"].Value.ToString();
-                        txtDondatbanhang.Text = "";
-                        dtgvsanpham.DataSource = new Entities.HangHoaHienThi[0];
-                        toolStrip_Insert.Enabled = true;
-                        dtgvsanpham.Enabled = true;
-                        txtNohienthoi.Text = frmTimKH.drvr.Cells["DuNo"].Value.ToString();
-                        frmTimKH.drvr = null;
-                        txtnguoinhanhang.Focus();
-                    }
-                }
-                catch
-                {
-                }
-                finally
-                {
-                    try
-                    {
-                        fix();
-                    }
-                    catch
-                    {
-                    }
-                }
-            }
-        }
-
-        private void txtDondatbanhang_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode.Equals(Keys.F4))
-            {
-                try
-                {
-                    if (txtMakhachhang.Text.Length != 0)
-                    {
-                        frmTimDonDatHang fr = new frmTimDonDatHang(txtMakhachhang.Text);
-                        fr.ShowDialog();
-                        if (frmTimDonDatHang.drvr != null)
-                        {
-                            string maDonDatHang = txtDondatbanhang.Text = frmTimDonDatHang.drvr.Cells["MaDonDatHang"].Value.ToString();
-                            frmTimDonDatHang.drvr = null;
-                            toolStrip_Insert.Enabled = false;
-                            dtgvsanpham.Enabled = false;
-                            SelectData1(maDonDatHang);
-                            cbbHinhthucthanhtoan.Focus();
-                            if (txtPhantramchietkhau.Text == "")
-                                phantramchietkhau = "0";
-                            else
-                                phantramchietkhau = txtPhantramchietkhau.Text;
-                            TinhToan();
-                            txtChietkhau.Text = new Common.Utilities().FormatMoney(((Convert.ToDouble(phantramchietkhau) / 100) * Convert.ToDouble(txtTienhang.Text)));
-                            txtTongchietkhau.Text = new Common.Utilities().FormatMoney(Convert.ToDouble(TinhCK(dtgvsanpham)));
-                            txtTongchietkhau.Text = (Convert.ToDouble(txtChietkhau.Text) + Convert.ToDouble(txtTongchietkhau.Text)).ToString();
-                            txtTongtien.Text = new Common.Utilities().FormatMoney(Convert.ToDouble(tongtienthanhtoan) - Convert.ToDouble(txtTongchietkhau.Text) - Convert.ToDouble(txtgiatrithe.Text));
-                            txtConphaitra.Text = new Common.Utilities().FormatMoney(Convert.ToDouble(tongtienthanhtoan) - Convert.ToDouble(txtThanhtoanngay.Text) - Convert.ToDouble(txtTongchietkhau.Text));
-                            txtdutra.Text = new Common.Utilities().FormatMoney(Convert.ToDouble(txtkhachtra.Text) - Convert.ToDouble(tongtienthanhtoan) + Convert.ToDouble(txtTongchietkhau.Text));
-
-                        }
-                    }
-                    else
-                        MessageBox.Show("Bạn hãy nhập Mã khách hàng");
-                }
-                catch
-                {
-                }
-            }
-        }
-
-        private void tssExcel_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                Entities.KhachHang kh = GetThongTinKhachHang(txtMakhachhang.Text);
-                if (i < 0)
-                    return;
-                saveFileDialog1.Filter = "Excel |*.xls";
-                saveFileDialog1.FileName = "";
-                if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    frmBaoCaorpt bcrpt = new frmBaoCaorpt("HDBanBuon", txtSochungtu.Text, Double.Parse(txtTongchietkhau.Text), txtkhachtra.Text, txtdutra.Text, txtTongtien.Text, txtGTGT.Text, lbnhanvien.Text, "Excel", makNgaychungtu.Text, txtgiatrithe.Text, "0", saveFileDialog1.FileName, txtChietkhau.Text, kh.DiaChi, txtnguoinhanhang.Text, txtDiengiai.Text);
-                }
-            }
-            catch
-            {
-            }
-        }
-
-        private void tssWord_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                Entities.KhachHang kh = GetThongTinKhachHang(txtMakhachhang.Text);
-                if (i < 0)
-                    return;
-                saveFileDialog1.Filter = "Word |*.doc";
-                saveFileDialog1.FileName = "";
-                if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    frmBaoCaorpt bcrpt = new frmBaoCaorpt("HDBanBuon", txtSochungtu.Text, Double.Parse(txtTongchietkhau.Text), txtkhachtra.Text, txtdutra.Text, txtTongtien.Text, txtGTGT.Text, lbnhanvien.Text, "Word", makNgaychungtu.Text, txtgiatrithe.Text, "0", saveFileDialog1.FileName, txtChietkhau.Text, kh.DiaChi, txtnguoinhanhang.Text, txtDiengiai.Text);
-                }
-            }
-            catch
-            {
-            }
-        }
-
-        private void tssPDF_Click(object sender, EventArgs e)
-        {
-            Entities.KhachHang kh = GetThongTinKhachHang(txtMakhachhang.Text);
-            if (i < 0)
-                return;
-            saveFileDialog1.Filter = "PDF |*.pdf";
-            saveFileDialog1.FileName = "";
-            if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                frmBaoCaorpt bcrpt = new frmBaoCaorpt("HDBanBuon", txtSochungtu.Text, Double.Parse(txtTongchietkhau.Text), txtkhachtra.Text, txtdutra.Text, txtTongtien.Text, txtGTGT.Text, lbnhanvien.Text, "PDF", makNgaychungtu.Text, txtgiatrithe.Text, "0", saveFileDialog1.FileName, txtChietkhau.Text, kh.DiaChi, txtnguoinhanhang.Text, txtDiengiai.Text);
-            }
-        }
-
-        private void txtMakhachhang_TextChanged(object sender, EventArgs e)
-        {
-            SelectMaCapNhatKH();
-        }
+        #endregion
     }
 }

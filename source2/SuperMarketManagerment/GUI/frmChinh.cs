@@ -741,10 +741,10 @@ namespace GUI
         private void frmChinh_Load(object sender, EventArgs e)
         {
             //Show or Hide XNT
-            xuToolStripMenuItem.Visible = Utils.showXNT;
-            xuấtnhậptồnTheoKhoToolStripMenuItem.Visible = Utils.showXNT;
-            xuấtnhậptồnTheoLoạiHàngToolStripMenuItem.Visible = Utils.showXNT;
-            xuấtnhậptồnTheoToolStripMenuItem.Visible = Utils.showXNT;
+            xuToolStripMenuItem.Visible = Utils.ShowXnt;
+            xuấtnhậptồnTheoKhoToolStripMenuItem.Visible = Utils.ShowXnt;
+            xuấtnhậptồnTheoLoạiHàngToolStripMenuItem.Visible = Utils.ShowXnt;
+            xuấtnhậptồnTheoToolStripMenuItem.Visible = Utils.ShowXnt;
 
             if (Luu.Server.Equals("server"))
             {

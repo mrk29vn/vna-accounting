@@ -1,22 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using System.Reflection;
 
 namespace GUI
 {
     public class Utils
     {
         #region Khai báo
-        public static bool tempKQ = true;   //Phục vụ cho StringToDateTime(string input, out bool kq)
-        public static bool showXNT = false;
+        public static bool ShowXnt = false;
         #endregion
 
         #region Function Utils
-
         public static DateTime StringToDateTime(string input)
         {
-            bool kq = false;
+            bool kq;
             return StringToDateTime(input, out kq, "dd/MM/yyyy");
         }
         public static DateTime StringToDateTime(string input, out bool kq)
@@ -37,12 +39,10 @@ namespace GUI
                             dt = new DateTime(int.Parse(arr[2]), int.Parse(arr[1]), int.Parse(arr[0]));
                         }
                         break;
-                    default:
-                        break;
                 }
                 return dt;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 kq = false;
                 return new DateTime(1753, 1, 1);
@@ -70,6 +70,71 @@ namespace GUI
                 dateTime = DateTime.Now;
             }
             return dateTime;
+        }
+        #endregion
+
+        #region Utils
+        /// <summary>
+        /// Hàm lấy dữ liệu về từ server
+        /// </summary>
+        /// <param name="strServer">Lệnh truyền gọi hàm trên Server</param>
+        /// <param name="input">Đối tượng lọc đầu vào</param>
+        /// <param name="output">Dữ liệu trả về</param>
+        /// <returns></returns>
+        public static bool GetDataFromServer<T>(string strServer, object input, out T output)
+        {
+            try
+            {
+                TcpClient tcpClient = new TcpClient();
+                tcpClient.Connect(new IPEndPoint(IPAddress.Parse(Luu.IP), Luu.Ports));
+                NetworkStream networkStream = tcpClient.GetStream();
+                BinaryFormatter binaryFormatter = new BinaryFormatter();
+                binaryFormatter.Serialize(networkStream, strServer);
+                binaryFormatter.Serialize(networkStream, input);
+                output = (T)binaryFormatter.Deserialize(networkStream);
+                networkStream.Close();
+                tcpClient.Close();
+                return true;
+            }
+            catch (Exception)
+            {
+                output = default(T);
+                return false;
+            }
+        }
+
+        public static void Copy(object from, object to)
+        {
+            Type fromType = from.GetType();
+            Type toType = to.GetType();
+
+            if (fromType == null)
+                throw new ArgumentNullException("fromType", "The type that you are copying from cannot be null");
+            if (from == null)
+                throw new ArgumentNullException("from", "The object you are copying from cannot be null");
+            if (toType == null)
+                throw new ArgumentNullException("toType", "The type that you are copying to cannot be null");
+            if (to == null)
+                throw new ArgumentNullException("to", "The object you are copying to cannot be null");
+
+            // Don't copy if they are the same object  
+            if (ReferenceEquals(@from, to)) return;
+            const BindingFlags flags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.GetProperty | BindingFlags.SetProperty;
+            // Get all of the public properties in the toType with getters and setters  
+            PropertyInfo[] properties = toType.GetProperties(flags);
+            Dictionary<string, PropertyInfo> toProperties = properties.ToDictionary(property => property.Name);
+
+            // Now get all of the public properties in the fromType with getters and setters  
+            properties = fromType.GetProperties(flags);
+            foreach (PropertyInfo fromProperty in properties)
+            {
+                // If a property matches in name and type, copy across  
+                if (!toProperties.ContainsKey(fromProperty.Name)) continue;
+                PropertyInfo toProperty = toProperties[fromProperty.Name];
+                if (toProperty.PropertyType != fromProperty.PropertyType) continue;
+                object value = fromProperty.GetValue(@from, null);
+                toProperty.SetValue(to, value, null);
+            }
         }
         #endregion
     }

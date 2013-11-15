@@ -147,7 +147,7 @@ namespace GUI
             // 
             this.tsslthem.Image = global::GUI.Properties.Resources.Them;
             this.tsslthem.Name = "tsslthem";
-            this.tsslthem.Size = new System.Drawing.Size(111, 21);
+            this.tsslthem.Size = new System.Drawing.Size(117, 21);
             this.tsslthem.Spring = true;
             this.tsslthem.Text = "Thanh Toán";
             this.tsslthem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -159,7 +159,7 @@ namespace GUI
             // 
             this.tsslin.Image = global::GUI.Properties.Resources.In;
             this.tsslin.Name = "tsslin";
-            this.tsslin.Size = new System.Drawing.Size(111, 21);
+            this.tsslin.Size = new System.Drawing.Size(117, 21);
             this.tsslin.Spring = true;
             this.tsslin.Text = "In";
             this.tsslin.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -172,7 +172,7 @@ namespace GUI
             this.tssExcel.Enabled = false;
             this.tssExcel.Image = global::GUI.Properties.Resources.excel_icon4;
             this.tssExcel.Name = "tssExcel";
-            this.tssExcel.Size = new System.Drawing.Size(111, 21);
+            this.tssExcel.Size = new System.Drawing.Size(117, 21);
             this.tssExcel.Spring = true;
             this.tssExcel.Text = "Excel";
             this.tssExcel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -185,7 +185,7 @@ namespace GUI
             this.tssWord.Enabled = false;
             this.tssWord.Image = global::GUI.Properties.Resources.DocX_Viewer_icon;
             this.tssWord.Name = "tssWord";
-            this.tssWord.Size = new System.Drawing.Size(111, 21);
+            this.tssWord.Size = new System.Drawing.Size(117, 21);
             this.tssWord.Spring = true;
             this.tssWord.Text = "Word";
             this.tssWord.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -198,7 +198,7 @@ namespace GUI
             this.tssPDF.Enabled = false;
             this.tssPDF.Image = global::GUI.Properties.Resources.icon_pdf;
             this.tssPDF.Name = "tssPDF";
-            this.tssPDF.Size = new System.Drawing.Size(111, 21);
+            this.tssPDF.Size = new System.Drawing.Size(117, 21);
             this.tssPDF.Spring = true;
             this.tssPDF.Text = "PDF";
             this.tssPDF.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -221,7 +221,7 @@ namespace GUI
             // 
             this.tssltrove.Image = global::GUI.Properties.Resources.Xoa;
             this.tssltrove.Name = "tssltrove";
-            this.tssltrove.Size = new System.Drawing.Size(111, 21);
+            this.tssltrove.Size = new System.Drawing.Size(117, 21);
             this.tssltrove.Spring = true;
             this.tssltrove.Text = "Trở về";
             this.tssltrove.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -474,7 +474,7 @@ namespace GUI
             this.lbhinhthucthanhtoan.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbhinhthucthanhtoan.Location = new System.Drawing.Point(15, 99);
             this.lbhinhthucthanhtoan.Name = "lbhinhthucthanhtoan";
-            this.lbhinhthucthanhtoan.Size = new System.Drawing.Size(124, 15);
+            this.lbhinhthucthanhtoan.Size = new System.Drawing.Size(125, 15);
             this.lbhinhthucthanhtoan.TabIndex = 36;
             this.lbhinhthucthanhtoan.Text = "Hình thức thanh toán:";
             // 
@@ -1046,7 +1046,6 @@ namespace GUI
             this.toolStrip_txtTracuu.Size = new System.Drawing.Size(100, 25);
             this.toolStrip_txtTracuu.Text = "<F4-Tra cứu>";
             this.toolStrip_txtTracuu.KeyDown += new System.Windows.Forms.KeyEventHandler(this.toolStrip_txtTracuu_KeyUp);
-            this.toolStrip_txtTracuu.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStrip_txtTracuu_KeyPress);
             this.toolStrip_txtTracuu.Click += new System.EventHandler(this.toolStrip_txtTracuu_Click);
             // 
             // toolStripLabel1
@@ -1160,10 +1159,12 @@ namespace GUI
             this.Controls.Add(this.statusStrip1);
             this.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.KeyPreview = true;
             this.Name = "frmXuLyBanBuon";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Xử Lý Bán Buôn";
             this.Load += new System.EventHandler(this.frmXuLyBanBuon_Load);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FrmXuLyBanBuonKeyUp);
             this.Resize += new System.EventHandler(this.frmXuLyBanBuon_Resize);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();

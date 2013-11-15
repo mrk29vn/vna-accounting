@@ -53,13 +53,13 @@ namespace Server_Client
         {
             try
             {
-                this.tcpListener.Start();
+                tcpListener.Start();
                 while (true)
                 {
                     // mặc định cho Client kết nối
-                    client = this.tcpListener.AcceptTcpClient();
+                    client = tcpListener.AcceptTcpClient();
                     // mỗi client ứng vs 1 Thread
-                    Thread clientThread = new Thread(new ParameterizedThreadStart(Process));
+                    Thread clientThread = new Thread(Process);
                     clientThread.Start(client);
                 }
             }
@@ -5299,45 +5299,27 @@ namespace Server_Client
                 case "Insert":
                     {
                         int kt1 = new BizLogic.HangHoa().InsertUpdate(hh);
-                        bool kt = false;
-                        if (kt1 == 1)
-                        {
-                            kt = true;
-                        }
-                        if (kt == true)
-                        {
+                        bool kt = kt1 == 1;
+                        if (kt)
                             new BizLogic.LogFile().GhiFile(new Entities.LogFile(hh.NhanVienID, hh.TenDangNhap, hh.HanhDong, DateTime.Now.ToString(), "Thêm Hàng Hóa: " + hh.MaHangHoa));
-                        }
                         formatter.Serialize(clientStream, kt);
                         break;
                     }
                 case "Update":
                     {
                         int kt1 = new BizLogic.HangHoa().InsertUpdate(hh);
-                        bool kt = false;
-                        if (kt1 == 1)
-                        {
-                            kt = true;
-                        }
-                        if (kt == true)
-                        {
+                        bool kt = kt1 == 1;
+                        if (kt)
                             new BizLogic.LogFile().GhiFile(new Entities.LogFile(hh.NhanVienID, hh.TenDangNhap, hh.HanhDong, DateTime.Now.ToString(), "Sửa Hàng Hóa: " + hh.MaHangHoa));
-                        }
                         formatter.Serialize(clientStream, kt);
                         break;
                     }
                 case "Delete":
                     {
                         int kt1 = new BizLogic.HangHoa().Delete(hh);
-                        bool kt = false;
-                        if (kt1 == 1)
-                        {
-                            kt = true;
-                        }
-                        if (kt == true)
-                        {
+                        bool kt = kt1 == 1;
+                        if (kt)
                             new BizLogic.LogFile().GhiFile(new Entities.LogFile(hh.NhanVienID, hh.TenDangNhap, hh.HanhDong, DateTime.Now.ToString(), "Xóa Hàng Hóa: " + hh.MaHangHoa));
-                        }
                         formatter.Serialize(clientStream, kt);
                         break;
                     }
@@ -5377,8 +5359,6 @@ namespace Server_Client
                         formatter.Serialize(clientStream, hhoa);
                         break;
                     }
-                default:
-                    break;
             }
         }
         #endregion

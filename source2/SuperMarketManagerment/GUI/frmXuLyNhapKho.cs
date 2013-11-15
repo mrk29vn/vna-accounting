@@ -37,20 +37,20 @@ namespace GUI
         public frmXuLyNhapKho()
         {
             InitializeComponent();
-            dsQuyDoiDonViTinh = this.bangquydoidonvitinh();
+            dsQuyDoiDonViTinh = this.Bangquydoidonvitinh();
         }
         public frmXuLyNhapKho(string hanhdong, Entities.HoaDonNhap hoa)
         {
             InitializeComponent();
             this.hanhdong = hanhdong;
             this.hoadon = hoa;
-            dsQuyDoiDonViTinh = this.bangquydoidonvitinh();
+            dsQuyDoiDonViTinh = this.Bangquydoidonvitinh();
         }
         public frmXuLyNhapKho(string hanhdong)
         {
             InitializeComponent();
             this.hanhdong = hanhdong;
-            dsQuyDoiDonViTinh = this.bangquydoidonvitinh();
+            dsQuyDoiDonViTinh = this.Bangquydoidonvitinh();
         }
         private void frmXuLyNhapKho_Load(object sender, EventArgs e)
         {
@@ -161,15 +161,15 @@ namespace GUI
 
         #region Load Dữ liệu
         ///////////////////////////////////////////////////MRK FIX
-        List<Entities.QuyDoiDonViTinh> bangquydoidonvitinh()
+        List<QuyDoiDonViTinh> Bangquydoidonvitinh()
         {
             // quy đổi đơn vị tính
-            Server_Client.Client cl = new Server_Client.Client();
-            TcpClient client1 = cl.Connect(Luu.IP, Luu.Ports);
-            Entities.CheckRefer ctxh = new Entities.CheckRefer("QD");
-            clientstrem = cl.SerializeObj(client1, "Select", ctxh);
-            Entities.QuyDoiDonViTinh[] quidoidvt = new Entities.QuyDoiDonViTinh[0];
-            return ((Entities.QuyDoiDonViTinh[])cl.DeserializeHepper1(clientstrem, quidoidvt)).ToList();
+            Server_Client.Client cl1 = new Server_Client.Client();
+            TcpClient client1 = cl1.Connect(Luu.IP, Luu.Ports);
+            CheckRefer ctxh = new CheckRefer("QD");
+            clientstrem = cl1.SerializeObj(client1, "Select", ctxh);
+            QuyDoiDonViTinh[] quidoidvt = new Entities.QuyDoiDonViTinh[0];
+            return ((QuyDoiDonViTinh[])cl1.DeserializeHepper1(clientstrem, quidoidvt)).ToList();
         }
         //////////////////////////////////////////////////////////
 
@@ -184,7 +184,7 @@ namespace GUI
                 Entities.TruyenGiaTri kh = new Entities.TruyenGiaTri();
                 kh.Hanhdong = "Select";
                 cl = new Server_Client.Client();
-                this.client = cl.Connect(Luu.IP, Luu.Ports);
+                client = cl.Connect(Luu.IP, Luu.Ports);
                 clientstrem = cl.SerializeObj(this.client, "GetDateTime", kh);
                 Entities.TruyenGiaTri DateTimes = new Entities.TruyenGiaTri();
                 DateTimes = (Entities.TruyenGiaTri)cl.DeserializeHepper(clientstrem, DateTimes);
@@ -2109,26 +2109,26 @@ namespace GUI
         /// <summary>
         /// Tìm chi tiết hàng hóa và fill dữ liệu vào form
         /// </summary>
-        /// <param name="MaHang"></param>
-        private void LayHangHoaTheoMa(string MaHang)
+        /// <param name="maHang"></param>
+        private void LayHangHoaTheoMa(string maHang)
         {
             try
             {
-                Entities.QuyDoiDonViTinh lDVTSelect = new Entities.QuyDoiDonViTinh();
-                if (checkQuyDoiDonViTinh(MaHang, out lDVTSelect))
+                QuyDoiDonViTinh lDvtSelect;
+                if (CheckQuyDoiDonViTinh(maHang, out lDvtSelect))
                 {
                     #region có quy đổi
-                    Entities.HienThi_ChiTiet_DonDatHang ktm = new Entities.HienThi_ChiTiet_DonDatHang();
+                    HienThi_ChiTiet_DonDatHang ktm = new HienThi_ChiTiet_DonDatHang();
                     cl = new Server_Client.Client();
-                    this.client = cl.Connect(Luu.IP, Luu.Ports);
-                    ktm = new Entities.HienThi_ChiTiet_DonDatHang("Select", lDVTSelect.MaHangDuocQuyDoi);
-                    clientstrem = cl.SerializeObj(this.client, "LayHangHoaTheoMaHangHoa", ktm);
-                    Entities.HienThi_ChiTiet_DonDatHang tra = new Entities.HienThi_ChiTiet_DonDatHang();
-                    tra = (Entities.HienThi_ChiTiet_DonDatHang)cl.DeserializeHepper(clientstrem, tra);
-                    if (tra.MaHangHoa == null || tra == null)
+                    client = cl.Connect(Luu.IP, Luu.Ports);
+                    ktm = new HienThi_ChiTiet_DonDatHang("Select", lDvtSelect.MaHangDuocQuyDoi);
+                    clientstrem = cl.SerializeObj(client, "LayHangHoaTheoMaHangHoa", ktm);
+                    HienThi_ChiTiet_DonDatHang tra = new HienThi_ChiTiet_DonDatHang();
+                    tra = (HienThi_ChiTiet_DonDatHang)cl.DeserializeHepper(clientstrem, tra);
+                    if (tra == null)
                     {
                         toolStrip_txtTracuu.Focus();
-                        frmXuLyHangHoa frm = new frmXuLyHangHoa("ThemNhapKho", lDVTSelect.MaHangDuocQuyDoi);
+                        frmXuLyHangHoa frm = new frmXuLyHangHoa("ThemNhapKho", lDvtSelect.MaHangDuocQuyDoi);
                         frm.ShowDialog();
                         ResetTool();
                         toolStrip_txtTracuu.Text = GiaTriCanLuu.mahanghoa;
@@ -2136,27 +2136,9 @@ namespace GUI
                     }
                     else
                     {
-                        toolStrip_txtTracuu.Text = lDVTSelect.MaHangQuyDoi;
-                        if (lDVTSelect.TenHangDuocQuyDoi.Equals(""))
-                        {
-                            toolStrip_txtTenhang.Text = lDVTSelect.MaHangQuyDoi;
-                        }
-                        else
-                        {
-                            toolStrip_txtTenhang.Text = lDVTSelect.TenHangDuocQuyDoi;
-                        }
-                        if (tra.SoLuongDat != null && tra.SoLuongDat > 0)
-                        {
-                            if (lDVTSelect.SoLuongDuocQuyDoi != null || lDVTSelect.SoLuongDuocQuyDoi > 0)
-                            {
-                                try
-                                {
-                                    toolStrip_txtSoluong.Text = (tra.SoLuongDat / lDVTSelect.SoLuongDuocQuyDoi).ToString();
-                                }
-                                catch { }
-                            }
-                        }
-                        ////toolStrip_txtSoluong.Text = tra.SoLuongDat.ToString();
+                        toolStrip_txtTracuu.Text = lDvtSelect.MaHangQuyDoi;
+                        toolStrip_txtTenhang.Text = string.IsNullOrEmpty(lDvtSelect.TenHangDuocQuyDoi) ? lDvtSelect.MaHangQuyDoi : lDvtSelect.TenHangDuocQuyDoi;
+                        toolStrip_txtSoluong.Text = tra.SoLuongDat > 0 && lDvtSelect.SoLuongDuocQuyDoi > 0 ? (tra.SoLuongDat / lDvtSelect.SoLuongDuocQuyDoi).ToString() : string.Empty;
                         toolStrip_txtGiagoc.Text = tra.GiaGoc;
                         banbuon = tra.Giabanbuon;
                         banle = tra.Giabanle;
@@ -2164,7 +2146,7 @@ namespace GUI
                         toolStrip_txtChietkhauphantram.Text = tra.PhanTramChietKhau;
                         toolStrip_txtThuegiatrigiatang.Text = int.Parse(0 + tra.Thuegiatrigiatang).ToString();
                         toolStrip_txtGianhap.Text = tra.GiaNhap;
-                        toolStrip_txtNgayhethan.Text = this.Date.ToString("dd/MM/yyyy");
+                        toolStrip_txtNgayhethan.Text = Date.ToString("dd/MM/yyyy");
                         toolStrip_txtSoluong.Text = "";
                         toolStrip_txtSoluong.Focus();
                     }
@@ -2173,14 +2155,14 @@ namespace GUI
                 else
                 {
                     #region không có quy đổi
-                    Entities.HienThi_ChiTiet_DonDatHang ktm = new Entities.HienThi_ChiTiet_DonDatHang();
+                    HienThi_ChiTiet_DonDatHang ktm = new Entities.HienThi_ChiTiet_DonDatHang();
                     cl = new Server_Client.Client();
-                    this.client = cl.Connect(Luu.IP, Luu.Ports);
-                    ktm = new Entities.HienThi_ChiTiet_DonDatHang("Select", MaHang);
-                    clientstrem = cl.SerializeObj(this.client, "LayHangHoaTheoMaHangHoa", ktm);
-                    Entities.HienThi_ChiTiet_DonDatHang tra = new Entities.HienThi_ChiTiet_DonDatHang();
-                    tra = (Entities.HienThi_ChiTiet_DonDatHang)cl.DeserializeHepper(clientstrem, tra);
-                    if (tra.MaHangHoa == null || tra == null)
+                    client = cl.Connect(Luu.IP, Luu.Ports);
+                    ktm = new HienThi_ChiTiet_DonDatHang("Select", maHang);
+                    clientstrem = cl.SerializeObj(client, "LayHangHoaTheoMaHangHoa", ktm);
+                    HienThi_ChiTiet_DonDatHang tra = new HienThi_ChiTiet_DonDatHang();
+                    tra = (HienThi_ChiTiet_DonDatHang)cl.DeserializeHepper(clientstrem, tra);
+                    if (tra == null)
                     {
                         toolStrip_txtTracuu.Focus();
                         frmXuLyHangHoa frm = new frmXuLyHangHoa("ThemNhapKho", toolStrip_txtTracuu.Text);
@@ -2200,7 +2182,7 @@ namespace GUI
                         toolStrip_txtChietkhauphantram.Text = tra.PhanTramChietKhau;
                         toolStrip_txtThuegiatrigiatang.Text = int.Parse(0 + tra.Thuegiatrigiatang).ToString();
                         toolStrip_txtGianhap.Text = tra.GiaNhap;
-                        toolStrip_txtNgayhethan.Text = this.Date.ToString("dd/MM/yyyy");
+                        toolStrip_txtNgayhethan.Text = Date.ToString("dd/MM/yyyy");
                         toolStrip_txtSoluong.Text = "";
                         toolStrip_txtSoluong.Focus();
                     }
@@ -2210,28 +2192,28 @@ namespace GUI
             catch { }
         }
 
-        private Entities.HangHoa LayHangHoaTheoMa(Entities.HangHoa input)
+        private HangHoa LayHangHoaTheoMa(HangHoa input)
         {
             try
             {
-                string MaHang = input.MaHangHoa;
-                Entities.QuyDoiDonViTinh lDVTSelect = new Entities.QuyDoiDonViTinh();
-                if (checkQuyDoiDonViTinh(MaHang, out lDVTSelect))
+                string maHang = input.MaHangHoa;
+                QuyDoiDonViTinh lDvtSelect;
+                if (CheckQuyDoiDonViTinh(maHang, out lDvtSelect))
                 {
-                    return new Entities.HangHoa();
+                    return new HangHoa();
                     //tạm bỏ
                     #region có quy đổi
                     Entities.HienThi_ChiTiet_DonDatHang ktm = new Entities.HienThi_ChiTiet_DonDatHang();
                     cl = new Server_Client.Client();
                     this.client = cl.Connect(Luu.IP, Luu.Ports);
-                    ktm = new Entities.HienThi_ChiTiet_DonDatHang("Select", lDVTSelect.MaHangDuocQuyDoi);
+                    ktm = new Entities.HienThi_ChiTiet_DonDatHang("Select", lDvtSelect.MaHangDuocQuyDoi);
                     clientstrem = cl.SerializeObj(this.client, "LayHangHoaTheoMaHangHoa", ktm);
                     Entities.HienThi_ChiTiet_DonDatHang tra = new Entities.HienThi_ChiTiet_DonDatHang();
                     tra = (Entities.HienThi_ChiTiet_DonDatHang)cl.DeserializeHepper(clientstrem, tra);
                     if (tra.MaHangHoa == null || tra == null)
                     {
                         toolStrip_txtTracuu.Focus();
-                        frmXuLyHangHoa frm = new frmXuLyHangHoa("ThemNhapKho", lDVTSelect.MaHangDuocQuyDoi);
+                        frmXuLyHangHoa frm = new frmXuLyHangHoa("ThemNhapKho", lDvtSelect.MaHangDuocQuyDoi);
                         frm.ShowDialog();
                         ResetTool();
                         toolStrip_txtTracuu.Text = GiaTriCanLuu.mahanghoa;
@@ -2239,22 +2221,22 @@ namespace GUI
                     }
                     else
                     {
-                        toolStrip_txtTracuu.Text = lDVTSelect.MaHangQuyDoi;
-                        if (lDVTSelect.TenHangDuocQuyDoi.Equals(""))
+                        toolStrip_txtTracuu.Text = lDvtSelect.MaHangQuyDoi;
+                        if (lDvtSelect.TenHangDuocQuyDoi.Equals(""))
                         {
-                            toolStrip_txtTenhang.Text = lDVTSelect.MaHangQuyDoi;
+                            toolStrip_txtTenhang.Text = lDvtSelect.MaHangQuyDoi;
                         }
                         else
                         {
-                            toolStrip_txtTenhang.Text = lDVTSelect.TenHangDuocQuyDoi;
+                            toolStrip_txtTenhang.Text = lDvtSelect.TenHangDuocQuyDoi;
                         }
                         if (tra.SoLuongDat != null && tra.SoLuongDat > 0)
                         {
-                            if (lDVTSelect.SoLuongDuocQuyDoi != null || lDVTSelect.SoLuongDuocQuyDoi > 0)
+                            if (lDvtSelect.SoLuongDuocQuyDoi != null || lDvtSelect.SoLuongDuocQuyDoi > 0)
                             {
                                 try
                                 {
-                                    toolStrip_txtSoluong.Text = (tra.SoLuongDat / lDVTSelect.SoLuongDuocQuyDoi).ToString();
+                                    toolStrip_txtSoluong.Text = (tra.SoLuongDat / lDvtSelect.SoLuongDuocQuyDoi).ToString();
                                 }
                                 catch { }
                             }
@@ -2278,11 +2260,11 @@ namespace GUI
                     #region không có quy đổi
                     cl = new Server_Client.Client();
                     client = cl.Connect(Luu.IP, Luu.Ports);
-                    Entities.HangHoa temp = new Entities.HangHoa { HanhDong = "SelectHangHoa_Theo_MaHangHoa", MaHangHoa = MaHang };
+                    HangHoa temp = new HangHoa { HanhDong = "SelectHangHoa_Theo_MaHangHoa", MaHangHoa = maHang };
                     clientstrem = cl.SerializeObj(client, "HangHoa", temp);
-                    Entities.HangHoa[] hh1 = new Entities.HangHoa[1];
-                    hh1 = (Entities.HangHoa[])cl.DeserializeHepper1(clientstrem, hh1);
-                    if (hh1 == null || hh1.Length == 0) return new Entities.HangHoa();
+                    HangHoa[] hh1 = new HangHoa[1];
+                    hh1 = (HangHoa[])cl.DeserializeHepper1(clientstrem, hh1);
+                    if (hh1 == null || hh1.Length == 0) return new HangHoa();
                     return hh1[0];
                     #endregion
                 }
@@ -3078,11 +3060,9 @@ namespace GUI
         {
             try
             {
-                if (chekChonLoai.Checked == false)
-                {
-                    ResetTool();
-                    toolStrip_txtTracuu.Text = "";
-                }
+                if (chekChonLoai.Checked) return;
+                ResetTool();
+                toolStrip_txtTracuu.Text = "";
             }
             catch { }
         }
@@ -3228,42 +3208,37 @@ namespace GUI
         {
             try
             {
-                if (hanhdong == "Insert")
-                {
-                    if (chekChonLoai.Checked == false)
-                    {
-                        if (testCharacter(toolStrip_txtTracuu.Text) == false)
-                        { return; }
+                if (hanhdong != "Insert") return;
+                if (chekChonLoai.Checked) return;
+                if (!testCharacter(toolStrip_txtTracuu.Text)) return;
 
-                        if (e.KeyCode == Keys.Enter)
-                        {
-                            if (toolStrip_txtTracuu.Text != "" && toolStrip_txtTracuu.Text != "<F4 - Tra cứu>")
-                            {
-                                LayHangHoaTheoMa(toolStrip_txtTracuu.Text);
-                            }
-                            if (string.IsNullOrEmpty(toolStrip_txtTenhang.Text) && toolStrip_txtTracuu.Text != "<F4 - Tra cứu>")
-                            {
-                                toolStrip_txtTracuu.Focus();
-                                frmXuLyHangHoa fr = new frmXuLyHangHoa("Insert");
-                                fr.StartPosition = FormStartPosition.CenterScreen;
-                                fr.ShowDialog();
-                            }
-                        }
-                        if (e.KeyCode == Keys.F6)
-                        {
-                            if (dgvInsertOrder.RowCount > 0)
-                            {
-                                this.dgvInsertOrder.Focus();
-                                dgvInsertOrder.CurrentRow.Selected = true;
-                            }
-                            else
-                            { MessageBox.Show("Không có hàng để sửa"); toolStrip_txtTracuu.Focus(); }
-                        }
-                        if (e.KeyCode == Keys.F3)
-                        {
-                            txtThanhtoanngay.Focus();
-                        }
+                if (e.KeyCode == Keys.Enter)
+                {
+                    if (toolStrip_txtTracuu.Text != "" && toolStrip_txtTracuu.Text != "<F4 - Tra cứu>")
+                    {
+                        LayHangHoaTheoMa(toolStrip_txtTracuu.Text);
                     }
+                    if (string.IsNullOrEmpty(toolStrip_txtTenhang.Text) && toolStrip_txtTracuu.Text != "<F4 - Tra cứu>")
+                    {
+                        toolStrip_txtTracuu.Focus();
+                        frmXuLyHangHoa fr = new frmXuLyHangHoa("Insert");
+                        fr.StartPosition = FormStartPosition.CenterScreen;
+                        fr.ShowDialog();
+                    }
+                }
+                if (e.KeyCode == Keys.F6)
+                {
+                    if (dgvInsertOrder.RowCount > 0)
+                    {
+                        this.dgvInsertOrder.Focus();
+                        dgvInsertOrder.CurrentRow.Selected = true;
+                    }
+                    else
+                    { MessageBox.Show("Không có hàng để sửa"); toolStrip_txtTracuu.Focus(); }
+                }
+                if (e.KeyCode == Keys.F3)
+                {
+                    txtThanhtoanngay.Focus();
                 }
             }
             catch { }
@@ -3283,31 +3258,27 @@ namespace GUI
         {
             try
             {
-                if (e.KeyCode == Keys.Enter)
+                if (e.KeyCode != Keys.Enter) return;
+                if (i < 0) return;
+                if (chekChonLoai.Checked == false)
                 {
-                    if (i >= 0)
+                    getDataTable(dgvInsertOrder);
+                    if (dgvInsertOrder.RowCount > 0)
                     {
-                        if (chekChonLoai.Checked == false)
+                        TinhToan();
+                        if (txtTongThanhToan.Text != "0")
                         {
-                            getDataTable(dgvInsertOrder);
-                            if (dgvInsertOrder.RowCount > 0)
-                            {
-                                TinhToan();
-                                if (txtTongThanhToan.Text != "0")
-                                {
-                                    fixTienTraLai();
-                                }
-                                else
-                                { reset(); }
-                            }
-                            else
-                            {
-                                reset();
-                            }
+                            fixTienTraLai();
                         }
-                        toolStrip_txtSoluong.Focus();
+                        else
+                        { reset(); }
+                    }
+                    else
+                    {
+                        reset();
                     }
                 }
+                toolStrip_txtSoluong.Focus();
             }
             catch { }
         }
@@ -3315,12 +3286,12 @@ namespace GUI
         {
             try
             {
-                System.Windows.Forms.DialogResult giatri = System.Windows.Forms.MessageBox.Show("Bạn chắc chắn đóng lại không ?", "Thông Báo", System.Windows.Forms.MessageBoxButtons.YesNo);
+                DialogResult giatri = MessageBox.Show("Bạn chắc chắn đóng lại không ?", "Thông Báo", MessageBoxButtons.YesNo);
                 {
-                    if (giatri == System.Windows.Forms.DialogResult.Yes)
+                    if (giatri == DialogResult.Yes)
                     {
                         frmQuanLyNhapKho.BaoDong = "A";
-                        this.Close();
+                        Close();
                     }
                 }
             }
@@ -3609,15 +3580,11 @@ namespace GUI
             txtThanhtoanngay.Focus();
         }
         ////////////////////////////////////////////////////////////////////////////
-
         #region Utils Function (K)
-        bool checkQuyDoiDonViTinh(string MaHangHoa, out Entities.QuyDoiDonViTinh input)
+        bool CheckQuyDoiDonViTinh(string maHangHoa, out QuyDoiDonViTinh input)
         {
-            input = new Entities.QuyDoiDonViTinh();
-            foreach (Entities.QuyDoiDonViTinh item in dsQuyDoiDonViTinh)
-            {
-                if (item.MaHangQuyDoi.Equals(MaHangHoa)) { input = item; return true; }
-            }
+            input = new QuyDoiDonViTinh();
+            foreach (QuyDoiDonViTinh item in dsQuyDoiDonViTinh.Where(item => item.MaHangQuyDoi.Equals(maHangHoa))) { input = item; return true; }
             return false;
         }
         #endregion
