@@ -1348,7 +1348,6 @@ namespace GUI
                 tsslsoluong.Focus();
             }
             catch { phantramchietkhau = tsslchietkhau.Text = "0"; }
-            return;
         }
         #endregion
 
