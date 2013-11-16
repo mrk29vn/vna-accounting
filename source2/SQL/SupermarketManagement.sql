@@ -1,4 +1,5 @@
 ﻿USE MASTER
+USE MASTER
  IF EXISTS (SELECT * FROM SYSDATABASES WHERE name = 'SupermarketManagementDHT')
 	BEGIN
 	ALTER DATABASE SupermarketManagementDHT SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
@@ -888,7 +889,7 @@ insert into Quyen values('frmBaoCaoHanSuDung',N'Báo Cáo Hàng Hết Hạn')
 insert into Quyen values('frmBaoCaoTongHopThuChi',N'Báo Cáo Tổng Hợp Thu Chi')
 insert into Quyen values('frmBCThuTienTheGiaTri',N'Báo Cáo Thu Tiền Thẻ Giá Trị')
 insert into Quyen values('frmBCTienTonKho',N'Báo Cáo Tiền Tồn Kho')
-
+insert into Quyen values('FrmBcThongKeMatHangBanRaTheoNhanVien',N'Thống kê mặt hàng bán ra theo nhân viên')
 
 --										ChiTietQuyen
 insert into ChiTietQuyen values('Admin','frmBCXuatHangTheoThoiGian',1,1,1,1,1,1)
@@ -965,6 +966,7 @@ insert into ChiTietQuyen values('Admin','frmBaoCaoHanSuDung',1,1,1,1,1,1)
 insert into ChiTietQuyen values('Admin','frmBaoCaoTongHopThuChi',1,1,1,1,1,1)
 insert into ChiTietQuyen values('Admin','frmBCThuTienTheGiaTri',1,1,1,1,1,1)
 insert into ChiTietQuyen values('Admin','frmBCTienTonKho',1,1,1,1,1,1)
+insert into ChiTietQuyen values('Admin','FrmBcThongKeMatHangBanRaTheoNhanVien',1,1,1,1,1,1)
 
 insert into ChiTietQuyen values('NhanVienBanHang','frmBCXuatHangTheoThoiGian',1,1,1,1,1,1)
 insert into ChiTietQuyen values('NhanVienBanHang','frmBCNhapHangTheoThoiGian',1,1,1,1,1,1)
@@ -1040,6 +1042,7 @@ insert into ChiTietQuyen values('NhanVienBanHang','frmBaoCaoHanSuDung',0,0,0,0,0
 insert into ChiTietQuyen values('NhanVienBanHang','frmBaoCaoTongHopThuChi',0,0,0,0,0,0)
 insert into ChiTietQuyen values('NhanVienBanHang','frmBCThuTienTheGiaTri',0,0,0,0,0,0)
 insert into ChiTietQuyen values('NhanVienBanHang','frmBCTienTonKho',0,0,0,0,0,0)
+insert into ChiTietQuyen values('NhanVienBanHang','FrmBcThongKeMatHangBanRaTheoNhanVien',0,0,0,0,0,0)
 
 insert into ChiTietQuyen values('QuanLyKho','frmBCXuatHangTheoThoiGian',1,1,1,1,1,1)
 insert into ChiTietQuyen values('QuanLyKho','frmBCNhapHangTheoThoiGian',1,1,1,1,1,1)
@@ -1115,6 +1118,7 @@ insert into ChiTietQuyen values('QuanLyKho','frmBaoCaoHanSuDung',0,0,0,0,0,0)
 insert into ChiTietQuyen values('QuanLyKho','frmBaoCaoTongHopThuChi',0,0,0,0,0,0)
 insert into ChiTietQuyen values('QuanLyKho','frmBCThuTienTheGiaTri',0,0,0,0,0,0)
 insert into ChiTietQuyen values('QuanLyKho','frmBCTienTonKho',0,0,0,0,0,0)
+insert into ChiTietQuyen values('QuanLyKho','FrmBcThongKeMatHangBanRaTheoNhanVien',0,0,0,0,0,0)
 
 ---================================ 
 use SupermarketManagementDHT
