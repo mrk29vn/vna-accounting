@@ -286,7 +286,7 @@ namespace GUI
                 Client1 = cl.Connect(Luu.IP, Luu.Ports);
                 // khởi tạo biến truyền vào với hàm khởi tạo
                 // truyền HanhDong
-                KhuyenMaiSoLuong item = new KhuyenMaiSoLuong {HanhDong = "SelectAll"};
+                KhuyenMaiSoLuong item = new KhuyenMaiSoLuong { HanhDong = "SelectAll" };
                 // khởi tạo mảng đối tượng để hứng giá trị
                 KhuyenMaiSoLuong[] item1 = new KhuyenMaiSoLuong[1];
                 Clientstrem = cl.SerializeObj(Client1, "KhuyenMaiSoLuong", item);
@@ -337,8 +337,7 @@ namespace GUI
             {
                 cl = new Server_Client.Client();
                 Client1 = cl.Connect(Luu.IP, Luu.Ports);
-                ArrayList kArr = new ArrayList
-                                     {"SelectTheoDieuKien_GiaVon", "Select_GIAVON", new GiaVon(), new GiaVon()};
+                ArrayList kArr = new ArrayList { "SelectTheoDieuKien_GiaVon", "Select_GIAVON", new GiaVon(), new GiaVon() };
                 Clientstrem = cl.SerializeObj(Client1, "GiaVon_k", kArr);
                 ////// đổ mảng đối tượng vào datagripview     
                 giaVon = (GiaVon[])cl.DeserializeHepper1(Clientstrem, giaVon) ?? new GiaVon[0];
@@ -1010,11 +1009,6 @@ namespace GUI
                 cbbkhohang.Items.Clear();
                 cbbkhohang.Text = "";
             }
-            finally
-            {
-
-
-            }
         }
         /// <summary>
         /// lấy mã kho
@@ -1023,20 +1017,9 @@ namespace GUI
         /// <returns></returns>
         public string LayMaKho(string tenKho)
         {
-            try
-            {
-                for (int j = 0; j < kh1.Length; j++)
-                {
-                    if (kh1[j].TenKho == tenKho)
-                    {
-                        return kh1[j].MaKho;
-                    }
-                }
-            }
-            catch
-            {
-            }
-            return "";
+            foreach (KhoHang khoHang in kh1.Where(khoHang => khoHang.TenKho == tenKho))
+                return khoHang.MaKho;
+            return string.Empty;
         }
         /// <summary>
         /// lấy tên kho
@@ -1045,25 +1028,11 @@ namespace GUI
         /// <returns></returns>
         public string LayTenKho(string maKho)
         {
-            for (int j = 0; j < kh1.Length; j++)
-            {
-                if (kh1[j].MaKho == maKho)
-                {
-                    return kh1[j].TenKho;
-                }
-            }
-            return "";
+            foreach (KhoHang khoHang in kh1.Where(khoHang => khoHang.MaKho == maKho))
+                return khoHang.TenKho;
+            return string.Empty;
         }
-        /// <summary>
-        /// xử lý option
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void thiêtLâpThôngSôToolStripMenuItem_Click(object sender, EventArgs e)
-        {
 
-        }
-        Entities.HangHoaHienThi[] hh;
         /// <summary>
         /// xử lý thêm row
         /// </summary>
@@ -1092,16 +1061,12 @@ namespace GUI
                     return;
                 }
                 // Qui đổi đơn vị tính
-                foreach (Entities.QuyDoiDonViTinh item in _quidoidvt)
+                foreach (QuyDoiDonViTinh item in _quidoidvt.Where(item => item.MaHangQuyDoi == mahanghoa))
                 {
-                    if (item.MaHangQuyDoi == mahanghoa)
-                    {
-                        mahanghoa = toolStrip_txtTracuu.Text = item.MaHangDuocQuyDoi.ToUpper();
-                        tssltenhang.Text = item.TenHangDuocQuyDoi;
-                        tsslsoluong.Text = (item.SoLuongDuocQuyDoi * int.Parse(tsslsoluong.Text)).ToString();
-                        break;
-
-                    }
+                    mahanghoa = toolStrip_txtTracuu.Text = item.MaHangDuocQuyDoi.ToUpper();
+                    tssltenhang.Text = item.TenHangDuocQuyDoi;
+                    tsslsoluong.Text = (item.SoLuongDuocQuyDoi * int.Parse(tsslsoluong.Text)).ToString();
+                    break;
                 }
                 LayHangHoaTheoMa();
                 NewRow();
@@ -1112,9 +1077,6 @@ namespace GUI
             }
         }
         string tongtienthanhtoan = "";
-
-
-
 
         /// <summary>
         /// tính toán
@@ -1137,28 +1099,28 @@ namespace GUI
         /// </summary>
         public void NewRow()
         {
+            HangHoaHienThi[] hh = new HangHoaHienThi[0];
             try
             {
-                int sohangtrongbang = dtgvsanpham.RowCount;
                 if (dtgvsanpham.RowCount != 0)
                 {
                     for (int j = 0; j < dtgvsanpham.RowCount; j++)
                     {
                         if (mahanghoa == dtgvsanpham[1, j].Value.ToString())
                         {
-                            hh = new HangHoaHienThi[sohangtrongbang];
+                            hh = new HangHoaHienThi[dtgvsanpham.RowCount];
                             break;
                         }
-                        hh = new HangHoaHienThi[sohangtrongbang + 1];
+                        hh = new HangHoaHienThi[dtgvsanpham.RowCount + 1];
                     }
                 }
                 else
-                    hh = new HangHoaHienThi[sohangtrongbang + 1];
+                    hh = new HangHoaHienThi[dtgvsanpham.RowCount + 1];
 
                 if (hh.Length == 0) return;
                 try
                 {
-                    string kt1 = "";
+                    string kt1 = string.Empty;
                     if (hh.Length == dtgvsanpham.RowCount)
                     {
 
@@ -1961,11 +1923,11 @@ namespace GUI
                 }
                 //foreach (CapNhatGia capNhatGia in cnhkh)
                 //{
-                    //if (capNhatGia.MaHangHoa != mahanghoa) continue;
-                    //if (_datesv >= capNhatGia.NgayBatDau && _datesv <= capNhatGia.NgayKetThuc)
-                    //{
-                    //    phantramchietkhau = tsslchietkhau.Text = capNhatGia.PhanTramGiaBanLe;
-                    //}
+                //if (capNhatGia.MaHangHoa != mahanghoa) continue;
+                //if (_datesv >= capNhatGia.NgayBatDau && _datesv <= capNhatGia.NgayKetThuc)
+                //{
+                //    phantramchietkhau = tsslchietkhau.Text = capNhatGia.PhanTramGiaBanLe;
+                //}
                 //}
             }
             catch
@@ -2365,42 +2327,27 @@ namespace GUI
                     tsslsoluong.Text = dtgvsanpham[4, i].Value.ToString();
                     tsslchietkhau.Text = dtgvsanpham[5, i].Value.ToString();
                     tsslgtgt.Text = dtgvsanpham[6, i].Value.ToString();
-                    hh = new Entities.HangHoaHienThi[dtgvsanpham.RowCount - 1];
+                    HangHoaHienThi[] hh = new HangHoaHienThi[dtgvsanpham.RowCount - 1];
                     int so = 0;
                     for (int j = 0; j < dtgvsanpham.RowCount; j++)
                     {
-                        if (dtgvsanpham[1, j].Value.ToString() != dtgvsanpham[1, i].Value.ToString())
-                        {
-                            hh[so] = new Entities.HangHoaHienThi(txtSochungtu.Text, dtgvsanpham[1, j].Value.ToString(), dtgvsanpham[2, j].Value.ToString(), dtgvsanpham[3, j].Value.ToString(), dtgvsanpham[4, j].Value.ToString(), dtgvsanpham[5, j].Value.ToString(), dtgvsanpham[6, j].Value.ToString(), dtgvsanpham[7, j].Value.ToString());
-                            so++;
-                        }
+                        if (dtgvsanpham[1, j].Value.ToString() == dtgvsanpham[1, i].Value.ToString()) continue;
+                        hh[so] = new HangHoaHienThi(txtSochungtu.Text, dtgvsanpham[1, j].Value.ToString(), dtgvsanpham[2, j].Value.ToString(), dtgvsanpham[3, j].Value.ToString(), dtgvsanpham[4, j].Value.ToString(), dtgvsanpham[5, j].Value.ToString(), dtgvsanpham[6, j].Value.ToString(), dtgvsanpham[7, j].Value.ToString());
+                        so++;
                     }
                     dtgvsanpham.DataSource = hh;
                     TinhToan();
-                    if (txtPhantramchietkhau.Text == "")
-                        phantramchietkhau = "0";
-                    else
-                        phantramchietkhau = txtPhantramchietkhau.Text;
+                    phantramchietkhau = string.IsNullOrEmpty(txtPhantramchietkhau.Text) ? "0" : txtPhantramchietkhau.Text;
                     txtChietkhau.Text = new Common.Utilities().FormatMoney(((Convert.ToDouble(phantramchietkhau) / 100) * Convert.ToDouble(txtTienhang.Text)));
                     txtKhachPhaiTra.Text = txtTongtien.Text = new Common.Utilities().FormatMoney(Convert.ToDouble(tongtienthanhtoan) - Convert.ToDouble(txtChietkhau.Text) - Convert.ToDouble(txtGiamgia.Text));
                     txtkhachtra.Text = new Common.Utilities().FormatMoney(Convert.ToDouble(txtTongtien.Text) - Convert.ToDouble(txtGTTheVip.Text));
                     if (Convert.ToDouble(txtkhachtra.Text) < 0)
                         txtkhachtra.Text = "0";
-                    if (txtPhantramchietkhau.Text == "")
-                        phantramchietkhau = "0";
-                    else
-                        phantramchietkhau = txtPhantramchietkhau.Text;
+                    phantramchietkhau = string.IsNullOrEmpty(txtPhantramchietkhau.Text) ? "0" : txtPhantramchietkhau.Text;
                     txtChietkhau.Text = new Common.Utilities().FormatMoney(((Convert.ToDouble(phantramchietkhau) / 100) * Convert.ToDouble(txtTienhang.Text)));
 
-                    string khachtra = "0";
-                    if (txtkhachtra.Text == "")
-                        khachtra = "0";
-                    else
-                        khachtra = txtkhachtra.Text;
-                    if (Convert.ToDouble(txtTongtien.Text) >= Convert.ToDouble(txtGTTheVip.Text))
-                        txtdutra.Text = new Common.Utilities().FormatMoney(Convert.ToDouble(khachtra) - Convert.ToDouble(txtTongtien.Text) + Convert.ToDouble(txtGTTheVip.Text));
-                    else
-                        txtdutra.Text = txtkhachtra.Text;
+                    string khachtra = string.IsNullOrEmpty(txtkhachtra.Text) ? "0" : txtkhachtra.Text;
+                    txtdutra.Text = Convert.ToDouble(txtTongtien.Text) >= Convert.ToDouble(txtGTTheVip.Text) ? new Common.Utilities().FormatMoney(Convert.ToDouble(khachtra) - Convert.ToDouble(txtTongtien.Text) + Convert.ToDouble(txtGTTheVip.Text)) : txtkhachtra.Text;
                 }
                 else
                 {
