@@ -18,17 +18,15 @@ namespace GUI
     public partial class frmXuLyBanLe : Form
     {
         #region Điểm thưởng khách hàng
-        Entities.DiemThuongKhachHang[] dtkh = new Entities.DiemThuongKhachHang[0];
+        DiemThuongKhachHang[] _dtkh = new DiemThuongKhachHang[0];
         private void DiemThuongKhachHang()
         {//Lấy điểm thưởng khách hàng từ csdl
             try
             {
                 cl = new Server_Client.Client();
-                this.client1 = cl.Connect(Luu.IP, Luu.Ports);
-                clientstrem = cl.SerializeObj(this.client1, "SelectDiemThuongKhachHang", new Entities.DiemThuongKhachHang("select"));
-                dtkh = (Entities.DiemThuongKhachHang[])cl.DeserializeHepper1(clientstrem, dtkh);
-                if (dtkh == null)
-                    dtkh = new Entities.DiemThuongKhachHang[0];
+                Client1 = cl.Connect(Luu.IP, Luu.Ports);
+                Clientstrem = cl.SerializeObj(this.Client1, "SelectDiemThuongKhachHang", new DiemThuongKhachHang("select"));
+                _dtkh = (DiemThuongKhachHang[])cl.DeserializeHepper1(Clientstrem, _dtkh) ?? new DiemThuongKhachHang[0];
             }
             catch { }
         }
@@ -36,15 +34,12 @@ namespace GUI
         {//Lấy tỷ lệ tính từ csdl
             try
             {
-                Entities.TyLeTinh[] tlt = new Entities.TyLeTinh[0];
+                TyLeTinh[] tlt = new TyLeTinh[0];
                 cl = new Server_Client.Client();
-                this.client1 = cl.Connect(Luu.IP, Luu.Ports);
-                clientstrem = cl.SerializeObj(this.client1, "selectTyLeTinh", new Entities.TyLeTinh());
-                tlt = (Entities.TyLeTinh[])cl.DeserializeHepper1(clientstrem, tlt);
-                if (tlt == null)
-                    tlt = new Entities.TyLeTinh[0];
-                if (tlt.Length >= 1) { return tlt[tlt.Length - 1].SoTien; }
-                else { return 2988000; }
+                Client1 = cl.Connect(Luu.IP, Luu.Ports);
+                Clientstrem = cl.SerializeObj(Client1, "selectTyLeTinh", new TyLeTinh());
+                tlt = (TyLeTinh[])cl.DeserializeHepper1(Clientstrem, tlt) ?? new TyLeTinh[0];
+                return tlt.Length >= 1 ? tlt[tlt.Length - 1].SoTien : 2988000;
             }
             catch { return 2988000; }
         }
@@ -61,103 +56,88 @@ namespace GUI
             }
             catch { return 0; }
         }
-        public string ProIDDTKH(string tenBang)
+        public string ProIddtkh(string tenBang)
         {
             try
             {
-                string idnew;
                 cl = new Server_Client.Client();
                 // gán TCPclient
-                this.client1 = cl.Connect(Luu.IP, Luu.Ports);
+                Client1 = cl.Connect(Luu.IP, Luu.Ports);
                 // khởi tạo biến truyền vào với hàm khởi tạo
-                Entities.LayID lid1 = new Entities.LayID("Select", tenBang);
+                LayID lid1 = new LayID("Select", tenBang);
                 // khởi tạo mảng đối tượng để hứng giá trị
-                Entities.LayID lid = new Entities.LayID();
-                clientstrem = cl.SerializeObj(this.client1, "LayID", lid1);
+                LayID lid = new LayID();
+                Clientstrem = cl.SerializeObj(Client1, "LayID", lid1);
                 // đổ mảng đối tượng vào datagripview       
-                lid = (Entities.LayID)cl.DeserializeHepper(clientstrem, lid);
+                lid = (LayID)cl.DeserializeHepper(Clientstrem, lid);
                 if (lid == null)
                     return "DTKH_0001";
                 Common.Utilities a = new Common.Utilities();
-                idnew = a.ProcessID(lid.ID);
+                string idnew = a.ProcessID(lid.ID);
                 return idnew;
             }
             catch { return ""; }
         }
-        private string LayTenKhachHang(string maKH)
+        private string LayTenKhachHang(string maKh)
         {
             try
             {
                 cl = new Server_Client.Client();
-                this.client1 = cl.Connect(Luu.IP, Luu.Ports);
-                clientstrem = cl.SerializeObj(this.client1, "KhachHang", new Entities.KhachHang("Select"));
-                Entities.KhachHang[] KHACHHANG = new Entities.KhachHang[1];
-                KHACHHANG = (Entities.KhachHang[])cl.DeserializeHepper1(clientstrem, KHACHHANG);
-                if (KHACHHANG == null)
-                    KHACHHANG = new Entities.KhachHang[0];
-                foreach (Entities.KhachHang item in KHACHHANG)
-                {
-                    if (item.MaKH.ToUpper().Equals(maKH.ToUpper()))
-                    {
-                        return item.Ten;
-                    }
-                }
+                Client1 = cl.Connect(Luu.IP, Luu.Ports);
+                Clientstrem = cl.SerializeObj(Client1, "KhachHang", new KhachHang("Select"));
+                KhachHang[] khachhang = new KhachHang[1];
+                khachhang = (KhachHang[])cl.DeserializeHepper1(Clientstrem, khachhang) ?? new KhachHang[0];
+                foreach (KhachHang item in khachhang.Where(item => item.MaKH.ToUpper().Equals(maKh.ToUpper())))
+                    return item.Ten;
                 return string.Empty;
             }
             catch { return string.Empty; }
         }
-        private bool CapNhatDiemThuongKhachHang(string maKH, string tien)
+        private bool CapNhatDiemThuongKhachHang(string maKh, string tien)
         {
             try
             {
-                Entities.DiemThuongKhachHang input = null;
+                DiemThuongKhachHang input = null;
                 DiemThuongKhachHang();
-                foreach (Entities.DiemThuongKhachHang item in dtkh)
+                foreach (DiemThuongKhachHang item in _dtkh.Where(item => item.MaKhachHang.ToUpper().Equals(maKh.ToUpper())))
                 {
-                    if (item.MaKhachHang.ToUpper().Equals(maKH.ToUpper()))
-                    {//khách hàng đã có điểm
-                        //thực hiện việc cộng số lượng điểm
-                        input = TienIch.DiemThuongKhachHang_TO_DiemThuongKhachHang(item);
-                        input.ThaoTac = "CapNhat";
-                        input.TongDiem += sodiemthuong(double.Parse(tien.Replace(",", "")));
-                        input.DiemConLai = input.TongDiem - input.DiemDaDung;
-                        break;
-                    }
+                    //thực hiện việc cộng số lượng điểm
+                    input = TienIch.DiemThuongKhachHang_TO_DiemThuongKhachHang(item);
+                    input.ThaoTac = "CapNhat";
+                    input.TongDiem += sodiemthuong(double.Parse(tien.Replace(",", "")));
+                    input.DiemConLai = input.TongDiem - input.DiemDaDung;
+                    break;
                 }
                 if (input == null)
                 {//thêm mới trường điểm thường khách hàng
-                    input = new Entities.DiemThuongKhachHang();
-                    input.ThaoTac = "insert";
-                    input.MaDiemThuongKhachHang = ProIDDTKH("DiemThuongKhachHang");
-                    input.MaKhachHang = maKH;
-                    input.TenKhachHang = LayTenKhachHang(maKH);
-                    input.TongDiem = sodiemthuong(double.Parse(tien.Replace(",", "")));
-                    input.DiemDaDung = 0;
+                    input = new DiemThuongKhachHang
+                                {
+                                    ThaoTac = "insert",
+                                    MaDiemThuongKhachHang = ProIddtkh("DiemThuongKhachHang"),
+                                    MaKhachHang = maKh,
+                                    TenKhachHang = LayTenKhachHang(maKh),
+                                    TongDiem = sodiemthuong(double.Parse(tien.Replace(",", ""))),
+                                    DiemDaDung = 0
+                                };
                     input.DiemConLai = input.TongDiem;
                     input.GhiChu = "";
                     input.Deleted = false;
 
                     cl = new Server_Client.Client();
-                    this.client1 = cl.Connect(Luu.IP, Luu.Ports);
-                    clientstrem = cl.SerializeObj(this.client1, "DiemThuongKhachHang", input);
+                    Client1 = cl.Connect(Luu.IP, Luu.Ports);
+                    Clientstrem = cl.SerializeObj(Client1, "DiemThuongKhachHang", input);
                     int msg = 0;
-                    msg = (int)cl.DeserializeHepper(clientstrem, msg);
-                    if (msg != 0)
-                        return true;
-                    else
-                        return false;
+                    msg = (int)cl.DeserializeHepper(Clientstrem, msg);
+                    return msg != 0;
                 }
                 else
                 {//Cập nhật điểm thưởng cho khách hàng
                     cl = new Server_Client.Client();
-                    this.client1 = cl.Connect(Luu.IP, Luu.Ports);
-                    clientstrem = cl.SerializeObj(this.client1, "DiemThuongKhachHang", input);
+                    Client1 = cl.Connect(Luu.IP, Luu.Ports);
+                    Clientstrem = cl.SerializeObj(Client1, "DiemThuongKhachHang", input);
                     int msg = 0;
-                    msg = (int)cl.DeserializeHepper(clientstrem, msg);
-                    if (msg != 0)
-                        return true;
-                    else
-                        return false;
+                    msg = (int)cl.DeserializeHepper(Clientstrem, msg);
+                    return msg != 0;
                 }
 
             }
@@ -165,26 +145,26 @@ namespace GUI
         }
         #endregion
 
-        Entities.KhuyenMaiSoLuong[] kmSoLuong;
-        public TcpClient client1;
-        public NetworkStream clientstrem;
-        public static string trave = "";
-        Entities.QuyDoiDonViTinh[] quidoidvt;
-        Entities.GoiHang[] goihang;
-        Entities.ChiTietGoiHang[] chitietgoihang;
-        DateTime datesv;
-        Entities.HangHoa[] hangHoaTheoKho;
-        Entities.Thue[] thue;
+        readonly KhuyenMaiSoLuong[] _kmSoLuong;
+        public TcpClient Client1;
+        public NetworkStream Clientstrem;
+        public static string Trave = string.Empty;
+        QuyDoiDonViTinh[] _quidoidvt;
+        GoiHang[] _goihang;
+        ChiTietGoiHang[] _chitietgoihang;
+        DateTime _datesv;
+        HangHoa[] _hangHoaTheoKho;
+        Thue[] _thue;
         /// <summary>
         /// xử lý giá trị truyền tới
         /// </summary>
         public frmXuLyBanLe()
         {
             InitializeComponent();
-            datesv = DateServer.Date();
-            this.kmSoLuong = GetData();
+            _datesv = DateServer.Date();
+            _kmSoLuong = GetData();
         }
-        string str;
+        readonly string _str;
         /// <summary>
         /// xử lý giá trị truyền tới
         /// </summary>
@@ -197,21 +177,19 @@ namespace GUI
                 //
                 cl = new Server_Client.Client();
                 // gán TCPclient
-                this.client1 = cl.Connect(Luu.IP, Luu.Ports);
+                Client1 = cl.Connect(Luu.IP, Luu.Ports);
                 // khởi tạo biến truyền vào với hàm khởi tạo
-                Entities.CapNhatGia pt = new Entities.CapNhatGia("Select");
+                CapNhatGia pt = new CapNhatGia("Select");
                 // khởi tạo mảng đối tượng để hứng giá trị
-                cngkh = new Entities.CapNhatGia[1];
-                clientstrem = cl.SerializeObj(this.client1, "CapNhatGia", pt);
+                cngkh = new CapNhatGia[1];
+                Clientstrem = cl.SerializeObj(Client1, "CapNhatGia", pt);
                 // đổ mảng đối tượng vào datagripview       
-                cngkh = (Entities.CapNhatGia[])cl.DeserializeHepper1(clientstrem, cngkh);
-                if (cngkh == null)
-                    cngkh = new Entities.CapNhatGia[0];
+                cngkh = (CapNhatGia[])cl.DeserializeHepper1(Clientstrem, cngkh) ?? new CapNhatGia[0];
                 //
-                datesv = DateServer.Date();
+                _datesv = DateServer.Date();
                 toolStripStatusLabel3.Enabled = false;
-                dtgvsanpham.DataSource = new Entities.HangHoaHienThi[0];
-                this.str = str;
+                dtgvsanpham.DataSource = new HangHoaHienThi[0];
+                _str = str;
                 TheVip();
                 try
                 {
@@ -221,13 +199,13 @@ namespace GUI
                 catch
                 {
                 }
-                datesv = DateServer.Date();
+                _datesv = DateServer.Date();
                 cbxHinhthucthanhtoan.SelectedIndex = 0;
-                mskngaychungtu.Text = new Common.Utilities().XuLy(2, datesv.ToShortDateString());
+                mskngaychungtu.Text = new Common.Utilities().XuLy(2, _datesv.ToShortDateString());
                 lbnhanvien.Text = Common.Utilities.User.TenNhanVien;
                 //
-                this.KhoiTao();
-                this.kmSoLuong = GetData();
+                KhoiTao();
+                _kmSoLuong = GetData();
             }
             catch
             {
@@ -240,71 +218,54 @@ namespace GUI
         {
             try
             {
-                //
-                Server_Client.Client cl = new Server_Client.Client();
-                this.client1 = cl.Connect(Luu.IP, Luu.Ports);
-                Entities.CheckRefer ctxh = new Entities.CheckRefer("BanBuon");
-                clientstrem = cl.SerializeObj(this.client1, "Select", ctxh);
-                selectall = (Entities.SelectAll)cl.DeserializeHepper(clientstrem, selectall);
+                Server_Client.Client client = new Server_Client.Client();
+                Client1 = client.Connect(Luu.IP, Luu.Ports);
+                CheckRefer ctxh = new CheckRefer("BanBuon");
+                Clientstrem = client.SerializeObj(Client1, "Select", ctxh);
+                selectall = (SelectAll)client.DeserializeHepper(Clientstrem, selectall);
                 // gói hàng
-                goihang = selectall.GoiHang;
-
+                _goihang = selectall.GoiHang;
                 // chi tiết gói hàng
-                chitietgoihang = selectall.ChiTietGoiHang;
-
+                _chitietgoihang = selectall.ChiTietGoiHang;
                 // quy đổi đơn vị tính
-                quidoidvt = selectall.QuyDoiDonViTinh;
-
+                _quidoidvt = selectall.QuyDoiDonViTinh;
 
                 // lay hang hoa the kho
-                cl = new Server_Client.Client();
+                client = new Server_Client.Client();
                 // gán TCPclient
-                this.client1 = cl.Connect(Luu.IP, Luu.Ports);
-                List<Entities.HangHoa> array = new List<Entities.HangHoa>();
-                cl = new Server_Client.Client();
+                Client1 = client.Connect(Luu.IP, Luu.Ports);
+                client = new Server_Client.Client();
 
-                Entities.HangHoa kh = new Entities.HangHoa();
-                Entities.TruyenGiaTri khoHang = (Entities.TruyenGiaTri)cbbkhohang.SelectedItem;
+                TruyenGiaTri khoHang = (TruyenGiaTri)cbbkhohang.SelectedItem;
                 string makho = khoHang.Giatritruyen;
-                kh = new Entities.HangHoa("SelectTheoKho", makho);
-                clientstrem = cl.SerializeObj(this.client1, "HangHoa", kh);
-                Entities.HangHoa[] hhArr = new Entities.HangHoa[1];
-                hhArr = (Entities.HangHoa[])cl.DeserializeHepper1(clientstrem, hhArr);
+                HangHoa kh = new HangHoa("SelectTheoKho", makho);
+                Clientstrem = client.SerializeObj(Client1, "HangHoa", kh);
+                HangHoa[] hhArr = new HangHoa[1];
+                hhArr = (HangHoa[])client.DeserializeHepper1(Clientstrem, hhArr);
 
                 if (hhArr == null)
-                    hangHoaTheoKho = new Entities.HangHoa[0];
+                    _hangHoaTheoKho = new HangHoa[0];
 
-                if (hhArr.Length > 0)
-                {
-                    //
-                    array = hhArr.ToList();
-                    //
-                    Entities.HangHoa[] save = Common.Utilities.CheckGoiHang(hhArr, goihang, chitietgoihang);
-                    if (save != null)
-                    {
-                        foreach (Entities.HangHoa item in save)
-                        {
-                            array.Add(item);
-                        }
-                    }
-                    // lay hang hoa theo kho
-                    this.hangHoaTheoKho = array.ToArray();
+                if (hhArr.Length <= 0) return;
 
-                    // Lay Thue
-                    cl = new Server_Client.Client();
+                List<HangHoa> array = hhArr.ToList();
 
-                    Entities.Thue thueTemp = new Entities.Thue();
-                    thueTemp = new Entities.Thue("Select");
-                    clientstrem = cl.SerializeObj(this.client1, "Thue", thueTemp);
-                    this.thue = new Entities.Thue[1];
-                    thue = (Entities.Thue[])cl.DeserializeHepper1(clientstrem, thue);
-                    if (thue == null)
-                        thue = new Entities.Thue[0];
-                }
+                HangHoa[] save = Common.Utilities.CheckGoiHang(hhArr, _goihang, _chitietgoihang);
+                if (save != null) array.AddRange(save);
+
+                // lay hang hoa theo kho
+                _hangHoaTheoKho = array.ToArray();
+
+                // Lay Thue
+                client = new Server_Client.Client();
+
+                Thue thueTemp = new Thue("Select");
+                Clientstrem = client.SerializeObj(Client1, "Thue", thueTemp);
+                _thue = new Thue[1];
+                _thue = (Thue[])client.DeserializeHepper1(Clientstrem, _thue) ?? new Thue[0];
             }
             catch
             {
-
             }
         }
 
@@ -315,24 +276,22 @@ namespace GUI
         /// </summary>
         /// <param name="maHangHoa"></param>
         /// <returns></returns>
-        public Entities.KhuyenMaiSoLuong[] GetData()
+        public KhuyenMaiSoLuong[] GetData()
         {
-            Entities.KhuyenMaiSoLuong[] retVal = null;
+            KhuyenMaiSoLuong[] retVal = null;
             try
             {
                 cl = new Server_Client.Client();
                 // gán TCPclient
-                this.client1 = cl.Connect(Luu.IP, Luu.Ports);
+                Client1 = cl.Connect(Luu.IP, Luu.Ports);
                 // khởi tạo biến truyền vào với hàm khởi tạo
-                Entities.KhuyenMaiSoLuong item = new Entities.KhuyenMaiSoLuong();
                 // truyền HanhDong
-                item = new Entities.KhuyenMaiSoLuong();
-                item.HanhDong = "SelectAll";
+                KhuyenMaiSoLuong item = new KhuyenMaiSoLuong {HanhDong = "SelectAll"};
                 // khởi tạo mảng đối tượng để hứng giá trị
-                Entities.KhuyenMaiSoLuong[] item1 = new Entities.KhuyenMaiSoLuong[1];
-                clientstrem = cl.SerializeObj(this.client1, "KhuyenMaiSoLuong", item);
+                KhuyenMaiSoLuong[] item1 = new KhuyenMaiSoLuong[1];
+                Clientstrem = cl.SerializeObj(Client1, "KhuyenMaiSoLuong", item);
                 // đổ mảng đối tượng vào datagripview       
-                item1 = (Entities.KhuyenMaiSoLuong[])cl.DeserializeHepper1(clientstrem, item1);
+                item1 = (KhuyenMaiSoLuong[])cl.DeserializeHepper1(Clientstrem, item1);
                 // Gan gia tri
                 retVal = item1;
             }
@@ -349,17 +308,17 @@ namespace GUI
         /// </summary>
         /// <param name="maHangHoa"></param>
         /// <param name="sl"></param>
-        /// <param name="ngayLapHD"></param>
+        /// <param name="ngayLapHd"></param>
         /// <param name="source"></param>
         /// <returns></returns>
-        public Entities.KhuyenMaiSoLuong LayGia(string maHangHoa, string sl, DateTime ngayLapHD, Entities.KhuyenMaiSoLuong[] source)
+        public KhuyenMaiSoLuong LayGia(string maHangHoa, string sl, DateTime ngayLapHd, KhuyenMaiSoLuong[] source)
         {
-            Entities.KhuyenMaiSoLuong retVal = null;
+            KhuyenMaiSoLuong retVal;
             try
             {
-                Entities.KhuyenMaiSoLuong[] temp = frmXuLyHangHoa.GetSource(maHangHoa, source);
+                KhuyenMaiSoLuong[] temp = frmXuLyHangHoa.GetSource(maHangHoa, source);
                 temp = frmXuLyHangHoa.SapXep(temp);
-                retVal = frmXuLyHangHoa.GetDonGia(maHangHoa, sl, ngayLapHD, temp);
+                retVal = frmXuLyHangHoa.GetDonGia(maHangHoa, sl, ngayLapHd, temp);
             }
             catch
             {
@@ -371,25 +330,18 @@ namespace GUI
 
         #endregion
 
-        public Entities.GiaVon[] GiaVon()
+        public GiaVon[] GiaVon()
         {
-            Entities.GiaVon[] giaVon = null;
+            GiaVon[] giaVon = null;
             try
             {
                 cl = new Server_Client.Client();
-                this.client1 = cl.Connect(Luu.IP, Luu.Ports);
-                ArrayList KArr = new ArrayList();
-                KArr.Add("SelectTheoDieuKien_GiaVon");
-                KArr.Add("Select_GIAVON");
-                KArr.Add(new Entities.GiaVon());
-                KArr.Add(new Entities.GiaVon());
-                clientstrem = cl.SerializeObj(this.client1, "GiaVon_k", KArr);
+                Client1 = cl.Connect(Luu.IP, Luu.Ports);
+                ArrayList kArr = new ArrayList
+                                     {"SelectTheoDieuKien_GiaVon", "Select_GIAVON", new GiaVon(), new GiaVon()};
+                Clientstrem = cl.SerializeObj(Client1, "GiaVon_k", kArr);
                 ////// đổ mảng đối tượng vào datagripview     
-                giaVon = (Entities.GiaVon[])cl.DeserializeHepper1(clientstrem, giaVon);
-                if (giaVon == null)
-                {
-                    giaVon = new Entities.GiaVon[0];
-                }
+                giaVon = (GiaVon[])cl.DeserializeHepper1(Clientstrem, giaVon) ?? new GiaVon[0];
             }
             catch (Exception)
             {
@@ -398,50 +350,46 @@ namespace GUI
             return giaVon;
         }
 
-        public void GiaVonBanHang(Entities.ChiTietHDBanHang[] ct)
+        public void GiaVonBanHang(ChiTietHDBanHang[] ct)
         {
             try
             {
-                List<Entities.GiaVonBanHang> gvbhArr = new List<Entities.GiaVonBanHang>();
-                Entities.GoiHang[] goiHang = this.goihang;
-                Entities.GiaVon[] gv = GiaVon();
+                List<GiaVonBanHang> gvbhArr = new List<GiaVonBanHang>();
+                GoiHang[] goiHang = _goihang;
+                GiaVon[] gv = GiaVon();
                 bool isHangHoa = false;
 
-                foreach (Entities.ChiTietHDBanHang bh in ct)
+                foreach (ChiTietHDBanHang bh in ct)
                 {
-                    Entities.GiaVonBanHang gvbh = new Entities.GiaVonBanHang();
-                    foreach (Entities.GiaVon item in gv)
+                    GiaVonBanHang gvbh = new GiaVonBanHang();
+                    ChiTietHDBanHang bh1 = bh;
+                    foreach (GiaVon item in gv.Where(item => item.MaHangHoa.Equals(bh1.MaHangHoa)))
                     {
-                        if (item.MaHangHoa.Equals(bh.MaHangHoa))
-                        {
-                            gvbh.HanhDong = "Insert";
-                            gvbh.MaHangHoa = bh.MaHangHoa;
-                            gvbh.MaHoaDon = bh.MaHDBanHang;
-                            gvbh.GiaVon = item.Gia;
-                            gvbhArr.Add(gvbh);
-                            isHangHoa = true;
-                            break;
-                        }
+                        gvbh.HanhDong = "Insert";
+                        gvbh.MaHangHoa = bh.MaHangHoa;
+                        gvbh.MaHoaDon = bh.MaHDBanHang;
+                        gvbh.GiaVon = item.Gia;
+                        gvbhArr.Add(gvbh);
+                        isHangHoa = true;
+                        break;
                     }
                     // neu ko phai la hang hoa thi la gia von trong goi hang
-                    if (!isHangHoa)
-                    {
-                        gvbh = GetGVGoiHang(bh.MaHDBanHang, bh.MaHangHoa, goiHang);
+                    if (isHangHoa) continue;
+                    gvbh = GetGvGoiHang(bh.MaHDBanHang, bh.MaHangHoa, goiHang);
 
-                        if (gvbh != null)
-                            gvbhArr.Add(gvbh);
-                    }
+                    if (gvbh != null)
+                        gvbhArr.Add(gvbh);
                 }
 
                 cl = new Server_Client.Client();
-                this.client1 = cl.Connect(Luu.IP, Luu.Ports);
-                foreach (Entities.GiaVonBanHang item in gvbhArr.ToArray())
+                Client1 = cl.Connect(Luu.IP, Luu.Ports);
+                foreach (GiaVonBanHang item in gvbhArr.ToArray())
                 {
-                    clientstrem = cl.SerializeObj(this.client1, "GiaVonBanHang", item);
+                    Clientstrem = cl.SerializeObj(Client1, "GiaVonBanHang", item);
                 }
                 // đổ mảng đối tượng vào datagripview
                 bool kt = false;
-                kt = (bool)cl.DeserializeHepper(clientstrem, kt);
+                kt = (bool)cl.DeserializeHepper(Clientstrem, kt);
             }
             catch (Exception)
             {
@@ -452,25 +400,25 @@ namespace GUI
         /// <summary>
         /// GetGVGoiHang
         /// </summary>
+        /// <param name="maHd"> </param>
         /// <param name="maGoi"></param>
         /// <param name="gh"></param>
         /// <returns></returns>
-        public Entities.GiaVonBanHang GetGVGoiHang(string maHD, string maGoi, Entities.GoiHang[] gh)
+        public GiaVonBanHang GetGvGoiHang(string maHd, string maGoi, GoiHang[] gh)
         {
-            Entities.GiaVonBanHang retVal = null;
+            GiaVonBanHang retVal = null;
             try
             {
-                foreach (Entities.GoiHang item in gh)
+                foreach (GoiHang item in gh.Where(item => item.MaGoiHang.Trim().ToUpper().Equals(maGoi.Trim().ToUpper())))
                 {
-                    if (item.MaGoiHang.Trim().ToUpper().Equals(maGoi.Trim().ToUpper()))
-                    {
-                        retVal = new Entities.GiaVonBanHang();
-                        retVal.HanhDong = "Insert";
-                        retVal.MaHangHoa = maGoi.Trim().ToUpper();
-                        retVal.MaHoaDon = maHD.Trim().ToUpper();
-                        retVal.GiaVon = double.Parse(item.GiaNhap);
-                        break;
-                    }
+                    retVal = new GiaVonBanHang
+                                 {
+                                     HanhDong = "Insert",
+                                     MaHangHoa = maGoi.Trim().ToUpper(),
+                                     MaHoaDon = maHd.Trim().ToUpper(),
+                                     GiaVon = double.Parse(item.GiaNhap)
+                                 };
+                    break;
                 }
             }
             catch
@@ -491,11 +439,11 @@ namespace GUI
         {
             try
             {
-                InitializeComponent(); datesv = DateServer.Date();
+                InitializeComponent(); _datesv = DateServer.Date();
                 dtgvsanpham.DataSource = new Entities.HangHoaHienThi[0];
                 LayKhoHang();
                 palNhap.Enabled = palThem.Enabled = palXem.Enabled = tsslthem.Enabled = false;
-                this.str = str;
+                _str = str;
                 id = dtgvr.Cells["HDBanHangID"].Value.ToString();
                 txtSochungtu.Text = dtgvr.Cells["MaHDBanHang"].Value.ToString();
                 SelectData();
@@ -587,12 +535,12 @@ namespace GUI
             cl = new Server_Client.Client();
 
             // gán TCPclient
-            this.client1 = cl.Connect(Luu.IP, Luu.Ports);
+            this.Client1 = cl.Connect(Luu.IP, Luu.Ports);
             // khởi tạo biến truyền vào với hàm khởi tạo
             Entities.TheVip pt = new Entities.TheVip("Select");
-            clientstrem = cl.SerializeObj(this.client1, "LayTheVip", pt);
+            Clientstrem = cl.SerializeObj(this.Client1, "LayTheVip", pt);
             // đổ mảng đối tượng vào datagripview
-            thevip = (Entities.TheVip[])cl.DeserializeHepper1(clientstrem, thevip);
+            thevip = (Entities.TheVip[])cl.DeserializeHepper1(Clientstrem, thevip);
             if (thevip == null)
                 thevip = new Entities.TheVip[0];
 
@@ -603,13 +551,13 @@ namespace GUI
             cl = new Server_Client.Client();
 
             // gán TCPclient
-            this.client1 = cl.Connect(Luu.IP, Luu.Ports);
+            this.Client1 = cl.Connect(Luu.IP, Luu.Ports);
             // khởi tạo biến truyền vào với hàm khởi tạo
             Entities.TheGiamGia pt = new Entities.TheGiamGia();
             pt.HanhDong = "Select";
-            clientstrem = cl.SerializeObj(this.client1, "TheGiamGia", pt);
+            Clientstrem = cl.SerializeObj(this.Client1, "TheGiamGia", pt);
             // đổ mảng đối tượng vào datagripview
-            thegiagiam = (Entities.TheGiamGia[])cl.DeserializeHepper1(clientstrem, thegiagiam);
+            thegiagiam = (Entities.TheGiamGia[])cl.DeserializeHepper1(Clientstrem, thegiagiam);
             if (thegiagiam == null)
                 thegiagiam = new Entities.TheGiamGia[0];
         }
@@ -623,14 +571,14 @@ namespace GUI
                 cl = new Server_Client.Client();
 
                 // gán TCPclient
-                this.client1 = cl.Connect(Luu.IP, Luu.Ports);
+                this.Client1 = cl.Connect(Luu.IP, Luu.Ports);
                 // khởi tạo biến truyền vào với hàm khởi tạo
                 Entities.ChiTietHDBanHang pt = new Entities.ChiTietHDBanHang("Select", txtSochungtu.Text);
                 // khởi tạo mảng đối tượng để hứng giá trị
                 Entities.ChiTietHDBanHang[] pt1 = new Entities.ChiTietHDBanHang[1];
-                clientstrem = cl.SerializeObj(this.client1, "ChiTietHDBanHang", pt);
+                Clientstrem = cl.SerializeObj(this.Client1, "ChiTietHDBanHang", pt);
                 // đổ mảng đối tượng vào datagripview       
-                pt1 = (Entities.ChiTietHDBanHang[])cl.DeserializeHepper1(clientstrem, pt1);
+                pt1 = (Entities.ChiTietHDBanHang[])cl.DeserializeHepper1(Clientstrem, pt1);
                 if (pt1 == null)
                 {
 
@@ -736,14 +684,14 @@ namespace GUI
             {
                 cl = new Server_Client.Client();
                 // gán TCPclient
-                this.client1 = cl.Connect(Luu.IP, Luu.Ports);
+                this.Client1 = cl.Connect(Luu.IP, Luu.Ports);
                 // khởi tạo biến truyền vào với hàm khởi tạo
                 Entities.HangHoa pt = new Entities.HangHoa("Select");
                 // khởi tạo mảng đối tượng để hứng giá trị
                 hh1 = new Entities.HangHoa[1];
-                clientstrem = cl.SerializeObj(this.client1, "HangHoa", pt);
+                Clientstrem = cl.SerializeObj(this.Client1, "HangHoa", pt);
                 // đổ mảng đối tượng vào datagripview       
-                hh1 = (Entities.HangHoa[])cl.DeserializeHepper1(clientstrem, hh1);
+                hh1 = (Entities.HangHoa[])cl.DeserializeHepper1(Clientstrem, hh1);
                 if (hh1 == null)
                     hh1 = new Entities.HangHoa[0];
             }
@@ -847,13 +795,13 @@ namespace GUI
         /// </summary>
         public void XuLyStr()
         {
-            if (str == "Them")
+            if (_str == "Them")
             {
                 this.Text = "Thêm Mới - F4 Thêm Hàng Hóa - F5 Thanh toán - F6 Sửa Hàng Hóa - F7 Nhập Chiết Khấu - F8 Nhập Thẻ Vip";
                 sochungtu = txtSochungtu.Text = ProID("HDBanHang");
                 dtgvsanpham.DataSource = new Entities.HangHoaHienThi[0];
             }
-            else if (str == "Sua")
+            else if (_str == "Sua")
             {
                 this.Text = "Quản Lý Bán Lẻ - Sửa Hóa Đơn Bán Hàng";
             }
@@ -872,14 +820,14 @@ namespace GUI
                 string idnew;
                 cl = new Server_Client.Client();
                 // gán TCPclient
-                this.client1 = cl.Connect(Luu.IP, Luu.Ports);
+                this.Client1 = cl.Connect(Luu.IP, Luu.Ports);
                 // khởi tạo biến truyền vào với hàm khởi tạo
                 Entities.LayID lid1 = new Entities.LayID("Select", tenBang);
                 // khởi tạo mảng đối tượng để hứng giá trị
                 Entities.LayID lid = new Entities.LayID();
-                clientstrem = cl.SerializeObj(this.client1, "LayID", lid1);
+                Clientstrem = cl.SerializeObj(this.Client1, "LayID", lid1);
                 // đổ mảng đối tượng vào datagripview       
-                lid = (Entities.LayID)cl.DeserializeHepper(clientstrem, hdbh);
+                lid = (Entities.LayID)cl.DeserializeHepper(Clientstrem, hdbh);
                 if (lid == null)
                     return "HDBH_0001";
                 Common.Utilities a = new Common.Utilities();
@@ -902,7 +850,7 @@ namespace GUI
             {
                 if (giatri == System.Windows.Forms.DialogResult.Yes)
                 {
-                    trave = "ok";
+                    Trave = "ok";
                     this.Close();
                 }
                 else
@@ -1000,14 +948,14 @@ namespace GUI
             {
                 Server_Client.Client cl = new Server_Client.Client();
                 // gán TCPclient
-                this.client1 = cl.Connect(Luu.IP, Luu.Ports);
+                this.Client1 = cl.Connect(Luu.IP, Luu.Ports);
                 // khởi tạo biến truyền vào với hàm khởi tạo
                 Entities.KhachHang kh = new Entities.KhachHang("Select");
                 // khởi tạo mảng đối tượng để hứng giá trị
                 Entities.KhachHang[] kh1 = new Entities.KhachHang[1];
-                clientstrem = cl.SerializeObj(this.client1, "KhachHang", kh);
+                Clientstrem = cl.SerializeObj(this.Client1, "KhachHang", kh);
                 // đổ mảng đối tượng vào datagripview       
-                kh1 = (Entities.KhachHang[])cl.DeserializeHepper1(clientstrem, kh1);
+                kh1 = (Entities.KhachHang[])cl.DeserializeHepper1(Clientstrem, kh1);
                 foreach (Entities.KhachHang item in kh1)
                 {
                     if (item.MaKH.Trim().ToUpper().Equals(maKH.Trim().ToUpper()))
@@ -1038,13 +986,13 @@ namespace GUI
             {
                 cbbkhohang.Items.Clear();
                 cl = new Server_Client.Client();
-                this.client1 = cl.Connect(Luu.IP, Luu.Ports);
+                this.Client1 = cl.Connect(Luu.IP, Luu.Ports);
 
                 Entities.KhoHang kh = new Entities.KhoHang();
                 kh = new Entities.KhoHang("Select");
-                clientstrem = cl.SerializeObj(this.client1, "KhoHang", kh);
+                Clientstrem = cl.SerializeObj(this.Client1, "KhoHang", kh);
                 kh1 = new Entities.KhoHang[1];
-                kh1 = (Entities.KhoHang[])cl.DeserializeHepper1(clientstrem, kh1);
+                kh1 = (Entities.KhoHang[])cl.DeserializeHepper1(Clientstrem, kh1);
                 if (kh1 == null)
                     kh1 = new Entities.KhoHang[0];
                 if (kh1.Length > 0)
@@ -1144,7 +1092,7 @@ namespace GUI
                     return;
                 }
                 // Qui đổi đơn vị tính
-                foreach (Entities.QuyDoiDonViTinh item in quidoidvt)
+                foreach (Entities.QuyDoiDonViTinh item in _quidoidvt)
                 {
                     if (item.MaHangQuyDoi == mahanghoa)
                     {
@@ -1223,29 +1171,21 @@ namespace GUI
                                 if (mahanghoa == dtgvsanpham[1, j].Value.ToString())
                                 {
                                     int soluongcu = Convert.ToInt32(dtgvsanpham[4, j].Value.ToString());
-                                    string sl = "0";
-                                    if (tsslsoluong.Text == "")
-                                        sl = "1";
-                                    else
-                                        sl = tsslsoluong.Text;
+                                    string sl = string.IsNullOrEmpty(tsslsoluong.Text) ? "1" : tsslsoluong.Text;
                                     int soluongmoi = Convert.ToInt32(sl);
                                     int soluonghientai = soluongcu + soluongmoi;
-                                    string giasp = "0";
                                     // Lay gia san pham
                                     DateTime ngayBan = DateTime.Parse(new Common.Utilities().MyDateConversion(mskngaychungtu.Text));
-                                    Entities.KhuyenMaiSoLuong giaTheoSL = LayGia(mahanghoa, soluonghientai.ToString(), ngayBan, this.kmSoLuong);
+                                    KhuyenMaiSoLuong giaTheoSl = LayGia(mahanghoa, soluonghientai.ToString(), ngayBan, _kmSoLuong);
 
-                                    if (giaTheoSL != null)
-                                        giasp = giaTheoSL.GiaBanLe.ToString();
-                                    else
-                                        giasp = new Common.Utilities().FormatMoney(double.Parse(dtgvsanpham[3, j].Value.ToString()));
+                                    string giasp = giaTheoSl != null ? giaTheoSl.GiaBanLe.ToString() : new Common.Utilities().FormatMoney(double.Parse(dtgvsanpham[3, j].Value.ToString()));
 
                                     string thanhtien = new Common.Utilities().FormatMoney((Convert.ToDouble(soluonghientai) * Convert.ToDouble(giasp)));
-                                    hh[j] = new Entities.HangHoaHienThi(txtSochungtu.Text, dtgvsanpham[1, j].Value.ToString(), dtgvsanpham[2, j].Value.ToString(), giasp, soluonghientai.ToString(), dtgvsanpham[5, j].Value.ToString(), dtgvsanpham[6, j].Value.ToString(), thanhtien);
+                                    hh[j] = new HangHoaHienThi(txtSochungtu.Text, dtgvsanpham[1, j].Value.ToString(), dtgvsanpham[2, j].Value.ToString(), giasp, soluonghientai.ToString(), dtgvsanpham[5, j].Value.ToString(), dtgvsanpham[6, j].Value.ToString(), thanhtien);
                                     kt1 = "ok";
                                 }
                                 else
-                                    hh[j] = new Entities.HangHoaHienThi(txtSochungtu.Text, dtgvsanpham[1, j].Value.ToString(), dtgvsanpham[2, j].Value.ToString(), dtgvsanpham[3, j].Value.ToString(), dtgvsanpham[4, j].Value.ToString(), dtgvsanpham[5, j].Value.ToString(), dtgvsanpham[6, j].Value.ToString(), dtgvsanpham[7, j].Value.ToString());
+                                    hh[j] = new HangHoaHienThi(txtSochungtu.Text, dtgvsanpham[1, j].Value.ToString(), dtgvsanpham[2, j].Value.ToString(), dtgvsanpham[3, j].Value.ToString(), dtgvsanpham[4, j].Value.ToString(), dtgvsanpham[5, j].Value.ToString(), dtgvsanpham[6, j].Value.ToString(), dtgvsanpham[7, j].Value.ToString());
 
                             }
                         }
@@ -1254,7 +1194,7 @@ namespace GUI
                             for (int j = 0; j < hh.Length; j++)
                             {
                                 if (j < hh.Length - 1)
-                                    hh[j] = new Entities.HangHoaHienThi(txtSochungtu.Text, dtgvsanpham[1, j].Value.ToString(), dtgvsanpham[2, j].Value.ToString(), dtgvsanpham[3, j].Value.ToString(), dtgvsanpham[4, j].Value.ToString(), dtgvsanpham[5, j].Value.ToString(), dtgvsanpham[6, j].Value.ToString(), dtgvsanpham[7, j].Value.ToString());
+                                    hh[j] = new HangHoaHienThi(txtSochungtu.Text, dtgvsanpham[1, j].Value.ToString(), dtgvsanpham[2, j].Value.ToString(), dtgvsanpham[3, j].Value.ToString(), dtgvsanpham[4, j].Value.ToString(), dtgvsanpham[5, j].Value.ToString(), dtgvsanpham[6, j].Value.ToString(), dtgvsanpham[7, j].Value.ToString());
                                 else
                                 {
 
@@ -1267,7 +1207,7 @@ namespace GUI
                                     string giasp = "0";
                                     // Lay gia san pham
                                     DateTime ngayBan = DateTime.Parse(new Common.Utilities().MyDateConversion(mskngaychungtu.Text));
-                                    Entities.KhuyenMaiSoLuong giaTheoSL = LayGia(mahanghoa, soluongsp.ToString(), ngayBan, this.kmSoLuong);
+                                    Entities.KhuyenMaiSoLuong giaTheoSL = LayGia(mahanghoa, soluongsp.ToString(), ngayBan, this._kmSoLuong);
 
                                     if (giaTheoSL != null)
                                         giasp = giaTheoSL.GiaBanLe.ToString();
@@ -1292,7 +1232,7 @@ namespace GUI
                             string giasp = "0";
                             // Lay gia san pham
                             DateTime ngayBan = DateTime.Parse(new Common.Utilities().MyDateConversion(mskngaychungtu.Text));
-                            Entities.KhuyenMaiSoLuong giaTheoSL = LayGia(mahanghoa, soluongsp.ToString(), ngayBan, this.kmSoLuong);
+                            Entities.KhuyenMaiSoLuong giaTheoSL = LayGia(mahanghoa, soluongsp.ToString(), ngayBan, this._kmSoLuong);
 
                             if (giaTheoSL != null)
                                 giasp = giaTheoSL.GiaBanLe.ToString();
@@ -1314,7 +1254,7 @@ namespace GUI
                         string giasp = "0";
                         // Lay gia san pham
                         DateTime ngayBan = DateTime.Parse(new Common.Utilities().MyDateConversion(mskngaychungtu.Text));
-                        Entities.KhuyenMaiSoLuong giaTheoSL = LayGia(mahanghoa, soluongsp.ToString(), ngayBan, this.kmSoLuong);
+                        Entities.KhuyenMaiSoLuong giaTheoSL = LayGia(mahanghoa, soluongsp.ToString(), ngayBan, this._kmSoLuong);
 
                         if (giaTheoSL != null)
                             giasp = giaTheoSL.GiaBanLe.ToString();
@@ -1446,7 +1386,7 @@ namespace GUI
                         mahanghoa = toolStrip_txtTracuu.Text;
                         bool kt = true;
                         // Qui đổi đơn vị tính
-                        foreach (Entities.QuyDoiDonViTinh item in quidoidvt)
+                        foreach (Entities.QuyDoiDonViTinh item in _quidoidvt)
                         {
                             if (item.MaHangQuyDoi == mahanghoa)
                             {
@@ -1508,14 +1448,14 @@ namespace GUI
                 kt = true;
                 cl = new Server_Client.Client();
                 // gán TCPclient
-                this.client1 = cl.Connect(Luu.IP, Luu.Ports);
+                this.Client1 = cl.Connect(Luu.IP, Luu.Ports);
                 // khởi tạo biến truyền vào với hàm khởi tạo
                 Entities.HDBanHang pt = new Entities.HDBanHang("Select");
                 // khởi tạo mảng đối tượng để hứng giá trị
                 Entities.HDBanHang[] pt1 = new Entities.HDBanHang[1];
-                clientstrem = cl.SerializeObj(this.client1, "HDBanHang", pt);
+                Clientstrem = cl.SerializeObj(this.Client1, "HDBanHang", pt);
                 // đổ mảng đối tượng vào datagripview       
-                pt1 = (Entities.HDBanHang[])cl.DeserializeHepper1(clientstrem, pt1);
+                pt1 = (Entities.HDBanHang[])cl.DeserializeHepper1(Clientstrem, pt1);
                 if (pt1 != null)
                 {
                     for (int j = 0; j < pt1.Length; j++)
@@ -1552,14 +1492,14 @@ namespace GUI
                 kt = false;
                 cl = new Server_Client.Client();
                 // gán TCPclient
-                this.client1 = cl.Connect(Luu.IP, Luu.Ports);
+                this.Client1 = cl.Connect(Luu.IP, Luu.Ports);
                 // khởi tạo biến truyền vào với hàm khởi tạo
                 Entities.HDBanHang pt = new Entities.HDBanHang("Select");
                 // khởi tạo mảng đối tượng để hứng giá trị
                 Entities.HDBanHang[] pt1 = new Entities.HDBanHang[1];
-                clientstrem = cl.SerializeObj(this.client1, "HDBanHang", pt);
+                Clientstrem = cl.SerializeObj(this.Client1, "HDBanHang", pt);
                 // đổ mảng đối tượng vào datagripview       
-                pt1 = (Entities.HDBanHang[])cl.DeserializeHepper1(clientstrem, pt1);
+                pt1 = (Entities.HDBanHang[])cl.DeserializeHepper1(Clientstrem, pt1);
                 if (pt1 != null)
                 {
                     for (int j = 0; j < pt1.Length; j++)
@@ -1682,7 +1622,7 @@ namespace GUI
                     if (kt == true)
                     {
                         cl = new Server_Client.Client();
-                        this.client1 = cl.Connect(Luu.IP, Luu.Ports);
+                        this.Client1 = cl.Connect(Luu.IP, Luu.Ports);
                         string date = "";
                         try
                         {
@@ -1741,7 +1681,7 @@ namespace GUI
                         if (string.IsNullOrEmpty(txtPhantramchietkhau.Text))
                             ckTongHoaDon = "0";
                         pt = new Entities.HDBanHang("Insert", 0, txtSochungtu.Text, Convert.ToDateTime(date),
-                            txtMakhachhang.Text, "0", " ", cbxHinhthucthanhtoan.Text, makho, datesv, " ",
+                            txtMakhachhang.Text, "0", " ", cbxHinhthucthanhtoan.Text, makho, _datesv, " ",
                             Common.Utilities.User.NhanVienID, "TT_0001", txtGiamgia.Text, ttn.ToString(), "0",
                             txtGTGT.Text, txtTongtien.Text, true, txtMaTheVip.Text, txtGTTheVip.Text, txtDiengiai.Text, false,
                             Common.Utilities.User.TenDangNhap, txtkhachtra.Text, ckTongHoaDon, txtMaTheGT.Text, txtGTTheGT.Text);
@@ -1750,10 +1690,10 @@ namespace GUI
                         pt.ChiTietKhoHangTheoHoaHonNhap = CheckDataGridTruSL(dtgvsanpham);
                         pt.TheVip = tv1;
                         pt.TheGiamGia = tgg1;
-                        clientstrem = cl.SerializeObj(this.client1, "HDBanHang", pt);
+                        Clientstrem = cl.SerializeObj(this.Client1, "HDBanHang", pt);
 
                         bool kt1 = false;
-                        kt1 = (bool)cl.DeserializeHepper(clientstrem, kt1);
+                        kt1 = (bool)cl.DeserializeHepper(Clientstrem, kt1);
                         if (kt1 == true)
                         {
                             //Cập nhật điểm thưởng cho khách hàng
@@ -1812,19 +1752,19 @@ namespace GUI
                     if (kt == true)
                     {
                         cl = new Server_Client.Client();
-                        this.client1 = cl.Connect(Luu.IP, Luu.Ports);
+                        this.Client1 = cl.Connect(Luu.IP, Luu.Ports);
                         string date = new Common.Utilities().MyDateConversion(mskngaychungtu.Text);
                         Entities.HDBanHang pt = new Entities.HDBanHang();
                         string makho = LayMaKho(cbbkhohang.Text);
                         pt = new Entities.HDBanHang("Insert", 0, txtSochungtu.Text, Convert.ToDateTime(date),
-                                                    txtMakhachhang.Text, "0", " ", cbxHinhthucthanhtoan.Text, makho, datesv, " ",
+                                                    txtMakhachhang.Text, "0", " ", cbxHinhthucthanhtoan.Text, makho, _datesv, " ",
                                                     Common.Utilities.User.NhanVienID, "TT_0001", txtChietkhau.Text, txtTongtien.Text, "0",
                                                     txtGTGT.Text, txtTongtien.Text, true, txtMaTheVip.Text, txtGTTheVip.Text, txtDiengiai.Text, false,
                                                     Common.Utilities.User.TenDangNhap, txtkhachtra.Text, txtPhantramchietkhau.Text, txtMaTheGT.Text, txtGTTheGT.Text);
 
-                        clientstrem = cl.SerializeObj(this.client1, "HDBanHang", pt);
+                        Clientstrem = cl.SerializeObj(this.Client1, "HDBanHang", pt);
                         bool kt1 = false;
-                        kt1 = (bool)cl.DeserializeHepper(clientstrem, kt1);
+                        kt1 = (bool)cl.DeserializeHepper(Clientstrem, kt1);
                         if (kt1 == true)
                         {
                             this.Close();
@@ -1893,7 +1833,7 @@ namespace GUI
         /// <param name="e"></param>
         private void txtPhantramchietkhau_TextChanged(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(str) && str.Equals("Them"))
+            if (!string.IsNullOrEmpty(_str) && _str.Equals("Them"))
             {
                 txtTongtien.Text = string.Empty;
                 txtChietkhau.Text = string.Empty;
@@ -2053,7 +1993,7 @@ namespace GUI
                     {
                         DateTime datebegin = cnhkh[j].NgayBatDau;
                         DateTime dateend = cnhkh[j].NgayKetThuc;
-                        DateTime datenow = datesv;
+                        DateTime datenow = _datesv;
                         if (datenow >= datebegin && datenow <= dateend)
                         {
                             phantramchietkhau = tsslchietkhau.Text = cnhkh[j].PhanTramGiaBanLe.ToString();
@@ -2075,14 +2015,14 @@ namespace GUI
             {
                 cl = new Server_Client.Client();
                 // gán TCPclient
-                this.client1 = cl.Connect(Luu.IP, Luu.Ports);
+                this.Client1 = cl.Connect(Luu.IP, Luu.Ports);
                 // khởi tạo biến truyền vào với hàm khởi tạo
                 Entities.CapNhatGia pt = new Entities.CapNhatGia("Select");
                 // khởi tạo mảng đối tượng để hứng giá trị
                 cngkh = new Entities.CapNhatGia[1];
-                clientstrem = cl.SerializeObj(this.client1, "CapNhatGia", pt);
+                Clientstrem = cl.SerializeObj(this.Client1, "CapNhatGia", pt);
                 // đổ mảng đối tượng vào datagripview       
-                cngkh = (Entities.CapNhatGia[])cl.DeserializeHepper1(clientstrem, cngkh);
+                cngkh = (Entities.CapNhatGia[])cl.DeserializeHepper1(Clientstrem, cngkh);
                 if (cngkh == null)
                     cngkh = new Entities.CapNhatGia[0];
             }
@@ -2115,11 +2055,11 @@ namespace GUI
 
             try
             {
-                if (this.hangHoaTheoKho.Length > 0)
+                if (this._hangHoaTheoKho.Length > 0)
                 {
                     double end2 = (DateTime.Now - start).TotalMilliseconds;
                     bool ktdata = false;
-                    foreach (Entities.HangHoa item in this.hangHoaTheoKho)
+                    foreach (Entities.HangHoa item in this._hangHoaTheoKho)
                     {
                         if (item.MaHangHoa.ToUpper().Equals(toolStrip_txtTracuu.Text.ToUpper()) && item.Deleted == false)
                         {
@@ -2188,14 +2128,14 @@ namespace GUI
         {
             try
             {
-                if (thue.Length > 0)
+                if (_thue.Length > 0)
                 {
-                    int sl = thue.Length;
+                    int sl = _thue.Length;
                     for (int i = 0; i < sl; i++)
                     {
-                        if (thue[i].Deleted == false && thue[i].MaThue == maThue)
+                        if (_thue[i].Deleted == false && _thue[i].MaThue == maThue)
                         {
-                            thuegtgt = tsslgtgt.Text = thue[i].GiaTriThue;
+                            thuegtgt = tsslgtgt.Text = _thue[i].GiaTriThue;
                             return;
                         }
                     }
@@ -2246,11 +2186,11 @@ namespace GUI
                     {
                         bool kt = false;
                         string maKho = LayMaKho(cbbkhohang.Text);
-                        foreach (Entities.GoiHang item1 in goihang)
+                        foreach (Entities.GoiHang item1 in _goihang)
                         {
                             if (dgv[1, j].Value.ToString() == item1.MaGoiHang.ToUpper())
                             {
-                                foreach (Entities.ChiTietGoiHang item2 in chitietgoihang)
+                                foreach (Entities.ChiTietGoiHang item2 in _chitietgoihang)
                                 {
                                     if (item1.MaGoiHang.ToUpper() == item2.MaGoiHang.ToUpper())
                                     {
@@ -2285,7 +2225,7 @@ namespace GUI
         /// <param name="e"></param>
         private void txtkhachtra_TextChanged(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(str) && str.Equals("Them"))
+            if (!string.IsNullOrEmpty(_str) && _str.Equals("Them"))
             {
                 try
                 {
@@ -2361,7 +2301,7 @@ namespace GUI
                 if (e.KeyCode == Keys.Enter)
                 {
                     // Qui đổi đơn vị tính
-                    foreach (Entities.QuyDoiDonViTinh item in quidoidvt)
+                    foreach (Entities.QuyDoiDonViTinh item in _quidoidvt)
                     {
                         if (item.MaHangQuyDoi == mahanghoa)
                         {
@@ -2660,8 +2600,8 @@ namespace GUI
                 for (int j = 0; j < thegiagiam.Length; j++)
                 {
                     bool bol1 = thegiagiam[j].MaTheGiamGia.Trim().ToUpper().Equals(mathe.Trim().ToUpper());
-                    bool bol2 = datesv.Date >= thegiagiam[j].NgayBatDau.Date;
-                    bool bol3 = datesv.Date <= thegiagiam[j].NgayKetThuc.Date;
+                    bool bol2 = _datesv.Date >= thegiagiam[j].NgayBatDau.Date;
+                    bool bol3 = _datesv.Date <= thegiagiam[j].NgayKetThuc.Date;
                     if (bol1 && bol2 && bol3)
                     {
                         return thegiagiam[j];
@@ -2695,7 +2635,7 @@ namespace GUI
 
         private void txtthegiamgia_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(str) && str.Equals("Them"))
+            if (!string.IsNullOrEmpty(_str) && _str.Equals("Them"))
             {
                 try
                 {
@@ -2739,7 +2679,7 @@ namespace GUI
 
         private void txtthegiamgia_KeyDown(object sender, KeyEventArgs e)
         {
-            if (!string.IsNullOrEmpty(str) && str.Equals("Them"))
+            if (!string.IsNullOrEmpty(_str) && _str.Equals("Them"))
             {
                 try
                 {
@@ -2807,7 +2747,7 @@ namespace GUI
 
         private void txtMaTheGT_KeyDown(object sender, KeyEventArgs e)
         {
-            if (!string.IsNullOrEmpty(str) && str.Equals("Them"))
+            if (!string.IsNullOrEmpty(_str) && _str.Equals("Them"))
             {
                 try
                 {
@@ -2878,7 +2818,7 @@ namespace GUI
 
         void TinhTongTienHangTrongBanLe()
         {
-            if (!string.IsNullOrEmpty(str) && str.Equals("Them"))
+            if (!string.IsNullOrEmpty(_str) && _str.Equals("Them"))
             {
                 txtTongtien.Text = string.Empty;
 
@@ -2952,7 +2892,7 @@ namespace GUI
             kq = Utils.GetDataFromServer("HangHoa", new HangHoa { HanhDong = "SelectHangHoa_Theo_MaHangHoa", MaHangHoa = maHangHoa }, out tempReturn);
             if (!kq && tempReturn.Length == 0) return;
             //Sửa xong thì cập nhật lại vào danh sách hàng hóa trong kho
-            foreach (HangHoa hangHoa in hangHoaTheoKho.Where(hangHoa => hangHoa.MaHangHoa.Equals(tempReturn[0].MaHangHoa)))
+            foreach (HangHoa hangHoa in _hangHoaTheoKho.Where(hangHoa => hangHoa.MaHangHoa.Equals(tempReturn[0].MaHangHoa)))
                 Utils.Copy(tempReturn[0], hangHoa);
 
             HangHoa hangHoaTemp = GetGoodsByCode(maHangHoa);
@@ -2978,7 +2918,7 @@ namespace GUI
         /// <returns>đối tượng hàng hóa</returns>
         HangHoa GetGoodsByCode(string code, HangHoa[] dsHangHoa = null)
         {
-            dsHangHoa = dsHangHoa ?? hangHoaTheoKho;
+            dsHangHoa = dsHangHoa ?? _hangHoaTheoKho;
             return dsHangHoa.FirstOrDefault(k => k.MaHangHoa.ToUpper().Equals(code.ToUpper()) && !k.Deleted);
         }
     }
