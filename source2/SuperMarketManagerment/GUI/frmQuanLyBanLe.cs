@@ -103,7 +103,7 @@ namespace GUI
             {
                 for (int j = 0; j < 1000; j++)
                 {
-                    if (frmXuLyBanLe.trave == "")
+                    if (frmXuLyBanLe.Trave == "")
                     {
                         frmXuLyBanLe le = new frmXuLyBanLe("Them");
                         le.ShowDialog();
@@ -111,7 +111,7 @@ namespace GUI
                     }
                     else
                     {
-                        frmXuLyBanLe.trave = "";
+                        frmXuLyBanLe.Trave = "";
                         break;
                     }
                 }

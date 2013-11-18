@@ -181,10 +181,10 @@ namespace GUI
                 // khởi tạo biến truyền vào với hàm khởi tạo
                 CapNhatGia pt = new CapNhatGia("Select");
                 // khởi tạo mảng đối tượng để hứng giá trị
-                cngkh = new CapNhatGia[1];
+                _cngkh = new CapNhatGia[1];
                 Clientstrem = cl.SerializeObj(Client1, "CapNhatGia", pt);
                 // đổ mảng đối tượng vào datagripview       
-                cngkh = (CapNhatGia[])cl.DeserializeHepper1(Clientstrem, cngkh) ?? new CapNhatGia[0];
+                _cngkh = (CapNhatGia[])cl.DeserializeHepper1(Clientstrem, _cngkh) ?? new CapNhatGia[0];
                 //
                 _datesv = DateServer.Date();
                 toolStripStatusLabel3.Enabled = false;
@@ -1126,7 +1126,7 @@ namespace GUI
                 txtTienhang.Text = new Common.Utilities().FormatMoney(Convert.ToDouble(TinhTien(dtgvsanpham)));
                 txtGTGT.Text = new Common.Utilities().FormatMoney(Convert.ToDouble(TinhThue(dtgvsanpham)));
                 tongtienthanhtoan = (Convert.ToDouble(txtTienhang.Text) + Convert.ToDouble(txtGTGT.Text)).ToString();
-                txtGiamgia.Text = new Common.Utilities().FormatMoney(Convert.ToDouble(TinhCK(dtgvsanpham)));
+                txtGiamgia.Text = new Common.Utilities().FormatMoney(Convert.ToDouble(TinhCk(dtgvsanpham)));
             }
             catch
             {
@@ -1139,8 +1139,6 @@ namespace GUI
         {
             try
             {
-                string kt1 = "";
-
                 int sohangtrongbang = dtgvsanpham.RowCount;
                 if (dtgvsanpham.RowCount != 0)
                 {
@@ -1148,132 +1146,101 @@ namespace GUI
                     {
                         if (mahanghoa == dtgvsanpham[1, j].Value.ToString())
                         {
-                            hh = new Entities.HangHoaHienThi[sohangtrongbang];
+                            hh = new HangHoaHienThi[sohangtrongbang];
                             break;
                         }
-                        else
-                            hh = new Entities.HangHoaHienThi[sohangtrongbang + 1];
+                        hh = new HangHoaHienThi[sohangtrongbang + 1];
                     }
                 }
                 else
-                    hh = new Entities.HangHoaHienThi[sohangtrongbang + 1];
+                    hh = new HangHoaHienThi[sohangtrongbang + 1];
 
-                if (hh.Length != 0)
+                if (hh.Length == 0) return;
+                try
                 {
-                    try
+                    string kt1 = "";
+                    if (hh.Length == dtgvsanpham.RowCount)
                     {
-                        kt1 = "";
-                        if (hh.Length == dtgvsanpham.RowCount)
-                        {
 
-                            for (int j = 0; j < hh.Length; j++)
+                        for (int j = 0; j < hh.Length; j++)
+                        {
+                            if (mahanghoa == dtgvsanpham[1, j].Value.ToString())
                             {
-                                if (mahanghoa == dtgvsanpham[1, j].Value.ToString())
-                                {
-                                    int soluongcu = Convert.ToInt32(dtgvsanpham[4, j].Value.ToString());
-                                    string sl = string.IsNullOrEmpty(tsslsoluong.Text) ? "1" : tsslsoluong.Text;
-                                    int soluongmoi = Convert.ToInt32(sl);
-                                    int soluonghientai = soluongcu + soluongmoi;
-                                    // Lay gia san pham
-                                    DateTime ngayBan = DateTime.Parse(new Common.Utilities().MyDateConversion(mskngaychungtu.Text));
-                                    KhuyenMaiSoLuong giaTheoSl = LayGia(mahanghoa, soluonghientai.ToString(), ngayBan, _kmSoLuong);
+                                int soluongcu = Convert.ToInt32(dtgvsanpham[4, j].Value.ToString());
+                                string sl = string.IsNullOrEmpty(tsslsoluong.Text) ? "1" : tsslsoluong.Text;
+                                int soluongmoi = Convert.ToInt32(sl);
+                                int soluonghientai = soluongcu + soluongmoi;
+                                // Lay gia san pham
+                                DateTime ngayBan = DateTime.Parse(new Common.Utilities().MyDateConversion(mskngaychungtu.Text));
+                                KhuyenMaiSoLuong giaTheoSl = LayGia(mahanghoa, soluonghientai.ToString(), ngayBan, _kmSoLuong);
 
-                                    string giasp = giaTheoSl != null ? giaTheoSl.GiaBanLe.ToString() : new Common.Utilities().FormatMoney(double.Parse(dtgvsanpham[3, j].Value.ToString()));
+                                string giasp = giaTheoSl != null ? giaTheoSl.GiaBanLe.ToString() : new Common.Utilities().FormatMoney(double.Parse(dtgvsanpham[3, j].Value.ToString()));
 
-                                    string thanhtien = new Common.Utilities().FormatMoney((Convert.ToDouble(soluonghientai) * Convert.ToDouble(giasp)));
-                                    hh[j] = new HangHoaHienThi(txtSochungtu.Text, dtgvsanpham[1, j].Value.ToString(), dtgvsanpham[2, j].Value.ToString(), giasp, soluonghientai.ToString(), dtgvsanpham[5, j].Value.ToString(), dtgvsanpham[6, j].Value.ToString(), thanhtien);
-                                    kt1 = "ok";
-                                }
-                                else
-                                    hh[j] = new HangHoaHienThi(txtSochungtu.Text, dtgvsanpham[1, j].Value.ToString(), dtgvsanpham[2, j].Value.ToString(), dtgvsanpham[3, j].Value.ToString(), dtgvsanpham[4, j].Value.ToString(), dtgvsanpham[5, j].Value.ToString(), dtgvsanpham[6, j].Value.ToString(), dtgvsanpham[7, j].Value.ToString());
-
+                                string thanhtien = new Common.Utilities().FormatMoney((Convert.ToDouble(soluonghientai) * Convert.ToDouble(giasp)));
+                                hh[j] = new HangHoaHienThi(txtSochungtu.Text, dtgvsanpham[1, j].Value.ToString(), dtgvsanpham[2, j].Value.ToString(), giasp, soluonghientai.ToString(), dtgvsanpham[5, j].Value.ToString(), dtgvsanpham[6, j].Value.ToString(), thanhtien);
+                                kt1 = "ok";
                             }
-                        }
-                        else
-                        {
-                            for (int j = 0; j < hh.Length; j++)
-                            {
-                                if (j < hh.Length - 1)
-                                    hh[j] = new HangHoaHienThi(txtSochungtu.Text, dtgvsanpham[1, j].Value.ToString(), dtgvsanpham[2, j].Value.ToString(), dtgvsanpham[3, j].Value.ToString(), dtgvsanpham[4, j].Value.ToString(), dtgvsanpham[5, j].Value.ToString(), dtgvsanpham[6, j].Value.ToString(), dtgvsanpham[7, j].Value.ToString());
-                                else
-                                {
-
-                                    string sl = "0";
-                                    if (tsslsoluong.Text == "")
-                                        sl = "1";
-                                    else
-                                        sl = tsslsoluong.Text;
-                                    string soluongsp = sl;
-                                    string giasp = "0";
-                                    // Lay gia san pham
-                                    DateTime ngayBan = DateTime.Parse(new Common.Utilities().MyDateConversion(mskngaychungtu.Text));
-                                    Entities.KhuyenMaiSoLuong giaTheoSL = LayGia(mahanghoa, soluongsp.ToString(), ngayBan, this._kmSoLuong);
-
-                                    if (giaTheoSL != null)
-                                        giasp = giaTheoSL.GiaBanLe.ToString();
-                                    else
-                                        giasp = new Common.Utilities().FormatMoney(double.Parse(tsslgia.Text));
-
-                                    string thanhtien = new Common.Utilities().FormatMoney((Convert.ToDouble(giasp) * Convert.ToDouble(soluongsp)));
-                                    hh[hh.Length - 1] = new Entities.HangHoaHienThi(txtSochungtu.Text, mahanghoa, tssltenhang.Text, giasp, soluongsp, tsslchietkhau.Text, tsslgtgt.Text, thanhtien);
-                                }
-
-
-                            }
-                        }
-                        if (kt1 == "")
-                        {
-                            string sl = "0";
-                            if (tsslsoluong.Text == "")
-                                sl = "1";
                             else
-                                sl = tsslsoluong.Text;
-                            string soluongsp = sl;
-                            string giasp = "0";
-                            // Lay gia san pham
-                            DateTime ngayBan = DateTime.Parse(new Common.Utilities().MyDateConversion(mskngaychungtu.Text));
-                            Entities.KhuyenMaiSoLuong giaTheoSL = LayGia(mahanghoa, soluongsp.ToString(), ngayBan, this._kmSoLuong);
+                                hh[j] = new HangHoaHienThi(txtSochungtu.Text, dtgvsanpham[1, j].Value.ToString(), dtgvsanpham[2, j].Value.ToString(), dtgvsanpham[3, j].Value.ToString(), dtgvsanpham[4, j].Value.ToString(), dtgvsanpham[5, j].Value.ToString(), dtgvsanpham[6, j].Value.ToString(), dtgvsanpham[7, j].Value.ToString());
 
-                            if (giaTheoSL != null)
-                                giasp = giaTheoSL.GiaBanLe.ToString();
-                            else
-                                giasp = new Common.Utilities().FormatMoney(double.Parse(tsslgia.Text));
-
-                            string thanhtien = new Common.Utilities().FormatMoney((Convert.ToDouble(giasp) * Convert.ToDouble(soluongsp)));
-                            hh[hh.Length - 1] = new Entities.HangHoaHienThi(txtSochungtu.Text, mahanghoa, tssltenhang.Text, giasp, soluongsp, tsslchietkhau.Text, tsslgtgt.Text, thanhtien);
                         }
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        string sl = "0";
-                        if (tsslsoluong.Text == "")
-                            sl = "1";
-                        else
-                            sl = tsslsoluong.Text;
+                        for (int j = 0; j < hh.Length; j++)
+                        {
+                            if (j < hh.Length - 1)
+                                hh[j] = new HangHoaHienThi(txtSochungtu.Text, dtgvsanpham[1, j].Value.ToString(), dtgvsanpham[2, j].Value.ToString(), dtgvsanpham[3, j].Value.ToString(), dtgvsanpham[4, j].Value.ToString(), dtgvsanpham[5, j].Value.ToString(), dtgvsanpham[6, j].Value.ToString(), dtgvsanpham[7, j].Value.ToString());
+                            else
+                            {
+                                string sl = string.IsNullOrEmpty(tsslsoluong.Text) ? "1" : tsslsoluong.Text;
+                                string soluongsp = sl;
+                                // Lay gia san pham
+                                DateTime ngayBan = DateTime.Parse(new Common.Utilities().MyDateConversion(mskngaychungtu.Text));
+                                KhuyenMaiSoLuong giaTheoSl = LayGia(mahanghoa, soluongsp, ngayBan, _kmSoLuong);
+
+                                string giasp = giaTheoSl != null ? giaTheoSl.GiaBanLe.ToString() : new Common.Utilities().FormatMoney(double.Parse(tsslgia.Text));
+
+                                string thanhtien = new Common.Utilities().FormatMoney((Convert.ToDouble(giasp) * Convert.ToDouble(soluongsp)));
+                                hh[hh.Length - 1] = new HangHoaHienThi(txtSochungtu.Text, mahanghoa, tssltenhang.Text, giasp, soluongsp, tsslchietkhau.Text, tsslgtgt.Text, thanhtien);
+                            }
+
+
+                        }
+                    }
+                    if (string.IsNullOrEmpty(kt1))
+                    {
+                        string sl = tsslsoluong.Text == "" ? "1" : tsslsoluong.Text;
                         string soluongsp = sl;
-                        string giasp = "0";
                         // Lay gia san pham
                         DateTime ngayBan = DateTime.Parse(new Common.Utilities().MyDateConversion(mskngaychungtu.Text));
-                        Entities.KhuyenMaiSoLuong giaTheoSL = LayGia(mahanghoa, soluongsp.ToString(), ngayBan, this._kmSoLuong);
+                        KhuyenMaiSoLuong giaTheoSl = LayGia(mahanghoa, soluongsp, ngayBan, _kmSoLuong);
 
-                        if (giaTheoSL != null)
-                            giasp = giaTheoSL.GiaBanLe.ToString();
-                        else
-                            giasp = new Common.Utilities().FormatMoney(double.Parse(tsslgia.Text));
+                        string giasp = giaTheoSl != null ? giaTheoSl.GiaBanLe.ToString() : new Common.Utilities().FormatMoney(double.Parse(tsslgia.Text));
+
                         string thanhtien = new Common.Utilities().FormatMoney((Convert.ToDouble(giasp) * Convert.ToDouble(soluongsp)));
-                        hh[0] = new Entities.HangHoaHienThi(txtSochungtu.Text, mahanghoa, tssltenhang.Text, giasp, soluongsp, tsslchietkhau.Text, tsslgtgt.Text, thanhtien);
+                        hh[hh.Length - 1] = new HangHoaHienThi(txtSochungtu.Text, mahanghoa, tssltenhang.Text, giasp, soluongsp, tsslchietkhau.Text, tsslgtgt.Text, thanhtien);
                     }
-
-                    dtgvsanpham.DataSource = hh;
-                    TinhToan();
-                    if (txtPhantramchietkhau.Text == "")
-                        phantramchietkhau = "0";
-                    else
-                        phantramchietkhau = txtPhantramchietkhau.Text;
-                    txtChietkhau.Text = new Common.Utilities().FormatMoney(((Convert.ToDouble(phantramchietkhau) / 100) * Convert.ToDouble(txtTienhang.Text)));
-                    txtTongtien.Text = new Common.Utilities().FormatMoney(Convert.ToDouble(tongtienthanhtoan) - Convert.ToDouble(txtChietkhau.Text) - Convert.ToDouble(txtGiamgia.Text));
-                    txtKhachPhaiTra.Text = txtTongtien.Text;
                 }
+                catch (Exception ex)
+                {
+                    string sl = string.IsNullOrEmpty(tsslsoluong.Text) ? "1" : tsslsoluong.Text;
+                    string soluongsp = sl;
+                    // Lay gia san pham
+                    DateTime ngayBan = DateTime.Parse(new Common.Utilities().MyDateConversion(mskngaychungtu.Text));
+                    KhuyenMaiSoLuong giaTheoSl = LayGia(mahanghoa, soluongsp, ngayBan, _kmSoLuong);
+
+                    string giasp = giaTheoSl != null ? giaTheoSl.GiaBanLe.ToString() : new Common.Utilities().FormatMoney(double.Parse(tsslgia.Text));
+                    string thanhtien = new Common.Utilities().FormatMoney((Convert.ToDouble(giasp) * Convert.ToDouble(soluongsp)));
+                    hh[0] = new HangHoaHienThi(txtSochungtu.Text, mahanghoa, tssltenhang.Text, giasp, soluongsp, tsslchietkhau.Text, tsslgtgt.Text, thanhtien);
+                }
+
+                dtgvsanpham.DataSource = hh;
+                TinhToan();
+                phantramchietkhau = string.IsNullOrEmpty(txtPhantramchietkhau.Text) ? "0" : txtPhantramchietkhau.Text;
+                txtChietkhau.Text = new Common.Utilities().FormatMoney(((Convert.ToDouble(phantramchietkhau) / 100) * Convert.ToDouble(txtTienhang.Text)));
+                txtTongtien.Text = new Common.Utilities().FormatMoney(Convert.ToDouble(tongtienthanhtoan) - Convert.ToDouble(txtChietkhau.Text) - Convert.ToDouble(txtGiamgia.Text));
+                txtKhachPhaiTra.Text = txtTongtien.Text;
             }
             catch
             {
@@ -1295,9 +1262,9 @@ namespace GUI
                 }
             }
         }
-        private bool testCharacter(char ch)
+        private static bool TestCharacter(char ch)
         {
-            char[] a = new char[]{'+','-','~','`','@','#','$','%','^','&','*','(',')','{','}','[',']',':',';','|',
+            char[] a = new[]{'+','-','~','`','@','#','$','%','^','&','*','(',')','{','}','[',']',':',';','|',
                 '<','>',',','.','?','/','-','=',
                 'ă','â','á','à','ả','ạ','ã','ắ','ằ','ẳ','ẵ','ặ','ấ','ầ','ẩ','ậ','ẫ',
                 'Ă','Â','Á','À','Ả','Ạ','Ã','Ắ','Ằ','Ẳ','Ẵ','Ặ','Ấ','Ầ','Ẩ','Ẫ','Ậ',
@@ -1311,12 +1278,13 @@ namespace GUI
                 'Í','Ì','Ỉ','Ị','Ĩ',
                 'đ','Đ'
                 };
-            foreach (char c in a)
-            {
-                if (c.Equals(ch))
-                    return true;
-            }
-            return false;
+            return a.Any(c => c.Equals(ch));
+            //foreach (char c in a)
+            //{
+            //    if (c.Equals(ch))
+            //        return true;
+            //}
+            //return false;
         }
         string mahanghoa, phantramchietkhau;
         /// <summary>
@@ -1346,7 +1314,7 @@ namespace GUI
                         try
                         {
                             //SelectMaCapNhatKH();
-                            KiemTraCK(cngkh);
+                            KiemTraCk(_cngkh);
                         }
                         catch
                         {
@@ -1374,7 +1342,7 @@ namespace GUI
 
                         foreach (char ch in toolStrip_txtTracuu.Text)
                         {
-                            if (testCharacter(ch))
+                            if (TestCharacter(ch))
                             {
                                 MessageBox.Show("        Mã Hàng Hóa Không được nhập tiếng việt có dấu " +
                                               "\nNếu bạn đang dùng máy quét mã vạch hãy tắt bộ gõ Tiếng Tiệt đi! ", "Hệ Thống Cảnh Báo");
@@ -1957,18 +1925,18 @@ namespace GUI
         /// </summary>
         /// <param name="dgv"></param>
         /// <returns></returns>
-        public string TinhCK(DataGridView dgv)
+        public string TinhCk(DataGridView dgv)
         {
             try
             {
                 double gia = 0;
                 if (dgv.RowCount != 0)
                 {
-                    for (int i = 0; i < dgv.RowCount; i++)
+                    for (int index = 0; index < dgv.RowCount; index++)
                     {
-                        double chietkhau = Convert.ToDouble(dgv["ChietKhau", i].Value.ToString());
-                        double thanhtien = Convert.ToDouble(dtgvsanpham["ThanhTien", i].Value.ToString());
-                        gia += (chietkhau / 100) * (thanhtien);
+                        double dchietkhau = Convert.ToDouble(dgv["ChietKhau", index].Value.ToString());
+                        double thanhtien = Convert.ToDouble(dtgvsanpham["ThanhTien", index].Value.ToString());
+                        gia += (dchietkhau / 100) * (thanhtien);
                     }
                     return Math.Round(gia).ToString();
                 }
@@ -1983,48 +1951,45 @@ namespace GUI
         /// kiểm tra chiết khấu
         /// </summary>
         /// <param name="cnhkh"></param>
-        public void KiemTraCK(Entities.CapNhatGia[] cnhkh)
+        public void KiemTraCk(CapNhatGia[] cnhkh)
         {
             try
             {
-                for (int j = 0; j < cnhkh.Length; j++)
+                foreach (CapNhatGia capNhatGia in cnhkh.Where(capNhatGia => capNhatGia.MaHangHoa == mahanghoa).Where(capNhatGia => _datesv >= capNhatGia.NgayBatDau && _datesv <= capNhatGia.NgayKetThuc))
                 {
-                    if (cnhkh[j].MaHangHoa == mahanghoa)
-                    {
-                        DateTime datebegin = cnhkh[j].NgayBatDau;
-                        DateTime dateend = cnhkh[j].NgayKetThuc;
-                        DateTime datenow = _datesv;
-                        if (datenow >= datebegin && datenow <= dateend)
-                        {
-                            phantramchietkhau = tsslchietkhau.Text = cnhkh[j].PhanTramGiaBanLe.ToString();
-                        }
-                    }
+                    phantramchietkhau = tsslchietkhau.Text = capNhatGia.PhanTramGiaBanLe;
                 }
+                //foreach (CapNhatGia capNhatGia in cnhkh)
+                //{
+                    //if (capNhatGia.MaHangHoa != mahanghoa) continue;
+                    //if (_datesv >= capNhatGia.NgayBatDau && _datesv <= capNhatGia.NgayKetThuc)
+                    //{
+                    //    phantramchietkhau = tsslchietkhau.Text = capNhatGia.PhanTramGiaBanLe;
+                    //}
+                //}
             }
             catch
             {
             }
         }
-        Entities.CapNhatGia[] cngkh;
+        CapNhatGia[] _cngkh;
         /// <summary>
         /// select mã cập nhật khách hàng
         /// </summary>
-        public void SelectMaCapNhatKH()
+        public void SelectMaCapNhatKh()
         {
             try
             {
                 cl = new Server_Client.Client();
                 // gán TCPclient
-                this.Client1 = cl.Connect(Luu.IP, Luu.Ports);
+                Client1 = cl.Connect(Luu.IP, Luu.Ports);
                 // khởi tạo biến truyền vào với hàm khởi tạo
-                Entities.CapNhatGia pt = new Entities.CapNhatGia("Select");
+                CapNhatGia pt = new CapNhatGia("Select");
                 // khởi tạo mảng đối tượng để hứng giá trị
-                cngkh = new Entities.CapNhatGia[1];
-                Clientstrem = cl.SerializeObj(this.Client1, "CapNhatGia", pt);
+                _cngkh = new CapNhatGia[1];
+                Clientstrem = cl.SerializeObj(Client1, "CapNhatGia", pt);
                 // đổ mảng đối tượng vào datagripview       
-                cngkh = (Entities.CapNhatGia[])cl.DeserializeHepper1(Clientstrem, cngkh);
-                if (cngkh == null)
-                    cngkh = new Entities.CapNhatGia[0];
+                _cngkh = (CapNhatGia[])cl.DeserializeHepper1(Clientstrem, _cngkh) ?? new CapNhatGia[0];
             }
             catch { }
         }
@@ -2070,7 +2035,7 @@ namespace GUI
                                 tsslgia.Text = new Common.Utilities().FormatMoney(double.Parse(item.GiaBanLe.ToString()));
                                 //
                                 //SelectMaCapNhatKH();
-                                KiemTraCK(cngkh);
+                                KiemTraCk(_cngkh);
                                 //
                                 LayGiaTriThue(item.MaThueGiaTriGiaTang);
                                 toolStrip_txtTracuu.ReadOnly = true;
@@ -2350,7 +2315,7 @@ namespace GUI
                             try
                             {
                                 //SelectMaCapNhatKH();
-                                KiemTraCK(cngkh);
+                                KiemTraCk(_cngkh);
                             }
                             catch
                             {
@@ -2558,7 +2523,7 @@ namespace GUI
                         try
                         {
                             //SelectMaCapNhatKH();
-                            KiemTraCK(cngkh);
+                            KiemTraCk(_cngkh);
                         }
                         catch
                         {
@@ -2902,7 +2867,7 @@ namespace GUI
                 mahanghoa = toolStrip_txtTracuu.Text = hangHoaTemp.MaHangHoa.ToUpper();
                 tssltenhang.Text = hangHoaTemp.TenHangHoa;
                 tsslgia.Text = new Common.Utilities().FormatMoney(double.Parse(hangHoaTemp.GiaBanLe));
-                KiemTraCK(cngkh);
+                KiemTraCk(_cngkh);
                 LayGiaTriThue(hangHoaTemp.MaThueGiaTriGiaTang);
                 toolStrip_txtTracuu.ReadOnly = true;
                 tsslsoluong.Focus();
