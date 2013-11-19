@@ -191,11 +191,6 @@ namespace GUI
 
         void LoadData()
         {
-            //Lấy dữ liệu
-            const string sql = "select HDBanHang.MaHDBanHang, HDBanHang.NgayBan, HDBanHang.MaKho, HDBanHang.MaNhanVien, "
-                               + "ChiTietHDBanHang.MaHangHoa, ChiTietHDBanHang.TenHangHoa, ChiTietHDBanHang.SoLuong, ChiTietHDBanHang.DonGia, ChiTietHDBanHang.Thue, ChiTietHDBanHang.PhanTramChietKhau "
-                               + "from HDBanHang INNER JOIN ChiTietHDBanHang on HDBanHang.MaHDBanHang = ChiTietHDBanHang.MaHDBanHang "
-                               + "where HDBanHang.MaNhanVien = '{0}' and HDBanHang.NgayBan between Convert(Datetime,'{1}',101) and Convert(Datetime,'{2}',101)  and HDBanHang.Deleted = 0";
             var nhanVien = cbbChonNhanVien.SelectedItem as NhanVien;
             if (nhanVien == null) return;
 
@@ -203,11 +198,56 @@ namespace GUI
             string tungay = dteTuNgay.Value.ToString("MM/dd/yyyy");
             string denngay = dteDenNgay.Value.ToString("MM/dd/yyyy");
 
+            #region lấy dữ liệu hóa đơn bán hàng
+            //Lấy danh sách hàng hóa được bán trong khoảng thời gian này, bởi nhân viên này
+            const string sql = "select HDBanHang.MaHDBanHang, HDBanHang.NgayBan, HDBanHang.MaKho, HDBanHang.MaNhanVien, "
+                               + "ChiTietHDBanHang.MaHangHoa, ChiTietHDBanHang.TenHangHoa, ChiTietHDBanHang.SoLuong, ChiTietHDBanHang.DonGia, ChiTietHDBanHang.Thue, ChiTietHDBanHang.PhanTramChietKhau "
+                               + "from HDBanHang INNER JOIN ChiTietHDBanHang on HDBanHang.MaHDBanHang = ChiTietHDBanHang.MaHDBanHang "
+                               + "where HDBanHang.MaNhanVien = '{0}' and HDBanHang.NgayBan between Convert(Datetime,'{1}',101) and Convert(Datetime,'{2}',101)  and HDBanHang.Deleted = 0";
             string input = string.Format(sql, maNhanVien, tungay, denngay);
             object output;
             bool kq = Utils.GetDataFromServer("RunSql", input, out output);
             if (!kq) return;
-            _bcThongKeMatHangBanRaTheoNhanViens = Utils.ConvertToList<BcThongKeMatHangBanRaTheoNhanVien>((DataTable)output);
+            List<BcThongKeMatHangBanRaTheoNhanVien> bcThongKeMatHangBanRaTheoNhanViens = Utils.ConvertToList<BcThongKeMatHangBanRaTheoNhanVien>((DataTable)output);
+            #endregion
+
+            #region lấy dữ liệu khách hàng trả lại
+            //lấy danh sách hàng hóa được trả lại trong khoảng thời gian này
+            const string sqlKhtl = "select KhachHangTraLai.MaKhachHangTraLai, KhachHangTraLai.MaHoaDonMuaHang, KhachHangTraLai.NgayNhap, KhachHangTraLai.MaKho, "
+                               + "ChiTietKhachHangTraLai.MaHangHoa, ChiTietKhachHangTraLai.TenHangHoa, ChiTietKhachHangTraLai.SoLuong, ChiTietKhachHangTraLai.DonGia, ChiTietKhachHangTraLai.Thue, ChiTietKhachHangTraLai.PhanTramChietKhau "
+                               + "from KhachHangTraLai INNER JOIN ChiTietKhachHangTraLai on KhachHangTraLai.MaKhachHangTraLai = ChiTietKhachHangTraLai.MaKhachHangTraLai "
+                               + "where KhachHangTraLai.NgayNhap between Convert(Datetime,'{0}',101) and Convert(Datetime,'{1}',101)  and KhachHangTraLai.Deleted = 0";
+            string inputKhtl = string.Format(sqlKhtl, tungay, denngay);
+            object outputKhtl;
+            bool kqKhtl = Utils.GetDataFromServer("RunSql", inputKhtl, out outputKhtl);
+            if (!kqKhtl) return;
+            List<BcThongKeMatHangBanRaTheoNhanVienKhtl> bcThongKeMatHangBanRaTheoNhanVienKhtls = Utils.ConvertToList<BcThongKeMatHangBanRaTheoNhanVienKhtl>((DataTable)outputKhtl);
+            #endregion
+
+            //danh sách hóa đơn cần xét liệu có hàng trả lại hay không?
+            List<string> dshoadon = bcThongKeMatHangBanRaTheoNhanViens.Select(k => k.MaHDBanHang).Distinct().ToList();
+            //lọc các hàng hóa trả lại sao cho thuộc tập hóa đơn trên
+            List<BcThongKeMatHangBanRaTheoNhanVienKhtl> bcThongKeMatHangBanRaTheoNhanVienKhtlsStand =
+                bcThongKeMatHangBanRaTheoNhanVienKhtls.Where(k => dshoadon.Contains(k.MaHoaDonMuaHang)).ToList();
+            //convert dữ liệu sang List<BcThongKeMatHangBanRaTheoNhanVien> với giá trị âm của số lượng và giá trị
+            List<BcThongKeMatHangBanRaTheoNhanVien> bcThongKeMatHangBanRaTheoNhanViensStand =
+                bcThongKeMatHangBanRaTheoNhanVienKhtlsStand.Select(k => new BcThongKeMatHangBanRaTheoNhanVien
+                                {
+                                    MaHDBanHang = k.MaHoaDonMuaHang,
+                                    NgayBan = k.NgayNhap,
+                                    MaKho = k.MaKho,
+                                    MaNhanVien = string.Empty,
+                                    TenNhanVien = string.Empty,
+
+                                    MaHangHoa = k.MaHangHoa,
+                                    TenHangHoa = k.TenHangHoa,
+                                    SoLuong = - k.SoLuong,
+                                    DonGia = k.DonGia
+                                }).ToList();
+            //gộp 2 list
+            _bcThongKeMatHangBanRaTheoNhanViens.Clear();
+            _bcThongKeMatHangBanRaTheoNhanViens.AddRange(bcThongKeMatHangBanRaTheoNhanViens);
+            _bcThongKeMatHangBanRaTheoNhanViens.AddRange(bcThongKeMatHangBanRaTheoNhanViensStand);
 
             var qr = from k in _bcThongKeMatHangBanRaTheoNhanViens
                      group k by k.MaHangHoa into kk
