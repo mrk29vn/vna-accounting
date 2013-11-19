@@ -14,6 +14,7 @@ using System.Data.SqlClient;
 using System.Drawing.Printing;
 using CrystalDecisions.CrystalReports.Engine;
 using System.Collections;
+using GUI.Model;
 
 namespace GUI
 {
@@ -2935,5 +2936,77 @@ namespace GUI
             }
             catch { }
         }
+
+        #region Báo cáo Thống kê mặt hàng bán ra theo nhân viên
+        public frmBaoCaorpt(IEnumerable<BcThongKeMatHangBanRaTheoNhanVien> dsList, Dictionary<string, object> dicInput, string path, string hanhDong)
+        {
+            try
+            {
+                InitializeComponent();
+                CongTy();
+                Report.rptBCThongKeMatHangBanRaTheoNhanVien report = new Report.rptBCThongKeMatHangBanRaTheoNhanVien();
+                report.SetDataSource(dsList);
+                crvReport.ReportSource = report;
+                report.SetParameterValue("TenCongTy", CT.TenCongTy);
+                report.SetParameterValue("DiaChiCongTy", CT.DiaChi);
+                report.SetParameterValue("DienThoai", CT.SoDienThoai);
+                report.SetParameterValue("Web", CT.Website);
+                report.SetParameterValue("Email", CT.Email);
+                report.SetParameterValue("FaxCongTy", CT.Fax);
+
+                report.SetParameterValue("TenBaoCao", "THỐNG KÊ MẶT HÀNG BÁN RA THEO NHÂN VIÊN");
+                report.SetParameterValue("NgayTao", new Common.Utilities().XuLy(2, DateServer.Date().ToShortDateString()));
+
+                report.SetParameterValue("MaNhanVien", dicInput["MaNhanVien"]);
+                report.SetParameterValue("TenNhanVien", dicInput["TenNhanVien"]);
+                report.SetParameterValue("TuNgay", (DateTime)dicInput["TuNgay"]);
+                report.SetParameterValue("DenNgay", (DateTime)dicInput["DenNgay"]);
+                switch (hanhDong)
+                {
+                    case "Excel":
+                        new Report.ExportCrystalReport().Export(report, path, Report.ExportCrystalReport.TypeBC.Excel);
+                        break;
+                    case "Word":
+                        new Report.ExportCrystalReport().Export(report, path, Report.ExportCrystalReport.TypeBC.WordForWindows);
+                        break;
+                    case "PDF":
+                        new Report.ExportCrystalReport().Export(report, path, Report.ExportCrystalReport.TypeBC.PortableDocFormat);
+                        break;
+                }
+            }
+            catch
+            {
+            }
+        }
+        public frmBaoCaorpt(IEnumerable<BcThongKeMatHangBanRaTheoNhanVien> dsList, Dictionary<string, object> dicInput)
+        {
+            try
+            {
+                InitializeComponent();
+                CongTy();
+                Report.rptBCThongKeMatHangBanRaTheoNhanVien report = new Report.rptBCThongKeMatHangBanRaTheoNhanVien();
+                report.SetDataSource(dsList);
+                crvReport.ReportSource = report;
+                report.SetParameterValue("TenCongTy", CT.TenCongTy);
+                report.SetParameterValue("DiaChiCongTy", CT.DiaChi);
+                report.SetParameterValue("DienThoai", CT.SoDienThoai);
+                report.SetParameterValue("Web", CT.Website);
+                report.SetParameterValue("Email", CT.Email);
+                report.SetParameterValue("FaxCongTy", CT.Fax);
+
+                report.SetParameterValue("TenBaoCao", "THỐNG KÊ MẶT HÀNG BÁN RA THEO NHÂN VIÊN");
+                report.SetParameterValue("NgayTao", new Common.Utilities().XuLy(2, DateServer.Date().ToShortDateString()));
+
+                report.SetParameterValue("MaNhanVien", dicInput["MaNhanVien"]);
+                report.SetParameterValue("TenNhanVien", dicInput["TenNhanVien"]);
+                report.SetParameterValue("TuNgay", (DateTime)dicInput["TuNgay"]);
+                report.SetParameterValue("DenNgay", (DateTime)dicInput["DenNgay"]);
+                crvReport.Show();
+            }
+            catch
+            {
+            }
+        }
+        #endregion
     }
 }

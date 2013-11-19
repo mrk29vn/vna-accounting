@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
 using System.Reflection;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace GUI
 {
@@ -25,13 +25,13 @@ namespace GUI
         {
             return StringToDateTime(input, out kq, "dd/MM/yyyy");
         }
-        public static DateTime StringToDateTime(string input, out bool kq, string Patterns)
+        public static DateTime StringToDateTime(string input, out bool kq, string patterns)
         {
             kq = true;
             try
             {
                 DateTime dt = new DateTime(1753, 1, 1);
-                switch (Patterns)
+                switch (patterns)
                 {
                     case "dd/MM/yyyy":
                         {
@@ -108,14 +108,14 @@ namespace GUI
             Type fromType = from.GetType();
             Type toType = to.GetType();
 
-            if (fromType == null)
-                throw new ArgumentNullException("fromType", "The type that you are copying from cannot be null");
-            if (from == null)
-                throw new ArgumentNullException("from", "The object you are copying from cannot be null");
-            if (toType == null)
-                throw new ArgumentNullException("toType", "The type that you are copying to cannot be null");
-            if (to == null)
-                throw new ArgumentNullException("to", "The object you are copying to cannot be null");
+            //if (fromType == null)
+            //    throw new ArgumentNullException("fromType", "The type that you are copying from cannot be null");
+            //if (from == null)
+            //    throw new ArgumentNullException("from", "The object you are copying from cannot be null");
+            //if (toType == null)
+            //    throw new ArgumentNullException("toType", "The type that you are copying to cannot be null");
+            //if (to == null)
+            //    throw new ArgumentNullException("to", "The object you are copying to cannot be null");
 
             // Don't copy if they are the same object  
             if (ReferenceEquals(@from, to)) return;
@@ -135,6 +135,25 @@ namespace GUI
                 object value = fromProperty.GetValue(@from, null);
                 toProperty.SetValue(to, value, null);
             }
+        }
+
+        public static List<T> ConvertToList<T>(DataTable dt)
+        {
+            var columnNames = dt.Columns.Cast<DataColumn>()
+                .Select(c => c.ColumnName)
+                .ToList();
+            var properties = typeof(T).GetProperties();
+            return dt.AsEnumerable().ToList().Select(row =>
+            {
+                var objT = Activator.CreateInstance<T>();
+
+                foreach (var pro in properties.Where(pro => columnNames.Contains(pro.Name)))
+                {
+                    pro.SetValue(objT, row[pro.Name], null);
+                }
+
+                return objT;
+            }).ToList();
         }
         #endregion
     }

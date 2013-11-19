@@ -1876,7 +1876,7 @@ namespace GUI
             }
             for (int i = 0; i < 1000; i++)
             {
-                if (frmXuLyBanLe.trave == "")
+                if (frmXuLyBanLe.Trave == "")
                 {
                     Form frm = new frmXuLyBanLe("Them");
                     int Heights = Screen.PrimaryScreen.Bounds.Height;
@@ -1886,7 +1886,7 @@ namespace GUI
                 }
                 else
                 {
-                    frmXuLyBanLe.trave = "";
+                    frmXuLyBanLe.Trave = "";
                     return;
                 }
             }
@@ -3058,6 +3058,20 @@ namespace GUI
                 return;
             }
             frmBCTienTonKho frm = new frmBCTienTonKho();
+            closeall(frm.Name);
+            frm.MdiParent = this;
+            frm.Show();
+        }
+
+        private void thốngKêMặtHàngBánRaTheoNhânViênToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!frmDangNhap.User.Administrator && !CheckQuyen("FrmBcThongKeMatHangBanRaTheoNhanVien", 1))
+            {
+                MessageBox.Show(" Không có quyền vào chức năng này.");
+                return;
+            }
+            if (!Check("FrmBcThongKeMatHangBanRaTheoNhanVien")) return;
+            FrmBcThongKeMatHangBanRaTheoNhanVien frm = new FrmBcThongKeMatHangBanRaTheoNhanVien();
             closeall(frm.Name);
             frm.MdiParent = this;
             frm.Show();

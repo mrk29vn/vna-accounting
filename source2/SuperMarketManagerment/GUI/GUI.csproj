@@ -156,6 +156,12 @@
     <Compile Include="frmBCNhapHangTheoThoiGian.Designer.cs">
       <DependentUpon>frmBCNhapHangTheoThoiGian.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmBcThongKeMatHangBanRaTheoNhanVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmBcThongKeMatHangBanRaTheoNhanVien.Designer.cs">
+      <DependentUpon>FrmBcThongKeMatHangBanRaTheoNhanVien.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmBCThue.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -913,6 +919,7 @@
       <DependentUpon>frm_Xuly_XacNhanDieuChuyenKho.cs</DependentUpon>
     </Compile>
     <Compile Include="Luu.cs" />
+    <Compile Include="Model\BcThongKeMatHangBanRaTheoNhanVien.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Report\Barcode.cs">
@@ -965,6 +972,12 @@
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Report\rptBCThongKeMatHangBanRaTheoNhanVien.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptBCThongKeMatHangBanRaTheoNhanVien.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Report\rptHDBanLe2.cs">
       <DependentUpon>rptHDBanLe2.rpt</DependentUpon>
@@ -1443,6 +1456,11 @@
       <DependentUpon>rptXuatNhapHangTheoNhomHang.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Report\ThongKeMatHangBanRaTheoNhanVien.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ThongKeMatHangBanRaTheoNhanVien.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Report\TongHopThuChi.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1517,6 +1535,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmBCNhapHangTheoThoiGian.resx">
       <DependentUpon>frmBCNhapHangTheoThoiGian.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmBcThongKeMatHangBanRaTheoNhanVien.resx">
+      <DependentUpon>FrmBcThongKeMatHangBanRaTheoNhanVien.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmBCThue.resx">
       <DependentUpon>frmBCThue.cs</DependentUpon>
@@ -1931,6 +1952,10 @@
     <EmbeddedResource Include="Report\rptBCHDBanBuon2.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>rptBCHDBanBuon2.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\rptBCThongKeMatHangBanRaTheoNhanVien.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptBCThongKeMatHangBanRaTheoNhanVien.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Report\rptHDBanLe2.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -2353,6 +2378,17 @@
     <None Include="Report\MaVachTheGT.xss">
       <DependentUpon>MaVachTheGT.xsd</DependentUpon>
     </None>
+    <None Include="Report\ThongKeMatHangBanRaTheoNhanVien.xsc">
+      <DependentUpon>ThongKeMatHangBanRaTheoNhanVien.xsd</DependentUpon>
+    </None>
+    <None Include="Report\ThongKeMatHangBanRaTheoNhanVien.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ThongKeMatHangBanRaTheoNhanVien.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Report\ThongKeMatHangBanRaTheoNhanVien.xss">
+      <DependentUpon>ThongKeMatHangBanRaTheoNhanVien.xsd</DependentUpon>
+    </None>
     <None Include="Report\TongHopThuChi.xsc">
       <DependentUpon>TongHopThuChi.xsd</DependentUpon>
     </None>
@@ -2575,6 +2611,7 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

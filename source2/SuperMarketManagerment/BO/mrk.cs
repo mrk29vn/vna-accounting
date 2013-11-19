@@ -1,18 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using DAL;
+using System.Collections;
 using System.Data;
 using System.Data.SqlClient;
-using System.Collections;
+using DAL;
 
 namespace BizLogic
 {
-    public class mrk
+    public class RunSql
     {
-        public mrk() { }
+        public static DataTable GetDataBySql(string sql)
+        {
+            return Connection.GetDataBySql(sql);
+        }
     }
 
     public class KhachHang_k
@@ -23,7 +22,7 @@ namespace BizLogic
         private SqlDataReader dr;
         private SqlConnection cn;
 
-        public KhachHang_k() 
+        public KhachHang_k()
         {
             con = null;
             cmd = null;
@@ -211,7 +210,7 @@ namespace BizLogic
         private SqlDataReader dr;
         private SqlConnection cn;
 
-        public UpdateDuNo() 
+        public UpdateDuNo()
         {
             con = null;
             cmd = null;
@@ -250,6 +249,6 @@ namespace BizLogic
                 return bg;
             return bg;
         }
-    #endregion
+        #endregion
     }
 }

@@ -472,6 +472,7 @@ namespace Server_Client
                     case "ChiTietTheGiamGia": { ThemSuaXoaChiTietTheGiamGia(clientStream); break; }
                     case "SelectChiTietTheGiamGia": { SelectChiTietTheGiamGia(clientStream); break; }
                     case "Select_sp_BCNhapHangTheoNhomHangFIX": { Select_sp_BCNhapHangTheoNhomHangFIX(clientStream); break; }
+                    case "RunSql": { RunSql(clientStream); break; }
                     #endregion
 
                     #region Lamtv
@@ -497,6 +498,13 @@ namespace Server_Client
         }
 
         #region Mrk
+        private void RunSql(System.IO.Stream clientStream)
+        {
+            string input = formatter.Deserialize(clientStream).ToString();
+            object output = BizLogic.RunSql.GetDataBySql(input);
+            formatter.Serialize(clientStream, output);
+        }
+
         private void THAOTAC_GiaVon_k(NetworkStream clientStream)
         {
             ArrayList KArr = (ArrayList)formatter.Deserialize(clientStream);
