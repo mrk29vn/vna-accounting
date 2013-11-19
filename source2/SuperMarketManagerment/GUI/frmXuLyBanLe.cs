@@ -1121,9 +1121,8 @@ namespace GUI
                 try
                 {
                     string kt1 = string.Empty;
-                    if (hh.Length == dtgvsanpham.RowCount)
+                    if (hh.Length == dtgvsanpham.RowCount)  //hàng hóa cần thêm đã có trong danh sách
                     {
-
                         for (int j = 0; j < hh.Length; j++)
                         {
                             if (mahanghoa == dtgvsanpham[1, j].Value.ToString())
@@ -1147,7 +1146,7 @@ namespace GUI
 
                         }
                     }
-                    else
+                    else //hàng hóa cần thêm chưa có trong danh sách
                     {
                         for (int j = 0; j < hh.Length; j++)
                         {
@@ -1166,8 +1165,6 @@ namespace GUI
                                 string thanhtien = new Common.Utilities().FormatMoney((Convert.ToDouble(giasp) * Convert.ToDouble(soluongsp)));
                                 hh[hh.Length - 1] = new HangHoaHienThi(txtSochungtu.Text, mahanghoa, tssltenhang.Text, giasp, soluongsp, tsslchietkhau.Text, tsslgtgt.Text, thanhtien);
                             }
-
-
                         }
                     }
                     if (string.IsNullOrEmpty(kt1))

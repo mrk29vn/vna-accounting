@@ -714,9 +714,9 @@ namespace GUI
         /// </summary>
         /// <param name="source"></param>
         /// <returns></returns>
-        public static Entities.KhuyenMaiSoLuong[] SapXep(Entities.KhuyenMaiSoLuong[] source)
+        public static KhuyenMaiSoLuong[] SapXep(KhuyenMaiSoLuong[] source)
         {
-            Entities.KhuyenMaiSoLuong[] retVal = null;
+            KhuyenMaiSoLuong[] retVal;
             try
             {
                 if (source == null)
@@ -731,30 +731,32 @@ namespace GUI
         /// GetDonGia
         /// </summary>
         /// <param name="?"></param>
-        /// <param name="dt"></param>
+        /// <param name="maHangHoa"> </param>
+        /// <param name="sl"> </param>
+        /// <param name="ngayLapHd"> </param>
+        /// <param name="source"> </param>
         /// <returns></returns>
-        public static Entities.KhuyenMaiSoLuong GetDonGia(string maHangHoa, string sl, DateTime ngayLapHD, Entities.KhuyenMaiSoLuong[] source)
+        public static KhuyenMaiSoLuong GetDonGia(string maHangHoa, string sl, DateTime ngayLapHd, KhuyenMaiSoLuong[] source)
         {
-            Entities.KhuyenMaiSoLuong retVal = null;
+            KhuyenMaiSoLuong retVal = null;
             try
             {
                 if (source == null)
                     return null;
 
                 int length = source.Length;
-                Entities.KhuyenMaiSoLuong[] tempArr = null;
-                Entities.KhuyenMaiSoLuong temp = null;
+                KhuyenMaiSoLuong temp;
                 // truong hop 1 (chi co 1 item trong source)
                 if (length == 1)
                 {
                     var query = from item in source
                                 let a = item.MaHangHoa.Trim().ToUpper().Equals(maHangHoa.Trim().ToUpper())
                                 let b = item.SoLuong <= double.Parse(sl)
-                                let c = (item.NgayBatDau.Date >= ngayLapHD.Date) && (item.NgayKetThuc.Date <= ngayLapHD.Date)
+                                let c = (item.NgayBatDau.Date >= ngayLapHd.Date) && (item.NgayKetThuc.Date <= ngayLapHd.Date)
                                 where a && b && c
                                 select item;
-                    // 
-                    tempArr = query.ToArray();
+                     
+                    KhuyenMaiSoLuong[] tempArr = query.ToArray();
 
                     if (tempArr != null && tempArr.Length > 0)
                     {
@@ -769,7 +771,7 @@ namespace GUI
 
                     bool a = temp.SoLuong <= double.Parse(sl);
                     bool b = temp.MaHangHoa.Trim().ToUpper().Equals(maHangHoa.Trim().ToUpper());
-                    bool c = (temp.NgayBatDau.Date >= ngayLapHD.Date) && (temp.NgayKetThuc.Date <= ngayLapHD.Date);
+                    bool c = (temp.NgayBatDau.Date >= ngayLapHd.Date) && (temp.NgayKetThuc.Date <= ngayLapHd.Date);
 
                     if (a && b && c)
                         return temp;
@@ -790,7 +792,7 @@ namespace GUI
                 if (temp != null)
                 {
                     bool b = temp.MaHangHoa.Trim().ToUpper().Equals(maHangHoa.Trim().ToUpper());
-                    bool c = (temp.NgayBatDau.Date <= ngayLapHD.Date) && (temp.NgayKetThuc.Date >= ngayLapHD.Date);
+                    bool c = (temp.NgayBatDau.Date <= ngayLapHd.Date) && (temp.NgayKetThuc.Date >= ngayLapHd.Date);
 
                     if (b && c)
                         retVal = temp;
@@ -810,9 +812,9 @@ namespace GUI
         /// <param name="maHangHoa"></param>
         /// <param name="source"></param>
         /// <returns></returns>
-        public static Entities.KhuyenMaiSoLuong[] GetSource(string maHangHoa, Entities.KhuyenMaiSoLuong[] source)
+        public static KhuyenMaiSoLuong[] GetSource(string maHangHoa, KhuyenMaiSoLuong[] source)
         {
-            Entities.KhuyenMaiSoLuong[] retVal = null;
+            KhuyenMaiSoLuong[] retVal;
             try
             {
                 var query = from item in source
