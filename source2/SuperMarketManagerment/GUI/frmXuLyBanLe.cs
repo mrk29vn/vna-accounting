@@ -460,8 +460,6 @@ namespace GUI
                 if (dtgvr.Cells["MaTheGiaTri"].Value != null)
                     txtMaTheGT.Text = dtgvr.Cells["MaTheGiaTri"].Value.ToString();
 
-
-
                 double ptckTongHD = 0;
                 double gtckTongHD = 0;
                 double tongCK = 0;
@@ -518,7 +516,6 @@ namespace GUI
                 txtGTTheVip.Text = new Common.Utilities().FormatMoney(giaTriThe);
                 txtGTTheGT.Text = new Common.Utilities().FormatMoney(giaTriTheGT);
                 txtKhachPhaiTra.Text = new Common.Utilities().FormatMoney(khackPhaiTra);
-
 
                 grbDataGridview.Enabled = false;
             }
@@ -863,6 +860,26 @@ namespace GUI
         /// <param name="e"></param>
         private void frmXuLy_BanLe_Load(object sender, EventArgs e)
         {
+            //bổ sung cho phép chọn nhân viên bán hàng
+            if (frmDangNhap.User.Administrator)
+            {
+                cbbChonNhanVien.Visible = true;
+                //Lấy dữ liệu nhân viên
+                NhanVien inputNv = new NhanVien { HanhDong = "Select" };
+                NhanVien[] outputNv;
+                bool kqNv = Utils.GetDataFromServer("NhanVien", inputNv, out outputNv);
+                if (!kqNv)
+                {//không kết nối tới csdl và lấy được nhân viên nào? ==> thao tác như bình thường
+                    cbbChonNhanVien.Visible = false;
+                }
+                else
+                {
+                    cbbChonNhanVien.DataSource = outputNv;
+                    cbbChonNhanVien.DisplayMember = "MaNhanVien";
+                    cbbChonNhanVien.SelectedIndex = outputNv.Length == 0 ? -1 : 0;
+                }
+            }
+
             try
             {
                 XuLyStr();
@@ -2829,6 +2846,21 @@ namespace GUI
         {
             dsHangHoa = dsHangHoa ?? _hangHoaTheoKho;
             return dsHangHoa.FirstOrDefault(k => k.MaHangHoa.ToUpper().Equals(code.ToUpper()) && !k.Deleted);
+        }
+
+        private void cbbChonNhanVien_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                ComboBox comboBox = (ComboBox)sender;
+                var nhanVien = comboBox.SelectedItem as NhanVien;
+                if (nhanVien != null)
+                    lbnhanvien.Text = nhanVien.TenNhanVien;
+            }
+            catch
+            {
+
+            }
         }
     }
 }
