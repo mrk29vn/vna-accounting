@@ -861,7 +861,7 @@ namespace GUI
         private void frmXuLy_BanLe_Load(object sender, EventArgs e)
         {
             //bổ sung cho phép chọn nhân viên bán hàng
-            if (frmDangNhap.User.Administrator)
+            if (frmDangNhap.User.Administrator && _str.Equals("Them"))
             {
                 cbbChonNhanVien.Visible = true;
                 //Lấy dữ liệu nhân viên
