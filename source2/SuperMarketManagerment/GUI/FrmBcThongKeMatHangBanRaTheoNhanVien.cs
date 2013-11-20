@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Entities;
 using GUI.Model;
+using GUI.Properties;
 
 namespace GUI
 {
@@ -18,7 +19,8 @@ namespace GUI
         readonly List<HDBanHang> _hdBanHangs = new List<HDBanHang>();
         readonly List<ChiTietHDBanHang> _chiTietHdBanHangs = new List<ChiTietHDBanHang>();
 
-        private List<BcThongKeMatHangBanRaTheoNhanVien> _bcThongKeMatHangBanRaTheoNhanViens = new List<BcThongKeMatHangBanRaTheoNhanVien>();
+        private readonly List<BcThongKeMatHangBanRaTheoNhanVien> _bcThongKeMatHangBanRaTheoNhanViens = new List<BcThongKeMatHangBanRaTheoNhanVien>();
+        private List<BcThongKeMatHangBanRaTheoNhanVien> _bcThongKeMatHangBanRaTheoNhanViensGroup = new List<BcThongKeMatHangBanRaTheoNhanVien>();
         #endregion khai báo
 
         #region khởi tạo
@@ -50,30 +52,28 @@ namespace GUI
 
         private void TssViewClick(object sender, EventArgs e)
         {//Xem trước báo cáo
-            List<BcThongKeMatHangBanRaTheoNhanVien> thongKeMatHangBanRaTheoNhanViens = (List<BcThongKeMatHangBanRaTheoNhanVien>)uGrid.DataSource;
-            if (thongKeMatHangBanRaTheoNhanViens.Count == 0)
+            if (_bcThongKeMatHangBanRaTheoNhanViensGroup.Count == 0)
             {
-                MessageBox.Show("Dữ liệu đang trống", "Thông báo");
+                MessageBox.Show(Resources.MSG_DuLieuDangTrong, Resources.MSG_ThongBao);
                 return;
             }
-            new frmBaoCaorpt(thongKeMatHangBanRaTheoNhanViens, GetDicInput()).ShowDialog();
+            new frmBaoCaorpt(_bcThongKeMatHangBanRaTheoNhanViensGroup, GetDicInput()).ShowDialog();
         }
 
         private void TssPdfClick(object sender, EventArgs e)
         {//Xuất ra PDF
-            List<BcThongKeMatHangBanRaTheoNhanVien> thongKeMatHangBanRaTheoNhanViens = (List<BcThongKeMatHangBanRaTheoNhanVien>)uGrid.DataSource;
-            if (thongKeMatHangBanRaTheoNhanViens.Count == 0)
+            if (_bcThongKeMatHangBanRaTheoNhanViensGroup.Count == 0)
             {
-                MessageBox.Show("Dữ liệu đang trống", "Thông báo");
+                MessageBox.Show(Resources.MSG_DuLieuDangTrong, Resources.MSG_ThongBao);
                 return;
             }
             Enabled = false;
             try
             {
-                SaveFileDialog saveFileDialog1 = new SaveFileDialog { Filter = "PDF |*.pdf", FileName = string.Empty };
+                SaveFileDialog saveFileDialog1 = new SaveFileDialog { Filter = Resources.MSG_SaveFileDialog_Filter_PDF, FileName = string.Empty };
                 if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                 {
-                    frmBaoCaorpt frmBaoCaorpt = new frmBaoCaorpt(thongKeMatHangBanRaTheoNhanViens, GetDicInput(), saveFileDialog1.FileName, "PDF");
+                    frmBaoCaorpt frmBaoCaorpt = new frmBaoCaorpt(_bcThongKeMatHangBanRaTheoNhanViensGroup, GetDicInput(), saveFileDialog1.FileName, "PDF");
                 }
             }
             catch { }
@@ -82,19 +82,18 @@ namespace GUI
 
         private void TssWordClick(object sender, EventArgs e)
         {//Xuất ra word
-            List<BcThongKeMatHangBanRaTheoNhanVien> thongKeMatHangBanRaTheoNhanViens = (List<BcThongKeMatHangBanRaTheoNhanVien>)uGrid.DataSource;
-            if (thongKeMatHangBanRaTheoNhanViens.Count == 0)
+            if (_bcThongKeMatHangBanRaTheoNhanViensGroup.Count == 0)
             {
-                MessageBox.Show("Dữ liệu đang trống", "Thông báo");
+                MessageBox.Show(Resources.MSG_DuLieuDangTrong, Resources.MSG_ThongBao);
                 return;
             }
             Enabled = false;
             try
             {
-                SaveFileDialog saveFileDialog1 = new SaveFileDialog { Filter = "Word |*.doc", FileName = string.Empty };
+                SaveFileDialog saveFileDialog1 = new SaveFileDialog { Filter = Resources.MSG_SaveFileDialog_Filter_Word, FileName = string.Empty };
                 if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                 {
-                    frmBaoCaorpt frmBaoCaorpt = new frmBaoCaorpt(thongKeMatHangBanRaTheoNhanViens, GetDicInput(), saveFileDialog1.FileName, "Word");
+                    frmBaoCaorpt frmBaoCaorpt = new frmBaoCaorpt(_bcThongKeMatHangBanRaTheoNhanViensGroup, GetDicInput(), saveFileDialog1.FileName, "Word");
                 }
             }
             catch { }
@@ -103,19 +102,18 @@ namespace GUI
 
         private void TssExcelClick(object sender, EventArgs e)
         {//Xuất ra Excel
-            List<BcThongKeMatHangBanRaTheoNhanVien> thongKeMatHangBanRaTheoNhanViens = (List<BcThongKeMatHangBanRaTheoNhanVien>)uGrid.DataSource;
-            if (thongKeMatHangBanRaTheoNhanViens.Count == 0)
+            if (_bcThongKeMatHangBanRaTheoNhanViensGroup.Count == 0)
             {
-                MessageBox.Show("Dữ liệu đang trống", "Thông báo");
+                MessageBox.Show(Resources.MSG_DuLieuDangTrong, Resources.MSG_ThongBao);
                 return;
             }
             Enabled = false;
             try
             {
-                SaveFileDialog saveFileDialog1 = new SaveFileDialog { Filter = "Excel |*.xls", FileName = string.Empty };
+                SaveFileDialog saveFileDialog1 = new SaveFileDialog { Filter = Resources.MSG_SaveFileDialog_Filter_Excel, FileName = string.Empty };
                 if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                 {
-                    frmBaoCaorpt frmBaoCaorpt = new frmBaoCaorpt(thongKeMatHangBanRaTheoNhanViens, GetDicInput(), saveFileDialog1.FileName, "Excel");
+                    frmBaoCaorpt frmBaoCaorpt = new frmBaoCaorpt(_bcThongKeMatHangBanRaTheoNhanViensGroup, GetDicInput(), saveFileDialog1.FileName, "Excel");
                 }
             }
             catch { }
@@ -138,19 +136,12 @@ namespace GUI
             try
             {
                 ComboBox comboBox = (ComboBox)sender;
-                switch (comboBox.SelectedIndex)
-                {
-                    case 0:
-                        dteTuNgay.Enabled = false;
-                        dteDenNgay.Enabled = false;
-                        dteTuNgay.Value = new DateTime(_ngayHienTai.Year, _ngayHienTai.Month, 1);
-                        dteDenNgay.Value = new DateTime(_ngayHienTai.Year, _ngayHienTai.Month, DateTime.DaysInMonth(_ngayHienTai.Year, _ngayHienTai.Month));
-                        break;
-                    case 1:
-                        dteTuNgay.Enabled = true;
-                        dteDenNgay.Enabled = true;
-                        break;
-                }
+                if (comboBox.SelectedIndex == -1) return;
+                dteTuNgay.Enabled = comboBox.SelectedIndex == comboBox.Items.Count - 1;
+                dteDenNgay.Enabled = comboBox.SelectedIndex == comboBox.Items.Count - 1;
+                if (comboBox.SelectedIndex == comboBox.Items.Count - 1) return;
+                dteTuNgay.Value = new DateTime(_ngayHienTai.Year, comboBox.SelectedIndex + 1, 1);
+                dteDenNgay.Value = new DateTime(_ngayHienTai.Year, comboBox.SelectedIndex + 1, DateTime.DaysInMonth(_ngayHienTai.Year, comboBox.SelectedIndex + 1));
             }
             catch { }
         }
@@ -241,7 +232,7 @@ namespace GUI
 
                                     MaHangHoa = k.MaHangHoa,
                                     TenHangHoa = k.TenHangHoa,
-                                    SoLuong = - k.SoLuong,
+                                    SoLuong = -k.SoLuong,
                                     DonGia = k.DonGia
                                 }).ToList();
             //gộp 2 list
@@ -249,16 +240,34 @@ namespace GUI
             _bcThongKeMatHangBanRaTheoNhanViens.AddRange(bcThongKeMatHangBanRaTheoNhanViens);
             _bcThongKeMatHangBanRaTheoNhanViens.AddRange(bcThongKeMatHangBanRaTheoNhanViensStand);
 
-            var qr = from k in _bcThongKeMatHangBanRaTheoNhanViens
-                     group k by k.MaHangHoa into kk
-                     select new BcThongKeMatHangBanRaTheoNhanVien
-                                {
-                                    MaHangHoa = kk.Key,
-                                    TenHangHoa = kk.FirstOrDefault().TenHangHoa,
-                                    SoLuong = kk.Sum(kkk => kkk.SoLuong),
-                                    DonGia = kk.Sum(kkk => kkk.SoLuong * kkk.DonGia * 0.01 * (100 + kkk.Thue))
-                                };
-            uGrid.DataSource = qr.ToList();
+            _bcThongKeMatHangBanRaTheoNhanViensGroup = (from k in _bcThongKeMatHangBanRaTheoNhanViens
+                                                        group k by k.MaHangHoa into kk
+                                                        select new BcThongKeMatHangBanRaTheoNhanVien
+                                                                   {
+                                                                       MaHangHoa = kk.Key,
+                                                                       TenHangHoa = kk.FirstOrDefault().TenHangHoa,
+                                                                       SoLuong = kk.Sum(kkk => kkk.SoLuong),
+                                                                       DonGia = kk.Sum(kkk => kkk.SoLuong * kkk.DonGia * 0.01 * (100 + kkk.Thue))
+                                                                   }).ToList();
+            List<BcThongKeMatHangBanRaTheoNhanVien> hienthi = new List<BcThongKeMatHangBanRaTheoNhanVien>();
+            if (_bcThongKeMatHangBanRaTheoNhanViensGroup.Count > 0)
+            {
+                //hiển thị tiền
+                foreach (var item in _bcThongKeMatHangBanRaTheoNhanViensGroup)
+                {
+                    item.SoLuongView = item.SoLuong.ToString();
+                    item.DonGiaView = new Common.Utilities().FormatMoney(item.DonGia);
+                }
+                hienthi.AddRange(_bcThongKeMatHangBanRaTheoNhanViensGroup);
+                //thêm dòng tổng
+                hienthi.Add(new BcThongKeMatHangBanRaTheoNhanVien
+                {
+                    TenHangHoa = "Tổng cộng:",
+                    SoLuongView = _bcThongKeMatHangBanRaTheoNhanViensGroup.Sum(k => k.SoLuong).ToString(),
+                    DonGiaView = new Common.Utilities().FormatMoney(_bcThongKeMatHangBanRaTheoNhanViensGroup.Sum(k => k.DonGia))
+                });
+            }
+            uGrid.DataSource = hienthi;
         }
 
         private void LayDuLieuChiTietHoaDonBanHang()
@@ -304,8 +313,8 @@ namespace GUI
             foreach (DataGridViewColumn column in uGrid.Columns) column.Visible = false;
             uGrid.Columns["MaHangHoa"].Visible = true;
             uGrid.Columns["TenHangHoa"].Visible = true;
-            uGrid.Columns["SoLuong"].Visible = true;
-            uGrid.Columns["DonGia"].Visible = true;
+            uGrid.Columns["SoLuongView"].Visible = true;
+            uGrid.Columns["DonGiaView"].Visible = true;
 
             //uGrid.Columns["MaHDBanHang"].HeaderText = "Mã hóa đơn";
             //uGrid.Columns["NgayBan"].HeaderText = "Ngày bán";
@@ -313,8 +322,8 @@ namespace GUI
             //uGrid.Columns["MaNhanVien"].HeaderText = "Mã nhân viên";
             uGrid.Columns["MaHangHoa"].HeaderText = "Mã hàng hóa";
             uGrid.Columns["TenHangHoa"].HeaderText = "Tên hàng hóa";
-            uGrid.Columns["SoLuong"].HeaderText = "Số lượng";
-            uGrid.Columns["DonGia"].HeaderText = "Đơn giá";
+            uGrid.Columns["SoLuongView"].HeaderText = "Số lượng";
+            uGrid.Columns["DonGiaView"].HeaderText = "Đơn giá";
             //uGrid.Columns["Thue"].HeaderText = "Thuế";
             //uGrid.Columns["PhanTramChietKhau"].HeaderText = "Phần trăm chiết khấu";
             uGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -323,19 +332,33 @@ namespace GUI
 
         private void TxttimkiemTextChanged(object sender, EventArgs e)
         {
+            string filter = txttimkiem.Text.ToLower();
+            List<BcThongKeMatHangBanRaTheoNhanVien> qr = new List<BcThongKeMatHangBanRaTheoNhanVien>();
             //Tìm kiếm tương đối theo mã và tên
             if (rdoSearchMa.Checked)
             {//tìm kiếm theo mã
-                //
+                qr = _bcThongKeMatHangBanRaTheoNhanViensGroup.Where(k => k.MaHangHoa.ToLower().Contains(filter)).ToList();
             }
             else if (rdoSearchTen.Checked)
             {//tìm kiếm theo tên
-                //
+                qr = _bcThongKeMatHangBanRaTheoNhanViensGroup.Where(k => k.TenHangHoa.ToLower().Contains(filter)).ToList();
             }
-            else if (rdoSearchTen.Checked)
+            else if (rdoSearchTatCa.Checked)
             {//tìm kiếm tất cả
-                //
+                qr = _bcThongKeMatHangBanRaTheoNhanViensGroup.Where(k => k.MaHangHoa.ToLower().Contains(filter) || k.TenHangHoa.ToLower().Contains(filter)).ToList();
             }
+
+            if (qr.Count > 0)
+            {
+                //thêm dòng tổng
+                qr.Add(new BcThongKeMatHangBanRaTheoNhanVien
+                {
+                    TenHangHoa = "Tổng cộng:",
+                    SoLuongView = qr.Sum(k => k.SoLuong).ToString(),
+                    DonGiaView = new Common.Utilities().FormatMoney(qr.Sum(k => k.DonGia))
+                });
+            }
+            uGrid.DataSource = qr;
         }
     }
 }

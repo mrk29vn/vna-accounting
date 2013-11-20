@@ -16,6 +16,10 @@ namespace GUI.Model
         public double DonGia { get; set; }
         public double Thue { get; set; }
         public double PhanTramChietKhau { get; set; }
+
+        //View
+        public string SoLuongView { get; set; }
+        public string DonGiaView { get; set; }
     }
 
     [Serializable]
