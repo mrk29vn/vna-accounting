@@ -2175,6 +2175,7 @@ namespace GUI
                                 report.SetParameterValue("DiaChiNguoiNhan", diaChiNguoiNhan);
                                 report.SetParameterValue("TenNguoiNhan", tenNguoiNhan);
                                 report.SetParameterValue("GhiChu", ghiChu);
+                                report.SetParameterValue("TenNhanVien", Common.Utilities.User.TenNhanVien);
                                 if (HanhDong == "in")
                                 {
                                     Print(report);
@@ -2223,6 +2224,7 @@ namespace GUI
                                 report.SetParameterValue("DiaChiNguoiNhan", diaChiNguoiNhan);
                                 report.SetParameterValue("TenNguoiNhan", tenNguoiNhan);
                                 report.SetParameterValue("GhiChu", ghiChu);
+                                report.SetParameterValue("TenNhanVien", Common.Utilities.User.TenNhanVien);
                                 if (HanhDong == "in")
                                 {
                                     Print(report);
