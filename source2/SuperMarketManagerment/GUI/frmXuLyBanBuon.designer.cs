@@ -115,6 +115,7 @@ namespace GUI
             this.toolStrip_btnThem = new System.Windows.Forms.ToolStripButton();
             this.timerRun = new System.Windows.Forms.Timer(this.components);
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.cbbChonNhanVien = new System.Windows.Forms.ComboBox();
             this.statusStrip1.SuspendLayout();
             this.palNhap.SuspendLayout();
             this.palXem.SuspendLayout();
@@ -231,6 +232,7 @@ namespace GUI
             // 
             // palNhap
             // 
+            this.palNhap.Controls.Add(this.cbbChonNhanVien);
             this.palNhap.Controls.Add(this.cbkiemtra);
             this.palNhap.Controls.Add(this.lbloai);
             this.palNhap.Controls.Add(this.cbbKhoban);
@@ -1148,6 +1150,17 @@ namespace GUI
             this.timerRun.Interval = 1000;
             this.timerRun.Tick += new System.EventHandler(this.timerRun_Tick);
             // 
+            // cbbChonNhanVien
+            // 
+            this.cbbChonNhanVien.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbbChonNhanVien.FormattingEnabled = true;
+            this.cbbChonNhanVien.Location = new System.Drawing.Point(641, 59);
+            this.cbbChonNhanVien.Name = "cbbChonNhanVien";
+            this.cbbChonNhanVien.Size = new System.Drawing.Size(146, 22);
+            this.cbbChonNhanVien.TabIndex = 57444;
+            this.cbbChonNhanVien.Visible = false;
+            this.cbbChonNhanVien.SelectedIndexChanged += new System.EventHandler(this.cbbChonNhanVien_SelectedIndexChanged);
+            // 
             // frmXuLyBanBuon
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
@@ -1272,5 +1285,6 @@ namespace GUI
         private System.Windows.Forms.TextBox txtthegiamgia;
         private System.Windows.Forms.Label lbthegiamgia;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.ComboBox cbbChonNhanVien;
     }
 }

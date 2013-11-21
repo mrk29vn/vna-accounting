@@ -321,6 +321,26 @@ namespace GUI
         /// <param name="e"></param>
         private void frmXuLyBanBuon_Load(object sender, EventArgs e)
         {
+            //bổ sung cho phép chọn nhân viên bán hàng
+            if (frmDangNhap.User.Administrator && str.Equals("Them"))
+            {
+                cbbChonNhanVien.Visible = true;
+                //Lấy dữ liệu nhân viên
+                NhanVien inputNv = new NhanVien { HanhDong = "Select" };
+                NhanVien[] outputNv;
+                bool kqNv = Utils.GetDataFromServer("NhanVien", inputNv, out outputNv);
+                if (!kqNv)
+                {//không kết nối tới csdl và lấy được nhân viên nào? ==> thao tác như bình thường
+                    cbbChonNhanVien.Visible = false;
+                }
+                else
+                {
+                    cbbChonNhanVien.DataSource = outputNv;
+                    cbbChonNhanVien.DisplayMember = "MaNhanVien";
+                    cbbChonNhanVien.SelectedIndex = outputNv.Length == 0 ? -1 : 0;
+                }
+            }
+
             try
             {
                 XuLyStr();
@@ -1996,7 +2016,7 @@ namespace GUI
         {
             if (str == "Them")
             {
-                lbnhanvien.Text = Common.Utilities.User.NhanVienID;
+                //lbnhanvien.Text = Common.Utilities.User.NhanVienID;
                 this.Text = "Thêm Mới - F4 Thêm Hàng Hóa - F5 Thanh toán - F6 Sửa Hàng Hóa - F7 Nhập Chiết Khấu";
                 sochungtu = txtSochungtu.Text = ProID("HDBanHang");
                 dtgvsanpham.DataSource = new Entities.HangHoaHienThi[0];
@@ -3228,5 +3248,20 @@ namespace GUI
             }
         }
         #endregion
+
+        private void cbbChonNhanVien_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                ComboBox comboBox = (ComboBox)sender;
+                var nhanVien = comboBox.SelectedItem as NhanVien;
+                if (nhanVien != null)
+                    lbnhanvien.Text = nhanVien.TenNhanVien;
+            }
+            catch
+            {
+
+            }
+        }
     }
 }
