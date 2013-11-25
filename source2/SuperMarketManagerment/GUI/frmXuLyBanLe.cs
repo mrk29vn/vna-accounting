@@ -1614,9 +1614,7 @@ namespace GUI
                             else
                             {
                                 ttn = Convert.ToDouble(txtTongtien.Text) - Convert.ToDouble(txtGTTheVip.Text) - Convert.ToDouble(txtGTTheVip.Text);
-                                tgg1 = new Entities.TheGiamGia();
-                                tgg1.MaTheGiamGia = txtMaTheGT.Text;
-                                tgg1.GiaTriConLai = "0";
+                                tgg1 = new TheGiamGia { MaTheGiamGia = txtMaTheGT.Text, GiaTriConLai = "0" };
                             }
                         }
 
@@ -1624,16 +1622,18 @@ namespace GUI
                         string ckTongHoaDon = txtPhantramchietkhau.Text;
                         if (string.IsNullOrEmpty(txtPhantramchietkhau.Text))
                             ckTongHoaDon = "0";
-                        pt = new Entities.HDBanHang("Insert", 0, txtSochungtu.Text, Convert.ToDateTime(date),
+                        pt = new HDBanHang("Insert", 0, txtSochungtu.Text, Convert.ToDateTime(date),
                             txtMakhachhang.Text, "0", " ", cbxHinhthucthanhtoan.Text, makho, _datesv, " ",
-                            Common.Utilities.User.NhanVienID, "TT_0001", txtGiamgia.Text, ttn.ToString(), "0",
+                            (_currentNhanVien != null) ? _currentNhanVien.MaNhanVien : Common.Utilities.User.NhanVienID, "TT_0001", txtGiamgia.Text, ttn.ToString(), "0",
                             txtGTGT.Text, txtTongtien.Text, true, txtMaTheVip.Text, txtGTTheVip.Text, txtDiengiai.Text, false,
-                            Common.Utilities.User.TenDangNhap, txtkhachtra.Text, ckTongHoaDon, txtMaTheGT.Text, txtGTTheGT.Text);
+                            Common.Utilities.User.TenDangNhap, txtkhachtra.Text, ckTongHoaDon, txtMaTheGT.Text, txtGTTheGT.Text)
+                                 {
+                                     ChiTietHDBanHang = CheckDataGridInsert(dtgvsanpham),
+                                     ChiTietKhoHangTheoHoaHonNhap = CheckDataGridTruSL(dtgvsanpham),
+                                     TheVip = tv1,
+                                     TheGiamGia = tgg1
+                                 };
 
-                        pt.ChiTietHDBanHang = CheckDataGridInsert(dtgvsanpham);
-                        pt.ChiTietKhoHangTheoHoaHonNhap = CheckDataGridTruSL(dtgvsanpham);
-                        pt.TheVip = tv1;
-                        pt.TheGiamGia = tgg1;
                         Clientstrem = cl.SerializeObj(this.Client1, "HDBanHang", pt);
 
                         bool kt1 = false;
@@ -2848,14 +2848,15 @@ namespace GUI
             return dsHangHoa.FirstOrDefault(k => k.MaHangHoa.ToUpper().Equals(code.ToUpper()) && !k.Deleted);
         }
 
-        private void cbbChonNhanVien_SelectedIndexChanged(object sender, EventArgs e)
+        NhanVien _currentNhanVien;
+        private void CbbChonNhanVienSelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
                 ComboBox comboBox = (ComboBox)sender;
-                var nhanVien = comboBox.SelectedItem as NhanVien;
-                if (nhanVien != null)
-                    lbnhanvien.Text = nhanVien.TenNhanVien;
+                _currentNhanVien = comboBox.SelectedItem as NhanVien;
+                if (_currentNhanVien != null)
+                    lbnhanvien.Text = _currentNhanVien.TenNhanVien;
             }
             catch
             {

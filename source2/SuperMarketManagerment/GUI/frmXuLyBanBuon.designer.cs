@@ -1159,7 +1159,7 @@ namespace GUI
             this.cbbChonNhanVien.Size = new System.Drawing.Size(146, 22);
             this.cbbChonNhanVien.TabIndex = 57444;
             this.cbbChonNhanVien.Visible = false;
-            this.cbbChonNhanVien.SelectedIndexChanged += new System.EventHandler(this.cbbChonNhanVien_SelectedIndexChanged);
+            this.cbbChonNhanVien.SelectedIndexChanged += new System.EventHandler(this.CbbChonNhanVienSelectedIndexChanged);
             // 
             // frmXuLyBanBuon
             // 

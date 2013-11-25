@@ -400,7 +400,7 @@ namespace GUI
 
                         pt = new Entities.HDBanHang("Insert", 0, txtSochungtu.Text, Convert.ToDateTime(date), txtMakhachhang.Text,
                             txtNohienthoi.Text, txtnguoinhanhang.Text, cbbHinhthucthanhtoan.Text, makho, DateTime.Parse(date2),
-                            txtDondatbanhang.Text, Common.Utilities.User.NhanVienID, matt, txtTongchietkhau.Text, "0",
+                            txtDondatbanhang.Text, (_currentNhanVien != null) ? _currentNhanVien.MaNhanVien : Common.Utilities.User.NhanVienID, matt, txtTongchietkhau.Text, "0",
                             txtThanhtoanngay.Text, txtGTGT.Text, txtTongtien.Text, false, " ", "0", txtDiengiai.Text,
                             false, Common.Utilities.User.TenDangNhap, txtkhachtra.Text, txtPhantramchietkhau.Text, string.Empty, "0");
                         pt.ChiTietHDBanHang = CheckDataGridInsert(dtgvsanpham);
@@ -3249,14 +3249,15 @@ namespace GUI
         }
         #endregion
 
-        private void cbbChonNhanVien_SelectedIndexChanged(object sender, EventArgs e)
+        NhanVien _currentNhanVien;
+        private void CbbChonNhanVienSelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
                 ComboBox comboBox = (ComboBox)sender;
-                var nhanVien = comboBox.SelectedItem as NhanVien;
-                if (nhanVien != null)
-                    lbnhanvien.Text = nhanVien.TenNhanVien;
+                _currentNhanVien = comboBox.SelectedItem as NhanVien;
+                if (_currentNhanVien != null)
+                    lbnhanvien.Text = _currentNhanVien.TenNhanVien;
             }
             catch
             {

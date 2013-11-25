@@ -14,7 +14,7 @@ namespace BizLogic
         private SqlDataReader dr;
         private SqlConnection cn;
 
-        public GiaVon() 
+        public GiaVon()
         {
             con = null;
             cmd = null;
@@ -107,11 +107,15 @@ namespace BizLogic
                 arr = new ArrayList();
                 while (dr.Read())
                 {
-                    Entities.GiaVon row = new Entities.GiaVon();
-                    row.MaKho = dr["MaKho"].ToString();
-                    row.MaHangHoa = dr["MaHangHoa"].ToString();
-                    row.SoLuong = int.Parse(dr["SoLuong"].ToString());
-                    row.Gia = float.Parse(dr["Gia"].ToString());
+                    int sl;
+                    float g;
+                    Entities.GiaVon row = new Entities.GiaVon
+                                              {
+                                                  MaKho = dr["MaKho"].ToString(),
+                                                  MaHangHoa = dr["MaHangHoa"].ToString(),
+                                                  SoLuong = int.TryParse(dr["SoLuong"].ToString(), out sl) ? sl : 0,
+                                                  Gia = float.TryParse(dr["Gia"].ToString(), out g) ? g : 0
+                                              };
                     arr.Add(row);
                 }
                 int n = arr.Count;

@@ -35,6 +35,7 @@
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tssltrove = new System.Windows.Forms.ToolStripStatusLabel();
             this.palNhap = new System.Windows.Forms.Panel();
+            this.cbbChonNhanVien = new System.Windows.Forms.ComboBox();
             this.lblTenKH = new System.Windows.Forms.Label();
             this.cbkiemtra = new System.Windows.Forms.CheckBox();
             this.lbloai = new System.Windows.Forms.Label();
@@ -100,7 +101,6 @@
             this.tsslgtgt = new System.Windows.Forms.ToolStripTextBox();
             this.toolStrip_btnThem = new System.Windows.Forms.ToolStripButton();
             this.timerRun = new System.Windows.Forms.Timer(this.components);
-            this.cbbChonNhanVien = new System.Windows.Forms.ComboBox();
             this.statusStrip1.SuspendLayout();
             this.palNhap.SuspendLayout();
             this.palXem.SuspendLayout();
@@ -190,6 +190,17 @@
             this.palNhap.Size = new System.Drawing.Size(839, 154);
             this.palNhap.TabIndex = 30;
             // 
+            // cbbChonNhanVien
+            // 
+            this.cbbChonNhanVien.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbbChonNhanVien.FormattingEnabled = true;
+            this.cbbChonNhanVien.Location = new System.Drawing.Point(689, 38);
+            this.cbbChonNhanVien.Name = "cbbChonNhanVien";
+            this.cbbChonNhanVien.Size = new System.Drawing.Size(146, 23);
+            this.cbbChonNhanVien.TabIndex = 57441;
+            this.cbbChonNhanVien.Visible = false;
+            this.cbbChonNhanVien.SelectedIndexChanged += new System.EventHandler(this.CbbChonNhanVienSelectedIndexChanged);
+            // 
             // lblTenKH
             // 
             this.lblTenKH.Location = new System.Drawing.Point(278, 48);
@@ -225,7 +236,7 @@
             this.lbnhanvien.AutoSize = true;
             this.lbnhanvien.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbnhanvien.ForeColor = System.Drawing.Color.Blue;
-            this.lbnhanvien.Location = new System.Drawing.Point(754, 13);
+            this.lbnhanvien.Location = new System.Drawing.Point(753, 13);
             this.lbnhanvien.Name = "lbnhanvien";
             this.lbnhanvien.Size = new System.Drawing.Size(81, 15);
             this.lbnhanvien.TabIndex = 57438;
@@ -957,17 +968,6 @@
             // 
             this.timerRun.Interval = 1000;
             this.timerRun.Tick += new System.EventHandler(this.timerRun_Tick);
-            // 
-            // cbbChonNhanVien
-            // 
-            this.cbbChonNhanVien.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbbChonNhanVien.FormattingEnabled = true;
-            this.cbbChonNhanVien.Location = new System.Drawing.Point(689, 38);
-            this.cbbChonNhanVien.Name = "cbbChonNhanVien";
-            this.cbbChonNhanVien.Size = new System.Drawing.Size(146, 23);
-            this.cbbChonNhanVien.TabIndex = 57441;
-            this.cbbChonNhanVien.Visible = false;
-            this.cbbChonNhanVien.SelectedIndexChanged += new System.EventHandler(this.cbbChonNhanVien_SelectedIndexChanged);
             // 
             // frmXuLyBanLe
             // 
