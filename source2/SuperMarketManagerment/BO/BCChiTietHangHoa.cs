@@ -10,9 +10,9 @@ using Entities;
 using System.Collections;
 namespace BizLogic
 {
-   public class BCChiTietHangHoa
+    public class BCChiTietHangHoa
     {
-       /// <summary>
+        /// <summary>
         /// khai bao bien
         /// </summary>
         private Constants.BCChiTietHangHoa kh;
@@ -43,10 +43,10 @@ namespace BizLogic
         /// Select Bảng
         /// </summary>
         /// <returns></returns>
-        public Entities.rptBCChiTietHangHoa[] Select()
+        public rptBCChiTietHangHoa[] Select()
         {
 
-            Entities.rptBCChiTietHangHoa[] arrC = null;
+            rptBCChiTietHangHoa[] arrC = null;
             try
             {
                 kh = new Constants.BCChiTietHangHoa();
@@ -57,31 +57,34 @@ namespace BizLogic
                 cmd = new SqlCommand(sql, cn);
                 dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
                 arr = new ArrayList();
-            while (dr.Read())
-            {
-                Entities.rptBCChiTietHangHoa khachhang = new Entities.rptBCChiTietHangHoa();
-                khachhang.MaHangHoa = dr[kh.MaHangHoa].ToString();
-                khachhang.TenNhomHang = dr[kh.TenNhomHang].ToString();
-                khachhang.TenHangHoa = dr[kh.TenHangHoa].ToString();
-                khachhang.TenDonViTinh =dr[kh.TenDonViTinh].ToString();
-                khachhang.GiaNhap =(double.Parse)(dr[kh.GiaNhap].ToString());
-                khachhang.GiaBanBuon = (double.Parse)(dr[kh.GiaBanBuon].ToString());
-                khachhang.GiaBanLe = (double.Parse)(dr[kh.GiaBanLe].ToString());
-                khachhang.MucDatHang = Convert.ToInt32(dr[kh.MucDatHang].ToString());
-                khachhang.MucTonToiThieu = Convert.ToInt32(dr[kh.MucTonToiThieu].ToString());  
-                arr.Add(khachhang);
-            }
-            int n = arr.Count;
-            if (n == 0) { return null; }
-            arrC = new Entities.rptBCChiTietHangHoa[n];
-            for (int i = 0; i < n; i++)
-            {
-                arrC[i] = (Entities.rptBCChiTietHangHoa)arr[i];
-            }
+                while (dr.Read())
+                {
+                    rptBCChiTietHangHoa rptBcChiTietHangHoa = new rptBCChiTietHangHoa
+                                                                 {
+                                                                     MaHangHoa = dr[kh.MaHangHoa].ToString(),
+                                                                     TenNhomHang = dr[kh.TenNhomHang].ToString(),
+                                                                     TenHangHoa = dr[kh.TenHangHoa].ToString(),
+                                                                     TenDonViTinh = dr[kh.TenDonViTinh].ToString(),
+                                                                     GiaNhap = double.Parse(dr[kh.GiaNhap].ToString()),
+                                                                     GiaBanBuon = double.Parse(dr[kh.GiaBanBuon].ToString()),
+                                                                     GiaBanLe = double.Parse(dr[kh.GiaBanLe].ToString()),
+                                                                     MucDatHang = Convert.ToInt32(dr[kh.MucDatHang].ToString()),
+                                                                     MucTonToiThieu = Convert.ToInt32(dr[kh.MucTonToiThieu].ToString())
+                                                                 };
+                    arr.Add(rptBcChiTietHangHoa);
+                }
+                int n = arr.Count;
+                if (n == 0) { return null; }
+                arrC = new rptBCChiTietHangHoa[n];
+                for (int i = 0; i < n; i++)
+                {
+                    arrC[i] = (rptBCChiTietHangHoa)arr[i];
+                }
             }
 
-            catch (Exception ex)
-            { string s = ex.Message.ToString(); }
+            catch (Exception)
+            {
+            }
             finally
             {
                 cmd.Connection.Dispose();
