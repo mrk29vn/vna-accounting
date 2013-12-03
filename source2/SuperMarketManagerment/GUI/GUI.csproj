@@ -102,6 +102,12 @@
     <Compile Include="frmBaoCaoNhap.Designer.cs">
       <DependentUpon>frmBaoCaoNhap.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmBCChiTietHangHoa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBCChiTietHangHoa.Designer.cs">
+      <DependentUpon>frmBCChiTietHangHoa.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmBCDoanhThuHangHoa.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1508,6 +1514,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmBaoCaoNhap.resx">
       <DependentUpon>frmBaoCaoNhap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmBCChiTietHangHoa.resx">
+      <DependentUpon>frmBCChiTietHangHoa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmBCDoanhThuHangHoa.resx">
       <DependentUpon>frmBCDoanhThuHangHoa.cs</DependentUpon>

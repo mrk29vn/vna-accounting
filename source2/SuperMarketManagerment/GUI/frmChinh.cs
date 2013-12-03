@@ -2349,11 +2349,8 @@ namespace GUI
             }
             try
             {
-                if (!Check("frmBaoCaorpt"))
-                {
-                    return;
-                }
-                frmBaoCaorpt frm = new frmBaoCaorpt("ChiTietHangHoa");
+                if (!Check("frmBaoCaorpt")) return;
+                FrmBcChiTietHangHoa frm = new FrmBcChiTietHangHoa {StartPosition = FormStartPosition.CenterScreen};
                 frm.ShowDialog();
             }
             catch
