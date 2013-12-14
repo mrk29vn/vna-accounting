@@ -1,25 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-
-using Common;
-using Entities;
-using System.Xml;
-using System.Net.Sockets;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
-using Server_Client;
-using System.Data.SqlClient;
-using System.Net;
-using Microsoft.SqlServer;
-using Microsoft.Win32;
 using System.Data.Sql;
-using System.Collections;
+using System.Data.SqlClient;
+using System.Windows.Forms;
+using Entities;
+using Server_Client;
 
 namespace GUI
 {
@@ -34,19 +19,17 @@ namespace GUI
         /// <summary>
         /// luu vao xml
         /// </summary>
-        /// <param name="kiemtra"></param>
-        /// <param name="Links"></param>
         private void Save()
         {
             try
             {
                 Common.Utilities com = new Common.Utilities();
-                string Links = Application.StartupPath.ToString() + @"\Config.xml";
-                com.DeleteFile(Links);
-                if (com.CheckFile(Links) == false)
+                string links = Application.StartupPath + @"\Config.xml";
+                com.DeleteFile(links);
+                if (com.CheckFile(links) == false)
                 {
-                    Boolean trave = com.Save(txtServerName.Text.ToString(), txtTenDangNhap.Text, txtMatKhau.Text, txtDatabaseName.Text.ToString());
-                    if (trave == true)
+                    Boolean trave = com.Save(txtServerName.Text, txtTenDangNhap.Text, txtMatKhau.Text, txtDatabaseName.Text);
+                    if (trave)
                     {
                         loginOK();
                     }
@@ -60,7 +43,7 @@ namespace GUI
             }
             catch
             {
-            
+
             }
         }
 
@@ -68,13 +51,13 @@ namespace GUI
         {
             if (!(new TienIch().checkFULL()))
             {
-                this.Hide();
+                Hide();
                 frmDangKy fr = new frmDangKy();
                 fr.Show();
             }
             else
             {
-                this.Hide();
+                Hide();
                 frmDangNhap fr = new frmDangNhap();
                 fr.Show();
             }
@@ -84,28 +67,21 @@ namespace GUI
         {
             try
             {
-                string sqlName = string.Empty;
-                this.txtServerName.Items.Clear();
-                SqlServerList SqlSL = new SqlServerList();
+                txtServerName.Items.Clear();
                 SqlDataSourceEnumerator instance = SqlDataSourceEnumerator.Instance;
                 DataTable table = instance.GetDataSources();
 
                 foreach (DataRow row in table.Rows)
                 {
-                    SqlSL = new SqlServerList();
-                    SqlSL.ServerName = row[0].ToString();
-                    SqlSL.InstanceName = row[1].ToString();
-                    if (string.IsNullOrEmpty(SqlSL.InstanceName))
-                        sqlName = SqlSL.ServerName;
+                    SqlServerList sqlSl = new SqlServerList { ServerName = row[0].ToString(), InstanceName = row[1].ToString() };
+                    string sqlName;
+                    if (string.IsNullOrEmpty(sqlSl.InstanceName))
+                        sqlName = sqlSl.ServerName;
                     else
-                        sqlName = SqlSL.ServerName + "\\" + SqlSL.InstanceName;
-                    this.txtServerName.Items.Add(sqlName);
-
+                        sqlName = sqlSl.ServerName + "\\" + sqlSl.InstanceName;
+                    txtServerName.Items.Add(sqlName);
                 }
-
-
             }
-
             catch
             {
 
@@ -127,7 +103,7 @@ namespace GUI
                 {
                     txtDatabaseName.Items.Clear();
                     //conect.ConnectionString = Common.Constants.GiaTriCacForm.ConnectionString;
-                    conect.ConnectionString = ConnectionString;
+                    conect.ConnectionString = _connectionString;
                     conect.Open();
                     SqlCommand cmd = new SqlCommand("SELECT name FROM sys.databases", conect);
                     cmd.CommandType = CommandType.Text;
@@ -155,7 +131,7 @@ namespace GUI
                 if (i == 0)
                 {
                     i = 1;
-                    
+
                     if (Luu.Server == "server")
                     {
                         Common.Constants.Sql data = new Common.Constants.Sql();
@@ -165,9 +141,9 @@ namespace GUI
                         {
                             Entities.SQL sql = new SQL();
                             sql = com.ConnectionsName();
-                            ConnectionString = "Data Source=" + sql.ServerName
+                            _connectionString = "Data Source=" + sql.ServerName
                                 + ";User ID=" + sql.UserName
-                                + ";password=" +sql.Password 
+                                + ";password=" + sql.Password
                                 + ";Initial Catalog=" + sql.DatabaseName;
 
                             if (CheckDatabase("SupermarketManagementDHT") == true)
@@ -193,7 +169,7 @@ namespace GUI
                             loginOK();
                         }
                         else
-                        {MessageBox.Show("Kiểm tra lại file xml"); }
+                        { MessageBox.Show("Kiểm tra lại file xml"); }
 
 
                     }
@@ -203,98 +179,102 @@ namespace GUI
             { }
         }
 
-        private Boolean CheckServerName(string ServerName)
+        static public bool TestConnString(string connectionString)
+        {
+            bool returnVal;
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    returnVal = conn.State == ConnectionState.Open;
+                }
+                catch (Exception)
+                {
+                    returnVal = false;
+                }
+            }
+
+            return returnVal;
+        }
+
+        private Boolean CheckServerName(string serverName)
         {
             Boolean check = false;
-            SqlDataReader read = null;
-            SqlConnection conect = new SqlConnection();
-            Common.Constants.Sql q = new Common.Constants.Sql();
+            _connectionString = "Data Source=" + txtServerName.Text.ToUpper() + ";User ID=" + txtTenDangNhap.Text + ";password=" + txtMatKhau.Text + ";Initial Catalog=master";
             try
             {
-                ConnectionString = "Data Source=" + txtServerName.Text.ToUpper() + ";User ID=" + txtTenDangNhap.Text + ";password=" + txtMatKhau.Text + ";Initial Catalog=master";
-                //ConnectionString = @"Data Source=.;Initial Catalog=master;Integrated Security=True;";
-                conect.ConnectionString = ConnectionString;
+                SqlConnection conect = new SqlConnection { ConnectionString = _connectionString };
                 conect.Open();
-                String sel = null;
-                sel = "SELECT name from sys.servers";
-                SqlCommand cmd = new SqlCommand(sel, conect);
-                cmd.CommandType = CommandType.Text;
-                read = cmd.ExecuteReader();
+                const string sel = "SELECT name from sys.servers";
+                SqlCommand cmd = new SqlCommand(sel, conect) { CommandType = CommandType.Text };
+                SqlDataReader read = cmd.ExecuteReader();
                 while (read.Read())
                 {
-                    if (read["name"].ToString() == ServerName)
-                    {
-                        check = true;
-                        break;
-                    }
-                    else
-                    { continue; }
+                    if (!read["name"].ToString().Equals(serverName)) continue;
+                    check = true;
+                    break;
                 }
                 read.Close();
                 conect.Close();
             }
-            catch (Exception ex)
-            { string s = ex.Message.ToString(); check = false; }
+            catch (Exception)
+            {
+                check = false;
+            }
+            check = check || TestConnString(_connectionString);
             return check;
         }
 
-        private string ConnectionString;
-        private Boolean CheckDatabase(string DatabaseName)
+        private string _connectionString;
+        private Boolean CheckDatabase(string databaseName)
         {
             Boolean check = false;
-            SqlDataReader read = null;
             SqlConnection conect = new SqlConnection();
             try
             {
-                //System.Net.IPHostEntry ip = new IPHostEntry();
-                //string HostName = System.Net.Dns.GetHostName();
-                //this.ConnectionString = "Data Source=" + HostName.ToUpper() + ";Initial Catalog=master;Integrated Security=True;";
                 //ConnectionString = "Data Source=" + txtServerName.Text.ToUpper() + ";User ID=" + txtTenDangNhap.Text + ";password=" + txtMatKhau.Text + ";Initial Catalog=master";
-                conect.ConnectionString = ConnectionString;
+                conect.ConnectionString = _connectionString;
                 conect.Open();
-                String sel = null;
-                string selectDatabase = "SELECT name FROM sys.databases";
-                sel = selectDatabase;
-                SqlCommand cmd = new SqlCommand(sel, conect);
-                cmd.CommandType = CommandType.Text;
-                read = cmd.ExecuteReader();
+                const string sel = "SELECT name FROM sys.databases";
+                SqlCommand cmd = new SqlCommand(sel, conect) { CommandType = CommandType.Text };
+                SqlDataReader read = cmd.ExecuteReader();
                 while (read.Read())
                 {
-                    if (read["name"].ToString() == DatabaseName)
-                    {
-                        check = true;
-                        break;
-                    }
-                    else
-                    { continue; }
+                    if (!read["name"].ToString().Equals(databaseName)) continue;
+                    check = true;
+                    break;
                 }
                 read.Close();
                 conect.Close();
             }
-            catch (Exception ex)
-            { string s = ex.Message.ToString(); check = false; }
+            catch (Exception)
+            {
+                check = false;
+            }
             return check;
         }
 
         private int AttachDatabase(string links, string links2)
         {
-            int check = 0;
+            int check;
             SqlConnection conect = new SqlConnection();
             try
             {
-                ConnectionString = "Data Source=" + txtServerName.Text.ToUpper() + ";User ID=" + txtTenDangNhap.Text + ";password=" + txtMatKhau.Text + ";Initial Catalog=master";
-                conect.ConnectionString = ConnectionString;
+                _connectionString = "Data Source=" + txtServerName.Text.ToUpper() + ";User ID=" + txtTenDangNhap.Text + ";password=" + txtMatKhau.Text + ";Initial Catalog=master";
+                conect.ConnectionString = _connectionString;
                 conect.Open();
                 String sel = null;
                 string selectDatabase = "CREATE DATABASE SupermarketManagementDHT ON ( FILENAME = '" + links + "' ),( FILENAME = '" + links2 + "' ) FOR ATTACH;";
                 sel = selectDatabase;
-                SqlCommand cmd = new SqlCommand(sel, conect);
-                cmd.CommandType = CommandType.Text;
+                SqlCommand cmd = new SqlCommand(sel, conect) { CommandType = CommandType.Text };
                 check = cmd.ExecuteNonQuery();
                 conect.Close();
             }
-            catch (Exception ex)
-            { string s = ex.Message.ToString(); check = 0; }
+            catch (Exception)
+            {
+                check = 0;
+            }
             return check;
         }
 
@@ -303,7 +283,7 @@ namespace GUI
             Boolean kt = false;
             try
             {
-                ConnectionString = "Data Source=" + txtServerName.Text.ToUpper() + ";User ID=" + txtTenDangNhap.Text + ";password=" + txtMatKhau.Text + ";Initial Catalog=master";
+                _connectionString = "Data Source=" + txtServerName.Text.ToUpper() + ";User ID=" + txtTenDangNhap.Text + ";password=" + txtMatKhau.Text + ";Initial Catalog=master";
                 if (CheckServerName(txtServerName.Text.ToUpper()) == false)
                 {
                     MessageBox.Show("Kiểm tra lại tên server hoặc tên đăng nhập hoặc mật khẩu");
@@ -324,7 +304,7 @@ namespace GUI
             Boolean kt = false;
             try
             {
-                ConnectionString = "Data Source=" + txtServerName.Text.ToUpper() + ";User ID=" + txtTenDangNhap.Text + ";password=" + txtMatKhau.Text + ";Initial Catalog=master";
+                _connectionString = "Data Source=" + txtServerName.Text.ToUpper() + ";User ID=" + txtTenDangNhap.Text + ";password=" + txtMatKhau.Text + ";Initial Catalog=master";
 
                 if (CheckDatabase(txtDatabaseName.Text) == false)
                 {
@@ -333,7 +313,7 @@ namespace GUI
                     if (CheckFile(links, links2) == true)
                     {
                         if (AttachDatabase(links, links2) != 0)
-                        { 
+                        {
                             kt = true;
                             txtDatabaseName.Text = "SupermarketManagementDHT";
                         }
@@ -363,7 +343,7 @@ namespace GUI
                 {
                     if (CheckServerName(txtServerName.Text.ToUpper()) == false)
                     {
-                        txtServerName.Text = "";
+                        //txtServerName.Text = "";
                         MessageBox.Show("Tên server không đúng");
                         txtServerName.Focus();
                         kt = false;
@@ -373,10 +353,12 @@ namespace GUI
                         kt = true;
                     }
                 }
-                
+
             }
-            catch (Exception ex)
-            { string s = ex.Message; kt = false; }
+            catch (Exception)
+            {
+                kt = false;
+            }
             return kt;
         }
 
@@ -439,7 +421,7 @@ namespace GUI
                 else
                 { MessageBox.Show("Thất bại"); return; }
             }
-            
+
         }
 
         /// <summary>
@@ -454,7 +436,7 @@ namespace GUI
                 if (giatri == System.Windows.Forms.DialogResult.Yes)
                 {
                     Server server = new Server(Luu.Ports);
-                        Application.Exit();
+                    Application.Exit();
                 }
                 else
                 { }
@@ -465,7 +447,7 @@ namespace GUI
         {
             try
             {
-                ConnectionString = "Data Source=" + txtServerName.SelectedItem.ToString() + ";"
+                _connectionString = "Data Source=" + txtServerName.SelectedItem.ToString() + ";"
                                     + "Initial Catalog=master;Integrated Security = SSPI;";
                 SelectDatabase();
             }
@@ -480,7 +462,7 @@ namespace GUI
             {
                 try
                 {
-                    ConnectionString = "Data Source=" + txtServerName.Text + ";"
+                    _connectionString = "Data Source=" + txtServerName.Text + ";"
                                         + "Initial Catalog=master;Integrated Security = SSPI;";
                     SelectDatabase();
                 }
@@ -492,19 +474,19 @@ namespace GUI
 
         private void txtTenDangNhap_TextChanged(object sender, EventArgs e)
         {
-            ConnectionString = "Data Source=" + txtServerName.Text.ToUpper() + ";User ID=" + txtTenDangNhap.Text + ";password=" + txtMatKhau.Text + ";Initial Catalog=master";
+            _connectionString = "Data Source=" + txtServerName.Text.ToUpper() + ";User ID=" + txtTenDangNhap.Text + ";password=" + txtMatKhau.Text + ";Initial Catalog=master";
             //SelectDatabase();
         }
 
         private void txtMatKhau_TextChanged(object sender, EventArgs e)
         {
-            ConnectionString = "Data Source=" + txtServerName.Text.ToUpper() + ";User ID=" + txtTenDangNhap.Text + ";password=" + txtMatKhau.Text + ";Initial Catalog=master";
+            _connectionString = "Data Source=" + txtServerName.Text.ToUpper() + ";User ID=" + txtTenDangNhap.Text + ";password=" + txtMatKhau.Text + ";Initial Catalog=master";
             //SelectDatabase();
         }
 
         private void txtDatabaseName_Click(object sender, EventArgs e)
         {
-            ConnectionString = "Data Source=" + txtServerName.Text.ToUpper() + ";User ID=" + txtTenDangNhap.Text + ";password=" + txtMatKhau.Text + ";Initial Catalog=master";
+            _connectionString = "Data Source=" + txtServerName.Text.ToUpper() + ";User ID=" + txtTenDangNhap.Text + ";password=" + txtMatKhau.Text + ";Initial Catalog=master";
             SelectDatabase();
         }
 
@@ -557,14 +539,14 @@ namespace GUI
                                       + @" ( FILENAME = N'" + links2 + "' )"
                                       + " FOR ATTACH"
                                       + " END CATCH";
-                                      //+ " GO;";
+                //+ " GO;";
                 kq = new SqlCommand(sql, con).ExecuteNonQuery();
                 con.Dispose();
-                con.Close(); 
+                con.Close();
             }
             catch
             {
-                kq = 0; 
+                kq = 0;
                 con.Dispose();
                 con.Close();
             }
