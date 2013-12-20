@@ -34,7 +34,8 @@
             this.txtCKTM = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtPhanTram = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnOK = new System.Windows.Forms.Button();
+            this.btnClose = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtTongTien
@@ -88,22 +89,33 @@
             this.txtPhanTram.Size = new System.Drawing.Size(284, 20);
             this.txtPhanTram.TabIndex = 4;
             // 
-            // button1
+            // btnOK
             // 
-            this.button1.Location = new System.Drawing.Point(345, 110);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Đồng ý";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnOK.Location = new System.Drawing.Point(263, 110);
+            this.btnOK.Name = "btnOK";
+            this.btnOK.Size = new System.Drawing.Size(75, 23);
+            this.btnOK.TabIndex = 6;
+            this.btnOK.Text = "Đồng ý";
+            this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.BtnOkClick);
+            // 
+            // btnClose
+            // 
+            this.btnClose.Location = new System.Drawing.Point(348, 110);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(75, 23);
+            this.btnClose.TabIndex = 7;
+            this.btnClose.Text = "Hủy bỏ";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.BtnCloseClick);
             // 
             // FrmXuLyBanLeCalculator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(435, 145);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnClose);
+            this.Controls.Add(this.btnOK);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtPhanTram);
             this.Controls.Add(this.label2);
@@ -111,7 +123,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtTongTien);
             this.Name = "FrmXuLyBanLeCalculator";
-            this.Text = "frmXuLyBanLeCalculator";
+            this.Text = "Tính toán";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -125,6 +137,7 @@
         private System.Windows.Forms.TextBox txtCKTM;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtPhanTram;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.Button btnClose;
     }
 }

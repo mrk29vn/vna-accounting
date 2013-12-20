@@ -13,11 +13,13 @@ namespace GUI
     {
         public static double Phantram;
         private readonly double _tongtien;
+        public static bool IsClose;
 
         public FrmXuLyBanLeCalculator(double tongtien)
         {
             InitializeComponent();
             Phantram = 0;
+            IsClose = true;
             _tongtien = tongtien;
             txtTongTien.Text = new Common.Utilities().FormatMoney(_tongtien);
         }
@@ -32,8 +34,15 @@ namespace GUI
             txtPhanTram.Text = Phantram.ToString();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void BtnOkClick(object sender, EventArgs e)
         {
+            IsClose = false;
+            Close();
+        }
+
+        private void BtnCloseClick(object sender, EventArgs e)
+        {
+            IsClose = true;
             Close();
         }
     }

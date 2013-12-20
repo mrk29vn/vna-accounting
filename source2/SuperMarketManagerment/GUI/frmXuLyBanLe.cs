@@ -2865,27 +2865,14 @@ namespace GUI
         private void LblPhanTramClick(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(_str) || !_str.Equals("Them")) return;
-
-            //txtTongtien.Text = string.Empty;
-            //txtChietkhau.Text = string.Empty;
-            //double tongTien = 0;
-
             try
             {
                 double tienHang = string.IsNullOrEmpty(txtTienhang.Text) ? 0 : double.Parse(txtTienhang.Text);
                 double giamGia = string.IsNullOrEmpty(txtGiamgia.Text) ? 0 : double.Parse(txtGiamgia.Text);
                 double thueGtgt = string.IsNullOrEmpty(txtGTGT.Text) ? 0 : double.Parse(txtGTGT.Text);
-                //double ptckTongHd = string.IsNullOrEmpty(txtPhantramchietkhau.Text) ? 0 : double.Parse(txtPhantramchietkhau.Text);
-
-                //double tongtienHangGtgt = tienHang - giamGia + thueGtgt;
                 new FrmXuLyBanLeCalculator(tienHang - giamGia + thueGtgt).ShowDialog();
+                if (FrmXuLyBanLeCalculator.IsClose) return;
                 txtPhantramchietkhau.Text = FrmXuLyBanLeCalculator.Phantram.ToString();
-                //double gtckTongHd = (tongtienHangGtgt * ptckTongHd) / 100;
-                //tongTien = tongtienHangGtgt - gtckTongHd;
-                //txtChietkhau.Text = new Common.Utilities().FormatMoney(gtckTongHd);
-                //txtTongtien.Text = new Common.Utilities().FormatMoney(tongTien);
-                //txtKhachPhaiTra.Text = new Common.Utilities().FormatMoney(tongTien);
-                //tongtien = tongTien.ToString();
             }
             catch { }
         }
