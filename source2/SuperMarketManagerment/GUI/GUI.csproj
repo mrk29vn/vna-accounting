@@ -672,6 +672,12 @@
     <Compile Include="frmTinhDiemThuong.Designer.cs">
       <DependentUpon>frmTinhDiemThuong.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmXuLyBanLeCalculator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmXuLyBanLeCalculator.Designer.cs">
+      <DependentUpon>frmXuLyBanLeCalculator.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmXuLyGoiHang.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1800,6 +1806,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmTinhDiemThuong.resx">
       <DependentUpon>frmTinhDiemThuong.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmXuLyBanLeCalculator.resx">
+      <DependentUpon>frmXuLyBanLeCalculator.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmXuLyGoiHang.resx">
       <DependentUpon>frmXuLyGoiHang.cs</DependentUpon>

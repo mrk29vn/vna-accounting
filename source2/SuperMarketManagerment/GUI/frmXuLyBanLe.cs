@@ -1777,42 +1777,40 @@ namespace GUI
         /// <param name="e"></param>
         private void txtPhantramchietkhau_TextChanged(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(_str) && _str.Equals("Them"))
+            if (string.IsNullOrEmpty(_str) || !_str.Equals("Them")) return;
+            txtTongtien.Text = string.Empty;
+            txtChietkhau.Text = string.Empty;
+            double tienHang = 0;
+            double giamGia = 0;
+            double thueGTGT = 0;
+            double ptckTongHD = 0;
+            double gtckTongHD = 0;
+            double tongtienHangGTGT = 0;
+            double tongtien = 0;
+
+            try
             {
-                txtTongtien.Text = string.Empty;
-                txtChietkhau.Text = string.Empty;
-                double tienHang = 0;
-                double giamGia = 0;
-                double thueGTGT = 0;
-                double ptckTongHD = 0;
-                double gtckTongHD = 0;
-                double tongtienHangGTGT = 0;
-                double tongtien = 0;
+                if (!string.IsNullOrEmpty(txtTienhang.Text))
+                    tienHang = double.Parse(txtTienhang.Text);
 
-                try
-                {
-                    if (!string.IsNullOrEmpty(txtTienhang.Text))
-                        tienHang = double.Parse(txtTienhang.Text);
+                if (!string.IsNullOrEmpty(txtGiamgia.Text))
+                    giamGia = double.Parse(txtGiamgia.Text);
 
-                    if (!string.IsNullOrEmpty(txtGiamgia.Text))
-                        giamGia = double.Parse(txtGiamgia.Text);
+                if (!string.IsNullOrEmpty(txtGTGT.Text))
+                    thueGTGT = double.Parse(txtGTGT.Text);
 
-                    if (!string.IsNullOrEmpty(txtGTGT.Text))
-                        thueGTGT = double.Parse(txtGTGT.Text);
+                if (!string.IsNullOrEmpty(txtPhantramchietkhau.Text))
+                    ptckTongHD = double.Parse(txtPhantramchietkhau.Text);
 
-                    if (!string.IsNullOrEmpty(txtPhantramchietkhau.Text))
-                        ptckTongHD = double.Parse(txtPhantramchietkhau.Text);
-
-                    tongtienHangGTGT = tienHang - giamGia + thueGTGT;
-                    gtckTongHD = (tongtienHangGTGT * ptckTongHD) / 100;
-                    tongtien = tongtienHangGTGT - gtckTongHD;
-                    txtChietkhau.Text = new Common.Utilities().FormatMoney(gtckTongHD);
-                    txtTongtien.Text = new Common.Utilities().FormatMoney(tongtien);
-                    txtKhachPhaiTra.Text = new Common.Utilities().FormatMoney(tongtien);
-                    this.tongtien = tongtien.ToString();
-                }
-                catch { }
+                tongtienHangGTGT = tienHang - giamGia + thueGTGT;
+                gtckTongHD = (tongtienHangGTGT * ptckTongHD) / 100;
+                tongtien = tongtienHangGTGT - gtckTongHD;
+                txtChietkhau.Text = new Common.Utilities().FormatMoney(gtckTongHD);
+                txtTongtien.Text = new Common.Utilities().FormatMoney(tongtien);
+                txtKhachPhaiTra.Text = new Common.Utilities().FormatMoney(tongtien);
+                this.tongtien = tongtien.ToString();
             }
+            catch { }
         }
 
         /// <summary>
@@ -2862,6 +2860,34 @@ namespace GUI
             {
 
             }
+        }
+
+        private void LblPhanTramClick(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(_str) || !_str.Equals("Them")) return;
+
+            //txtTongtien.Text = string.Empty;
+            //txtChietkhau.Text = string.Empty;
+            //double tongTien = 0;
+
+            try
+            {
+                double tienHang = string.IsNullOrEmpty(txtTienhang.Text) ? 0 : double.Parse(txtTienhang.Text);
+                double giamGia = string.IsNullOrEmpty(txtGiamgia.Text) ? 0 : double.Parse(txtGiamgia.Text);
+                double thueGtgt = string.IsNullOrEmpty(txtGTGT.Text) ? 0 : double.Parse(txtGTGT.Text);
+                //double ptckTongHd = string.IsNullOrEmpty(txtPhantramchietkhau.Text) ? 0 : double.Parse(txtPhantramchietkhau.Text);
+
+                //double tongtienHangGtgt = tienHang - giamGia + thueGtgt;
+                new FrmXuLyBanLeCalculator(tienHang - giamGia + thueGtgt).ShowDialog();
+                txtPhantramchietkhau.Text = FrmXuLyBanLeCalculator.Phantram.ToString();
+                //double gtckTongHd = (tongtienHangGtgt * ptckTongHd) / 100;
+                //tongTien = tongtienHangGtgt - gtckTongHd;
+                //txtChietkhau.Text = new Common.Utilities().FormatMoney(gtckTongHd);
+                //txtTongtien.Text = new Common.Utilities().FormatMoney(tongTien);
+                //txtKhachPhaiTra.Text = new Common.Utilities().FormatMoney(tongTien);
+                //tongtien = tongTien.ToString();
+            }
+            catch { }
         }
     }
 }

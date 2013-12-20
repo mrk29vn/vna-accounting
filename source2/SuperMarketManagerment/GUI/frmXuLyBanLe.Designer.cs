@@ -63,7 +63,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.txtKhachPhaiTra = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblPhanTram = new System.Windows.Forms.Label();
             this.txtGTTheVip = new System.Windows.Forms.TextBox();
             this.txtMaTheVip = new System.Windows.Forms.TextBox();
             this.lbthegiamgia = new System.Windows.Forms.Label();
@@ -426,7 +426,7 @@
             this.palXem.Controls.Add(this.label6);
             this.palXem.Controls.Add(this.label5);
             this.palXem.Controls.Add(this.txtKhachPhaiTra);
-            this.palXem.Controls.Add(this.label1);
+            this.palXem.Controls.Add(this.lblPhanTram);
             this.palXem.Controls.Add(this.txtGTTheVip);
             this.palXem.Controls.Add(this.txtMaTheVip);
             this.palXem.Controls.Add(this.lbthegiamgia);
@@ -535,16 +535,17 @@
             this.txtKhachPhaiTra.Text = "0";
             this.txtKhachPhaiTra.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // label1
+            // lblPhanTram
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Blue;
-            this.label1.Location = new System.Drawing.Point(685, 395);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(26, 15);
-            this.label1.TabIndex = 31;
-            this.label1.Text = "(%)";
+            this.lblPhanTram.AutoSize = true;
+            this.lblPhanTram.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPhanTram.ForeColor = System.Drawing.Color.Blue;
+            this.lblPhanTram.Location = new System.Drawing.Point(685, 395);
+            this.lblPhanTram.Name = "lblPhanTram";
+            this.lblPhanTram.Size = new System.Drawing.Size(26, 15);
+            this.lblPhanTram.TabIndex = 31;
+            this.lblPhanTram.Text = "(%)";
+            this.lblPhanTram.Click += new System.EventHandler(this.LblPhanTramClick);
             // 
             // txtGTTheVip
             // 
@@ -1066,7 +1067,7 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lbnhanvien;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblPhanTram;
         private System.Windows.Forms.Label lbloi;
         private System.Windows.Forms.CheckBox cbkiemtra;
         private System.Windows.Forms.Label lbloai;
