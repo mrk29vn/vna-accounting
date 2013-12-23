@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="BCHDBanLe" targetNamespace="http://tempuri.org/BCHDBanLe.xsd" xmlns:mstns="http://tempuri.org/BCHDBanLe.xsd" xmlns="http://tempuri.org/BCHDBanLe.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="BCHDBanLe" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="BCHDBanLe" msprop:Generator_UserDSName="BCHDBanLe">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="BCHDBanLe" msprop:Generator_TableClassName="BCHDBanLeDataTable" msprop:Generator_TableVarName="tableBCHDBanLe" msprop:Generator_TablePropName="_BCHDBanLe" msprop:Generator_RowDeletingName="BCHDBanLeRowDeleting" msprop:Generator_UserTableName="BCHDBanLe" msprop:Generator_RowChangingName="BCHDBanLeRowChanging" msprop:Generator_RowEvHandlerName="BCHDBanLeRowChangeEventHandler" msprop:Generator_RowDeletedName="BCHDBanLeRowDeleted" msprop:Generator_RowEvArgName="BCHDBanLeRowChangeEvent" msprop:Generator_RowChangedName="BCHDBanLeRowChanged" msprop:Generator_RowClassName="BCHDBanLeRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="MaHDBanHang" msprop:Generator_ColumnVarNameInTable="columnMaHDBanHang" msprop:Generator_ColumnPropNameInRow="MaHDBanHang" msprop:Generator_ColumnPropNameInTable="MaHDBanHangColumn" msprop:Generator_UserColumnName="MaHDBanHang" type="xs:string" minOccurs="0" />
+              <xs:element name="TenHangHoa" msprop:Generator_ColumnVarNameInTable="columnTenHangHoa" msprop:Generator_ColumnPropNameInRow="TenHangHoa" msprop:Generator_ColumnPropNameInTable="TenHangHoaColumn" msprop:Generator_UserColumnName="TenHangHoa" type="xs:string" minOccurs="0" />
+              <xs:element name="SoLuong" msprop:Generator_ColumnVarNameInTable="columnSoLuong" msprop:Generator_ColumnPropNameInRow="SoLuong" msprop:Generator_ColumnPropNameInTable="SoLuongColumn" msprop:Generator_UserColumnName="SoLuong" type="xs:double" minOccurs="0" />
+              <xs:element name="GiaBanLe" msprop:Generator_ColumnVarNameInTable="columnGiaBanLe" msprop:Generator_ColumnPropNameInRow="GiaBanLe" msprop:Generator_ColumnPropNameInTable="GiaBanLeColumn" msprop:Generator_UserColumnName="GiaBanLe" type="xs:double" minOccurs="0" />
+              <xs:element name="ChietKhau" msprop:Generator_ColumnVarNameInTable="columnChietKhau" msprop:Generator_ColumnPropNameInRow="ChietKhau" msprop:Generator_ColumnPropNameInTable="ChietKhauColumn" msprop:Generator_UserColumnName="ChietKhau" type="xs:double" minOccurs="0" />
+              <xs:element name="TongTienThanhToan" msprop:Generator_ColumnVarNameInTable="columnTongTienThanhToan" msprop:Generator_ColumnPropNameInRow="TongTienThanhToan" msprop:Generator_ColumnPropNameInTable="TongTienThanhToanColumn" msprop:Generator_UserColumnName="TongTienThanhToan" type="xs:double" minOccurs="0" />
+              <xs:element name="HanhDong" msprop:Generator_ColumnVarNameInTable="columnHanhDong" msprop:Generator_ColumnPropNameInRow="HanhDong" msprop:Generator_ColumnPropNameInTable="HanhDongColumn" msprop:Generator_UserColumnName="HanhDong" type="xs:string" minOccurs="0" />
+              <xs:element name="Thue" msprop:Generator_ColumnVarNameInTable="columnThue" msprop:Generator_ColumnPropNameInRow="Thue" msprop:Generator_ColumnPropNameInTable="ThueColumn" msprop:Generator_UserColumnName="Thue" type="xs:double" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

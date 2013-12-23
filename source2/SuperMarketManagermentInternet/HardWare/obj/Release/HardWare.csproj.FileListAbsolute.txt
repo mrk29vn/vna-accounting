@@ -1,0 +1,4 @@
+C:\WORKING\DHT OLD\SuperMarketManagerment\HardWare\bin\Release\HardWare.dll
+C:\WORKING\DHT OLD\SuperMarketManagerment\HardWare\bin\Release\HardWare.pdb
+C:\WORKING\DHT OLD\SuperMarketManagerment\HardWare\obj\Release\HardWare.dll
+C:\WORKING\DHT OLD\SuperMarketManagerment\HardWare\obj\Release\HardWare.pdb

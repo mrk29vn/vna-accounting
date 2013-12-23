@@ -1,0 +1,13 @@
+[OPTIONS]
+Auto Index=Yes
+Compatibility=1.1 or later
+Compiled file=help.chm
+Contents file=Table of Contents.hhc
+Default topic=Tong Quan.html
+Display compile progress=No
+Index file=Tong Quan.html
+Language=0x42a Vietnamese (Vietnam)
+
+
+[INFOTYPES]
+
