@@ -1,0 +1,16 @@
+G:\WORKING\Project Learn Test\AutoUpdateTVANTool\ClassLibrary1\bin\Debug\Klib.dll
+G:\WORKING\Project Learn Test\AutoUpdateTVANTool\ClassLibrary1\bin\Debug\Klib.pdb
+G:\WORKING\Project Learn Test\AutoUpdateTVANTool\ClassLibrary1\bin\Debug\ICSharpCode.SharpZipLib.dll
+G:\WORKING\Project Learn Test\AutoUpdateTVANTool\ClassLibrary1\obj\Debug\ResolveAssemblyReference.cache
+G:\WORKING\Project Learn Test\AutoUpdateTVANTool\ClassLibrary1\obj\Debug\Klib.dll
+G:\WORKING\Project Learn Test\AutoUpdateTVANTool\ClassLibrary1\obj\Debug\Klib.pdb
+H:\WORKING\Project Learn Test\AutoUpdateTVANTool\ClassLibrary1\bin\Debug\Klib.dll
+H:\WORKING\Project Learn Test\AutoUpdateTVANTool\ClassLibrary1\bin\Debug\Klib.pdb
+H:\WORKING\Project Learn Test\AutoUpdateTVANTool\ClassLibrary1\bin\Debug\ICSharpCode.SharpZipLib.dll
+H:\WORKING\Project Learn Test\AutoUpdateTVANTool\ClassLibrary1\obj\Debug\Klib.dll
+H:\WORKING\Project Learn Test\AutoUpdateTVANTool\ClassLibrary1\obj\Debug\Klib.pdb
+C:\WORKING\TVAN 2014\Tools1\NewUpdate\Code\ClassLibrary1\bin\Debug\Klib.dll
+C:\WORKING\TVAN 2014\Tools1\NewUpdate\Code\ClassLibrary1\bin\Debug\Klib.pdb
+C:\WORKING\TVAN 2014\Tools1\NewUpdate\Code\ClassLibrary1\bin\Debug\ICSharpCode.SharpZipLib.dll
+C:\WORKING\TVAN 2014\Tools1\NewUpdate\Code\ClassLibrary1\obj\Debug\Klib.dll
+C:\WORKING\TVAN 2014\Tools1\NewUpdate\Code\ClassLibrary1\obj\Debug\Klib.pdb
