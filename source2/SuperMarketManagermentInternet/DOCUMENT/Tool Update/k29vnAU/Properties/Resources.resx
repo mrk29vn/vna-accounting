@@ -132,4 +132,40 @@
   <data name="K29VnAuTool_Dl_Đường_truyền_lỗi_hoặc_đường_link_file_cập_nhật_chưa_chính_xác_">
     <value xml:space="preserve">Đường truyền lỗi hoặc đường link file cập nhật chưa chính xác!</value>
   </data>
+  <data name="k29vnAuTool_Run_Đang_thực_hiện_cài_đặt">
+    <value xml:space="preserve">Đang thực hiện cài đặt</value>
+  </data>
+  <data name="k29vnAuTool_Run_Thông_báo">
+    <value xml:space="preserve">Thông báo</value>
+  </data>
+  <data name="k29vnAuTool_TimerStopZipTick_Hoàn_tất_quá_trình_cài_đặt_phiên_bản_mới">
+    <value xml:space="preserve">Hoàn tất quá trình cài đặt phiên bản mới</value>
+  </data>
+  <data name="k29vnAuTool_TimerStopZipTick_Đã_cập_nhật_thành_công_">
+    <value xml:space="preserve">Đã cập nhật thành công!</value>
+  </data>
+  <data name="k29vnAuTool_TimerStopZipTick_">
+    <value xml:space="preserve">Kết nối mạng bị lỗi
+Bạn vui lòng kiểm tra lại!</value>
+  </data>
+  <data name="k29vnAuTool_timerStop_Tick_">
+    <value xml:space="preserve">Bạn đã cài đặt thành công phiên bản mới.
+Phiên bản hiện tại: </value>
+  </data>
+  <data name="k29vnAuTool_Run_Không_tìm_thấy_file_">
+    <value xml:space="preserve">Không tìm thấy file </value>
+  </data>
+  <data name="k29vnAuTool_Run_">
+    <value xml:space="preserve">
+Bạn vui lòng kiểm tra lại!
+
+( - Có thể thư mục cài đặt chương trình không phải là : </value>
+  </data>
+  <data name="K29VnAuTool_Run_Cothefile">
+    <value xml:space="preserve">
+- Có thể file </value>
+  </data>
+  <data name="K29VnAuTool_Run_đã_bị_xóa_hoặc_bị_đổi_tên___">
+    <value xml:space="preserve">đã bị xóa hoặc bị đổi tên ).</value>
+  </data>
 </root>

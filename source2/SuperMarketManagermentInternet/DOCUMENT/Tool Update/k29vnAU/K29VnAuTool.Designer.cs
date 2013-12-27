@@ -1,6 +1,6 @@
 ﻿namespace k29vnAU
 {
-    partial class AutoUpdateTvanTool
+    partial class K29VnAuTool
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AutoUpdateTvanTool));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(K29VnAuTool));
             this.ProcessBar = new System.Windows.Forms.ProgressBar();
             this.lbProcessBar = new System.Windows.Forms.Label();
             this.lbMSG = new System.Windows.Forms.Label();
@@ -132,12 +132,12 @@
             // timerStop
             // 
             this.timerStop.Interval = 5000;
-            this.timerStop.Tick += new System.EventHandler(this.timerStop_Tick);
+            this.timerStop.Tick += new System.EventHandler(this.TimerStopTick);
             // 
             // timerStopZIP
             // 
             this.timerStopZIP.Interval = 1000;
-            this.timerStopZIP.Tick += new System.EventHandler(this.timerStopZIP_Tick);
+            this.timerStopZIP.Tick += new System.EventHandler(this.TimerStopZipTick);
             // 
             // AutoUpdateTvanTool
             // 

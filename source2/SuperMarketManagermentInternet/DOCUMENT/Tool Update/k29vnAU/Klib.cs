@@ -5,7 +5,7 @@ using k29vnAU.Properties;
 
 namespace k29vnAU
 {
-    public class K29VnAuTool
+    public class K29VnAuToolLib
     {
         public static byte[] Dl(string url, System.Windows.Forms.ProgressBar processBarTemp, System.Windows.Forms.Label lbMsgValue, System.Windows.Forms.Label lbProcessBar, out string returnMsg)
         {

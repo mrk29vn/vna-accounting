@@ -13,7 +13,7 @@ namespace k29vnAU
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new AutoUpdateTvanTool());
+            Application.Run(new TestFrm());
         }
     }
 }

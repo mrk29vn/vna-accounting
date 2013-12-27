@@ -113,5 +113,101 @@ namespace k29vnAU.Properties {
                 return ResourceManager.GetString("K29VnAuTool_Dl_Tải_thành_công_", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 
+        ///Bạn vui lòng kiểm tra lại!
+        ///
+        ///( - Có thể thư mục cài đặt chương trình không phải là : .
+        /// </summary>
+        internal static string k29vnAuTool_Run_ {
+            get {
+                return ResourceManager.GetString("k29vnAuTool_Run_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 
+        ///- Có thể file .
+        /// </summary>
+        internal static string K29VnAuTool_Run_Cothefile {
+            get {
+                return ResourceManager.GetString("K29VnAuTool_Run_Cothefile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to đã bị xóa hoặc bị đổi tên )..
+        /// </summary>
+        internal static string K29VnAuTool_Run_đã_bị_xóa_hoặc_bị_đổi_tên___ {
+            get {
+                return ResourceManager.GetString("K29VnAuTool_Run_đã_bị_xóa_hoặc_bị_đổi_tên___", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đang thực hiện cài đặt.
+        /// </summary>
+        internal static string k29vnAuTool_Run_Đang_thực_hiện_cài_đặt {
+            get {
+                return ResourceManager.GetString("k29vnAuTool_Run_Đang_thực_hiện_cài_đặt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Không tìm thấy file .
+        /// </summary>
+        internal static string k29vnAuTool_Run_Không_tìm_thấy_file_ {
+            get {
+                return ResourceManager.GetString("k29vnAuTool_Run_Không_tìm_thấy_file_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thông báo.
+        /// </summary>
+        internal static string k29vnAuTool_Run_Thông_báo {
+            get {
+                return ResourceManager.GetString("k29vnAuTool_Run_Thông_báo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bạn đã cài đặt thành công phiên bản mới.
+        ///Phiên bản hiện tại: .
+        /// </summary>
+        internal static string k29vnAuTool_timerStop_Tick_ {
+            get {
+                return ResourceManager.GetString("k29vnAuTool_timerStop_Tick_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kết nối mạng bị lỗi
+        ///Bạn vui lòng kiểm tra lại!.
+        /// </summary>
+        internal static string k29vnAuTool_TimerStopZipTick_ {
+            get {
+                return ResourceManager.GetString("k29vnAuTool_TimerStopZipTick_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đã cập nhật thành công!.
+        /// </summary>
+        internal static string k29vnAuTool_TimerStopZipTick_Đã_cập_nhật_thành_công_ {
+            get {
+                return ResourceManager.GetString("k29vnAuTool_TimerStopZipTick_Đã_cập_nhật_thành_công_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hoàn tất quá trình cài đặt phiên bản mới.
+        /// </summary>
+        internal static string k29vnAuTool_TimerStopZipTick_Hoàn_tất_quá_trình_cài_đặt_phiên_bản_mới {
+            get {
+                return ResourceManager.GetString("k29vnAuTool_TimerStopZipTick_Hoàn_tất_quá_trình_cài_đặt_phiên_bản_mới", resourceCulture);
+            }
+        }
     }
 }

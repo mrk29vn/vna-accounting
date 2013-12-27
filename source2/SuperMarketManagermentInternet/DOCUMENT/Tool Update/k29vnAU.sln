@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "k29vnAU", "AutoUpdateTVANTool\k29vnAU.csproj", "{20569114-0BAE-4E3F-B823-7066342F07C8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "k29vnAU", "k29vnAU\k29vnAU.csproj", "{20569114-0BAE-4E3F-B823-7066342F07C8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Klib", "ClassLibrary1\Klib.csproj", "{D44313B7-4D6B-4705-A115-C0037879BAD4}"
 EndProject
