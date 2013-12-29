@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Gakuseisean-Ivista-2-Misc-Web-Database.ico</ApplicationIcon>
+    <ApplicationIcon>img\iconFrm.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -79,7 +79,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Gakuseisean-Ivista-2-Misc-Web-Database.ico" />
+    <Content Include="img\iconFrm.ico" />
     <Content Include="img\Mimetypes-text-x-sql-icon %281%29.png" />
     <Content Include="img\Mimetypes-text-x-sql-icon %282%29.png" />
     <Content Include="img\Mimetypes-text-x-sql-icon %283%29.png" />
