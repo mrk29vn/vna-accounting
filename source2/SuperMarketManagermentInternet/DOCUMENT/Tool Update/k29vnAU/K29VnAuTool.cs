@@ -71,20 +71,20 @@ namespace k29vnAU
                         newFile.Close();
                         Application.DoEvents();
                         lbProcessBar.Refresh();
-                        if (MessageBox.Show(Resources.k29vnAuTool_Run_, Resources.k29vnAuTool_Run_Thông_báo, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        if (MessageBox.Show("Đã tải xong bản cập nhật!\r\nBạn có muốn cài đặt bản cập nhật mới không?", "Thông Báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                         {
                             string[] nameFileTemp = _urlDownload.Split('/');
                             if (nameFileTemp[nameFileTemp.Length - 1].IndexOf(".exe", StringComparison.Ordinal) >= 0)
                             {
                                 //tải EXE
-                                lbl1.Text = Resources.k29vnAuTool_Run_;
+                                lbl1.Text = "Đang thực hiện cài đặt phiên bản mới\r\nXin vui lòng chờ trong giây lát....";
                                 Text = string.Empty;
                                 p1.Location = new System.Drawing.Point(0, 0);
                                 p1.Dock = DockStyle.Fill;
                                 p1.Visible = true;
                                 System.Diagnostics.Process.Start(urlSave);
                                 TopMost = true;
-                                lbMSGValue.Text = Resources.k29vnAuTool_Run_Đang_thực_hiện_cài_đặt;
+                                lbMSGValue.Text = "Đang thực hiện cài đặt";
                                 Application.DoEvents();
                                 timerStop.Start();
                                 _strVerTemp = strVer;
@@ -94,13 +94,13 @@ namespace k29vnAU
                             else
                             {
                                 //Tải ZIP
-                                lbl1.Text = Resources.k29vnAuTool_Run_;
+                                lbl1.Text = "Đang thực hiện cài đặt phiên bản mới\r\nXin vui lòng chờ trong giây lát....";
                                 Text = string.Empty;
                                 p1.Location = new System.Drawing.Point(0, 0);
                                 p1.Dock = DockStyle.Fill;
                                 p1.Visible = true;
                                 TopMost = true;
-                                lbMSGValue.Text = Resources.k29vnAuTool_Run_Đang_thực_hiện_cài_đặt;
+                                lbMSGValue.Text = "Đang thực hiện cài đặt";
                                 Application.DoEvents();
                                 timerStopZIP.Start();
                                 _strVerTemp = strVer;
@@ -121,7 +121,7 @@ namespace k29vnAU
                         string[] msgErr = System.Text.RegularExpressions.Regex.Split(returnMsg, "\r\n\r\n");
                         if (msgErr[0].IndexOf("The remote server returned an error: (404) Not Found.", StringComparison.Ordinal) >= 0)
                         {
-                            MessageBox.Show(Resources.k29vnAuTool_Run_, Resources.k29vnAuTool_Run_Thông_báo, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Kết nối mạng bị lỗi\r\nBạn vui lòng kiểm tra lại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         //MessageBox.Show(returnMSG);
                         //MessageBox.Show(lbMSGValue.Text);
@@ -132,15 +132,15 @@ namespace k29vnAU
             {
                 if (ex.Message.IndexOf("Could not load file or assembly", StringComparison.Ordinal) >= 0)
                 {
-                    MessageBox.Show(Resources.k29vnAuTool_Run_Không_tìm_thấy_file_ + _urlFolderSave + _nameFrmTool + Resources.k29vnAuTool_Run_ + _urlFolderSave + Resources.K29VnAuTool_Run_Cothefile + _nameFrmTool + Resources.K29VnAuTool_Run_đã_bị_xóa_hoặc_bị_đổi_tên___, Resources.k29vnAuTool_Run_Thông_báo, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Không tìm thấy file " + _urlFolderSave + _nameFrmTool + "\r\nBạn vui lòng kiểm tra lại!\r\n\r\n( - Có thể thư mục cài đặt chương trình không phải là : " + _urlFolderSave + "\r\n- Có thể file " + _nameFrmTool + "đã bị xóa hoặc bị đổi tên ).", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else if (ex.Message.IndexOf("The remote server returned an error: (404) Not Found.", StringComparison.Ordinal) >= 0)
                 {
-                    MessageBox.Show(Resources.k29vnAuTool_Run_, Resources.k29vnAuTool_Run_Thông_báo, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Kết nối mạng bị lỗi\r\nBạn vui lòng kiểm tra lại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
-                    MessageBox.Show(ex.Message + Resources.k29vnAuTool_Run_ + ex.StackTrace);
+                    MessageBox.Show(ex.Message + "\r\n\r\n" + ex.StackTrace);
                 }
             }
             if (!exit)
@@ -155,11 +155,11 @@ namespace k29vnAU
             _dem++;
             if (_dem != 2) return;
             timerStop.Stop();
-            lbl1.Text = Resources.k29vnAuTool_TimerStopZipTick_Hoàn_tất_quá_trình_cài_đặt_phiên_bản_mới;
+            lbl1.Text = "Hoàn tất quá trình cài đặt phiên bản mới";
             pictureBox1.Visible = false;
             Hide();
-            lbMSGValue.Text = Resources.k29vnAuTool_TimerStopZipTick_Đã_cập_nhật_thành_công_;
-            MessageBox.Show(Resources.k29vnAuTool_timerStop_Tick_ + _strVerTemp, Resources.k29vnAuTool_Run_Thông_báo, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            lbMSGValue.Text = "Đã cập nhật thành công!";
+            MessageBox.Show("Bạn đã cài đặt thành công phiên bản mới.\r\nPhiên bản hiện tại: " + _strVerTemp, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             CallFrmExe();
             if (System.IO.File.Exists(_urlSaveTemp)) System.IO.File.Delete(_urlSaveTemp);
             Application.Exit();
@@ -176,11 +176,11 @@ namespace k29vnAU
             {
                 bool kq = KWinZip.UnZipFile(_urlSaveTemp, out returnMsg);
                 if (!kq) return;
-                lbl1.Text = Resources.k29vnAuTool_TimerStopZipTick_Hoàn_tất_quá_trình_cài_đặt_phiên_bản_mới;
+                lbl1.Text = "Hoàn tất quá trình cài đặt phiên bản mới";
                 pictureBox1.Visible = false;
                 Hide();
-                lbMSGValue.Text = Resources.k29vnAuTool_TimerStopZipTick_Đã_cập_nhật_thành_công_;
-                MessageBox.Show(Resources.k29vnAuTool_TimerStopZipTick_ + _strVerTemp, Resources.k29vnAuTool_Run_Thông_báo, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                lbMSGValue.Text = "Đã cập nhật thành công!";
+                MessageBox.Show("Bạn đã cài đặt thành công phiên bản mới.\r\nPhiên bản hiện tại: " + _strVerTemp, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 CallFrmExe();
                 if (System.IO.File.Exists(_urlSaveTemp)) System.IO.File.Delete(_urlSaveTemp);
                 Application.Exit();
@@ -192,7 +192,7 @@ namespace k29vnAU
                 string[] msgErr = System.Text.RegularExpressions.Regex.Split(returnMsg, "\r\n\r\n");
                 if (msgErr[0].IndexOf("The remote server returned an error: (404) Not Found.", StringComparison.Ordinal) >= 0)
                 {
-                    MessageBox.Show(Resources.k29vnAuTool_TimerStopZipTick_, Resources.k29vnAuTool_Run_Thông_báo, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Kết nối mạng bị lỗi\r\nBạn vui lòng kiểm tra lại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {

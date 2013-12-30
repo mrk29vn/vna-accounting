@@ -46,7 +46,7 @@
     
     mimetype: application/x-microsoft.net.object.binary.base64
     value   : The object must be serialized with 
-            : System.Serialization.Formatters.Binary.BinaryFormatter
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
     
     mimetype: application/x-microsoft.net.object.soap.base64
@@ -60,6 +60,7 @@
             : and then encoded with base64 encoding.
     -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
@@ -68,9 +69,10 @@
               <xsd:sequence>
                 <xsd:element name="value" type="xsd:string" minOccurs="0" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="name" use="required" type="xsd:string" />
               <xsd:attribute name="type" type="xsd:string" />
               <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
@@ -85,9 +87,10 @@
                 <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
                 <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
               <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
               <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
@@ -114,58 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="K29VnAuTool_Dl_Đang_kết_nối_đến_server___">
-    <value xml:space="preserve">Đang kết nối đến server...</value>
-  </data>
-  <data name="K29VnAuTool_Dl_Đang_tải_dữ_liệu_về___">
-    <value xml:space="preserve">Đang tải dữ liệu về...</value>
-  </data>
-  <data name="K29VnAuTool_Dl__0_">
-    <value xml:space="preserve">0/</value>
-  </data>
-  <data name="K29VnAuTool_Dl__">
-    <value xml:space="preserve">/</value>
-  </data>
-  <data name="K29VnAuTool_Dl_Tải_thành_công_">
-    <value xml:space="preserve">Tải thành công!</value>
-  </data>
-  <data name="K29VnAuTool_Dl_Đường_truyền_lỗi_hoặc_đường_link_file_cập_nhật_chưa_chính_xác_">
-    <value xml:space="preserve">Đường truyền lỗi hoặc đường link file cập nhật chưa chính xác!</value>
-  </data>
-  <data name="k29vnAuTool_Run_Đang_thực_hiện_cài_đặt">
-    <value xml:space="preserve">Đang thực hiện cài đặt</value>
-  </data>
-  <data name="k29vnAuTool_Run_Thông_báo">
-    <value xml:space="preserve">Thông báo</value>
-  </data>
-  <data name="k29vnAuTool_TimerStopZipTick_Hoàn_tất_quá_trình_cài_đặt_phiên_bản_mới">
-    <value xml:space="preserve">Hoàn tất quá trình cài đặt phiên bản mới</value>
-  </data>
-  <data name="k29vnAuTool_TimerStopZipTick_Đã_cập_nhật_thành_công_">
-    <value xml:space="preserve">Đã cập nhật thành công!</value>
-  </data>
-  <data name="k29vnAuTool_TimerStopZipTick_">
-    <value xml:space="preserve">Kết nối mạng bị lỗi
-Bạn vui lòng kiểm tra lại!</value>
-  </data>
-  <data name="k29vnAuTool_timerStop_Tick_">
-    <value xml:space="preserve">Bạn đã cài đặt thành công phiên bản mới.
-Phiên bản hiện tại: </value>
-  </data>
-  <data name="k29vnAuTool_Run_Không_tìm_thấy_file_">
-    <value xml:space="preserve">Không tìm thấy file </value>
-  </data>
-  <data name="k29vnAuTool_Run_">
-    <value xml:space="preserve">
-Bạn vui lòng kiểm tra lại!
-
-( - Có thể thư mục cài đặt chương trình không phải là : </value>
-  </data>
-  <data name="K29VnAuTool_Run_Cothefile">
-    <value xml:space="preserve">
-- Có thể file </value>
-  </data>
-  <data name="K29VnAuTool_Run_đã_bị_xóa_hoặc_bị_đổi_tên___">
-    <value xml:space="preserve">đã bị xóa hoặc bị đổi tên ).</value>
-  </data>
 </root>
