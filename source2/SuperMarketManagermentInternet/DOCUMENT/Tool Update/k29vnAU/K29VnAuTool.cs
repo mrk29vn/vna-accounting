@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using k29vnAU.Properties;
 
 namespace k29vnAU
@@ -7,22 +8,29 @@ namespace k29vnAU
     public partial class K29VnAuTool : Form
     {
         #region khai báo
-        string _urlDownload = string.Empty;
         private const string StrStatus = "k29vn Auto Update Tool";
-        readonly string _urlFolderSave = "C:\\";   //Đường dẫn thư mục mặc định (sẽ được set lại ngay khi khởi động)
 
+        readonly string _urlFolderSave = Application.StartupPath + "\\";   //Đường dẫn thư mục mặc định (sẽ được set lại ngay khi khởi động)
         string _strVerTemp = string.Empty;
         string _urlSaveTemp = string.Empty;
+        string _urlDownload = string.Empty;
 
-        private const string FileNameTvanFrmExe = "GUI.exe";
-        private const string LinkCheckVer = "http://vnpt-tax.vn/DownloadFile/vesion.html";
-        private const string LinkDownloadVer = "http://vnpt-tax.vn/DownloadFile/linkvesionstand.html";
+        //Load Config XML
+        readonly string _nameFrmTool;   //tên công cụ chính
+        readonly string _linkCheckVer;   //link check ver
+        readonly string _linkDownloadVer;    //link download ver
         #endregion
 
         public K29VnAuTool()
         {
             InitializeComponent();
-            _urlFolderSave = Application.StartupPath + "\\"; //Set lại đường dẫn thư mục cho phù hợp
+
+            //đọc các giá trị config
+            XDocument doc = XDocument.Load(Application.StartupPath + "\\Kconfig.xml");
+            _nameFrmTool = Kxml.GetValueOfXelement(doc, "nameFrmTool");
+            _linkCheckVer = Kxml.GetValueOfXelement(doc, "linkCheckVer");
+            _linkDownloadVer = Kxml.GetValueOfXelement(doc, "linkDownloadVer");
+
             Text = StrStatus;
             timer1.Start();
         }
@@ -47,12 +55,10 @@ namespace k29vnAU
             bool exit = false;
             try
             {
-                Version verCurrent = System.Reflection.AssemblyName.GetAssemblyName(_urlFolderSave + FileNameTvanFrmExe).Version;
-                string strVerCurrent = verCurrent.ToString();
-                string strVer = K29VnAuToolLib.GetVer(LinkCheckVer);
-                if (!strVer.Equals(strVerCurrent))
+                string strVer = K29VnAuToolLib.GetVer(_linkCheckVer);
+                if (!strVer.Equals(System.Reflection.AssemblyName.GetAssemblyName(_urlFolderSave + _nameFrmTool).Version.ToString()))
                 {
-                    _urlDownload = K29VnAuToolLib.GetVer(LinkDownloadVer);
+                    _urlDownload = K29VnAuToolLib.GetVer(_linkDownloadVer);
                     string urlSave = K29VnAuToolLib.GetUrlSave(_urlDownload, _urlFolderSave);
                     string returnMsg;
                     byte[] tempData = K29VnAuToolLib.Dl(_urlDownload, ProcessBar, lbMSGValue, lbProcessBar, out returnMsg);
@@ -106,7 +112,7 @@ namespace k29vnAU
                         {
                             //xóa temp
                             if (System.IO.File.Exists(urlSave)) System.IO.File.Delete(urlSave);
-                            CallTvanFrmExe();
+                            CallFrmExe();
                         }
                     }
                     else
@@ -126,7 +132,7 @@ namespace k29vnAU
             {
                 if (ex.Message.IndexOf("Could not load file or assembly", StringComparison.Ordinal) >= 0)
                 {
-                    MessageBox.Show(Resources.k29vnAuTool_Run_Không_tìm_thấy_file_ + _urlFolderSave + FileNameTvanFrmExe + Resources.k29vnAuTool_Run_ + _urlFolderSave + Resources.K29VnAuTool_Run_Cothefile + FileNameTvanFrmExe + Resources.K29VnAuTool_Run_đã_bị_xóa_hoặc_bị_đổi_tên___, Resources.k29vnAuTool_Run_Thông_báo, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(Resources.k29vnAuTool_Run_Không_tìm_thấy_file_ + _urlFolderSave + _nameFrmTool + Resources.k29vnAuTool_Run_ + _urlFolderSave + Resources.K29VnAuTool_Run_Cothefile + _nameFrmTool + Resources.K29VnAuTool_Run_đã_bị_xóa_hoặc_bị_đổi_tên___, Resources.k29vnAuTool_Run_Thông_báo, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else if (ex.Message.IndexOf("The remote server returned an error: (404) Not Found.", StringComparison.Ordinal) >= 0)
                 {
@@ -154,7 +160,7 @@ namespace k29vnAU
             Hide();
             lbMSGValue.Text = Resources.k29vnAuTool_TimerStopZipTick_Đã_cập_nhật_thành_công_;
             MessageBox.Show(Resources.k29vnAuTool_timerStop_Tick_ + _strVerTemp, Resources.k29vnAuTool_Run_Thông_báo, MessageBoxButtons.OK, MessageBoxIcon.Information);
-            CallTvanFrmExe();
+            CallFrmExe();
             if (System.IO.File.Exists(_urlSaveTemp)) System.IO.File.Delete(_urlSaveTemp);
             Application.Exit();
         }
@@ -175,11 +181,11 @@ namespace k29vnAU
                 Hide();
                 lbMSGValue.Text = Resources.k29vnAuTool_TimerStopZipTick_Đã_cập_nhật_thành_công_;
                 MessageBox.Show(Resources.k29vnAuTool_TimerStopZipTick_ + _strVerTemp, Resources.k29vnAuTool_Run_Thông_báo, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                CallTvanFrmExe();
+                CallFrmExe();
                 if (System.IO.File.Exists(_urlSaveTemp)) System.IO.File.Delete(_urlSaveTemp);
                 Application.Exit();
             }
-            catch (Exception) 
+            catch (Exception)
             {
                 //MessageBox.Show(ex.Message + "\r\n" + ex.StackTrace);
                 //Error cụ thể: returnMSG
@@ -195,9 +201,9 @@ namespace k29vnAU
             }
         }
 
-        private void CallTvanFrmExe()
+        private void CallFrmExe()
         {
-            System.Diagnostics.Process.Start(_urlFolderSave + FileNameTvanFrmExe); //Run
+            System.Diagnostics.Process.Start(_urlFolderSave + _nameFrmTool); //Run
         }
     }
 }

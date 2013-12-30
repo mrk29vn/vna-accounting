@@ -1,10 +1,71 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
-using k29vnAU.Properties;
+using System.Security.Cryptography;
+using System.Text;
+using System.Xml.Linq;
 
 namespace k29vnAU
 {
+    public class Ksecurity
+    {
+        public static string MaHoa(string key, string toEncrypt)
+        {
+            try
+            {
+                byte[] toEncryptArray = Encoding.UTF8.GetBytes(toEncrypt);
+                MD5CryptoServiceProvider hashmd5 = new MD5CryptoServiceProvider();
+                byte[] keyArray = hashmd5.ComputeHash(Encoding.UTF8.GetBytes(key));
+                TripleDESCryptoServiceProvider tdes = new TripleDESCryptoServiceProvider
+                {
+                    Key = keyArray,
+                    Mode = CipherMode.ECB,
+                    Padding = PaddingMode.PKCS7
+                };
+                ICryptoTransform cTransform = tdes.CreateEncryptor();
+                byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+                return Convert.ToBase64String(resultArray, 0, resultArray.Length);
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
+
+        public static string GiaiMa(string key, string toDecrypt)
+        {
+            try
+            {
+                byte[] toEncryptArray = Convert.FromBase64String(toDecrypt);
+                MD5CryptoServiceProvider hashmd5 = new MD5CryptoServiceProvider();
+                byte[] keyArray = hashmd5.ComputeHash(Encoding.UTF8.GetBytes(key));
+                TripleDESCryptoServiceProvider tdes = new TripleDESCryptoServiceProvider
+                {
+                    Key = keyArray,
+                    Mode = CipherMode.ECB,
+                    Padding = PaddingMode.PKCS7
+                };
+                ICryptoTransform cTransform = tdes.CreateDecryptor();
+                byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+                return Encoding.UTF8.GetString(resultArray);
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
+    }
+
+    public class Kxml
+    {
+        public static string GetValueOfXelement(XContainer doc, string keyOfNode)
+        {
+            XElement xElement = doc.Descendants(keyOfNode).SingleOrDefault();
+            return (xElement != null) ? xElement.Value : string.Empty;
+        }
+    }
+    
     public class K29VnAuToolLib
     {
         public static byte[] Dl(string url, System.Windows.Forms.ProgressBar processBarTemp, System.Windows.Forms.Label lbMsgValue, System.Windows.Forms.Label lbProcessBar, out string returnMsg)
@@ -14,7 +75,7 @@ namespace k29vnAU
             returnMsg = string.Empty;
             try
             {
-                lbMsgValue.Text = Resources.K29VnAuTool_Dl_Đang_kết_nối_đến_server___;
+                lbMsgValue.Text = "Đang kết nối đến server...";
                 System.Windows.Forms.Application.DoEvents();
                 System.Net.WebRequest req = System.Net.WebRequest.Create(url);
                 System.Net.WebResponse response = req.GetResponse();
@@ -22,8 +83,8 @@ namespace k29vnAU
                 byte[] buffer = new byte[1024];
                 int dataLength = (int)response.ContentLength;
                 processBarTemp.Maximum = dataLength;
-                lbProcessBar.Text = Resources.K29VnAuTool_Dl__0_ + dataLength;
-                lbMsgValue.Text = Resources.K29VnAuTool_Dl_Đang_tải_dữ_liệu_về___;
+                lbProcessBar.Text = "0/" + dataLength;
+                lbMsgValue.Text = "Đang tải dữ liệu về...";
                 System.Windows.Forms.Application.DoEvents();
                 MemoryStream memStream = new MemoryStream();
                 while (true)
@@ -34,7 +95,7 @@ namespace k29vnAU
                         if (bytesRead == 0)
                         {
                             processBarTemp.Value = processBarTemp.Maximum;
-                            lbProcessBar.Text = dataLength + Resources.K29VnAuTool_Dl__ + dataLength;
+                            lbProcessBar.Text = dataLength + "/" + dataLength;
                             System.Windows.Forms.Application.DoEvents();
                             break;
                         }
@@ -42,17 +103,17 @@ namespace k29vnAU
                         if (processBarTemp.Value + bytesRead > processBarTemp.Maximum) continue;
                         processBarTemp.Value += bytesRead;
                     }
-                    lbProcessBar.Text = processBarTemp.Value + Resources.K29VnAuTool_Dl__ + dataLength;
+                    lbProcessBar.Text = processBarTemp.Value + "/" + dataLength;
                     processBarTemp.Refresh();
                     System.Windows.Forms.Application.DoEvents();
                 }
                 kq = memStream.ToArray();
                 stream.Close(); memStream.Close();
-                lbMsgValue.Text = Resources.K29VnAuTool_Dl_Tải_thành_công_;
+                lbMsgValue.Text = "Tải thành công!";
             }
             catch (Exception ex)
             {
-                lbMsgValue.Text = Resources.K29VnAuTool_Dl_Đường_truyền_lỗi_hoặc_đường_link_file_cập_nhật_chưa_chính_xác_;
+                lbMsgValue.Text = "Đường truyền lỗi hoặc đường link file cập nhật chưa chính xác!";
                 returnMsg = ex.Message + "\r\n\r\n" + ex.StackTrace;
                 kq = null;
             }
