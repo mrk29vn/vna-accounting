@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Kconfig>
+  <runUpdate>true</runUpdate>	<!-- True: chạy chức năng update| False: không chạy -->
+  <nameUpdateTool>k29vnAU.exe</nameUpdateTool>
+  <nameFrmTool>VisualFrmTool.exe</nameFrmTool>
+  <linkCheckVer>http://duckeno.url.ph/infoVer.xml</linkCheckVer>
+  <linkDownloadVer>http://duckeno.url.ph/infoLink.xml</linkDownloadVer>
+</Kconfig>
