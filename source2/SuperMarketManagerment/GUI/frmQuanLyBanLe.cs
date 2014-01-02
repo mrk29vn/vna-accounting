@@ -94,7 +94,7 @@ namespace GUI
         /// <param name="e"></param>
         private void toolStripStatus_ThemMoi_Click(object sender, EventArgs e)
         {
-            if (!Common.Utilities.User.Administrator && !(new Common.Utilities().CheckQuyen(this.Name, 4)))
+            if (!Common.Utilities.User.Administrator && !(new Common.Utilities().CheckQuyen(Name, 4)))
             {
                 MessageBox.Show("Bạn không có quyền vào", "Hệ thống cảnh báo");
                 return;

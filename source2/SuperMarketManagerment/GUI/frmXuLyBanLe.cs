@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using System.Net;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Net.Sockets;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Sockets;
+using System.Windows.Forms;
 using Entities;
 
 namespace GUI
@@ -30,6 +23,7 @@ namespace GUI
             }
             catch { }
         }
+
         private double TyLeTinh()
         {//Lấy tỷ lệ tính từ csdl
             try
@@ -43,7 +37,8 @@ namespace GUI
             }
             catch { return 2988000; }
         }
-        private int sodiemthuong(double tien)
+
+        private int Sodiemthuong(double tien)
         {//Tính số điểm thưởng khách hàng
             try
             {
@@ -56,6 +51,7 @@ namespace GUI
             }
             catch { return 0; }
         }
+
         public string ProIddtkh(string tenBang)
         {
             try
@@ -78,6 +74,7 @@ namespace GUI
             }
             catch { return ""; }
         }
+
         private string LayTenKhachHang(string maKh)
         {
             try
@@ -93,6 +90,7 @@ namespace GUI
             }
             catch { return string.Empty; }
         }
+
         private bool CapNhatDiemThuongKhachHang(string maKh, string tien)
         {
             try
@@ -104,7 +102,7 @@ namespace GUI
                     //thực hiện việc cộng số lượng điểm
                     input = TienIch.DiemThuongKhachHang_TO_DiemThuongKhachHang(item);
                     input.ThaoTac = "CapNhat";
-                    input.TongDiem += sodiemthuong(double.Parse(tien.Replace(",", "")));
+                    input.TongDiem += Sodiemthuong(double.Parse(tien.Replace(",", "")));
                     input.DiemConLai = input.TongDiem - input.DiemDaDung;
                     break;
                 }
@@ -116,7 +114,7 @@ namespace GUI
                                     MaDiemThuongKhachHang = ProIddtkh("DiemThuongKhachHang"),
                                     MaKhachHang = maKh,
                                     TenKhachHang = LayTenKhachHang(maKh),
-                                    TongDiem = sodiemthuong(double.Parse(tien.Replace(",", ""))),
+                                    TongDiem = Sodiemthuong(double.Parse(tien.Replace(",", ""))),
                                     DiemDaDung = 0
                                 };
                     input.DiemConLai = input.TongDiem;
@@ -149,12 +147,14 @@ namespace GUI
         public TcpClient Client1;
         public NetworkStream Clientstrem;
         public static string Trave = string.Empty;
+        public static bool IsClose = false;
         QuyDoiDonViTinh[] _quidoidvt;
         GoiHang[] _goihang;
         ChiTietGoiHang[] _chitietgoihang;
         DateTime _datesv;
         HangHoa[] _hangHoaTheoKho;
         Thue[] _thue;
+
         /// <summary>
         /// xử lý giá trị truyền tới
         /// </summary>
@@ -164,6 +164,7 @@ namespace GUI
             _datesv = DateServer.Date();
             _kmSoLuong = GetData();
         }
+
         readonly string _str;
         /// <summary>
         /// xử lý giá trị truyền tới
@@ -212,7 +213,6 @@ namespace GUI
 
             }
         }
-
 
         public void KhoiTao()
         {
@@ -842,15 +842,14 @@ namespace GUI
         /// <param name="e"></param>
         private void toolStripStatusLabel4_Click(object sender, EventArgs e)
         {
-            System.Windows.Forms.DialogResult giatri = System.Windows.Forms.MessageBox.Show("Bạn chắc chắn đóng lại không ?", "Thông Báo", System.Windows.Forms.MessageBoxButtons.YesNo);
+            DialogResult giatri = MessageBox.Show("Bạn chắc chắn đóng lại không ?", "Thông Báo", System.Windows.Forms.MessageBoxButtons.YesNo);
             {
-                if (giatri == System.Windows.Forms.DialogResult.Yes)
+                if (giatri == DialogResult.Yes)
                 {
                     Trave = "ok";
-                    this.Close();
+                    IsClose = true;
+                    Close();
                 }
-                else
-                { }
             }
         }
         /// <summary>

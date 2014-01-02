@@ -1874,22 +1874,22 @@ namespace GUI
             {
                 return;
             }
-            for (int i = 0; i < 1000; i++)
-            {
+            //for (int i = 0; i < 1; i++)
+            //{
                 if (frmXuLyBanLe.Trave == "")
                 {
                     Form frm = new frmXuLyBanLe("Them");
                     int Heights = Screen.PrimaryScreen.Bounds.Height;
                     int Widths = Screen.PrimaryScreen.Bounds.Width;
                     frm.Height = Heights - 60;
-                    frm.ShowDialog(); closeall(frm.Name);
+                    frm.Show(); closeall(frm.Name);
                 }
                 else
                 {
                     frmXuLyBanLe.Trave = "";
                     return;
                 }
-            }
+            //}
 
 
         }
