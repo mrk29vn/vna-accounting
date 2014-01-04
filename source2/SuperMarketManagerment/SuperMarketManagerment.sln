@@ -15,8 +15,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server-Client", "Server-Client\Server-Client.csproj", "{861F0114-E34F-49CB-97F9-E1CE0E4073D1}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{A63134FF-0122-4CFD-A2E5-3372945E8088}"
-EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -101,18 +99,6 @@ Global
 		{861F0114-E34F-49CB-97F9-E1CE0E4073D1}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{861F0114-E34F-49CB-97F9-E1CE0E4073D1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{861F0114-E34F-49CB-97F9-E1CE0E4073D1}.Release|x86.ActiveCfg = Release|Any CPU
-		{A63134FF-0122-4CFD-A2E5-3372945E8088}.Debug|Any CPU.ActiveCfg = Debug
-		{A63134FF-0122-4CFD-A2E5-3372945E8088}.Debug|Any CPU.Build.0 = Debug
-		{A63134FF-0122-4CFD-A2E5-3372945E8088}.Debug|Mixed Platforms.ActiveCfg = Debug
-		{A63134FF-0122-4CFD-A2E5-3372945E8088}.Debug|Mixed Platforms.Build.0 = Debug
-		{A63134FF-0122-4CFD-A2E5-3372945E8088}.Debug|x86.ActiveCfg = Debug
-		{A63134FF-0122-4CFD-A2E5-3372945E8088}.Debug|x86.Build.0 = Debug
-		{A63134FF-0122-4CFD-A2E5-3372945E8088}.Release|Any CPU.ActiveCfg = Release
-		{A63134FF-0122-4CFD-A2E5-3372945E8088}.Release|Any CPU.Build.0 = Release
-		{A63134FF-0122-4CFD-A2E5-3372945E8088}.Release|Mixed Platforms.ActiveCfg = Release
-		{A63134FF-0122-4CFD-A2E5-3372945E8088}.Release|Mixed Platforms.Build.0 = Release
-		{A63134FF-0122-4CFD-A2E5-3372945E8088}.Release|x86.ActiveCfg = Release
-		{A63134FF-0122-4CFD-A2E5-3372945E8088}.Release|x86.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
