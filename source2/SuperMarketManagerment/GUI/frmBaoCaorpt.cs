@@ -2431,7 +2431,7 @@ namespace GUI
             catch { }
         }
 
-        public frmBaoCaorpt(DateTime Ngay)
+        public frmBaoCaorpt(DateTime ngay, bool isView, string path, string hanhDong)
         {
             try
             {
@@ -2439,7 +2439,7 @@ namespace GUI
                 CongTy();
                 cl = new Server_Client.Client();
                 this.client1 = cl.Connect(Luu.IP, Luu.Ports);
-                Entities.BCDTTheoThoiGian ctxh = new Entities.BCDTTheoThoiGian("SelectTheoNgay", Ngay);
+                Entities.BCDTTheoThoiGian ctxh = new Entities.BCDTTheoThoiGian("SelectTheoNgay", ngay);
                 Entities.BCDTTheoThoiGian[] pt1 = new Entities.BCDTTheoThoiGian[1];
                 clientstrem = cl.SerializeObj(this.client1, "BCDTTheoThoiGian", ctxh);
                 pt1 = (Entities.BCDTTheoThoiGian[])cl.DeserializeHepper1(clientstrem, pt1);
@@ -2458,13 +2458,136 @@ namespace GUI
                     report.SetParameterValue("DienThoai", CT.SoDienThoai);
                     report.SetParameterValue("FaxCongTy", CT.Fax);
                     report.SetParameterValue("Web", CT.Website);
-                    report.SetParameterValue("TenBaoCao", "Báo Cáo Doanh Thu Theo Ngày " + new Common.Utilities().XuLy(2, Ngay.ToShortDateString()));
-                    report.SetParameterValue("NgayTao", new Common.Utilities().XuLy(2, Ngay.ToShortDateString()));
+                    report.SetParameterValue("TenBaoCao", "Báo Cáo Doanh Thu Theo Ngày " + new Common.Utilities().XuLy(2, ngay.ToShortDateString()));
+                    report.SetParameterValue("NgayTao", new Common.Utilities().XuLy(2, ngay.ToShortDateString()));
                     report.SetParameterValue("MaNhanVien", Common.Utilities.User.TenNhanVien);
                     report.SetParameterValue("Email", CT.Email);
                     report.SetParameterValue("Tu", "");
                     report.SetParameterValue("Den", "");
-                    crvReport.Show();
+                    if (isView) crvReport.Show();
+                    else
+                    {
+                        switch (hanhDong)
+                        {
+                            case "Excel":
+                                new Report.ExportCrystalReport().Export(report, path, Report.ExportCrystalReport.TypeBC.Excel);
+                                break;
+                            case "Word":
+                                new Report.ExportCrystalReport().Export(report, path, Report.ExportCrystalReport.TypeBC.WordForWindows);
+                                break;
+                            case "PDF":
+                                new Report.ExportCrystalReport().Export(report, path, Report.ExportCrystalReport.TypeBC.PortableDocFormat);
+                                break;
+                        }
+                    }
+                }
+            }
+            catch { }
+        }
+
+        public frmBaoCaorpt(int Thang, int Nam, bool isView, string path, string hanhDong)
+        {
+            try
+            {
+                InitializeComponent();
+                CongTy();
+                cl = new Server_Client.Client();
+                this.client1 = cl.Connect(Luu.IP, Luu.Ports);
+                Entities.BCDTTheoThoiGian ctxh = new Entities.BCDTTheoThoiGian("SelectTheoThang", Thang, Nam);
+                Entities.BCDTTheoThoiGian[] pt1 = new Entities.BCDTTheoThoiGian[1];
+                clientstrem = cl.SerializeObj(this.client1, "BCDTTheoThoiGian", ctxh);
+                pt1 = (Entities.BCDTTheoThoiGian[])cl.DeserializeHepper1(clientstrem, pt1);
+                if (pt1 == null)
+                {
+                    MessageBox.Show("Không có dữ liệu", "Hệ thống cảnh báo");
+                    return;
+                }
+                else
+                {
+                    GUI.Report.rptBCDoanhThuTheoThoiGian report = new GUI.Report.rptBCDoanhThuTheoThoiGian();
+                    report.SetDataSource(pt1);
+                    crvReport.ReportSource = report;
+                    report.SetParameterValue("TenCongTy", CT.TenCongTy);
+                    report.SetParameterValue("DiaChiCongTy", CT.DiaChi);
+                    report.SetParameterValue("DienThoai", CT.SoDienThoai);
+                    report.SetParameterValue("FaxCongTy", CT.Fax);
+                    report.SetParameterValue("Web", CT.Website);
+                    report.SetParameterValue("TenBaoCao", "Báo Cáo Doanh Thu Theo Tháng " + Thang + "/" + Nam);
+                    report.SetParameterValue("NgayTao", new Common.Utilities().XuLy(2, DateServer.Date().ToShortDateString()));
+                    report.SetParameterValue("MaNhanVien", Common.Utilities.User.TenNhanVien);
+                    report.SetParameterValue("Email", CT.Email);
+                    report.SetParameterValue("Tu", "");
+                    report.SetParameterValue("Den", "");
+                    if (isView) crvReport.Show();
+                    else
+                    {
+                        switch (hanhDong)
+                        {
+                            case "Excel":
+                                new Report.ExportCrystalReport().Export(report, path, Report.ExportCrystalReport.TypeBC.Excel);
+                                break;
+                            case "Word":
+                                new Report.ExportCrystalReport().Export(report, path, Report.ExportCrystalReport.TypeBC.WordForWindows);
+                                break;
+                            case "PDF":
+                                new Report.ExportCrystalReport().Export(report, path, Report.ExportCrystalReport.TypeBC.PortableDocFormat);
+                                break;
+                        }
+                    }
+                }
+            }
+            catch { }
+        }
+
+        public frmBaoCaorpt(DateTime Truoc, DateTime Sau, bool isView, string path, string hanhDong)
+        {
+            try
+            {
+                InitializeComponent();
+                CongTy();
+                cl = new Server_Client.Client();
+                this.client1 = cl.Connect(Luu.IP, Luu.Ports);
+                Entities.BCDTTheoThoiGian ctxh = new Entities.BCDTTheoThoiGian("SelectTheoKhoang", Truoc, Sau);
+                Entities.BCDTTheoThoiGian[] pt1 = new Entities.BCDTTheoThoiGian[1];
+                clientstrem = cl.SerializeObj(this.client1, "BCDTTheoThoiGian", ctxh);
+                pt1 = (Entities.BCDTTheoThoiGian[])cl.DeserializeHepper1(clientstrem, pt1);
+                if (pt1 == null)
+                {
+                    MessageBox.Show("Không có dữ liệu", "Hệ thống cảnh báo");
+                    return;
+                }
+                else
+                {
+                    GUI.Report.rptBCDoanhThuTheoThoiGian report = new GUI.Report.rptBCDoanhThuTheoThoiGian();
+                    report.SetDataSource(pt1);
+                    crvReport.ReportSource = report;
+                    report.SetParameterValue("TenCongTy", CT.TenCongTy);
+                    report.SetParameterValue("DiaChiCongTy", CT.DiaChi);
+                    report.SetParameterValue("DienThoai", CT.SoDienThoai);
+                    report.SetParameterValue("FaxCongTy", CT.Fax);
+                    report.SetParameterValue("Web", CT.Website);
+                    report.SetParameterValue("TenBaoCao", "Báo Cáo Doanh Thu Theo Khoảng Thời Gian");
+                    report.SetParameterValue("NgayTao", new Common.Utilities().XuLy(2, DateServer.Date().ToShortDateString()));
+                    report.SetParameterValue("MaNhanVien", Common.Utilities.User.TenNhanVien);
+                    report.SetParameterValue("Email", CT.Email);
+                    report.SetParameterValue("Tu", new Common.Utilities().XuLy(2, Truoc.ToShortDateString()));
+                    report.SetParameterValue("Den", new Common.Utilities().XuLy(2, Sau.ToShortDateString()));
+                    if (isView) crvReport.Show();
+                    else
+                    {
+                        switch (hanhDong)
+                        {
+                            case "Excel":
+                                new Report.ExportCrystalReport().Export(report, path, Report.ExportCrystalReport.TypeBC.Excel);
+                                break;
+                            case "Word":
+                                new Report.ExportCrystalReport().Export(report, path, Report.ExportCrystalReport.TypeBC.WordForWindows);
+                                break;
+                            case "PDF":
+                                new Report.ExportCrystalReport().Export(report, path, Report.ExportCrystalReport.TypeBC.PortableDocFormat);
+                                break;
+                        }
+                    }
                 }
             }
             catch { }
@@ -2518,84 +2641,6 @@ namespace GUI
                 }
 
                 crvReport.Show();
-            }
-            catch { }
-        }
-
-        public frmBaoCaorpt(int Thang, int Nam)
-        {
-            try
-            {
-                InitializeComponent();
-                CongTy();
-                cl = new Server_Client.Client();
-                this.client1 = cl.Connect(Luu.IP, Luu.Ports);
-                Entities.BCDTTheoThoiGian ctxh = new Entities.BCDTTheoThoiGian("SelectTheoThang", Thang, Nam);
-                Entities.BCDTTheoThoiGian[] pt1 = new Entities.BCDTTheoThoiGian[1];
-                clientstrem = cl.SerializeObj(this.client1, "BCDTTheoThoiGian", ctxh);
-                pt1 = (Entities.BCDTTheoThoiGian[])cl.DeserializeHepper1(clientstrem, pt1);
-                if (pt1 == null)
-                {
-                    MessageBox.Show("Không có dữ liệu", "Hệ thống cảnh báo");
-                    return;
-                }
-                else
-                {
-                    GUI.Report.rptBCDoanhThuTheoThoiGian report = new GUI.Report.rptBCDoanhThuTheoThoiGian();
-                    report.SetDataSource(pt1);
-                    crvReport.ReportSource = report;
-                    report.SetParameterValue("TenCongTy", CT.TenCongTy);
-                    report.SetParameterValue("DiaChiCongTy", CT.DiaChi);
-                    report.SetParameterValue("DienThoai", CT.SoDienThoai);
-                    report.SetParameterValue("FaxCongTy", CT.Fax);
-                    report.SetParameterValue("Web", CT.Website);
-                    report.SetParameterValue("TenBaoCao", "Báo Cáo Doanh Thu Theo Tháng " + Thang + "/" + Nam);
-                    report.SetParameterValue("NgayTao", new Common.Utilities().XuLy(2, DateServer.Date().ToShortDateString()));
-                    report.SetParameterValue("MaNhanVien", Common.Utilities.User.TenNhanVien);
-                    report.SetParameterValue("Email", CT.Email);
-                    report.SetParameterValue("Tu", "");
-                    report.SetParameterValue("Den", "");
-                    crvReport.Show();
-                }
-            }
-            catch { }
-        }
-
-        public frmBaoCaorpt(DateTime Truoc, DateTime Sau)
-        {
-            try
-            {
-                InitializeComponent();
-                CongTy();
-                cl = new Server_Client.Client();
-                this.client1 = cl.Connect(Luu.IP, Luu.Ports);
-                Entities.BCDTTheoThoiGian ctxh = new Entities.BCDTTheoThoiGian("SelectTheoKhoang", Truoc, Sau);
-                Entities.BCDTTheoThoiGian[] pt1 = new Entities.BCDTTheoThoiGian[1];
-                clientstrem = cl.SerializeObj(this.client1, "BCDTTheoThoiGian", ctxh);
-                pt1 = (Entities.BCDTTheoThoiGian[])cl.DeserializeHepper1(clientstrem, pt1);
-                if (pt1 == null)
-                {
-                    MessageBox.Show("Không có dữ liệu", "Hệ thống cảnh báo");
-                    return;
-                }
-                else
-                {
-                    GUI.Report.rptBCDoanhThuTheoThoiGian report = new GUI.Report.rptBCDoanhThuTheoThoiGian();
-                    report.SetDataSource(pt1);
-                    crvReport.ReportSource = report;
-                    report.SetParameterValue("TenCongTy", CT.TenCongTy);
-                    report.SetParameterValue("DiaChiCongTy", CT.DiaChi);
-                    report.SetParameterValue("DienThoai", CT.SoDienThoai);
-                    report.SetParameterValue("FaxCongTy", CT.Fax);
-                    report.SetParameterValue("Web", CT.Website);
-                    report.SetParameterValue("TenBaoCao", "Báo Cáo Doanh Thu Theo Khoảng Thời Gian");
-                    report.SetParameterValue("NgayTao", new Common.Utilities().XuLy(2, DateServer.Date().ToShortDateString()));
-                    report.SetParameterValue("MaNhanVien", Common.Utilities.User.TenNhanVien);
-                    report.SetParameterValue("Email", CT.Email);
-                    report.SetParameterValue("Tu", new Common.Utilities().XuLy(2, Truoc.ToShortDateString()));
-                    report.SetParameterValue("Den", new Common.Utilities().XuLy(2, Sau.ToShortDateString()));
-                    crvReport.Show();
-                }
             }
             catch { }
         }
@@ -3012,7 +3057,7 @@ namespace GUI
         }
         #endregion
 
-        #region Báo cáo Thống kê mặt hàng bán ra theo nhân viên
+        #region Báo cáo Báo Cáo Chi Tiết Hàng Hóa
         public frmBaoCaorpt(IEnumerable<rptBCChiTietHangHoa> dsList, IDictionary<string, object> dicInput, string path, string hanhDong)
         {
             try

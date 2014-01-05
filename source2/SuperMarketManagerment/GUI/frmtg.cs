@@ -11,15 +11,21 @@ namespace GUI
 {
     public partial class frmtg : Form
     {
-        DateTime datesv;
+        #region khai báo
+        DateTime _datesv;
+        #endregion
+
         public frmtg()
         {
-            InitializeComponent();datesv = DateServer.Date();
+            InitializeComponent();
+            _datesv = DateServer.Date();
+            maskedTextBox1.Text = maskedTextBox2.Text = maskedTextBox3.Text = new Common.Utilities().XuLy(2, _datesv.ToShortDateString());
         }
 
+        #region Event
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioButton1.Checked)
+            if (rdoTheoNgay.Checked)
             {
                 maskedTextBox1.Visible = true;
                 maskedTextBox2.Visible = false;
@@ -30,7 +36,7 @@ namespace GUI
                 label2.Visible = false;
                 label3.Visible = false;
             }
-            else if (radioButton2.Checked)
+            else if (rdoTheoThang.Checked)
             {
                 maskedTextBox1.Visible = false;
                 maskedTextBox2.Visible = false;
@@ -41,7 +47,7 @@ namespace GUI
                 label2.Visible = true;
                 label3.Visible = true;
             }
-            else if (radioButton3.Checked)
+            else if (rdoTheoNam.Checked)
             {
                 maskedTextBox1.Visible = false;
                 maskedTextBox2.Visible = true;
@@ -54,27 +60,98 @@ namespace GUI
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void tsslchitiet_Click(object sender, EventArgs e)
         {
-            if (radioButton1.Checked)
+            ExportBc(0);
+        }
+
+        private void tsslPdf_Click(object sender, EventArgs e)
+        {
+            ExportBc(1);
+        }
+
+        private void tsslWord_Click(object sender, EventArgs e)
+        {
+            ExportBc(2);
+        }
+
+        private void tsslexcel_Click(object sender, EventArgs e)
+        {
+            ExportBc(3);
+        }
+
+        private void tsslthoat_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+        #endregion
+
+        #region Utils
+        /// <summary>
+        /// Xuất báo cáo
+        /// </summary>
+        /// <param name="select">0: View, 1: PDF, 2: WORD, 3: EXCEL</param>
+        void ExportBc(int select)
+        {
+            if (rdoTheoNgay.Checked)
             {
-                DateTime Ngay;
-                string date="";
+                #region theo ngày
+                DateTime ngay;
                 try
                 {
-                   date = new Common.Utilities().MyDateConversion(maskedTextBox1.Text);
-                  Ngay =  Convert.ToDateTime(date);
+                    string date = new Common.Utilities().MyDateConversion(maskedTextBox1.Text);
+                    ngay = Convert.ToDateTime(date);
                 }
                 catch
                 {
-                    MessageBox.Show("ngay ko dung dinh dang");
+                    MessageBox.Show("không đúng định dạng ngày!");
                     return;
                 }
-                frmBaoCaorpt bc = new frmBaoCaorpt(Ngay);
-                bc.ShowDialog();
+
+                switch (@select)
+                {
+                    case 0:
+                        {
+                            frmBaoCaorpt bc = new frmBaoCaorpt(ngay, true, string.Empty, string.Empty);
+                            bc.ShowDialog();
+                        }
+                        break;
+                    case 1:
+                        {
+                            //PDF
+                            SaveFileDialog saveFileDialog1 = new SaveFileDialog { Filter = "PDF |*.pdf", FileName = string.Empty };
+                            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                            {
+                                frmBaoCaorpt bc = new frmBaoCaorpt(ngay, false, saveFileDialog1.FileName, "PDF");
+                            }
+                        }
+                        break;
+                    case 2:
+                        {
+                            //DOC
+                            SaveFileDialog saveFileDialog1 = new SaveFileDialog { Filter = "Word |*.doc", FileName = string.Empty };
+                            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                            {
+                                frmBaoCaorpt bc = new frmBaoCaorpt(ngay, false, saveFileDialog1.FileName, "Word");
+                            }
+                        }
+                        break;
+                    case 3:
+                        {
+                            //XLS
+                            SaveFileDialog saveFileDialog1 = new SaveFileDialog { Filter = "Excel |*.xls", FileName = string.Empty };
+                            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                            {
+                                frmBaoCaorpt bc = new frmBaoCaorpt(ngay, false, saveFileDialog1.FileName, "Excel");
+                            }
+                        }
+                        break;
+                }
+                #endregion
             }
-            else if (radioButton2.Checked)
+            else if (rdoTheoThang.Checked)
             {
+                #region theo tháng
                 int Thang, Nam;
                 try
                 {
@@ -87,11 +164,51 @@ namespace GUI
                     maskedTextBox1.Focus();
                     return;
                 }
-                frmBaoCaorpt bc = new frmBaoCaorpt(Thang,Nam);
-                bc.ShowDialog();
+
+                switch (@select)
+                {
+                    case 0:
+                        {
+                            frmBaoCaorpt bc = new frmBaoCaorpt(Thang, Nam, true, string.Empty, string.Empty);
+                            bc.ShowDialog();
+                        }
+                        break;
+                    case 1:
+                        {
+                            //PDF
+                            SaveFileDialog saveFileDialog1 = new SaveFileDialog { Filter = "PDF |*.pdf", FileName = string.Empty };
+                            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                            {
+                                frmBaoCaorpt bc = new frmBaoCaorpt(Thang, Nam, false, saveFileDialog1.FileName, "PDF");
+                            }
+                        }
+                        break;
+                    case 2:
+                        {
+                            //DOC
+                            SaveFileDialog saveFileDialog1 = new SaveFileDialog { Filter = "Word |*.doc", FileName = string.Empty };
+                            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                            {
+                                frmBaoCaorpt bc = new frmBaoCaorpt(Thang, Nam, false, saveFileDialog1.FileName, "Word");
+                            }
+                        }
+                        break;
+                    case 3:
+                        {
+                            //XLS
+                            SaveFileDialog saveFileDialog1 = new SaveFileDialog { Filter = "Excel |*.xls", FileName = string.Empty };
+                            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                            {
+                                frmBaoCaorpt bc = new frmBaoCaorpt(Thang, Nam, false, saveFileDialog1.FileName, "Excel");
+                            }
+                        }
+                        break;
+                }
+                #endregion
             }
-            else if (radioButton3.Checked)
+            else if (rdoTheoNam.Checked)
             {
+                #region theo năm
                 DateTime Truoc, Sau;
                 string date1 = "", date2 = "";
                 try
@@ -102,7 +219,7 @@ namespace GUI
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("nhập sai định dạng ngày tháng","Hệ thống cảnh báo");
+                    MessageBox.Show("nhập sai định dạng ngày tháng", "Hệ thống cảnh báo");
                     maskedTextBox2.Focus();
                     return;
                 }
@@ -117,52 +234,49 @@ namespace GUI
                     maskedTextBox3.Focus();
                     return;
                 }
-                
-                frmBaoCaorpt bc = new frmBaoCaorpt(Truoc, Sau);
-                bc.ShowDialog();
-            }
-        }
 
-        private void frmtg_Load(object sender, EventArgs e)
-        {
-            // TODO: This line of code loads data into the 'supermarketManagementDataSet.PhieuThu' table. You can move, or remove it, as needed.
-
-        }
-
-        private void btnthoat_Click(object sender, EventArgs e)
-        {
-            System.Windows.Forms.DialogResult giatri = System.Windows.Forms.MessageBox.Show("Bạn chắc chắn đóng lại không ?", "Thông Báo", System.Windows.Forms.MessageBoxButtons.YesNo);
-            {
-                if (giatri == System.Windows.Forms.DialogResult.Yes)
+                switch (@select)
                 {
-                    this.Close();
+                    case 0:
+                        {
+                            frmBaoCaorpt bc = new frmBaoCaorpt(Truoc, Sau, true, string.Empty, string.Empty);
+                            bc.ShowDialog();
+                        }
+                        break;
+                    case 1:
+                        {
+                            //PDF
+                            SaveFileDialog saveFileDialog1 = new SaveFileDialog { Filter = "PDF |*.pdf", FileName = string.Empty };
+                            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                            {
+                                frmBaoCaorpt bc = new frmBaoCaorpt(Truoc, Sau, false, saveFileDialog1.FileName, "PDF");
+                            }
+                        }
+                        break;
+                    case 2:
+                        {
+                            //DOC
+                            SaveFileDialog saveFileDialog1 = new SaveFileDialog { Filter = "Word |*.doc", FileName = string.Empty };
+                            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                            {
+                                frmBaoCaorpt bc = new frmBaoCaorpt(Truoc, Sau, false, saveFileDialog1.FileName, "Word");
+                            }
+                        }
+                        break;
+                    case 3:
+                        {
+                            //XLS
+                            SaveFileDialog saveFileDialog1 = new SaveFileDialog { Filter = "Excel |*.xls", FileName = string.Empty };
+                            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                            {
+                                frmBaoCaorpt bc = new frmBaoCaorpt(Truoc, Sau, false, saveFileDialog1.FileName, "Excel");
+                            }
+                        }
+                        break;
                 }
+                #endregion
             }
         }
-
-        private void maskedTextBox_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                button1_Click(sender, e);
-            }
-        }
-
-        private void frmtg_Load_1(object sender, EventArgs e)
-        {
-            maskedTextBox1.Text = maskedTextBox2.Text = maskedTextBox3.Text = new Common.Utilities().XuLy(2, datesv.ToShortDateString());
-        }
-
-        private void MouseLeave(object sender, EventArgs e)
-        {
-            ToolStripLabel tsl = (ToolStripLabel)sender;
-            tsl.BackColor = System.Drawing.Color.LightSteelBlue;
-        }
-
-        private void MouseMove(object sender, MouseEventArgs e)
-        {
-            ToolStripLabel tsl = (ToolStripLabel)sender;
-            tsl.BackColor = System.Drawing.Color.Snow;
-        }
+        #endregion
     }
 }
