@@ -1337,6 +1337,11 @@ namespace GUI
         private void FrmXuLyBanBuonKeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode != Keys.F9) return; //Sửa giá hàng hóa
+            if (!frmDangNhap.User.Administrator && !frmChinh.CheckQuyen("frmQuanLyHangHoa", 1))
+            {
+                MessageBox.Show(" Không có quyền vào chức năng này.");
+                return;
+            }
             string maHangHoa = toolStrip_txtTracuu.Text.Trim().ToUpper();
             if (string.IsNullOrEmpty(maHangHoa) || maHangHoa.Equals("<F4 - Tra cứu>"))
             {

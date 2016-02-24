@@ -2037,7 +2037,7 @@ namespace GUI
             frm.ShowDialog();
         }
 
-        public bool CheckQuyen(string tenform, int quyen)
+        public static bool CheckQuyen(string tenform, int quyen)
         {
             switch (quyen)
             {
