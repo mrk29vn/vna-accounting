@@ -49,8 +49,9 @@ namespace GUI
             }
         }
 
-        public static DateTime GetDateTimeNow(string select)
+        public static DateTime GetDateTimeNow(string select = "")
         {
+            if (string.IsNullOrEmpty(select)) select = Luu.Server;
             if (string.IsNullOrEmpty(select)) select = "server";
             DateTime dateTime = new DateTime(1753, 1, 1);
             //check kết nối mạng

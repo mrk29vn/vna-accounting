@@ -11,11 +11,11 @@ namespace GUI
     public partial class frmXuLyNhapKho : Form
     {
         #region Khai báo
-        List<Entities.QuyDoiDonViTinh> dsQuyDoiDonViTinh = new List<Entities.QuyDoiDonViTinh>();
+        readonly List<QuyDoiDonViTinh> _dsQuyDoiDonViTinh = new List<QuyDoiDonViTinh>();
         private DateTime Date;
-        private Entities.HoaDonNhap[] hoa;
-        private Entities.HoaDonNhap hoadon;
-        public Entities.HoaDonNhap Hoadon
+        private HoaDonNhap[] hoa;
+        private HoaDonNhap hoadon;
+        public HoaDonNhap Hoadon
         {
             get { return hoadon; }
             set { hoadon = value; }
@@ -26,50 +26,49 @@ namespace GUI
             get { return hanhdong; }
             set { hanhdong = value; }
         }
-        DateTime giatritruyenthu4 = new DateTime(1753, 1, 1);
         private TcpClient client;
         private NetworkStream clientstrem;
         private Server_Client.Client cl;
-        private static Entities.KiemTraChung[] tigia = null;
+        private static KiemTraChung[] tigia;
         #endregion
 
         #region Khởi tạo
         public frmXuLyNhapKho()
         {
             InitializeComponent();
-            dsQuyDoiDonViTinh = this.Bangquydoidonvitinh();
+            _dsQuyDoiDonViTinh = Bangquydoidonvitinh();
         }
-        public frmXuLyNhapKho(string hanhdong, Entities.HoaDonNhap hoa)
+        public frmXuLyNhapKho(string hanhdong, HoaDonNhap hoa)
         {
             InitializeComponent();
             this.hanhdong = hanhdong;
-            this.hoadon = hoa;
-            dsQuyDoiDonViTinh = this.Bangquydoidonvitinh();
+            hoadon = hoa;
+            _dsQuyDoiDonViTinh = Bangquydoidonvitinh();
         }
         public frmXuLyNhapKho(string hanhdong)
         {
             InitializeComponent();
             this.hanhdong = hanhdong;
-            dsQuyDoiDonViTinh = this.Bangquydoidonvitinh();
+            _dsQuyDoiDonViTinh = Bangquydoidonvitinh();
         }
         private void frmXuLyNhapKho_Load(object sender, EventArgs e)
         {
             try
             {
-                this.GetDate();
+                Date = Utils.GetDateTimeNow();
                 frmXuLyNhapKho fr = new frmXuLyNhapKho();
-                this.cbxHinhthucthanhtoan.Items.AddRange(new object[] { "Tiền mặt", "ATM" });
+                cbxHinhthucthanhtoan.Items.AddRange(new object[] { "Tiền mặt", "ATM" });
                 if (hanhdong == "Insert")
                 {
                     Common.Utilities ck = new Common.Utilities();
-                    string ngay = this.Date.ToString("dd/MM/yyyy");
+                    string ngay = Date.ToString("dd/MM/yyyy");
                     makNgaydonhang.Text = ngay;
                     makHanthanhtoan.Text = ngay;
                     cbxHinhthucthanhtoan.SelectedIndex = 0;
-                    toolStrip_txtNgayhethan.Text = this.Date.ToString("dd/MM/yyyy");
+                    toolStrip_txtNgayhethan.Text = Date.ToString("dd/MM/yyyy");
                     toolStripStatus_Themmoi.Enabled = true;
                     Application.OpenForms[fr.Name].Text = "Thêm đơn nhập kho - F3 Thanh toán - F6 sửa hàng hóa - F9 Sửa giá hàng hóa";
-                    Entities.HienThi_ChiTiet_DonDatHang[] lay = new Entities.HienThi_ChiTiet_DonDatHang[0];
+                    Entities.HienThi_ChiTiet_DonDatHang[] lay = new HienThi_ChiTiet_DonDatHang[0];
                     dgvInsertOrder.DataSource = null;
                     dgvInsertOrder.DataSource = lay;
                     DoiTen(dgvInsertOrder);
@@ -103,7 +102,7 @@ namespace GUI
                 }
                 new Common.Utilities().ComboxKhoHang(cbxKhoHang);
                 LayTenTT();
-                txtTygia.Text = tigia[0].Giatri2.ToString();
+                txtTygia.Text = tigia[0].Giatri2;
                 cbxTienTe_TyGia.SelectedIndex = 0;
                 cbxTienTe_TyGia.Enabled = false;
                 if (hanhdong == "Update")
@@ -111,7 +110,7 @@ namespace GUI
 
                     palNhap.Enabled = false;
                     palXem.Enabled = false;
-                    Entities.HienThi_ChiTiet_DonDatHang[] lay = new Entities.HienThi_ChiTiet_DonDatHang[0];
+                    HienThi_ChiTiet_DonDatHang[] lay = new HienThi_ChiTiet_DonDatHang[0];
                     dgvInsertOrder.DataSource = null;
                     dgvInsertOrder.DataSource = lay;
                     txtMadondathang.ReadOnly = true;
@@ -126,7 +125,7 @@ namespace GUI
             }
             catch
             {
-                Entities.HienThi_ChiTiet_DonDatHang[] lay = new Entities.HienThi_ChiTiet_DonDatHang[0];
+                HienThi_ChiTiet_DonDatHang[] lay = new HienThi_ChiTiet_DonDatHang[0];
                 dgvInsertOrder.DataSource = null;
                 dgvInsertOrder.DataSource = lay;
                 DoiTen(dgvInsertOrder);
@@ -137,33 +136,11 @@ namespace GUI
 
         #endregion
 
-        #region Event Form
-        #region Form
-        private void frmXuLyNhapKho_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.F9)
-            {//Sửa giá hàng hóa
-                string maHangHoa = toolStrip_txtTracuu.Text.Trim().ToUpper();
-                if (string.IsNullOrEmpty(maHangHoa) || maHangHoa.Equals("<F4 - Tra cứu>"))
-                {
-                    MessageBox.Show("Vui lòng chọn hàng hóa cần sửa giá!\r\n tại ô nhập mã hàng hóa, vui lòng điền thông tin mã hàng hoặc ấn F4 để tìm kiếm hàng hóa");
-                    toolStrip_txtTracuu.Focus(); return;
-                }
-                HangHoa temp = new HangHoa { MaHangHoa = maHangHoa };
-                HangHoa tempReturn = LayHangHoaTheoMa(temp);
-                frmXuLyHangHoa frm = new frmXuLyHangHoa("Update", tempReturn);
-                frm.ShowDialog();
-                LayHangHoaTheoMa(maHangHoa);
-            }
-        }
-        #endregion
-        #endregion
-
         #region Load Dữ liệu
         ///////////////////////////////////////////////////MRK FIX
         List<QuyDoiDonViTinh> Bangquydoidonvitinh()
         {
-            // quy đổi đơn vị tính
+            //quy đổi đơn vị tính
             Server_Client.Client cl1 = new Server_Client.Client();
             TcpClient client1 = cl1.Connect(Luu.IP, Luu.Ports);
             CheckRefer ctxh = new CheckRefer("QD");
@@ -172,30 +149,6 @@ namespace GUI
             return ((QuyDoiDonViTinh[])cl1.DeserializeHepper1(clientstrem, quidoidvt)).ToList();
         }
         //////////////////////////////////////////////////////////
-
-
-        #endregion
-
-        #region Date
-        private void GetDate()
-        {
-            try
-            {
-                Entities.TruyenGiaTri kh = new Entities.TruyenGiaTri();
-                kh.Hanhdong = "Select";
-                cl = new Server_Client.Client();
-                client = cl.Connect(Luu.IP, Luu.Ports);
-                clientstrem = cl.SerializeObj(this.client, "GetDateTime", kh);
-                Entities.TruyenGiaTri DateTimes = new Entities.TruyenGiaTri();
-                DateTimes = (Entities.TruyenGiaTri)cl.DeserializeHepper(clientstrem, DateTimes);
-                DateTime tem = new DateTime(1753, 1, 1);
-                this.giatritruyenthu4 = DateTimes.GiatritruyenTU;
-                try { tem = DateTime.Parse(DateTimes.Giatritruyen).Date; }
-                catch { tem = this.giatritruyenthu4; }
-                Date = tem;
-            }
-            catch { }
-        }
         #endregion
 
         #region Binding combox
@@ -623,24 +576,7 @@ namespace GUI
             { string s = ex.Message; count = 0; }
             return count;
         }
-        private void XuLy_Xoa_HoaDonNhap(string hanhdong, string mahoadonnhap)
-        {
-            try
-            {
-                Entities.HoaDonNhap them = new Entities.HoaDonNhap();
-                them = new Entities.HoaDonNhap(hanhdong, mahoadonnhap);
-                clientstrem = cl.SerializeObj(this.client, "HoaDonNhap", them);
-                //hứng giá trị trả về
-                int trave;
-                Entities.HoaDonNhap[] tralai = new Entities.HoaDonNhap[1];
-                trave = (int)cl.DeserializeHepper(clientstrem, tralai);
-                //thong bao
-                if (trave == 1) { MessageBox.Show("Thành công !"); }
-                else { MessageBox.Show("Thất bại !"); }
-            }
-            catch (Exception ex)
-            { string s = ex.Message; }
-        }
+        
         /// <summary>
         /// tu tang ID
         /// </summary>
@@ -671,95 +607,6 @@ namespace GUI
                 string s = ex.Message;
                 makiemtra = "HDN_0001";
             }
-        }
-        #endregion
-
-        #region Checkconflic
-        private Entities.HoaDonNhap ConfilickData(string table, string values)
-        {
-            Entities.HoaDonNhap ddh = new Entities.HoaDonNhap();
-            try
-            {
-                cl = new Server_Client.Client();
-                this.client = cl.Connect(Luu.IP, Luu.Ports);
-                Entities.TruyenGiaTri gitri = new Entities.TruyenGiaTri("Select", table, values);
-                clientstrem = cl.SerializeObj(this.client, "CheckHoaDonNhap", gitri);
-                ddh = (Entities.HoaDonNhap)cl.DeserializeHepper(clientstrem, ddh);
-                client.Close();
-                clientstrem.Close();
-            }
-            catch (Exception ex)
-            {
-                string s = ex.Message.ToString();
-                ddh = null;
-            }
-            return ddh;
-        }
-
-        private Boolean CheckConfilct(Entities.HoaDonNhap giaitri, Entities.HoaDonNhap sosanh)
-        {
-            Boolean kiemtra = false;
-            try
-            {
-                int count = 0;
-                if (giaitri.HoaDonNhapID != sosanh.HoaDonNhapID)
-                { kiemtra = false; ID = sosanh.HoaDonNhapID; }
-                else { kiemtra = true; count = count + 1; }
-                if (giaitri.MaHoaDonNhap != sosanh.MaHoaDonNhap)
-                { kiemtra = false; ID = sosanh.HoaDonNhapID; }
-                else { kiemtra = true; count = count + 1; }
-                if (giaitri.NgayNhap != sosanh.NgayNhap)
-                { kiemtra = false; ID = sosanh.HoaDonNhapID; }
-                else { kiemtra = true; count = count + 1; }
-                if (giaitri.MaNhaCungCap != sosanh.MaNhaCungCap)
-                { kiemtra = false; ID = sosanh.HoaDonNhapID; }
-                else { kiemtra = true; count = count + 1; }
-                if (giaitri.NoHienThoi != sosanh.NoHienThoi)
-                { kiemtra = false; ID = sosanh.HoaDonNhapID; }
-                else { kiemtra = true; count = count + 1; }
-                if (giaitri.NguoiGiaoHang != sosanh.NguoiGiaoHang)
-                { kiemtra = false; ID = sosanh.HoaDonNhapID; }
-                else { kiemtra = true; count = count + 1; }
-                if (giaitri.HinhThucThanhToan != sosanh.HinhThucThanhToan)
-                { kiemtra = false; ID = sosanh.HoaDonNhapID; }
-                else { kiemtra = true; count = count + 1; }
-                if (giaitri.MaKho != sosanh.MaKho)
-                { kiemtra = false; ID = sosanh.HoaDonNhapID; }
-                else { kiemtra = true; count = count + 1; }
-                if (giaitri.HanThanhToan != sosanh.HanThanhToan)
-                { kiemtra = false; ID = sosanh.HoaDonNhapID; }
-                else { kiemtra = true; count = count + 1; }
-                if (giaitri.MaDonDatHang != sosanh.MaDonDatHang)
-                { kiemtra = false; ID = sosanh.HoaDonNhapID; }
-                else { kiemtra = true; count = count + 1; }
-                if (giaitri.MaTienTe != sosanh.MaTienTe)
-                { kiemtra = false; ID = sosanh.HoaDonNhapID; }
-                else { kiemtra = true; count = count + 1; }
-                if (giaitri.ChietKhau != sosanh.ChietKhau)
-                { kiemtra = false; ID = sosanh.HoaDonNhapID; }
-                else { kiemtra = true; count = count + 1; }
-                if (giaitri.ThanhToanNgay != sosanh.ThanhToanNgay)
-                { kiemtra = false; ID = sosanh.HoaDonNhapID; }
-                else { kiemtra = true; count = count + 1; }
-                if (giaitri.ThueGTGT != sosanh.ThueGTGT)
-                { kiemtra = false; ID = sosanh.HoaDonNhapID; }
-                else { kiemtra = true; count = count + 1; }
-                if (giaitri.TongTien != sosanh.TongTien)
-                { kiemtra = false; ID = sosanh.HoaDonNhapID; }
-                else { kiemtra = true; count = count + 1; }
-                if (giaitri.GhiChu != sosanh.GhiChu)
-                { kiemtra = false; ID = sosanh.HoaDonNhapID; }
-                else { kiemtra = true; count = count + 1; }
-                if (giaitri.Deleted != sosanh.Deleted)
-                { kiemtra = false; ID = sosanh.HoaDonNhapID; }
-                else { kiemtra = true; count = count + 1; }
-                if (count < 17)
-                { kiemtra = false; }
-                else { kiemtra = true; }
-            }
-            catch (Exception ex)
-            { string s = ex.Message; kiemtra = false; }
-            return kiemtra;
         }
         #endregion
 
@@ -1570,7 +1417,7 @@ namespace GUI
                 ////////////////////////////MRK FIX
                 //Kiểm tra bảng quy đổi đơn vị tính
                 bool QUYDOI = false;
-                List<Entities.QuyDoiDonViTinh> lDVT = this.dsQuyDoiDonViTinh;
+                List<Entities.QuyDoiDonViTinh> lDVT = this._dsQuyDoiDonViTinh;
                 Entities.QuyDoiDonViTinh lDVTSelect = new Entities.QuyDoiDonViTinh();
                 foreach (Entities.QuyDoiDonViTinh item in lDVT)
                 {
@@ -2282,7 +2129,7 @@ namespace GUI
                 ////////////////////////////////////////////////////MRK FIX
                 bool QUYDOI = false;
                 //Kiểm tra bảng quy đổi đơn vị tính
-                List<Entities.QuyDoiDonViTinh> lDVT = dsQuyDoiDonViTinh;
+                List<Entities.QuyDoiDonViTinh> lDVT = _dsQuyDoiDonViTinh;
                 Entities.QuyDoiDonViTinh lDVTSelect = new Entities.QuyDoiDonViTinh();
                 foreach (Entities.QuyDoiDonViTinh item in lDVT)
                 {
@@ -2472,61 +2319,39 @@ namespace GUI
         }
         #endregion
 
-        #region XuLyChuoi Unicode
-        private bool testCharacter(string chuoi)
+        #region Event
+        private void toolStripStatus_InMaVach_Click(object sender, EventArgs e)
         {
-            bool check = false;
             try
             {
-                if (chuoi != "")
+                //Kiểm tra danh sách hàng hóa trong dgvInsertOrder
+                if (dgvInsertOrder.Rows.Count <= 0) return;
+                //chuyển danh sách về List<ThongTinMaVach>
+                List<ThongTinMaVach> dsThongTinMaVach = new List<ThongTinMaVach>();
+                for (int j = 0; j < dgvInsertOrder.Rows.Count; j++)
                 {
-                    bool kt = false;
-                    foreach (char ch in chuoi)
+                    string maHangHoa = dgvInsertOrder["MaHangHoa", j].Value.ToString();
+                    string tenHangHoa = dgvInsertOrder["TenHangHoa", j].Value.ToString();
+                    double gianhap = double.Parse(dgvInsertOrder["GiaNhap", j].Value.ToString());
+                    double giabanbuon = double.Parse(dgvInsertOrder["GiaBanBuon", j].Value.ToString());
+                    double giabanle = double.Parse(dgvInsertOrder["GiaBanLe", j].Value.ToString());
+                    double soluong = double.Parse(dgvInsertOrder["SoLuongDat", j].Value.ToString());
+                    dsThongTinMaVach.Add(new ThongTinMaVach
                     {
-                        char[] a = new char[]
-                    {'+','-','~','`','@','#','$','%','^','&','*','(',')','{','}','[',']',':',';','|',
-                        '<','>',',','.','?','/','-','=',
-                        'ă','â','á','à','ả','ạ','ã','ắ','ằ','ẳ','ẵ','ặ','ấ','ầ','ẩ','ậ','ẫ',
-                        'Ă','Â','Á','À','Ả','Ạ','Ã','Ắ','Ằ','Ẳ','Ẵ','Ặ','Ấ','Ầ','Ẩ','Ẫ','Ậ',
-                        'ê','é','è','ẻ','ẽ','ẹ','ế','ề','ể','ễ','ệ',
-                        'Ê','É','È','Ẻ','Ẽ','Ẹ','Ế','Ề','Ể','Ễ','Ệ',
-                        'ô','ơ','ó', 'ò', 'ỏ', 'ọ', 'õ','ố', 'ồ','ổ', 'ộ','ỗ','ớ','ờ','ở','ợ','ỡ',
-                        'Ô','o','Ó', 'Ò', 'Ỏ', 'Õ', 'Ọ','Ố', 'Ồ','Ổ', 'Ộ','Ỗ','Ớ','Ờ','Ở','Ợ','Ỡ',
-                        'ư','ú','ù','ủ','ụ','ũ', 'ứ','ừ', 'ử', 'ự', 'ữ',
-                        'Ư','Ú','Ù','Ủ','Ụ','Ũ', 'Ứ','Ừ', 'Ử', 'Ự', 'Ữ',
-                        'í','ì','ỉ','ị','ĩ',
-                        'Í','Ì','Ỉ','Ị','Ĩ',
-                        'đ','Đ'
-                    };
-                        foreach (char c in a)
-                        {
-                            if (c.Equals(ch))
-                                kt = true;
-                            break;
-                        }
-                        if (kt == true)
-                        {
-                            MessageBox.Show("Mã Hàng Hóa Không được nhập tiếng việt có dấu " +
-                                          "\nNếu bạn đang dùng máy quét mã vạch hãy tắt bộ gõ Tiếng Tiệt đi! ", "Hệ Thống Cảnh Báo");
-                            toolStrip_txtTracuu.Focus();
-                            toolStrip_txtTracuu.SelectAll();
-                            check = false;
-                            break;
-                        }
-                        else
-                        { check = true; }
-                    }
+                        MaHangHoa = maHangHoa,
+                        TenHangHoa = tenHangHoa,
+                        GiaNhap = gianhap.ToString(),
+                        GiaBanBuon = giabanbuon.ToString(),
+                        GiaBanLe = giabanle.ToString(),
+                        GhiChu = soluong.ToString()
+                    });
                 }
-                else
-                { check = true; }
+                //Gọi Form "In Mã Vạch"
+                new frmQuanLyMaVach(dsThongTinMaVach).ShowDialog();
             }
-            catch (Exception ex)
-            { string s = ex.Message; check = false; }
-            return check;
+            catch { }
         }
-        #endregion
 
-        #region Event
         private void toolStripStatusLabel1_Click_1(object sender, EventArgs e)
         {
             try
@@ -2556,7 +2381,7 @@ namespace GUI
                     ////////////////////////////////////////////////////MRK FIX
                     bool QUYDOI = false;
                     //Kiểm tra bảng quy đổi đơn vị tính
-                    List<Entities.QuyDoiDonViTinh> lDVT = dsQuyDoiDonViTinh;
+                    List<Entities.QuyDoiDonViTinh> lDVT = _dsQuyDoiDonViTinh;
                     Entities.QuyDoiDonViTinh lDVTSelect = new Entities.QuyDoiDonViTinh();
                     foreach (Entities.QuyDoiDonViTinh item in lDVT)
                     {
@@ -2604,7 +2429,7 @@ namespace GUI
                     ////////////////////////////////////////////////////MRK FIX
                     bool QUYDOI = false;
                     //Kiểm tra bảng quy đổi đơn vị tính
-                    List<Entities.QuyDoiDonViTinh> lDVT = dsQuyDoiDonViTinh;
+                    List<Entities.QuyDoiDonViTinh> lDVT = _dsQuyDoiDonViTinh;
                     Entities.QuyDoiDonViTinh lDVTSelect = new Entities.QuyDoiDonViTinh();
                     foreach (Entities.QuyDoiDonViTinh item in lDVT)
                     {
@@ -2689,36 +2514,6 @@ namespace GUI
                     }
                     else
                     { txtTienTraLai.Text = "0"; reset(); }
-                }
-            }
-            catch { }
-        }
-
-        private void cbxTienTe_TyGia_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                for (int i = 0; i < tigia.Length; i++)
-                {
-                    if (cbxTienTe_TyGia.SelectedValue.ToString() == tigia[i].Khoachinh.ToString())
-                    {
-                        txtTygia.Text = new Common.Utilities().FormatMoney(Double.Parse(tigia[i].Giatri2.ToString()));
-                    }
-                    else
-                    { continue; }
-                }
-            }
-            catch { }
-        }
-
-        private void toolStripStatusLabel2_Click_1(object sender, EventArgs e)
-        {
-            try
-            {
-                if (lbtinhtrang.Text == "Chưa thanh toán hết")
-                {
-                    frmXuLyPhieuTTNCC frm = new frmXuLyPhieuTTNCC(thanhtoan);
-                    frm.ShowDialog();
                 }
             }
             catch { }
@@ -2854,59 +2649,7 @@ namespace GUI
             }
         }
 
-        private void toolStrip_txtGiagoc_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
-
         private void toolStrip_txtChietkhauphantram_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void toolStrip_txtGianhap_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void toolStrip_txtChietkhau_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void toolStrip_txtChietkhau_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (float.Parse(0 + toolStrip_txtChietkhauphantram.Text) == (float.Parse(0 + toolStrip_txtGiagoc.Text)))
-            {
-                toolStrip_txtGianhap.Text = "0";
-            }
-        }
-
-        private void toolStrip_txtSoluong_TextChanged(object sender, EventArgs e)
-        {
-            if (toolStrip_txtSoluong.Text.Length > 5 || toolStrip_txtSoluong.Text == "0")
-            {
-                toolStrip_txtSoluong.Text = "1";
-            }
-            if (toolStrip_txtSoluong.Text.Length == 1 && toolStrip_txtSoluong.Text == "0")
-            {
-                toolStrip_txtSoluong.Text = "1";
-            }
-        }
-
-        private void txtGiatrigiatang_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
             {
@@ -3282,21 +3025,7 @@ namespace GUI
             }
             catch { }
         }
-        private void toolStripStatusLabel4_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                DialogResult giatri = MessageBox.Show("Bạn chắc chắn đóng lại không ?", "Thông Báo", MessageBoxButtons.YesNo);
-                {
-                    if (giatri == DialogResult.Yes)
-                    {
-                        frmQuanLyNhapKho.BaoDong = "A";
-                        Close();
-                    }
-                }
-            }
-            catch { }
-        }
+        
         private string makiemtra = "";
         private void toolStripStatusLabel1_Click(object sender, EventArgs e)
         {
@@ -3365,27 +3094,6 @@ namespace GUI
                 }
             }
             catch { }
-        }
-        private Boolean KiemTraTrangThaiDonDatHang(string madondathang)
-        {
-            Boolean bl = false;
-            try
-            {
-                Entities.TruyenGiaTri dat = new Entities.TruyenGiaTri();
-                dat.Hanhdong = "Select";
-                dat.Giatritruyen = "ThanhCong";
-                dat.Giatrithuhai = madondathang;
-                cl = new Server_Client.Client();
-                this.client = cl.Connect(Luu.IP, Luu.Ports);
-                clientstrem = cl.SerializeObj(this.client, "KiemTraDonDatHang", dat);
-                Entities.TruyenGiaTri ddh = new Entities.TruyenGiaTri();
-                ddh = (Entities.TruyenGiaTri)cl.DeserializeHepper(clientstrem, ddh);
-                if (ddh.Giatritruyen == "Yes")
-                { bl = true; }
-                else { bl = false; }
-            }
-            catch { bl = false; }
-            return bl;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -3459,7 +3167,6 @@ namespace GUI
             }
             catch { }
         }
-        #endregion
 
         private void MouseLeave(object sender, EventArgs e)
         {
@@ -3472,22 +3179,8 @@ namespace GUI
             ToolStripLabel tsl = (ToolStripLabel)sender;
             tsl.BackColor = System.Drawing.Color.Snow;
         }
-
+        
         /////////////////////////////////////////////////////////////////MRk FIX
-        bool CoPhaiLaMaQuyDoiHayKhong(string ma)
-        {
-            bool kq = false;
-            foreach (Entities.QuyDoiDonViTinh item in dsQuyDoiDonViTinh)
-            {
-                if (item.MaHangQuyDoi.Equals(ma))
-                {
-                    kq = true;
-                    break;
-                }
-            }
-            return kq;
-        }
-
         //FIX Triết khấu theo tổng hóa đơn
         private void txtCKTM0_TextChanged(object sender, EventArgs e)
         {
@@ -3580,46 +3273,335 @@ namespace GUI
             txtThanhtoanngay.Focus();
         }
         ////////////////////////////////////////////////////////////////////////////
-        #region Utils Function (K)
-        bool CheckQuyDoiDonViTinh(string maHangHoa, out QuyDoiDonViTinh input)
+
+        private void frmXuLyNhapKho_KeyUp(object sender, KeyEventArgs e)
         {
-            input = new QuyDoiDonViTinh();
-            foreach (QuyDoiDonViTinh item in dsQuyDoiDonViTinh.Where(item => item.MaHangQuyDoi.Equals(maHangHoa))) { input = item; return true; }
-            return false;
+            if (e.KeyCode == Keys.F9)
+            {//Sửa giá hàng hóa
+                string maHangHoa = toolStrip_txtTracuu.Text.Trim().ToUpper();
+                if (string.IsNullOrEmpty(maHangHoa) || maHangHoa.Equals("<F4 - Tra cứu>"))
+                {
+                    MessageBox.Show("Vui lòng chọn hàng hóa cần sửa giá!\r\n tại ô nhập mã hàng hóa, vui lòng điền thông tin mã hàng hoặc ấn F4 để tìm kiếm hàng hóa");
+                    toolStrip_txtTracuu.Focus(); return;
+                }
+                HangHoa temp = new HangHoa { MaHangHoa = maHangHoa };
+                HangHoa tempReturn = LayHangHoaTheoMa(temp);
+                frmXuLyHangHoa frm = new frmXuLyHangHoa("Update", tempReturn);
+                frm.ShowDialog();
+                LayHangHoaTheoMa(maHangHoa);
+            }
         }
         #endregion
 
-        private void toolStripStatus_InMaVach_Click(object sender, EventArgs e)
+        #region Utils
+        bool CheckQuyDoiDonViTinh(string maHangHoa, out QuyDoiDonViTinh input)
+        {
+            input = new QuyDoiDonViTinh();
+            foreach (QuyDoiDonViTinh item in _dsQuyDoiDonViTinh.Where(item => item.MaHangQuyDoi.Equals(maHangHoa))) { input = item; return true; }
+            return false;
+        }
+
+        /// <summary>
+        /// Mã Hàng Hóa Không được nhập tiếng việt có dấu, Nếu bạn đang dùng máy quét mã vạch hãy tắt bộ gõ Tiếng Tiệt
+        /// </summary>
+        /// <param name="chuoi"></param>
+        /// <returns></returns>
+        private bool testCharacter(string chuoi)
+        {
+            bool check = false;
+            try
+            {
+                if (chuoi != "")
+                {
+                    bool kt = false;
+                    foreach (char ch in chuoi)
+                    {
+                        char[] a = new char[]
+                    {'+','-','~','`','@','#','$','%','^','&','*','(',')','{','}','[',']',':',';','|',
+                        '<','>',',','.','?','/','-','=',
+                        'ă','â','á','à','ả','ạ','ã','ắ','ằ','ẳ','ẵ','ặ','ấ','ầ','ẩ','ậ','ẫ',
+                        'Ă','Â','Á','À','Ả','Ạ','Ã','Ắ','Ằ','Ẳ','Ẵ','Ặ','Ấ','Ầ','Ẩ','Ẫ','Ậ',
+                        'ê','é','è','ẻ','ẽ','ẹ','ế','ề','ể','ễ','ệ',
+                        'Ê','É','È','Ẻ','Ẽ','Ẹ','Ế','Ề','Ể','Ễ','Ệ',
+                        'ô','ơ','ó', 'ò', 'ỏ', 'ọ', 'õ','ố', 'ồ','ổ', 'ộ','ỗ','ớ','ờ','ở','ợ','ỡ',
+                        'Ô','o','Ó', 'Ò', 'Ỏ', 'Õ', 'Ọ','Ố', 'Ồ','Ổ', 'Ộ','Ỗ','Ớ','Ờ','Ở','Ợ','Ỡ',
+                        'ư','ú','ù','ủ','ụ','ũ', 'ứ','ừ', 'ử', 'ự', 'ữ',
+                        'Ư','Ú','Ù','Ủ','Ụ','Ũ', 'Ứ','Ừ', 'Ử', 'Ự', 'Ữ',
+                        'í','ì','ỉ','ị','ĩ',
+                        'Í','Ì','Ỉ','Ị','Ĩ',
+                        'đ','Đ'
+                    };
+                        foreach (char c in a)
+                        {
+                            if (c.Equals(ch))
+                                kt = true;
+                            break;
+                        }
+                        if (kt == true)
+                        {
+                            MessageBox.Show("Mã Hàng Hóa Không được nhập tiếng việt có dấu " +
+                                          "\nNếu bạn đang dùng máy quét mã vạch hãy tắt bộ gõ Tiếng Tiệt đi! ", "Hệ Thống Cảnh Báo");
+                            toolStrip_txtTracuu.Focus();
+                            toolStrip_txtTracuu.SelectAll();
+                            check = false;
+                            break;
+                        }
+                        else
+                        { check = true; }
+                    }
+                }
+                else
+                { check = true; }
+            }
+            catch (Exception ex)
+            { string s = ex.Message; check = false; }
+            return check;
+        }
+        #endregion
+
+        #region Linh tinh
+        #region Checkconflic
+        private HoaDonNhap ConfilickData(string table, string values)
+        {
+            Entities.HoaDonNhap ddh = new Entities.HoaDonNhap();
+            try
+            {
+                cl = new Server_Client.Client();
+                this.client = cl.Connect(Luu.IP, Luu.Ports);
+                Entities.TruyenGiaTri gitri = new Entities.TruyenGiaTri("Select", table, values);
+                clientstrem = cl.SerializeObj(this.client, "CheckHoaDonNhap", gitri);
+                ddh = (Entities.HoaDonNhap)cl.DeserializeHepper(clientstrem, ddh);
+                client.Close();
+                clientstrem.Close();
+            }
+            catch (Exception ex)
+            {
+                string s = ex.Message.ToString();
+                ddh = null;
+            }
+            return ddh;
+        }
+
+        private Boolean CheckConfilct(Entities.HoaDonNhap giaitri, Entities.HoaDonNhap sosanh)
+        {
+            Boolean kiemtra = false;
+            try
+            {
+                int count = 0;
+                if (giaitri.HoaDonNhapID != sosanh.HoaDonNhapID)
+                { kiemtra = false; ID = sosanh.HoaDonNhapID; }
+                else { kiemtra = true; count = count + 1; }
+                if (giaitri.MaHoaDonNhap != sosanh.MaHoaDonNhap)
+                { kiemtra = false; ID = sosanh.HoaDonNhapID; }
+                else { kiemtra = true; count = count + 1; }
+                if (giaitri.NgayNhap != sosanh.NgayNhap)
+                { kiemtra = false; ID = sosanh.HoaDonNhapID; }
+                else { kiemtra = true; count = count + 1; }
+                if (giaitri.MaNhaCungCap != sosanh.MaNhaCungCap)
+                { kiemtra = false; ID = sosanh.HoaDonNhapID; }
+                else { kiemtra = true; count = count + 1; }
+                if (giaitri.NoHienThoi != sosanh.NoHienThoi)
+                { kiemtra = false; ID = sosanh.HoaDonNhapID; }
+                else { kiemtra = true; count = count + 1; }
+                if (giaitri.NguoiGiaoHang != sosanh.NguoiGiaoHang)
+                { kiemtra = false; ID = sosanh.HoaDonNhapID; }
+                else { kiemtra = true; count = count + 1; }
+                if (giaitri.HinhThucThanhToan != sosanh.HinhThucThanhToan)
+                { kiemtra = false; ID = sosanh.HoaDonNhapID; }
+                else { kiemtra = true; count = count + 1; }
+                if (giaitri.MaKho != sosanh.MaKho)
+                { kiemtra = false; ID = sosanh.HoaDonNhapID; }
+                else { kiemtra = true; count = count + 1; }
+                if (giaitri.HanThanhToan != sosanh.HanThanhToan)
+                { kiemtra = false; ID = sosanh.HoaDonNhapID; }
+                else { kiemtra = true; count = count + 1; }
+                if (giaitri.MaDonDatHang != sosanh.MaDonDatHang)
+                { kiemtra = false; ID = sosanh.HoaDonNhapID; }
+                else { kiemtra = true; count = count + 1; }
+                if (giaitri.MaTienTe != sosanh.MaTienTe)
+                { kiemtra = false; ID = sosanh.HoaDonNhapID; }
+                else { kiemtra = true; count = count + 1; }
+                if (giaitri.ChietKhau != sosanh.ChietKhau)
+                { kiemtra = false; ID = sosanh.HoaDonNhapID; }
+                else { kiemtra = true; count = count + 1; }
+                if (giaitri.ThanhToanNgay != sosanh.ThanhToanNgay)
+                { kiemtra = false; ID = sosanh.HoaDonNhapID; }
+                else { kiemtra = true; count = count + 1; }
+                if (giaitri.ThueGTGT != sosanh.ThueGTGT)
+                { kiemtra = false; ID = sosanh.HoaDonNhapID; }
+                else { kiemtra = true; count = count + 1; }
+                if (giaitri.TongTien != sosanh.TongTien)
+                { kiemtra = false; ID = sosanh.HoaDonNhapID; }
+                else { kiemtra = true; count = count + 1; }
+                if (giaitri.GhiChu != sosanh.GhiChu)
+                { kiemtra = false; ID = sosanh.HoaDonNhapID; }
+                else { kiemtra = true; count = count + 1; }
+                if (giaitri.Deleted != sosanh.Deleted)
+                { kiemtra = false; ID = sosanh.HoaDonNhapID; }
+                else { kiemtra = true; count = count + 1; }
+                if (count < 17)
+                { kiemtra = false; }
+                else { kiemtra = true; }
+            }
+            catch (Exception ex)
+            { string s = ex.Message; kiemtra = false; }
+            return kiemtra;
+        }
+        #endregion
+
+        private void XuLy_Xoa_HoaDonNhap(string hanhdong, string mahoadonnhap)
         {
             try
             {
-                //Kiểm tra danh sách hàng hóa trong dgvInsertOrder
-                if (dgvInsertOrder.Rows.Count <= 0) return;
-                //chuyển danh sách về List<ThongTinMaVach>
-                List<ThongTinMaVach> dsThongTinMaVach = new List<ThongTinMaVach>();
-                for (int j = 0; j < dgvInsertOrder.Rows.Count; j++)
+                Entities.HoaDonNhap them = new Entities.HoaDonNhap();
+                them = new Entities.HoaDonNhap(hanhdong, mahoadonnhap);
+                clientstrem = cl.SerializeObj(this.client, "HoaDonNhap", them);
+                //hứng giá trị trả về
+                int trave;
+                Entities.HoaDonNhap[] tralai = new Entities.HoaDonNhap[1];
+                trave = (int)cl.DeserializeHepper(clientstrem, tralai);
+                //thong bao
+                if (trave == 1) { MessageBox.Show("Thành công !"); }
+                else { MessageBox.Show("Thất bại !"); }
+            }
+            catch (Exception ex)
+            { string s = ex.Message; }
+        }
+
+        bool CoPhaiLaMaQuyDoiHayKhong(string ma)
+        {
+            bool kq = false;
+            foreach (QuyDoiDonViTinh item in _dsQuyDoiDonViTinh)
+            {
+                if (item.MaHangQuyDoi.Equals(ma))
                 {
-                    string maHangHoa = dgvInsertOrder["MaHangHoa", j].Value.ToString();
-                    string tenHangHoa = dgvInsertOrder["TenHangHoa", j].Value.ToString();
-                    double gianhap = double.Parse(dgvInsertOrder["GiaNhap", j].Value.ToString());
-                    double giabanbuon = double.Parse(dgvInsertOrder["GiaBanBuon", j].Value.ToString());
-                    double giabanle = double.Parse(dgvInsertOrder["GiaBanLe", j].Value.ToString());
-                    double soluong = double.Parse(dgvInsertOrder["SoLuongDat", j].Value.ToString());
-                    dsThongTinMaVach.Add(new ThongTinMaVach
-                    {
-                        MaHangHoa = maHangHoa,
-                        TenHangHoa = tenHangHoa,
-                        GiaNhap = gianhap.ToString(),
-                        GiaBanBuon = giabanbuon.ToString(),
-                        GiaBanLe = giabanle.ToString(),
-                        GhiChu = soluong.ToString()
-                    });
+                    kq = true;
+                    break;
                 }
-                //Gọi Form "In Mã Vạch"
-                new frmQuanLyMaVach(dsThongTinMaVach).ShowDialog();
+            }
+            return kq;
+        }
+
+        private void cbxTienTe_TyGia_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                for (int i = 0; i < tigia.Length; i++)
+                {
+                    if (cbxTienTe_TyGia.SelectedValue.ToString() == tigia[i].Khoachinh.ToString())
+                    {
+                        txtTygia.Text = new Common.Utilities().FormatMoney(Double.Parse(tigia[i].Giatri2.ToString()));
+                    }
+                    else
+                    { continue; }
+                }
             }
             catch { }
         }
+
+        private void toolStripStatusLabel2_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                if (lbtinhtrang.Text == "Chưa thanh toán hết")
+                {
+                    frmXuLyPhieuTTNCC frm = new frmXuLyPhieuTTNCC(thanhtoan);
+                    frm.ShowDialog();
+                }
+            }
+            catch { }
+        }
+
+        private Boolean KiemTraTrangThaiDonDatHang(string madondathang)
+        {
+            Boolean bl = false;
+            try
+            {
+                Entities.TruyenGiaTri dat = new Entities.TruyenGiaTri();
+                dat.Hanhdong = "Select";
+                dat.Giatritruyen = "ThanhCong";
+                dat.Giatrithuhai = madondathang;
+                cl = new Server_Client.Client();
+                this.client = cl.Connect(Luu.IP, Luu.Ports);
+                clientstrem = cl.SerializeObj(this.client, "KiemTraDonDatHang", dat);
+                Entities.TruyenGiaTri ddh = new Entities.TruyenGiaTri();
+                ddh = (Entities.TruyenGiaTri)cl.DeserializeHepper(clientstrem, ddh);
+                if (ddh.Giatritruyen == "Yes")
+                { bl = true; }
+                else { bl = false; }
+            }
+            catch { bl = false; }
+            return bl;
+        }
+
+        private void toolStripStatusLabel4_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DialogResult giatri = MessageBox.Show("Bạn chắc chắn đóng lại không ?", "Thông Báo", MessageBoxButtons.YesNo);
+                {
+                    if (giatri == DialogResult.Yes)
+                    {
+                        frmQuanLyNhapKho.BaoDong = "A";
+                        Close();
+                    }
+                }
+            }
+            catch { }
+        }
+
+        private void toolStrip_txtGiagoc_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void toolStrip_txtGianhap_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void toolStrip_txtChietkhau_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void toolStrip_txtChietkhau_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (float.Parse(0 + toolStrip_txtChietkhauphantram.Text) == (float.Parse(0 + toolStrip_txtGiagoc.Text)))
+            {
+                toolStrip_txtGianhap.Text = "0";
+            }
+        }
+
+        private void toolStrip_txtSoluong_TextChanged(object sender, EventArgs e)
+        {
+            if (toolStrip_txtSoluong.Text.Length > 5 || toolStrip_txtSoluong.Text == "0")
+            {
+                toolStrip_txtSoluong.Text = "1";
+            }
+            if (toolStrip_txtSoluong.Text.Length == 1 && toolStrip_txtSoluong.Text == "0")
+            {
+                toolStrip_txtSoluong.Text = "1";
+            }
+        }
+
+        private void txtGiatrigiatang_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+        #endregion
     }
 }
 

@@ -7,6 +7,9 @@ namespace GUI
 {
     public class Luu
     {
+        /// <summary>
+        /// Biến này để xác định chương trình hiện tại là Server hay Client
+        /// </summary>
         public static string Server;
         public static string IP;
         public static int Ports;

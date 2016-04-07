@@ -423,7 +423,7 @@ namespace Server_Client
                     case "LayHangHoaGoiHang": { LayHangHoaGoiHang(clientStream); } break;
                     case "LayDonViTinh": { LayDonViTinh(clientStream); } break;
                     case "QuyDoi": { LayQuyDoi(clientStream); } break;
-                    case "GetDateTime": { GetDateTime(clientStream); } break;
+                    //case "GetDateTime": { GetDateTime(clientStream); } break;
                     //=================================================hungvv===========================================================
                     #endregion
 
