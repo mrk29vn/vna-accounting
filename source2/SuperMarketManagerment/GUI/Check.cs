@@ -19,13 +19,14 @@ namespace GUI
         public static NetworkStream clientstrem;
         public static DateTime Date()
         {
-            Server_Client.Client cl = new Server_Client.Client();
-            client1 = cl.Connect(Luu.IP, Luu.Ports);
-            Entities.CheckRefer pt = new Entities.CheckRefer();
-            clientstrem = cl.SerializeObj(client1, "Datetime", pt);
-            DateTime dt = new DateTime();
-            dt = (DateTime)cl.DeserializeHepper(clientstrem, dt);
-            return dt;
+            return "Datetime".GetDataFromServer<DateTime>();
+            //Server_Client.Client cl = new Server_Client.Client();
+            //client1 = cl.Connect(Luu.IP, Luu.Ports);
+            //Entities.CheckRefer pt = new Entities.CheckRefer();
+            //clientstrem = cl.SerializeObj(client1, "Datetime", pt);
+            //DateTime dt = new DateTime();
+            //dt = (DateTime)cl.DeserializeHepper(clientstrem, dt);
+            //return dt;
         }
     }
     public class Check

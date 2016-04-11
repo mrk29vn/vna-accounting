@@ -402,7 +402,7 @@ namespace GUI
                 cbxThang.SelectedIndex = 0;
                 this.cbxNam.Items.AddRange(new object[] { "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020" });
                 cbxNam.SelectedIndex = 0;
-                thongtin = Congty("");
+                thongtin = Utils.LayThongTinCongty();
                 switch (reportName)
                 {
                     //=============================================================================
@@ -744,28 +744,7 @@ namespace GUI
                 this.Enabled = true;
             }
         }
-        /// <summary>
-        /// thong tin cong ty
-        /// </summary>
-        /// <param name="maCongTy"></param>
-        /// <returns></returns>
-        private Entities.ThongTinCongTy Congty(string maCongTy)
-        {
-            Entities.ThongTinCongTy thongtin = null;
-            try
-            {
-                Entities.TruyenGiaTri truyen = new Entities.TruyenGiaTri("Select", maCongTy);
-                cl = new Server_Client.Client();
-                this.client = cl.Connect(Luu.IP, Luu.Ports);
-                clientstrem = cl.SerializeObj(this.client, "LayThongTinCongty", truyen);
-                thongtin = (Entities.ThongTinCongTy)cl.DeserializeHepper(clientstrem, thongtin);
-                client.Close();
-                clientstrem.Close();
-            }
-            catch (Exception ex)
-            { string s = ex.Message; thongtin = null; }
-            return thongtin;
-        }
+        
         /// <summary>
         /// 
         /// </summary>

@@ -88,7 +88,6 @@ namespace GUI
         /// </summary>
         /// <param name="macongty"></param>
         /// <returns></returns>
-        private static Entities.ThongTinCongTy[] thongtin = null;
         Entities.ThongTinCongTy layra = null;
         private void layBang()
         {
@@ -97,9 +96,10 @@ namespace GUI
             cl = new Server_Client.Client();
             this.client = cl.Connect(Luu.IP, Luu.Ports);
             clientstrem = cl.SerializeObj(this.client, "LayThongTinCongty", truyen);
+            Entities.ThongTinCongTy[] thongtin = null;
             thongtin = (Entities.ThongTinCongTy[])cl.DeserializeHepper(clientstrem, thongtin);
             new Common.Utilities().BindingCombobox(thongtin, cbxCongty, "TenCongTy", "MaCongTy");
-          
+
             for (int i = 0; i < thongtin.Length; i++)
             {
                 if (thongtin[i].MaCongTy == cbxCongty.SelectedValue.ToString())
@@ -121,18 +121,18 @@ namespace GUI
             makNgaybatdau.Text = new Common.Utilities().XuLy(2, DateServer.Date().ToString());
             makNgayketthuc.Text = new Common.Utilities().XuLy(2, DateServer.Date().ToString());
             layBang();
-            this.cbxLoaibaocao.Items.AddRange(new object[] { "Xuất Hàng Theo Từng Kho","Xuất Hàng Theo Từng Nhóm Hàng","Xuất Hàng Theo Từng Mặt Hàng" });
-            this.cbxLoaibaocao.Text = "Chọn báo cáo cần hiển thị";
-            this.cbxNam.Items.AddRange(new object[] { "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2020" });
-            if (rdoTheoquy.Checked == true)
+            cbxLoaibaocao.Items.AddRange(new object[] { "Xuất Hàng Theo Từng Kho","Xuất Hàng Theo Từng Nhóm Hàng","Xuất Hàng Theo Từng Mặt Hàng" });
+            cbxLoaibaocao.Text = "Chọn báo cáo cần hiển thị";
+            cbxNam.Items.AddRange(new object[] { "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2020" });
+            if (rdoTheoquy.Checked)
             {
                 cbxNam.Enabled = true;
                 cbxThang_Quy.Enabled = true;
                 makNgaybatdau.Enabled = false;
                 makNgayketthuc.Enabled = false;
                 lblThang_Quy.Text = "Quý:";
-                this.cbxThang_Quy.Items.AddRange(new object[] { "1", "2", "3", "4" });
-                this.cbxThang_Quy.Text = "Chọn quý";
+                cbxThang_Quy.Items.AddRange(new object[] { "1", "2", "3", "4" });
+                cbxThang_Quy.Text = "Chọn quý";
             }
             if (rdoTheothang.Checked == true)
             {

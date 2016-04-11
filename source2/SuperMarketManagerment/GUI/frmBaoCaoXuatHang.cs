@@ -41,32 +41,6 @@ namespace GUI
         private Server_Client.Client cl;
 
         /// <summary>
-        /// lay thong tin cong ty
-        /// </summary>
-        /// <param name="macongty"></param>
-        /// <returns></returns>
-        //private Entities.ThongTinCongTy layBang(string maCongTy)
-        //{
-        //    Entities.ThongTinCongTy thongtin = new Entities.ThongTinCongTy();
-        //    Entities.TruyenGiaTri truyen = new Entities.TruyenGiaTri("Select", maCongTy);
-        //    cl = new Server_Client.Client();
-        //    this.client = cl.Connect(Luu.IP, Luu.Ports);
-        //    clientstrem = cl.SerializeObj(this.client, "LayThongTinCongty", truyen);
-        //    thongtin = (Entities.ThongTinCongTy)cl.DeserializeHepper(clientstrem, thongtin);
-        //    return thongtin;
-        //}
-        //private Entities.ThongTinCongTy[] layBang(string maCongTy)
-        //{
-        //    Entities.ThongTinCongTy[] thongtin = null;
-        //    Entities.TruyenGiaTri truyen = new Entities.TruyenGiaTri("Select", maCongTy);
-        //    cl = new Server_Client.Client();
-        //    this.client = cl.Connect(Luu.IP, Luu.Ports);
-        //    clientstrem = cl.SerializeObj(this.client, "LayThongTinCongty", truyen);
-        //    thongtin = (Entities.ThongTinCongTy[])cl.DeserializeHepper(clientstrem, thongtin);
-        //    return thongtin;
-        //}
-
-        /// <summary>
         /// lay bang nhom hang hoa theo ma hang hoa va ngay 
         /// </summary>
         /// <param name="manhom"></param>

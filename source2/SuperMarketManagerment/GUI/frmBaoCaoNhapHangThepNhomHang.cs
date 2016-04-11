@@ -23,21 +23,7 @@ namespace GUI
             InitializeComponent();
         }
         Server_Client.Client cl;
-        /// <summary>
-        /// lay thong tin cong ty
-        /// </summary>
-        /// <param name="macongty"></param>
-        /// <returns></returns>
-        private Entities.ThongTinCongTy[] layBang(string maCongTy)
-        {
-            Entities.ThongTinCongTy[] thongtin = null;
-            Entities.TruyenGiaTri truyen = new Entities.TruyenGiaTri("Select", maCongTy);
-            cl = new Server_Client.Client();
-            this.client1 = cl.Connect(Luu.IP, Luu.Ports);
-            clientstrem = cl.SerializeObj(this.client1, "LayThongTinCongty", truyen);
-            thongtin = (Entities.ThongTinCongTy[])cl.DeserializeHepper(clientstrem, thongtin);
-            return thongtin;
-        }
+        
         public Entities.BaoCaoNhapHangTheoNhomHang[] SelectData1()
         {
             Entities.BaoCaoNhapHangTheoNhomHang[] nkh1 = new Entities.BaoCaoNhapHangTheoNhomHang[1];

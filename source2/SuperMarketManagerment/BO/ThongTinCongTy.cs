@@ -40,7 +40,7 @@ namespace BizLogic
         /// </summary>
         /// <param name="ct"></param>
         /// <returns></returns>
-        public Entities.ThongTinCongTy sp_ThongTinCongTy(Entities.TruyenGiaTri ct)
+        public Entities.ThongTinCongTy sp_ThongTinCongTy(TruyenGiaTri ct)
         {
             Entities.ThongTinCongTy banghi = new Entities.ThongTinCongTy();
             try

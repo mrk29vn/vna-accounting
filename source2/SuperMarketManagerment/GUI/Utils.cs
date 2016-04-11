@@ -9,7 +9,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace GUI
 {
-    public class Utils
+    public static class Utils
     {
         #region Khai báo
         public static bool ShowXnt = false;
@@ -72,6 +72,11 @@ namespace GUI
             }
             return dateTime;
         }
+
+        public static Entities.ThongTinCongTy LayThongTinCongty(string macty = "")
+        {
+            return "LayThongTinCongty".GetDataFromServer<Entities.ThongTinCongTy>(new Entities.TruyenGiaTri("Select", macty));
+        }
         #endregion
 
         #region Utils
@@ -102,6 +107,24 @@ namespace GUI
                 output = default(T);
                 return false;
             }
+        }
+        public static T GetDataFromServer<T>(this string strServer, object input = null)
+        {
+            try
+            {
+                TcpClient tcpClient = new TcpClient();
+                tcpClient.Connect(new IPEndPoint(IPAddress.Parse(Luu.IP), Luu.Ports));
+                NetworkStream networkStream = tcpClient.GetStream();
+                BinaryFormatter binaryFormatter = new BinaryFormatter();
+                binaryFormatter.Serialize(networkStream, strServer);
+                if (input != null) binaryFormatter.Serialize(networkStream, input);
+                T output = (T)binaryFormatter.Deserialize(networkStream);
+                networkStream.Close();
+                tcpClient.Close();
+                return output;
+            }
+            catch { }
+            return default(T);
         }
 
         public static void Copy(object from, object to)

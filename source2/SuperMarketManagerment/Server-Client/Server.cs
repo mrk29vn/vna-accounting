@@ -4639,12 +4639,10 @@ namespace Server_Client
             {
                 case "Select":
                     {
-                        Entities.ThongTinCongTy select = (Entities.ThongTinCongTy)new BizLogic.ThongTinCongTy().sp_ThongTinCongTy(giatri);
+                        Entities.ThongTinCongTy select = new BizLogic.ThongTinCongTy().sp_ThongTinCongTy(giatri);
                         formatter.Serialize(clientStream, select);
                         break;
                     }
-                default:
-                    break;
             }
         }
         /// <summary>

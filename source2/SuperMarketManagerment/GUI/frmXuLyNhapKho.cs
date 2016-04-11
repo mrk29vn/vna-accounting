@@ -33,22 +33,11 @@ namespace GUI
         #endregion
 
         #region Khởi tạo
-        public frmXuLyNhapKho()
+        public frmXuLyNhapKho(string hanhdong = "", HoaDonNhap hoa = null)
         {
             InitializeComponent();
-            _dsQuyDoiDonViTinh = Bangquydoidonvitinh();
-        }
-        public frmXuLyNhapKho(string hanhdong, HoaDonNhap hoa)
-        {
-            InitializeComponent();
-            this.hanhdong = hanhdong;
-            hoadon = hoa;
-            _dsQuyDoiDonViTinh = Bangquydoidonvitinh();
-        }
-        public frmXuLyNhapKho(string hanhdong)
-        {
-            InitializeComponent();
-            this.hanhdong = hanhdong;
+            if (string.IsNullOrEmpty(hanhdong)) this.hanhdong = hanhdong;
+            if (hoa != null) hoadon = hoa;
             _dsQuyDoiDonViTinh = Bangquydoidonvitinh();
         }
         private void frmXuLyNhapKho_Load(object sender, EventArgs e)
@@ -58,8 +47,10 @@ namespace GUI
                 Date = Utils.GetDateTimeNow();
                 frmXuLyNhapKho fr = new frmXuLyNhapKho();
                 cbxHinhthucthanhtoan.Items.AddRange(new object[] { "Tiền mặt", "ATM" });
+
                 if (hanhdong == "Insert")
                 {
+                    #region Insert
                     Common.Utilities ck = new Common.Utilities();
                     string ngay = Date.ToString("dd/MM/yyyy");
                     makNgaydonhang.Text = ngay;
@@ -99,12 +90,15 @@ namespace GUI
                     txtSodonhang.Text = makiemtra;
                     toolStripStatus_Thanhtoan.Enabled = false;
                     toolStripStatus_In.Enabled = false;
+                    #endregion
                 }
+
                 new Common.Utilities().ComboxKhoHang(cbxKhoHang);
                 LayTenTT();
                 txtTygia.Text = tigia[0].Giatri2;
                 cbxTienTe_TyGia.SelectedIndex = 0;
                 cbxTienTe_TyGia.Enabled = false;
+
                 if (hanhdong == "Update")
                 {
 
@@ -1077,29 +1071,7 @@ namespace GUI
         #endregion
 
         #region Kiem Tra
-        /// <summary>
-        /// hungvv --------------------kiem tra ma hang------------------
-        /// </summary>
-        /// <param name="ID"></param>
-        /// <returns></returns>
-        private string KiemTraMa(string ID)
-        {
-            string kt = null;
-            try
-            {
-                Entities.KiemTraChung ktm = new Entities.KiemTraChung();
-                cl = new Server_Client.Client();
-                this.client = cl.Connect(Luu.IP, Luu.Ports);
-                ktm = new Entities.KiemTraChung("Select", ID);
-                clientstrem = cl.SerializeObj(this.client, "KiemTraMa", ktm);
-                Entities.KiemTraChung tra = new Entities.KiemTraChung();
-                tra = (Entities.KiemTraChung)cl.DeserializeHepper(clientstrem, tra);
-                kt = tra.Hanhdong;
-            }
-            catch (Exception ex)
-            { string s = ex.Message; }
-            return kt;
-        }
+        
         /// <summary>
         /// hungvv --------------------kiem tra ma hang khi them chi tiet hang------------------
         /// </summary>
@@ -1127,21 +1099,6 @@ namespace GUI
             catch (Exception ex)
             { string s = ex.Message; }
             return kt;
-        }
-        /// <summary>
-        /// them hang moi 1 row vao dgv
-        /// </summary>
-        private string kiemtrangay(string ngay)
-        {
-            string s = "";
-            try
-            {
-                s = new Common.Utilities().MyDateConversion(ngay);
-
-            }
-            catch (Exception ex)
-            { string a = ex.Message.ToString(); s = ""; }
-            return s;
         }
         #endregion
 
@@ -1322,40 +1279,6 @@ namespace GUI
                 dgv.DataSource = lay;
                 DoiTen(dgvInsertOrder);
             }
-        }
-        #endregion
-
-        #region Quy Doi
-        private Entities.HangHoaGoiHang quydoiDonViTinh;
-        private void QuyDoi(string mahang)
-        {
-            try
-            {
-                Entities.HangHoaGoiHang dat = new Entities.HangHoaGoiHang();
-                dat.Hanhdong = "Select";
-                dat.MaHang = mahang;
-                cl = new Server_Client.Client();
-                this.client = cl.Connect(Luu.IP, Luu.Ports);
-                clientstrem = cl.SerializeObj(this.client, "QuyDoi", dat);
-                quydoiDonViTinh = new Entities.HangHoaGoiHang();
-                quydoiDonViTinh = (Entities.HangHoaGoiHang)cl.DeserializeHepper(clientstrem, quydoiDonViTinh);
-                client.Close();
-                clientstrem.Close();
-                if (quydoiDonViTinh.MaHang != null)
-                {
-                    toolStrip_txtTracuu.Text = quydoiDonViTinh.MaHang;
-                    toolStrip_txtTenhang.Text = quydoiDonViTinh.TenHang;
-                    toolStrip_txtGiagoc.Text = quydoiDonViTinh.GiaNhap;
-                    toolStrip_txtSoluong.Text = (float.Parse(toolStrip_txtSoluong.Text) * float.Parse(quydoiDonViTinh.SoLuong)).ToString();
-                    toolStrip_txtGianhap.Text = quydoiDonViTinh.GiaNhap;
-                    toolStrip_txtThuegiatrigiatang.Text = quydoiDonViTinh.Thue;
-                    banbuon = quydoiDonViTinh.GiaBanBuon;
-                    banle = quydoiDonViTinh.GiaBanLe;
-                    giatrigiatang = quydoiDonViTinh.Thue;
-                }
-            }
-            catch (Exception ex)
-            { string s = ex.Message; }
         }
         #endregion
 
@@ -1785,54 +1708,6 @@ namespace GUI
         }
         #endregion
 
-        #region Sua Ngay het han
-        /// <summary>
-        /// sua ngay
-        /// </summary>
-        /// <param name="dgv"></param>
-        private void getData(DataGridView dgv)
-        {
-            try
-            {
-                ArrayList arr = new ArrayList();
-                Entities.HienThi_ChiTiet_DonDatHang[] list = null;
-                if (dgv.RowCount > 0 && i >= 0)
-                {
-                    toolStrip_txtTracuu.Text = dgv[1, i].Value.ToString();
-                    toolStrip_txtTenhang.Text = dgv[2, i].Value.ToString();
-                    toolStrip_txtSoluong.Text = Double.Parse(0 + dgv[3, i].Value.ToString()).ToString();
-                    toolStrip_txtGiagoc.Text = Double.Parse(0 + dgv[4, i].Value.ToString()).ToString();
-                    banbuon = Double.Parse(0 + dgv[5, i].Value.ToString()).ToString();
-                    banle = Double.Parse(0 + dgv[6, i].Value.ToString()).ToString();
-                    toolStrip_txtChietkhauphantram.Text = "0";
-                    toolStrip_txtThuegiatrigiatang.Text = Double.Parse(0 + dgv[8, i].Value.ToString()).ToString();
-                    giatrigiatang = Double.Parse(0 + dgv[8, i].Value.ToString()).ToString();
-                    toolStrip_Chietkhau.Text = "0";
-                    toolStrip_txtGianhap.Text = (Double.Parse(0 + dgv[4, i].Value.ToString()) * int.Parse(toolStrip_txtSoluong.Text)).ToString();
-                    date = dgv[12, i].Value.ToString();
-                    if (date.Length <= 0)
-                    { date = toolStrip_txtNgayhethan.Text = this.Date.ToString("dd/MM/yyyy"); }
-                    toolStrip_txtNgayhethan.Text = date;
-                }
-                else
-                {
-                    toolStrip_txtNgayhethan.Text = new Common.Utilities().XuLy(2, date);
-                    list = new Entities.HienThi_ChiTiet_DonDatHang[0];
-                    arr = null;
-                    dgv.DataSource = list;
-                }
-                DoiTen(dgv);
-            }
-            catch (Exception ex)
-            {
-                string s = ex.Message;
-                Entities.HienThi_ChiTiet_DonDatHang[] list = new Entities.HienThi_ChiTiet_DonDatHang[0];
-                dgv.DataSource = list;
-                DoiTen(dgv);
-            }
-        }
-        #endregion
-
         #region Tinh Toan
         private string TinhTien(DataGridView dgv)
         {
@@ -1949,175 +1824,6 @@ namespace GUI
             }
             catch (Exception ex)
             { string s = ex.Message; }
-        }
-        #endregion
-
-        #region Lay Hang Hoa Theo Ma
-        /// <summary>
-        /// Tìm chi tiết hàng hóa và fill dữ liệu vào form
-        /// </summary>
-        /// <param name="maHang"></param>
-        private void LayHangHoaTheoMa(string maHang)
-        {
-            try
-            {
-                QuyDoiDonViTinh lDvtSelect;
-                if (CheckQuyDoiDonViTinh(maHang, out lDvtSelect))
-                {
-                    #region có quy đổi
-                    HienThi_ChiTiet_DonDatHang ktm = new HienThi_ChiTiet_DonDatHang();
-                    cl = new Server_Client.Client();
-                    client = cl.Connect(Luu.IP, Luu.Ports);
-                    ktm = new HienThi_ChiTiet_DonDatHang("Select", lDvtSelect.MaHangDuocQuyDoi);
-                    clientstrem = cl.SerializeObj(client, "LayHangHoaTheoMaHangHoa", ktm);
-                    HienThi_ChiTiet_DonDatHang tra = new HienThi_ChiTiet_DonDatHang();
-                    tra = (HienThi_ChiTiet_DonDatHang)cl.DeserializeHepper(clientstrem, tra);
-                    if (tra == null)
-                    {
-                        toolStrip_txtTracuu.Focus();
-                        frmXuLyHangHoa frm = new frmXuLyHangHoa("ThemNhapKho", lDvtSelect.MaHangDuocQuyDoi);
-                        frm.ShowDialog();
-                        ResetTool();
-                        toolStrip_txtTracuu.Text = GiaTriCanLuu.mahanghoa;
-                        //LayHangHoaTheoMa(toolStrip_txtTracuu.Text);
-                    }
-                    else
-                    {
-                        toolStrip_txtTracuu.Text = lDvtSelect.MaHangQuyDoi;
-                        toolStrip_txtTenhang.Text = string.IsNullOrEmpty(lDvtSelect.TenHangDuocQuyDoi) ? lDvtSelect.MaHangQuyDoi : lDvtSelect.TenHangDuocQuyDoi;
-                        toolStrip_txtSoluong.Text = tra.SoLuongDat > 0 && lDvtSelect.SoLuongDuocQuyDoi > 0 ? (tra.SoLuongDat / lDvtSelect.SoLuongDuocQuyDoi).ToString() : string.Empty;
-                        toolStrip_txtGiagoc.Text = tra.GiaGoc;
-                        banbuon = tra.Giabanbuon;
-                        banle = tra.Giabanle;
-                        giatrigiatang = tra.Thuegiatrigiatang;
-                        toolStrip_txtChietkhauphantram.Text = tra.PhanTramChietKhau;
-                        toolStrip_txtThuegiatrigiatang.Text = int.Parse(0 + tra.Thuegiatrigiatang).ToString();
-                        toolStrip_txtGianhap.Text = tra.GiaNhap;
-                        toolStrip_txtNgayhethan.Text = Date.ToString("dd/MM/yyyy");
-                        toolStrip_txtSoluong.Text = "";
-                        toolStrip_txtSoluong.Focus();
-                    }
-                    #endregion
-                }
-                else
-                {
-                    #region không có quy đổi
-                    HienThi_ChiTiet_DonDatHang ktm = new Entities.HienThi_ChiTiet_DonDatHang();
-                    cl = new Server_Client.Client();
-                    client = cl.Connect(Luu.IP, Luu.Ports);
-                    ktm = new HienThi_ChiTiet_DonDatHang("Select", maHang);
-                    clientstrem = cl.SerializeObj(client, "LayHangHoaTheoMaHangHoa", ktm);
-                    HienThi_ChiTiet_DonDatHang tra = new HienThi_ChiTiet_DonDatHang();
-                    tra = (HienThi_ChiTiet_DonDatHang)cl.DeserializeHepper(clientstrem, tra);
-                    if (tra == null)
-                    {
-                        toolStrip_txtTracuu.Focus();
-                        frmXuLyHangHoa frm = new frmXuLyHangHoa("ThemNhapKho", toolStrip_txtTracuu.Text);
-                        frm.ShowDialog();
-                        ResetTool();
-                        toolStrip_txtTracuu.Text = GiaTriCanLuu.mahanghoa;
-                    }
-                    else
-                    {
-                        toolStrip_txtTracuu.Text = tra.MaHangHoa;
-                        toolStrip_txtTenhang.Text = tra.TenHangHoa;
-                        toolStrip_txtSoluong.Text = tra.SoLuongDat.ToString();
-                        toolStrip_txtGiagoc.Text = tra.GiaGoc;
-                        banbuon = tra.Giabanbuon;
-                        banle = tra.Giabanle;
-                        giatrigiatang = tra.Thuegiatrigiatang;
-                        toolStrip_txtChietkhauphantram.Text = tra.PhanTramChietKhau;
-                        toolStrip_txtThuegiatrigiatang.Text = int.Parse(0 + tra.Thuegiatrigiatang).ToString();
-                        toolStrip_txtGianhap.Text = tra.GiaNhap;
-                        toolStrip_txtNgayhethan.Text = Date.ToString("dd/MM/yyyy");
-                        toolStrip_txtSoluong.Text = "";
-                        toolStrip_txtSoluong.Focus();
-                    }
-                    #endregion
-                }
-            }
-            catch { }
-        }
-
-        private HangHoa LayHangHoaTheoMa(HangHoa input)
-        {
-            try
-            {
-                string maHang = input.MaHangHoa;
-                QuyDoiDonViTinh lDvtSelect;
-                if (CheckQuyDoiDonViTinh(maHang, out lDvtSelect))
-                {
-                    return new HangHoa();
-                    //tạm bỏ
-                    #region có quy đổi
-                    Entities.HienThi_ChiTiet_DonDatHang ktm = new Entities.HienThi_ChiTiet_DonDatHang();
-                    cl = new Server_Client.Client();
-                    this.client = cl.Connect(Luu.IP, Luu.Ports);
-                    ktm = new Entities.HienThi_ChiTiet_DonDatHang("Select", lDvtSelect.MaHangDuocQuyDoi);
-                    clientstrem = cl.SerializeObj(this.client, "LayHangHoaTheoMaHangHoa", ktm);
-                    Entities.HienThi_ChiTiet_DonDatHang tra = new Entities.HienThi_ChiTiet_DonDatHang();
-                    tra = (Entities.HienThi_ChiTiet_DonDatHang)cl.DeserializeHepper(clientstrem, tra);
-                    if (tra.MaHangHoa == null || tra == null)
-                    {
-                        toolStrip_txtTracuu.Focus();
-                        frmXuLyHangHoa frm = new frmXuLyHangHoa("ThemNhapKho", lDvtSelect.MaHangDuocQuyDoi);
-                        frm.ShowDialog();
-                        ResetTool();
-                        toolStrip_txtTracuu.Text = GiaTriCanLuu.mahanghoa;
-                        //LayHangHoaTheoMa(toolStrip_txtTracuu.Text);
-                    }
-                    else
-                    {
-                        toolStrip_txtTracuu.Text = lDvtSelect.MaHangQuyDoi;
-                        if (lDvtSelect.TenHangDuocQuyDoi.Equals(""))
-                        {
-                            toolStrip_txtTenhang.Text = lDvtSelect.MaHangQuyDoi;
-                        }
-                        else
-                        {
-                            toolStrip_txtTenhang.Text = lDvtSelect.TenHangDuocQuyDoi;
-                        }
-                        if (tra.SoLuongDat != null && tra.SoLuongDat > 0)
-                        {
-                            if (lDvtSelect.SoLuongDuocQuyDoi != null || lDvtSelect.SoLuongDuocQuyDoi > 0)
-                            {
-                                try
-                                {
-                                    toolStrip_txtSoluong.Text = (tra.SoLuongDat / lDvtSelect.SoLuongDuocQuyDoi).ToString();
-                                }
-                                catch { }
-                            }
-                        }
-                        ////toolStrip_txtSoluong.Text = tra.SoLuongDat.ToString();
-                        toolStrip_txtGiagoc.Text = tra.GiaGoc;
-                        banbuon = tra.Giabanbuon;
-                        banle = tra.Giabanle;
-                        giatrigiatang = tra.Thuegiatrigiatang;
-                        toolStrip_txtChietkhauphantram.Text = tra.PhanTramChietKhau;
-                        toolStrip_txtThuegiatrigiatang.Text = int.Parse(0 + tra.Thuegiatrigiatang).ToString();
-                        toolStrip_txtGianhap.Text = tra.GiaNhap;
-                        toolStrip_txtNgayhethan.Text = this.Date.ToString("dd/MM/yyyy");
-                        toolStrip_txtSoluong.Text = "";
-                        toolStrip_txtSoluong.Focus();
-                    }
-                    #endregion
-                }
-                else
-                {
-                    #region không có quy đổi
-                    cl = new Server_Client.Client();
-                    client = cl.Connect(Luu.IP, Luu.Ports);
-                    HangHoa temp = new HangHoa { HanhDong = "SelectHangHoa_Theo_MaHangHoa", MaHangHoa = maHang };
-                    clientstrem = cl.SerializeObj(client, "HangHoa", temp);
-                    HangHoa[] hh1 = new HangHoa[1];
-                    hh1 = (HangHoa[])cl.DeserializeHepper1(clientstrem, hh1);
-                    if (hh1 == null || hh1.Length == 0) return new HangHoa();
-                    return hh1[0];
-                    #endregion
-                }
-            }
-            catch { }
-            return new Entities.HangHoa();
         }
         #endregion
 
@@ -2256,10 +1962,10 @@ namespace GUI
         {
             try
             {
-                Entities.BaoCaoHoaDonNhap[] hoadon = new Entities.BaoCaoHoaDonNhap[dgvInsertOrder.RowCount];
+                BaoCaoHoaDonNhap[] hoadon = new BaoCaoHoaDonNhap[dgvInsertOrder.RowCount];
                 for (int k = 0; k < dgvInsertOrder.RowCount; k++)
                 {
-                    Entities.BaoCaoHoaDonNhap row = new Entities.BaoCaoHoaDonNhap
+                    BaoCaoHoaDonNhap row = new BaoCaoHoaDonNhap
                     (
                         dgvInsertOrder.Rows[k].Cells[1].Value.ToString(),
                         dgvInsertOrder.Rows[k].Cells[2].Value.ToString(),
@@ -2272,7 +1978,7 @@ namespace GUI
                     );
                     hoadon[k] = row;
                 }
-                Entities.TruyenGiaTriVaoBaoCao baocao = new Entities.TruyenGiaTriVaoBaoCao();
+                TruyenGiaTriVaoBaoCao baocao = new TruyenGiaTriVaoBaoCao();
                 baocao.Giatri1 = "Hóa Đơn Nhập Kho";
                 baocao.Giatri2 = this.Date.ToString("dd/MM/yyyy");
                 baocao.Giatri3 = txtSodonhang.Text;
@@ -2293,29 +1999,10 @@ namespace GUI
                 baocao.Giatri15 = txtChietkhau.Text;
                 baocao.Giatri16 = txtGiatrigiatang.Text;
                 baocao.Giatri17 = new Common.Utilities().FormatMoney(Double.Parse(txtTienTraLai.Text));
-                frmBaoCaoNhapHang frm = new frmBaoCaoNhapHang("HoaDonNhap", hoadon, baocao, Congty(""));
+                frmBaoCaoNhapHang frm = new frmBaoCaoNhapHang("HoaDonNhap", hoadon, baocao, Utils.LayThongTinCongty());
                 frm.ShowDialog();
             }
             catch { }
-        }
-        #endregion
-
-        #region CongTy
-        private Entities.ThongTinCongTy Congty(string maCongTy)
-        {
-            Entities.ThongTinCongTy thongtin = null;
-            try
-            {
-                Entities.TruyenGiaTri truyen = new Entities.TruyenGiaTri("Select", maCongTy);
-                cl = new Server_Client.Client();
-                this.client = cl.Connect(Luu.IP, Luu.Ports);
-                clientstrem = cl.SerializeObj(this.client, "LayThongTinCongty", truyen);
-                thongtin = (Entities.ThongTinCongTy)cl.DeserializeHepper(clientstrem, thongtin);
-                client.Close();
-                clientstrem.Close();
-            }
-            catch { return null; }
-            return thongtin;
         }
         #endregion
 
@@ -2741,6 +2428,7 @@ namespace GUI
             }
             catch { }
         }
+
         private void toolStripStatus_In_Click(object sender, EventArgs e)
         {
             try
@@ -3294,6 +2982,175 @@ namespace GUI
         #endregion
 
         #region Utils
+        #region Lay Hang Hoa Theo Ma
+        /// <summary>
+        /// Tìm chi tiết hàng hóa và fill dữ liệu vào form
+        /// </summary>
+        /// <param name="maHang"></param>
+        private void LayHangHoaTheoMa(string maHang)
+        {
+            try
+            {
+                QuyDoiDonViTinh lDvtSelect;
+                if (CheckQuyDoiDonViTinh(maHang, out lDvtSelect))
+                {
+                    #region có quy đổi
+                    HienThi_ChiTiet_DonDatHang ktm = new HienThi_ChiTiet_DonDatHang();
+                    cl = new Server_Client.Client();
+                    client = cl.Connect(Luu.IP, Luu.Ports);
+                    ktm = new HienThi_ChiTiet_DonDatHang("Select", lDvtSelect.MaHangDuocQuyDoi);
+                    clientstrem = cl.SerializeObj(client, "LayHangHoaTheoMaHangHoa", ktm);
+                    HienThi_ChiTiet_DonDatHang tra = new HienThi_ChiTiet_DonDatHang();
+                    tra = (HienThi_ChiTiet_DonDatHang)cl.DeserializeHepper(clientstrem, tra);
+                    if (tra == null)
+                    {
+                        toolStrip_txtTracuu.Focus();
+                        frmXuLyHangHoa frm = new frmXuLyHangHoa("ThemNhapKho", lDvtSelect.MaHangDuocQuyDoi);
+                        frm.ShowDialog();
+                        ResetTool();
+                        toolStrip_txtTracuu.Text = GiaTriCanLuu.mahanghoa;
+                        //LayHangHoaTheoMa(toolStrip_txtTracuu.Text);
+                    }
+                    else
+                    {
+                        toolStrip_txtTracuu.Text = lDvtSelect.MaHangQuyDoi;
+                        toolStrip_txtTenhang.Text = string.IsNullOrEmpty(lDvtSelect.TenHangDuocQuyDoi) ? lDvtSelect.MaHangQuyDoi : lDvtSelect.TenHangDuocQuyDoi;
+                        toolStrip_txtSoluong.Text = tra.SoLuongDat > 0 && lDvtSelect.SoLuongDuocQuyDoi > 0 ? (tra.SoLuongDat / lDvtSelect.SoLuongDuocQuyDoi).ToString() : string.Empty;
+                        toolStrip_txtGiagoc.Text = tra.GiaGoc;
+                        banbuon = tra.Giabanbuon;
+                        banle = tra.Giabanle;
+                        giatrigiatang = tra.Thuegiatrigiatang;
+                        toolStrip_txtChietkhauphantram.Text = tra.PhanTramChietKhau;
+                        toolStrip_txtThuegiatrigiatang.Text = int.Parse(0 + tra.Thuegiatrigiatang).ToString();
+                        toolStrip_txtGianhap.Text = tra.GiaNhap;
+                        toolStrip_txtNgayhethan.Text = Date.ToString("dd/MM/yyyy");
+                        toolStrip_txtSoluong.Text = "";
+                        toolStrip_txtSoluong.Focus();
+                    }
+                    #endregion
+                }
+                else
+                {
+                    #region không có quy đổi
+                    HienThi_ChiTiet_DonDatHang ktm = new Entities.HienThi_ChiTiet_DonDatHang();
+                    cl = new Server_Client.Client();
+                    client = cl.Connect(Luu.IP, Luu.Ports);
+                    ktm = new HienThi_ChiTiet_DonDatHang("Select", maHang);
+                    clientstrem = cl.SerializeObj(client, "LayHangHoaTheoMaHangHoa", ktm);
+                    HienThi_ChiTiet_DonDatHang tra = new HienThi_ChiTiet_DonDatHang();
+                    tra = (HienThi_ChiTiet_DonDatHang)cl.DeserializeHepper(clientstrem, tra);
+                    if (tra == null)
+                    {
+                        toolStrip_txtTracuu.Focus();
+                        frmXuLyHangHoa frm = new frmXuLyHangHoa("ThemNhapKho", toolStrip_txtTracuu.Text);
+                        frm.ShowDialog();
+                        ResetTool();
+                        toolStrip_txtTracuu.Text = GiaTriCanLuu.mahanghoa;
+                    }
+                    else
+                    {
+                        toolStrip_txtTracuu.Text = tra.MaHangHoa;
+                        toolStrip_txtTenhang.Text = tra.TenHangHoa;
+                        toolStrip_txtSoluong.Text = tra.SoLuongDat.ToString();
+                        toolStrip_txtGiagoc.Text = tra.GiaGoc;
+                        banbuon = tra.Giabanbuon;
+                        banle = tra.Giabanle;
+                        giatrigiatang = tra.Thuegiatrigiatang;
+                        toolStrip_txtChietkhauphantram.Text = tra.PhanTramChietKhau;
+                        toolStrip_txtThuegiatrigiatang.Text = int.Parse(0 + tra.Thuegiatrigiatang).ToString();
+                        toolStrip_txtGianhap.Text = tra.GiaNhap;
+                        toolStrip_txtNgayhethan.Text = Date.ToString("dd/MM/yyyy");
+                        toolStrip_txtSoluong.Text = "";
+                        toolStrip_txtSoluong.Focus();
+                    }
+                    #endregion
+                }
+            }
+            catch { }
+        }
+
+        private HangHoa LayHangHoaTheoMa(HangHoa input)
+        {
+            try
+            {
+                string maHang = input.MaHangHoa;
+                QuyDoiDonViTinh lDvtSelect;
+                if (CheckQuyDoiDonViTinh(maHang, out lDvtSelect))
+                {
+                    return new HangHoa();
+                    //tạm bỏ
+                    #region có quy đổi
+                    Entities.HienThi_ChiTiet_DonDatHang ktm = new Entities.HienThi_ChiTiet_DonDatHang();
+                    cl = new Server_Client.Client();
+                    this.client = cl.Connect(Luu.IP, Luu.Ports);
+                    ktm = new Entities.HienThi_ChiTiet_DonDatHang("Select", lDvtSelect.MaHangDuocQuyDoi);
+                    clientstrem = cl.SerializeObj(this.client, "LayHangHoaTheoMaHangHoa", ktm);
+                    Entities.HienThi_ChiTiet_DonDatHang tra = new Entities.HienThi_ChiTiet_DonDatHang();
+                    tra = (Entities.HienThi_ChiTiet_DonDatHang)cl.DeserializeHepper(clientstrem, tra);
+                    if (tra.MaHangHoa == null || tra == null)
+                    {
+                        toolStrip_txtTracuu.Focus();
+                        frmXuLyHangHoa frm = new frmXuLyHangHoa("ThemNhapKho", lDvtSelect.MaHangDuocQuyDoi);
+                        frm.ShowDialog();
+                        ResetTool();
+                        toolStrip_txtTracuu.Text = GiaTriCanLuu.mahanghoa;
+                        //LayHangHoaTheoMa(toolStrip_txtTracuu.Text);
+                    }
+                    else
+                    {
+                        toolStrip_txtTracuu.Text = lDvtSelect.MaHangQuyDoi;
+                        if (lDvtSelect.TenHangDuocQuyDoi.Equals(""))
+                        {
+                            toolStrip_txtTenhang.Text = lDvtSelect.MaHangQuyDoi;
+                        }
+                        else
+                        {
+                            toolStrip_txtTenhang.Text = lDvtSelect.TenHangDuocQuyDoi;
+                        }
+                        if (tra.SoLuongDat != null && tra.SoLuongDat > 0)
+                        {
+                            if (lDvtSelect.SoLuongDuocQuyDoi != null || lDvtSelect.SoLuongDuocQuyDoi > 0)
+                            {
+                                try
+                                {
+                                    toolStrip_txtSoluong.Text = (tra.SoLuongDat / lDvtSelect.SoLuongDuocQuyDoi).ToString();
+                                }
+                                catch { }
+                            }
+                        }
+                        ////toolStrip_txtSoluong.Text = tra.SoLuongDat.ToString();
+                        toolStrip_txtGiagoc.Text = tra.GiaGoc;
+                        banbuon = tra.Giabanbuon;
+                        banle = tra.Giabanle;
+                        giatrigiatang = tra.Thuegiatrigiatang;
+                        toolStrip_txtChietkhauphantram.Text = tra.PhanTramChietKhau;
+                        toolStrip_txtThuegiatrigiatang.Text = int.Parse(0 + tra.Thuegiatrigiatang).ToString();
+                        toolStrip_txtGianhap.Text = tra.GiaNhap;
+                        toolStrip_txtNgayhethan.Text = this.Date.ToString("dd/MM/yyyy");
+                        toolStrip_txtSoluong.Text = "";
+                        toolStrip_txtSoluong.Focus();
+                    }
+                    #endregion
+                }
+                else
+                {
+                    #region không có quy đổi
+                    cl = new Server_Client.Client();
+                    client = cl.Connect(Luu.IP, Luu.Ports);
+                    HangHoa temp = new HangHoa { HanhDong = "SelectHangHoa_Theo_MaHangHoa", MaHangHoa = maHang };
+                    clientstrem = cl.SerializeObj(client, "HangHoa", temp);
+                    HangHoa[] hh1 = new HangHoa[1];
+                    hh1 = (HangHoa[])cl.DeserializeHepper1(clientstrem, hh1);
+                    if (hh1 == null || hh1.Length == 0) return new HangHoa();
+                    return hh1[0];
+                    #endregion
+                }
+            }
+            catch { }
+            return new Entities.HangHoa();
+        }
+        #endregion
+
         bool CheckQuyDoiDonViTinh(string maHangHoa, out QuyDoiDonViTinh input)
         {
             input = new QuyDoiDonViTinh();
@@ -3449,6 +3306,39 @@ namespace GUI
         }
         #endregion
 
+        #region Quy Doi
+        private void QuyDoi(string mahang)
+        {
+            try
+            {
+                Entities.HangHoaGoiHang dat = new Entities.HangHoaGoiHang();
+                dat.Hanhdong = "Select";
+                dat.MaHang = mahang;
+                cl = new Server_Client.Client();
+                this.client = cl.Connect(Luu.IP, Luu.Ports);
+                clientstrem = cl.SerializeObj(this.client, "QuyDoi", dat);
+                var quydoiDonViTinh = new Entities.HangHoaGoiHang();
+                quydoiDonViTinh = (Entities.HangHoaGoiHang)cl.DeserializeHepper(clientstrem, quydoiDonViTinh);
+                client.Close();
+                clientstrem.Close();
+                if (quydoiDonViTinh.MaHang != null)
+                {
+                    toolStrip_txtTracuu.Text = quydoiDonViTinh.MaHang;
+                    toolStrip_txtTenhang.Text = quydoiDonViTinh.TenHang;
+                    toolStrip_txtGiagoc.Text = quydoiDonViTinh.GiaNhap;
+                    toolStrip_txtSoluong.Text = (float.Parse(toolStrip_txtSoluong.Text) * float.Parse(quydoiDonViTinh.SoLuong)).ToString();
+                    toolStrip_txtGianhap.Text = quydoiDonViTinh.GiaNhap;
+                    toolStrip_txtThuegiatrigiatang.Text = quydoiDonViTinh.Thue;
+                    banbuon = quydoiDonViTinh.GiaBanBuon;
+                    banle = quydoiDonViTinh.GiaBanLe;
+                    giatrigiatang = quydoiDonViTinh.Thue;
+                }
+            }
+            catch (Exception ex)
+            { string s = ex.Message; }
+        }
+        #endregion
+
         private void XuLy_Xoa_HoaDonNhap(string hanhdong, string mahoadonnhap)
         {
             try
@@ -3601,6 +3491,85 @@ namespace GUI
                 e.Handled = true;
             }
         }
+
+        private string KiemTraMa(string ID)
+        {
+            string kt = null;
+            try
+            {
+                Entities.KiemTraChung ktm = new Entities.KiemTraChung();
+                cl = new Server_Client.Client();
+                this.client = cl.Connect(Luu.IP, Luu.Ports);
+                ktm = new Entities.KiemTraChung("Select", ID);
+                clientstrem = cl.SerializeObj(this.client, "KiemTraMa", ktm);
+                Entities.KiemTraChung tra = new Entities.KiemTraChung();
+                tra = (Entities.KiemTraChung)cl.DeserializeHepper(clientstrem, tra);
+                kt = tra.Hanhdong;
+            }
+            catch (Exception ex)
+            { string s = ex.Message; }
+            return kt;
+        }
+        private string kiemtrangay(string ngay)
+        {
+            string s = "";
+            try
+            {
+                s = new Common.Utilities().MyDateConversion(ngay);
+
+            }
+            catch (Exception ex)
+            { string a = ex.Message.ToString(); s = ""; }
+            return s;
+        }
+
+        #region Sua Ngay het han
+        /// <summary>
+        /// sua ngay
+        /// </summary>
+        /// <param name="dgv"></param>
+        private void getData(DataGridView dgv)
+        {
+            try
+            {
+                ArrayList arr = new ArrayList();
+                Entities.HienThi_ChiTiet_DonDatHang[] list = null;
+                if (dgv.RowCount > 0 && i >= 0)
+                {
+                    toolStrip_txtTracuu.Text = dgv[1, i].Value.ToString();
+                    toolStrip_txtTenhang.Text = dgv[2, i].Value.ToString();
+                    toolStrip_txtSoluong.Text = Double.Parse(0 + dgv[3, i].Value.ToString()).ToString();
+                    toolStrip_txtGiagoc.Text = Double.Parse(0 + dgv[4, i].Value.ToString()).ToString();
+                    banbuon = Double.Parse(0 + dgv[5, i].Value.ToString()).ToString();
+                    banle = Double.Parse(0 + dgv[6, i].Value.ToString()).ToString();
+                    toolStrip_txtChietkhauphantram.Text = "0";
+                    toolStrip_txtThuegiatrigiatang.Text = Double.Parse(0 + dgv[8, i].Value.ToString()).ToString();
+                    giatrigiatang = Double.Parse(0 + dgv[8, i].Value.ToString()).ToString();
+                    toolStrip_Chietkhau.Text = "0";
+                    toolStrip_txtGianhap.Text = (Double.Parse(0 + dgv[4, i].Value.ToString()) * int.Parse(toolStrip_txtSoluong.Text)).ToString();
+                    date = dgv[12, i].Value.ToString();
+                    if (date.Length <= 0)
+                    { date = toolStrip_txtNgayhethan.Text = this.Date.ToString("dd/MM/yyyy"); }
+                    toolStrip_txtNgayhethan.Text = date;
+                }
+                else
+                {
+                    toolStrip_txtNgayhethan.Text = new Common.Utilities().XuLy(2, date);
+                    list = new Entities.HienThi_ChiTiet_DonDatHang[0];
+                    arr = null;
+                    dgv.DataSource = list;
+                }
+                DoiTen(dgv);
+            }
+            catch (Exception ex)
+            {
+                string s = ex.Message;
+                Entities.HienThi_ChiTiet_DonDatHang[] list = new Entities.HienThi_ChiTiet_DonDatHang[0];
+                dgv.DataSource = list;
+                DoiTen(dgv);
+            }
+        }
+        #endregion
         #endregion
     }
 }
