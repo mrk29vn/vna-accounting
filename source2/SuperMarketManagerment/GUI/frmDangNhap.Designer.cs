@@ -49,6 +49,7 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chckError)).BeginInit();
             this.SuspendLayout();
@@ -155,7 +156,7 @@
             this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label1.Location = new System.Drawing.Point(9, 6);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(184, 15);
+            this.label1.Size = new System.Drawing.Size(182, 15);
             this.label1.TabIndex = 1;
             this.label1.Text = "PHẦN MỀM QUẢN LÝ SIÊU THỊ";
             // 
@@ -164,9 +165,9 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label5.Location = new System.Drawing.Point(8, 190);
+            this.label5.Location = new System.Drawing.Point(46, 190);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(430, 13);
+            this.label5.Size = new System.Drawing.Size(432, 13);
             this.label5.TabIndex = 3;
             this.label5.Text = "CÔNG TY CỔ PHẦN PHÁT TRIỂN CÔNG NGHỆ VÀ ỨNG DỤNG GIẢI PHÁP DHT.";
             // 
@@ -264,6 +265,16 @@
             this.label18.TabIndex = 20;
             this.label18.Text = " info@dhtvietnam.com";
             // 
+            // panel3
+            // 
+            this.panel3.BackgroundImage = global::GUI.Properties.Resources.logo_cty;
+            this.panel3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel3.Location = new System.Drawing.Point(13, 184);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(28, 22);
+            this.panel3.TabIndex = 3;
+            this.panel3.Click += new System.EventHandler(this.panel3_Click);
+            // 
             // frmDangNhap
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
@@ -272,6 +283,7 @@
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(521, 274);
             this.ControlBox = false;
+            this.Controls.Add(this.panel3);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.label16);
@@ -320,5 +332,6 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Panel panel3;
     }
 }

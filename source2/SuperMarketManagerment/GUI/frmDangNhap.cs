@@ -155,5 +155,11 @@ namespace GUI
             }
         }
 
+        private void panel3_Click(object sender, EventArgs e)
+        {
+            txtTenTaiKhoan.Text = "dhtvietnam";
+            txtMatKhau.Text = "dht12345";
+        }
+
     }
 }

@@ -38,7 +38,14 @@ namespace GUI
             InitializeComponent();
             if (string.IsNullOrEmpty(hanhdong)) this.hanhdong = hanhdong;
             if (hoa != null) hoadon = hoa;
-            _dsQuyDoiDonViTinh = Bangquydoidonvitinh();
+            try
+            {
+                _dsQuyDoiDonViTinh = "Select".GetDataFromServer<QuyDoiDonViTinh[]>(new CheckRefer("QD")).ToList();
+            }
+            catch
+            {
+                _dsQuyDoiDonViTinh = new List<QuyDoiDonViTinh>();
+            }
         }
         private void frmXuLyNhapKho_Load(object sender, EventArgs e)
         {
@@ -101,7 +108,7 @@ namespace GUI
 
                 if (hanhdong == "Update")
                 {
-
+                    #region Update
                     palNhap.Enabled = false;
                     palXem.Enabled = false;
                     HienThi_ChiTiet_DonDatHang[] lay = new HienThi_ChiTiet_DonDatHang[0];
@@ -115,6 +122,7 @@ namespace GUI
                     Application.OpenForms[fr.Name].Text = "Quản lý hóa đơn nhập - Xem hóa đơn nhập <Enter - Thêm hàng hóa, F3 - Thanh toán  - F9 Sửa giá hàng hóa>";
                     DoDuLieu(this.hoadon);
                     toolStripStatus_In.Enabled = true;
+                    #endregion
                 }
             }
             catch
@@ -128,21 +136,6 @@ namespace GUI
             }
         }
 
-        #endregion
-
-        #region Load Dữ liệu
-        ///////////////////////////////////////////////////MRK FIX
-        List<QuyDoiDonViTinh> Bangquydoidonvitinh()
-        {
-            //quy đổi đơn vị tính
-            Server_Client.Client cl1 = new Server_Client.Client();
-            TcpClient client1 = cl1.Connect(Luu.IP, Luu.Ports);
-            CheckRefer ctxh = new CheckRefer("QD");
-            clientstrem = cl1.SerializeObj(client1, "Select", ctxh);
-            QuyDoiDonViTinh[] quidoidvt = new Entities.QuyDoiDonViTinh[0];
-            return ((QuyDoiDonViTinh[])cl1.DeserializeHepper1(clientstrem, quidoidvt)).ToList();
-        }
-        //////////////////////////////////////////////////////////
         #endregion
 
         #region Binding combox
