@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Windows.Forms;
 using Entities;
+using System.IO;
 
 namespace GUI
 {
@@ -33,11 +34,10 @@ namespace GUI
         #endregion
 
         #region Khởi tạo
-        public frmXuLyNhapKho(string hanhdong = "", HoaDonNhap hoa = null)
+        public frmXuLyNhapKho()
         {
             InitializeComponent();
-            if (string.IsNullOrEmpty(hanhdong)) this.hanhdong = hanhdong;
-            if (hoa != null) hoadon = hoa;
+            //_dsQuyDoiDonViTinh = Bangquydoidonvitinh();
             try
             {
                 _dsQuyDoiDonViTinh = "Select".GetDataFromServer<QuyDoiDonViTinh[]>(new CheckRefer("QD")).ToList();
@@ -47,6 +47,50 @@ namespace GUI
                 _dsQuyDoiDonViTinh = new List<QuyDoiDonViTinh>();
             }
         }
+        public frmXuLyNhapKho(string hanhdong, HoaDonNhap hoa)
+        {
+            InitializeComponent();
+            this.hanhdong = hanhdong;
+            hoadon = hoa;
+            //_dsQuyDoiDonViTinh = Bangquydoidonvitinh();
+            try
+            {
+                _dsQuyDoiDonViTinh = "Select".GetDataFromServer<QuyDoiDonViTinh[]>(new CheckRefer("QD")).ToList();
+            }
+            catch
+            {
+                _dsQuyDoiDonViTinh = new List<QuyDoiDonViTinh>();
+            }
+        }
+        public frmXuLyNhapKho(string hanhdong)
+        {
+            InitializeComponent();
+            this.hanhdong = hanhdong;
+            //_dsQuyDoiDonViTinh = Bangquydoidonvitinh();
+            try
+            {
+                _dsQuyDoiDonViTinh = "Select".GetDataFromServer<QuyDoiDonViTinh[]>(new CheckRefer("QD")).ToList();
+            }
+            catch
+            {
+                _dsQuyDoiDonViTinh = new List<QuyDoiDonViTinh>();
+            }
+        }
+
+        //public frmXuLyNhapKho(string hanhdong = "", HoaDonNhap hoa = null)
+        //{
+        //    InitializeComponent();
+        //    if (string.IsNullOrEmpty(hanhdong)) this.hanhdong = hanhdong;
+        //    if (hoa != null) hoadon = hoa;
+        //    try
+        //    {
+        //        _dsQuyDoiDonViTinh = "Select".GetDataFromServer<QuyDoiDonViTinh[]>(new CheckRefer("QD")).ToList();
+        //    }
+        //    catch
+        //    {
+        //        _dsQuyDoiDonViTinh = new List<QuyDoiDonViTinh>();
+        //    }
+        //}
         private void frmXuLyNhapKho_Load(object sender, EventArgs e)
         {
             try
@@ -2732,7 +2776,17 @@ namespace GUI
                 else
                 { MessageBox.Show("Nhập mã nhà cung cấp"); }
             }
-            catch { }
+            catch (Exception exception)
+            {
+                //string patch = string.Format(@"{0}\LogDHT\error.txt", Application.StartupPath);
+                //string parentDir = Path.GetDirectoryName(patch);
+                //if (!Directory.Exists(parentDir))
+                //{
+                //    Directory.CreateDirectory(parentDir);
+                //}
+                //File.WriteAllText(patch, exception.Message + " @@@@@ " + exception);
+                //MessageBox.Show(exception.StackTrace);
+            }
         }
         private string fixTen(string chuoi)
         {
