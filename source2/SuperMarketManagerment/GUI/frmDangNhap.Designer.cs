@@ -167,7 +167,7 @@
             this.label5.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label5.Location = new System.Drawing.Point(46, 190);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(432, 13);
+            this.label5.Size = new System.Drawing.Size(434, 13);
             this.label5.TabIndex = 3;
             this.label5.Text = "CÔNG TY CỔ PHẦN PHÁT TRIỂN CÔNG NGHỆ VÀ ỨNG DỤNG GIẢI PHÁP DHT.";
             // 
@@ -181,6 +181,7 @@
             this.label7.Size = new System.Drawing.Size(69, 13);
             this.label7.TabIndex = 5;
             this.label7.Text = "Điện thoại :";
+            this.label7.Visible = false;
             // 
             // label8
             // 
@@ -192,6 +193,7 @@
             this.label8.Size = new System.Drawing.Size(44, 13);
             this.label8.TabIndex = 6;
             this.label8.Text = "Email :";
+            this.label8.Visible = false;
             // 
             // label9
             // 
@@ -200,9 +202,10 @@
             this.label9.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label9.Location = new System.Drawing.Point(10, 251);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(56, 13);
+            this.label9.Size = new System.Drawing.Size(57, 13);
             this.label9.TabIndex = 7;
             this.label9.Text = "Website :";
+            this.label9.Visible = false;
             // 
             // label11
             // 
@@ -214,6 +217,7 @@
             this.label11.Size = new System.Drawing.Size(79, 14);
             this.label11.TabIndex = 9;
             this.label11.Text = "04 36320862   ";
+            this.label11.Visible = false;
             // 
             // chckError
             // 
@@ -231,6 +235,7 @@
             this.label15.Size = new System.Drawing.Size(32, 13);
             this.label15.TabIndex = 16;
             this.label15.Text = "Fax :";
+            this.label15.Visible = false;
             // 
             // label16
             // 
@@ -242,6 +247,7 @@
             this.label16.Size = new System.Drawing.Size(73, 14);
             this.label16.TabIndex = 18;
             this.label16.Text = " 04.36320861";
+            this.label16.Visible = false;
             // 
             // label17
             // 
@@ -253,6 +259,7 @@
             this.label17.Size = new System.Drawing.Size(112, 14);
             this.label17.TabIndex = 19;
             this.label17.Text = "http://dhtvietnam.com";
+            this.label17.Visible = false;
             // 
             // label18
             // 
@@ -264,6 +271,7 @@
             this.label18.Size = new System.Drawing.Size(115, 14);
             this.label18.TabIndex = 20;
             this.label18.Text = " info@dhtvietnam.com";
+            this.label18.Visible = false;
             // 
             // panel3
             // 
@@ -281,7 +289,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(521, 274);
+            this.ClientSize = new System.Drawing.Size(521, 215);
             this.ControlBox = false;
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.label18);

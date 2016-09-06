@@ -31,12 +31,12 @@ namespace GUI
 
         private void lnkWebsite_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://www.lamtransoft.com/");
+            //System.Diagnostics.Process.Start("http://www.lamtransoft.com/");
         }
 
         private void lnkEmail_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://www.gmail.com");
+            //System.Diagnostics.Process.Start("http://www.gmail.com");
         }
 
         private void btnThoat_Click(object sender, EventArgs e)
